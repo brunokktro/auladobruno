@@ -1,6 +1,6 @@
 # Aula do Bruno
-![Links e materiais disponibilizados como conteúdo adicional para os estudos dos treinamentos da AWS.](https://blogdolopez.files.wordpress.com/2019/05/aws-tc_resize.jpg)
-
+Links e materiais disponibilizados como conteúdo adicional para os estudos dos treinamentos da AWS.
+![](https://blogdolopez.files.wordpress.com/2019/05/aws-tc_resize.jpg)
 
 
 ### Dicas de estudo para as certificações
