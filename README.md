@@ -1,6 +1,6 @@
 ![](https://blogdolopez.files.wordpress.com/2019/05/aws-tc_resize.jpg)
 # Aula do Bruno
-Links e materiais disponibilizados como conteúdo adicional para os estudos dos treinamentos da AWS.
+Links e materiais disponibilizados como conteúdo adicional para os estudos nos treinamentos da AWS.
 
 
 ### Dicas de estudo para as certificações
@@ -43,38 +43,27 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos dos 
 * [Best Practices for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html)
 * [Best Practices for Designing and Using Partition Keys Effectively ](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)
 * [Implementation Considerations - Learn Caching Design Patterns](https://aws.amazon.com/caching/implementation-considerations/)
+* [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
 
 
 ### Systems Operations on AWS
 
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
+* [AWS Command Line Interface](https://aws.amazon.com/cli/)
+* [AWS Tools for PowerShell](https://aws.amazon.com/powershell/)
+* [Using the AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-using.html)
+* [How can I execute user data to automatically create a file with every restart of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/execute-user-data-ec2/)
+* [Query for the latest Amazon Linux AMI IDs using AWS Systems Manager Parameter Store](https://aws.amazon.com/blogs/compute/query-for-the-latest-amazon-linux-ami-ids-using-aws-systems-manager-parameter-store/)
+* [Query for the Latest Windows AMI Using Systems Manager Parameter Store](https://aws.amazon.com/blogs/mt/query-for-the-latest-windows-ami-using-systems-manager-parameter-store/)
+* [Taking Advantage of Amazon EC2 Spot Instance Interruption Notices](https://aws.amazon.com/blogs/compute/taking-advantage-of-amazon-ec2-spot-instance-interruption-notices/)
+* [How do I stop and start Amazon EC2 instances at regular intervals using Lambda?](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-cloudwatch/)
+* [Scanning Docker Images for Vulnerabilities using Clair, Amazon ECS, ECR, and AWS CodePipeline](https://aws.amazon.com/blogs/compute/scanning-docker-images-for-vulnerabilities-using-clair-amazon-ecs-ecr-aws-codepipeline/)
+* [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
+* [Monitoring Trusted Advisor with Amazon CloudWatch Events and Amazon CloudWatch](https://docs.aws.amazon.com/awssupport/latest/user/cloudwatch-ta.html)
+* [Monitoring Amazon GuardDuty Findings with Amazon CloudWatch Events ](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html)
+* [How Does AWS CloudFormation Work?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-howdoesitwork.html)
+* [Creating a Stack on the AWS CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)
+* [Template Snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html)
+* [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 
 
 ### Workshops, Laboratórios & Arquiteturas de Referência
