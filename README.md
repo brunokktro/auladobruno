@@ -20,6 +20,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 
 ### Architecting on AWS
 
+* [AWS Global Cloud Infrastructure](https://infrastructure.aws/)
 * [Learn how we secure AWS data centers](https://aws.amazon.com/compliance/data-center/)
 * [AWS Well-Architected - Learn, measure, and build using architectural best practices](https://aws.amazon.com/architecture/well-architected/)
 * [AWS Well-Architected Framework](https://wa.aws.amazon.com/index.html)
@@ -78,3 +79,4 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Amazon EKS Workshop](https://eksworkshop.com/)
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
+* [AWS Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
