@@ -25,6 +25,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [AWS Well-Architected - Learn, measure, and build using architectural best practices](https://aws.amazon.com/architecture/well-architected/)
 * [AWS Well-Architected Framework](https://wa.aws.amazon.com/index.html)
 * [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
+* [Spot Instance Advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)
 * [Amazon EC2 Auto Scaling Lifecycle Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
 * [Running high-scale web applications on Amazon EC2 Spot Instances](https://aws.amazon.com/blogs/compute/running-high-scale-web-on-spot-instances/)
 * [Amazon EBS Volume Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
