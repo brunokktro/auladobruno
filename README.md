@@ -29,6 +29,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Running high-scale web applications on Amazon EC2 Spot Instances](https://aws.amazon.com/blogs/compute/running-high-scale-web-on-spot-instances/)
 * [Amazon EBS Volume Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
 * [Recovering files from an Amazon EBS volume backup](https://aws.amazon.com/blogs/compute/recovering-files-from-an-amazon-ebs-volume-backup/)
+* [Amazon S3 + Amazon CloudFront: A Match Made in the Cloud](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-s3-amazon-cloudfront-a-match-made-in-the-cloud/)
 * [Using static IP addresses for Application Load Balancers](https://aws.amazon.com/blogs/networking-and-content-delivery/using-static-ip-addresses-for-application-load-balancers/)
 * [Debugging tool for network connectivity from Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/debugging-tool-for-network-connectivity-from-amazon-vpc/)
 * [Working with Direct Connect Gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html)
