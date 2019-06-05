@@ -13,7 +13,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 - [X] Revise os _whitepapers_ e **FAQs** dos serviços que estão no escopo do exame de certificação
 - [X] Faça um treinamento oficial da AWS com foco na preparação do exame; os **_Exam Readiness_**
 - [X] Faça um **_Practice Exam_** oficial (simulado)
-- [X] Agende seu exame na [PSI](https://aws.psiexams.com/#/home) ou [Person Vue](https://home.pearsonvue.com/Clients/Amazon-Web-Services.aspx)
+- [X] Agende seu [exame de certificação](https://www.aws.training/Certification) na **PSI** ou **Person Vue**
 - [X] Seja um certificado AWS!
 - [X] Aproveite os [benefícios](https://aws.amazon.com/certification/benefits/) concedidos só a quem tem certificações AWS
 
