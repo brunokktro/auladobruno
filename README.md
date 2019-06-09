@@ -80,6 +80,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
 * [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
 * [Amazon EKS Workshop](https://eksworkshop.com/)
+* [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
 * [AWS Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
