@@ -49,6 +49,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Best Practices for Designing and Using Partition Keys Effectively ](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)
 * [Implementation Considerations - Learn Caching Design Patterns](https://aws.amazon.com/caching/implementation-considerations/)
 * [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
+* [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/)
 
 
 ### Systems Operations on AWS
