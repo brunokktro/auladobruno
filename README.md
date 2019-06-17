@@ -66,6 +66,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [How do I stop and start Amazon EC2 instances at regular intervals using Lambda?](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-cloudwatch/)
 * [A Simple Way to Export Your IAM Settings](https://aws.amazon.com/blogs/security/a-simple-way-to-export-your-iam-settings/)
 * [How to automate SAML federation to multiple AWS accounts from Microsoft Azure Active Directory](https://aws.amazon.com/blogs/security/how-to-automate-saml-federation-to-multiple-aws-accounts-from-microsoft-azure-active-directory/)
+* [How do I grant my Active Directory users access to the API or AWS CLI with AD FS?](https://aws.amazon.com/premiumsupport/knowledge-center/adfs-grant-ad-access-api-cli/)
 * [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
 * [Scanning Docker Images for Vulnerabilities using Clair, Amazon ECS, ECR, and AWS CodePipeline](https://aws.amazon.com/blogs/compute/scanning-docker-images-for-vulnerabilities-using-clair-amazon-ecs-ecr-aws-codepipeline/)
 * [Automatically update instances in an Amazon ECS cluster using the AMI ID parameter](https://aws.amazon.com/blogs/compute/automatically-update-instances-in-an-amazon-ecs-cluster-using-the-ami-id-parameter/)
