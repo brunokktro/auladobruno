@@ -81,13 +81,16 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 
 ### Workshops, Laboratórios & Arquiteturas de Referência
 
-* [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
-* [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
-* [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
-* [Amazon EKS Workshop](https://eksworkshop.com/)
-* [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
-* [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
-* [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
+* [LABS] [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
+* [LABS] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
+* [LABS] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
+* [LABS] [Amazon EKS Workshop](https://eksworkshop.com/)
+* [LABS][Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
+* [LINKS] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
+* [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
+* [VIDEO-LABS] [AWS Technical Essentials](http://bit.ly/tesslabs)
+* [VIDEO-LABS] [Architecting on AWS](http://bit.ly/arclabs)
+* [VIDEO-LABS] [Systems Operations on AWS](http://bit.ly/opslabs)
 * [AWS Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
