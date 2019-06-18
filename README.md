@@ -86,7 +86,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [LABS] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
 * [LABS] [Amazon EKS Workshop](https://eksworkshop.com/)
 * [LABS] [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops)
-* [LABS][Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
+* [LABS] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
 * [LINKS] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
 * [VIDEO-LABS] [AWS Technical Essentials](http://bit.ly/tesslabs)
