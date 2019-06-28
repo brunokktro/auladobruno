@@ -82,6 +82,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 
 ### Workshops, Laboratórios & Arquiteturas de Referência
 
+* [LABS] [AWS Qwiklabs](https://run.qwiklabs.com/catalog?keywords=&cloud%5B%5D=AWS&format%5B%5D=any&level%5B%5D=any&duration%5B%5D=any&price%5B%5D=any&modality%5B%5D=any&language%5B%5D=any)
 * [LABS] [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
 * [LABS] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
 * [LABS] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
