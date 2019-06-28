@@ -7,7 +7,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 
 - [X] Escolha sua [carreira de certificações](https://aws.amazon.com/certification/)
 - [X] Revise o arquivo **_Exam Guide_** do respectivo exame de certificação
-- [X] Faça um treinamento oficial da AWS
+- [X] Faça um treinamento presencial oficial da AWS em [aws.training](https://www.aws.training/)
 - [X] Faça laboratórios e ganhe experiência prática
 - [X] Revise o arquivo de **_Sample Questions_** do respectivo exame de certificação
 - [X] Revise os _whitepapers_ e **FAQs** dos serviços que estão no escopo do exame de certificação
