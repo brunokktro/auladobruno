@@ -33,6 +33,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Recovering files from an Amazon EBS volume backup](https://aws.amazon.com/blogs/compute/recovering-files-from-an-amazon-ebs-volume-backup/)
 * [Running Scripts from GitHub and Amazon S3 ](https://docs.aws.amazon.com/systems-manager/latest/userguide/integration-remote-scripts.html)
 * [Amazon S3 + Amazon CloudFront: A Match Made in the Cloud](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-s3-amazon-cloudfront-a-match-made-in-the-cloud/)
+* [Overview of Managing Access on S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html#so-which-one-should-i-use)
 * [Using static IP addresses for Application Load Balancers](https://aws.amazon.com/blogs/networking-and-content-delivery/using-static-ip-addresses-for-application-load-balancers/)
 * [Debugging tool for network connectivity from Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/debugging-tool-for-network-connectivity-from-amazon-vpc/)
 * [Working with Direct Connect Gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html)
