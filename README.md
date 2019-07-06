@@ -72,6 +72,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
 * [Scanning Docker Images for Vulnerabilities using Clair, Amazon ECS, ECR, and AWS CodePipeline](https://aws.amazon.com/blogs/compute/scanning-docker-images-for-vulnerabilities-using-clair-amazon-ecs-ecr-aws-codepipeline/)
 * [Automatically update instances in an Amazon ECS cluster using the AMI ID parameter](https://aws.amazon.com/blogs/compute/automatically-update-instances-in-an-amazon-ecs-cluster-using-the-ami-id-parameter/)
+* [Managing Amazon EKS Clusters with Rancher](https://aws.amazon.com/blogs/opensource/managing-eks-clusters-rancher/)
 * [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [Monitoring Trusted Advisor with Amazon CloudWatch Events and Amazon CloudWatch](https://docs.aws.amazon.com/awssupport/latest/user/cloudwatch-ta.html)
 * [Monitoring Amazon GuardDuty Findings with Amazon CloudWatch Events ](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html)
