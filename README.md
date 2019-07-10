@@ -88,6 +88,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Limitations on IAM Entities and Objects](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html)
 * [IAM Policy Elements: Variables and Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)
 * [AWS re:Invent 2018: How Nubank Automates Fine-Grained Security with IAM, AWS Lambda, & CI/CD](https://youtu.be/eQ549RvQDeI)
+* [Enabling MFA Devices](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable.html)
 
 
 ### Workshops, Laboratórios & Arquiteturas de Referência
