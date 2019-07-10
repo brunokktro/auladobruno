@@ -82,6 +82,14 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 
 
+### Security Engineering on AWS
+
+* [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
+* [Limitations on IAM Entities and Objects](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html)
+* [IAM Policy Elements: Variables and Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)
+* [AWS re:Invent 2018: How Nubank Automates Fine-Grained Security with IAM, AWS Lambda, & CI/CD](https://youtu.be/eQ549RvQDeI)
+
+
 ### Workshops, Laboratórios & Arquiteturas de Referência
 
 * [LABS] [AWS Qwiklabs](https://run.qwiklabs.com/catalog?keywords=&cloud%5B%5D=AWS&format%5B%5D=any&level%5B%5D=any&duration%5B%5D=any&price%5B%5D=any&modality%5B%5D=any&language%5B%5D=any)
