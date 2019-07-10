@@ -100,6 +100,8 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [LABS] [Amazon EKS Workshop](https://eksworkshop.com/)
 * [LABS] [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops)
 * [LABS] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
+* [LABS] [Security Workshops - Permission Boundaries: How to Truly Delegate Permissions on AWS](https://awssecworkshops.com/builder-sessions/permission-boundary/build/)
+* [LABS] [Security Workshops](https://awssecworkshops.com/workshops/)
 * [LABS] [VMware Cloud on AWS](https://www.vmware.com/try-vmware/vmc-aws-hol-labs.html)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
