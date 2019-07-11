@@ -127,5 +127,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
 * [AWS Samples](https://github.com/aws-samples)
+* [TOOLS] [AWS Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * [TOOLS] [S3 Transfer Acceleration Speed Comparison Tool](http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
+* [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
