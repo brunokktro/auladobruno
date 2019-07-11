@@ -89,6 +89,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [IAM Policy Elements: Variables and Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)
 * [IAM: Policies and Permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html)
 * [Permissions Boundaries for IAM Entities ](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html?icmpid=docs_iam_console)
+* [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 * [AWS re:Invent 2018: How Nubank Automates Fine-Grained Security with IAM, AWS Lambda, & CI/CD](https://youtu.be/eQ549RvQDeI)
 * [Enabling MFA Devices](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable.html)
 
