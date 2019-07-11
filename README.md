@@ -67,6 +67,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [How to patch Windows EC2 instances in private subnets Using AWS Systems Manager](https://aws.amazon.com/blogs/mt/how-to-patch-windows-ec2-instances-in-private-subnets-using-aws-systems-manager/)
 * [Taking Advantage of Amazon EC2 Spot Instance Interruption Notices](https://aws.amazon.com/blogs/compute/taking-advantage-of-amazon-ec2-spot-instance-interruption-notices/)
 * [How do I stop and start Amazon EC2 instances at regular intervals using Lambda?](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-cloudwatch/)
+* [Announcing Lambda Support for PowerShell Core](https://aws.amazon.com/blogs/developer/announcing-lambda-support-for-powershell-core/)
 * [A Simple Way to Export Your IAM Settings](https://aws.amazon.com/blogs/security/a-simple-way-to-export-your-iam-settings/)
 * [Use Cases for AWS Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_use_cases.html)
 * [How to automate SAML federation to multiple AWS accounts from Microsoft Azure Active Directory](https://aws.amazon.com/blogs/security/how-to-automate-saml-federation-to-multiple-aws-accounts-from-microsoft-azure-active-directory/)
