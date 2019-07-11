@@ -59,6 +59,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [AWS Tools for PowerShell](https://aws.amazon.com/powershell/)
 * [Using the AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-using.html)
 * [How can I execute user data to automatically create a file with every restart of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/execute-user-data-ec2/)
+* [Running Ansible Playbooks using EC2 Systems Manager Run Command and State Manager](https://aws.amazon.com/blogs/mt/running-ansible-playbooks-using-ec2-systems-manager-run-command-and-state-manager/)
 * [Query for the latest Amazon Linux AMI IDs using AWS Systems Manager Parameter Store](https://aws.amazon.com/blogs/compute/query-for-the-latest-amazon-linux-ami-ids-using-aws-systems-manager-parameter-store/)
 * [Query for the Latest Windows AMI Using Systems Manager Parameter Store](https://aws.amazon.com/blogs/mt/query-for-the-latest-windows-ami-using-systems-manager-parameter-store/)
 * [Patching your Windows EC2 instances using AWS Systems Manager Patch Manager](https://aws.amazon.com/blogs/mt/patching-your-windows-ec2-instances-using-aws-systems-manager-patch-manager/)
