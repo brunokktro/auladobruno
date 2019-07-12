@@ -1,0 +1,349 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Developing on AWS - v3.0 - Lab 6: Docker",
+  "Parameters": {
+    "LabVPCCIDR": {
+      "Description": "CIDR Block for Lab VPC",
+      "Type": "String",
+      "Default": "10.0.0.0/16",
+      "AllowedValues": [
+        "10.0.0.0/16"
+      ]
+    },
+    "LabVPCPublicSubnetCIDR": {
+      "Description": "LabVPC Public Subnet",
+      "Type": "String",
+      "Default": "10.0.10.0/24",
+      "AllowedValues": [
+        "10.0.10.0/24"
+      ]
+    },
+    "AWSAccessKey": {
+      "Description": "Access key for our lab user.",
+      "Type": "String"
+    },
+    "AWSSecretAccessKey": {
+      "Description": "Secret access key for our lab user.",
+      "Type": "String"
+    },
+    "KeyName": {
+      "Type": "String",
+      "Description": "Keyname for the keypair that Qwiklab will use to launch EC2 instances",
+      "Default": "default-lab-key"
+    },
+    "LatestAmiId" : {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
+    }
+  },
+  "Resources": {
+    "LabVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "LabVPCCIDR"
+        },
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "Tags": [
+          {
+            "Key": "VPC",
+            "Value": "Lab VPC"
+          },
+          {
+            "Key": "Name",
+            "Value": "Lab VPC"
+          }
+        ]
+      }
+    },
+    "LabVPCInternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "DependsOn": "LabVPC"
+    },
+    "LabVPCAttachGateway": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "DependsOn": [
+        "LabVPC",
+        "LabVPCInternetGateway"
+      ],
+      "Properties": {
+        "VpcId": {
+          "Ref": "LabVPC"
+        },
+        "InternetGatewayId": {
+          "Ref": "LabVPCInternetGateway"
+        }
+      }
+    },
+    "LabVPCPublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "DependsOn": "LabVPCAttachGateway",
+      "Properties": {
+        "VpcId": {
+          "Ref": "LabVPC"
+        },
+        "CidrBlock": {
+          "Ref": "LabVPCPublicSubnetCIDR"
+        },
+        "AvailabilityZone": {
+          "Fn::Select": [
+            "0",
+            {
+              "Fn::GetAZs": ""
+            }
+          ]
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Lab VPC Public Subnet"
+          }
+        ]
+      }
+    },
+    "LabVPCPublicRouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "DependsOn": [
+        "LabVPC",
+        "LabVPCAttachGateway"
+      ],
+      "Properties": {
+        "VpcId": {
+          "Ref": "LabVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "LabVPC Public Route Table"
+          }
+        ]
+      }
+    },
+    "LabVPCPublicRoute": {
+      "Type": "AWS::EC2::Route",
+      "DependsOn": [
+        "LabVPCPublicRouteTable",
+        "LabVPCAttachGateway"
+      ],
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "LabVPCPublicRouteTable"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "LabVPCInternetGateway"
+        }
+      }
+    },
+    "LabVPCPublicSubnetRouteTableAssociation": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "DependsOn": [
+        "LabVPCPublicRouteTable",
+        "LabVPCPublicSubnet",
+        "LabVPCAttachGateway"
+      ],
+      "Properties": {
+        "SubnetId": {
+          "Ref": "LabVPCPublicSubnet"
+        },
+        "RouteTableId": {
+          "Ref": "LabVPCPublicRouteTable"
+        }
+      }
+    },
+    "DevInstanceLinuxSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "DependsOn": "LabVPCAttachGateway",
+      "Properties": {
+        "GroupDescription": "Security Group for Linux instance",
+        "VpcId": {
+          "Ref": "LabVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "LINUX Dev Instance"
+          },
+          {
+            "Key": "InstanceType",
+            "Value": "General"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "0",
+            "ToPort": "65535",
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "udp",
+            "FromPort": "0",
+            "ToPort": "65535",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "22",
+            "ToPort": "22",
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "80",
+            "ToPort": "80",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    },
+    "DevInstanceLinuxWaitHandle01": {
+      "Type": "AWS::CloudFormation::WaitConditionHandle",
+      "Properties": {}
+    },
+    "DevInstanceLinuxWaitCondition01": {
+      "Type": "AWS::CloudFormation::WaitCondition",
+      "DependsOn": "DevInstanceLinux",
+      "Properties": {
+        "Handle": {
+          "Ref": "DevInstanceLinuxWaitHandle01"
+        },
+        "Timeout": "1800"
+      }
+    },
+    "DevInstanceLinux": {
+      "Type": "AWS::EC2::Instance",
+      "DependsOn": [
+        "LabVPCPublicSubnet",
+        "DevInstanceLinuxSecurityGroup",
+        "LabVPCAttachGateway"
+      ],
+      "Properties": {
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "ImageId": {
+          "Ref": "LatestAmiId"
+        },
+        "InstanceType": "t2.small",
+        "NetworkInterfaces": [
+          {
+            "DeviceIndex": "0",
+            "AssociatePublicIpAddress": "true",
+            "SubnetId": {
+              "Ref": "LabVPCPublicSubnet"
+            },
+            "GroupSet": [
+              {
+                "Ref": "DevInstanceLinuxSecurityGroup"
+              }
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "LINUX Dev Instance"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash -ex \n",
+                "yum -y update \n",
+                "sudo yum install docker -y \n",
+                "sudo service docker start \n",
+                "sudo usermod -a -G docker ec2-user \n",
+                "mkdir /home/ec2-user/.aws \n",
+                "cat > /home/ec2-user/.aws/config <<EOF\n",
+                "[default]\n",
+                "region = ",
+                {
+                  "Ref": "AWS::Region"
+                },
+                "\nEOF\n",
+                "cat > /home/ec2-user/.aws/credentials <<CREDEOF\n",
+                "[default]\n",
+                "aws_access_key_id=",
+                {
+                  "Ref": "AWSAccessKey"
+                },
+                "\n",
+                "aws_secret_access_key=",
+                {
+                  "Ref": "AWSSecretAccessKey"
+                },
+                "\nCREDEOF\n",
+                "/opt/aws/bin/cfn-signal -s true '",
+                {
+                  "Ref": "DevInstanceLinuxWaitHandle01"
+                },
+                "'\n"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "ecsTaskExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+            "Version" : "2012-10-17",
+            "Statement": [ {
+              "Effect": "Allow",
+              "Principal": {
+                  "Service": [ "ecs-tasks.amazonaws.com" ]
+              },
+              "Action": [ "sts:AssumeRole" ]
+            } ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+        ]
+      }
+    },
+    "FargateSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Security Group for webapp Fargate Task",
+        "VpcId": {
+          "Ref": "LabVPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "webapp Fargate Task"
+          }
+        ],
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "80",
+            "ToPort": "80",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "LinuxInstanceIP" : {
+      "Value": { "Fn::GetAtt": [ "DevInstanceLinux", "PublicIp" ] }
+    },
+    "FargateTaskRoleARN" : {
+      "Value": { "Fn::GetAtt": [ "ecsTaskExecutionRole", "Arn" ] }
+    },
+    "FargateSecurityGroup" : {
+      "Value": { "Fn::GetAtt": [ "FargateSecurityGroup", "GroupId" ] }
+    },
+    "FargateSubnetID" : {
+      "Value": { "Ref" : "LabVPCPublicSubnet" }
+    }
+  }
+}

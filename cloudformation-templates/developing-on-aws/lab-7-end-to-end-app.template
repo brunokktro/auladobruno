@@ -1,0 +1,96 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Developing on AWS - v3.0 - Lab 7: Developing an end to end Application",
+  "Parameters": {
+    "AWSAccessKey": {
+      "Description": "Access key for our lab user.",
+      "Type": "String"
+    },
+    "AWSSecretAccessKey": {
+      "Description": "Secret access key for our lab user.",
+      "Type": "String"
+    },
+    "KeyName": {
+      "Type": "String",
+      "Description": "Keyname for the keypair that Qwiklab will use to launch EC2 instances",
+      "Default": "default-lab-key"
+    },
+    "LabUrlPrefix": {
+      "Type": "String",
+      "Default": "http://us-west-2-tcprod.s3.amazonaws.com/courses/ILT-TF-100-DODEVA/v3.0.1"
+    },
+    "LabName": {
+      "Type": "String",
+      "Default": "lab-7-end-to-end-app"
+    },
+    "AWSAmiId": {
+      "Description": "The name of the Windows AMI to find based on search",
+      "Type": "String",
+      "Default": "x86_64,Windows_Server-2012-R2_RTM-English-64Bit-Base"
+    }
+  },
+  "Resources": {
+    "BaseDevelopmentStack": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "http://us-west-2-tcprod.s3.amazonaws.com/courses/ILT-TF-100-DODEVA/v3.0.1/lab-1-readysetgo/base/base-developing-template.template",
+        "Parameters": {
+          "AWSAccessKey": {
+            "Ref": "AWSAccessKey"
+          },
+          "AWSSecretAccessKey": {
+            "Ref": "AWSSecretAccessKey"
+          },
+          "KeyName": {
+            "Ref": "KeyName"
+          },
+          "LabUrlPrefix": {
+            "Ref": "LabUrlPrefix"
+          },
+          "AWSAmiId": {
+            "Ref": "AWSAmiId"
+          },
+          "ParentLabName": {
+            "Ref": "LabName"
+          }
+        },
+        "TimeoutInMinutes": "60"
+      }
+    },
+    "CloudWatchRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": { "Service": [ "apigateway.amazonaws.com" ] },
+            "Action": "sts:AssumeRole"
+          }]
+        },
+        "Path": "/",
+        "ManagedPolicyArns": ["arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"]
+      }
+    },
+    "Account": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": { "Fn::GetAtt": ["CloudWatchRole", "Arn"] }
+      }
+    }
+    },
+  "Outputs": {
+    "GuacamoleLink": {
+      "Value": { "Fn::GetAtt": [ "BaseDevelopmentStack", "Outputs.GuacamoleLink" ] }
+    },
+    "WindowsInstanceIP": {
+        "Value": { "Fn::GetAtt": [ "BaseDevelopmentStack", "Outputs.WindowsInstanceIP" ] }
+    },
+    "WindowsPassword": {
+        "Value": { "Fn::GetAtt": [ "BaseDevelopmentStack", "Outputs.WindowsPassword" ] }
+    },
+    "LinuxInstanceIP": {
+        "Value": { "Fn::GetAtt": [ "BaseDevelopmentStack", "Outputs.LinuxInstanceIP" ] }
+    }
+  }
+}
