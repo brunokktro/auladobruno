@@ -128,6 +128,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Workshop] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
 * [Workshop] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
 * [Workshop] [Amazon EKS Workshop](https://eksworkshop.com/)
+* [Workshop] [AWS Cloud Development Kit (CDK) Workshop](https://cdkworkshop.com/)
 * [Workshop] [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops)
 * [Workshop] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
 * [Workshop] [Security Workshops - Permission Boundaries: How to Truly Delegate Permissions on AWS](https://awssecworkshops.com/builder-sessions/permission-boundary/build/)
