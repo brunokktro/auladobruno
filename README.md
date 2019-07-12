@@ -102,14 +102,15 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [How to Visualize and Refine Your Network’s Security by Adding Security Group IDs to Your VPC Flow Logs](https://aws.amazon.com/blogs/security/how-to-visualize-and-refine-your-networks-security-by-adding-security-group-ids-to-your-vpc-flow-logs/)
 * [Announcing the Golden AMI Pipeline](https://aws.amazon.com/blogs/awsmarketplace/announcing-the-golden-ami-pipeline/)
 * [Creating a Golden AMI Pipeline Integrated with Qualys for Vulnerability Assessments](https://aws.amazon.com/blogs/apn/creating-a-golden-ami-pipeline-integrated-with-qualys-for-vulnerability-assessments/)
+* [Reduce DDoS Risks Using Amazon Route 53 and AWS Shield](https://aws.amazon.com/blogs/aws/reduce-ddos-risks-using-amazon-route-53-and-aws-shield/)
 
 
 ### Arquiteturas de Referência & Tools
 
-* [AWS SAM - Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
 * [AWS Samples](https://github.com/aws-samples)
+* [AWS SAM - Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
 * [TOOLS] [AWS Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * [TOOLS] [S3 Transfer Acceleration Speed Comparison Tool](http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
