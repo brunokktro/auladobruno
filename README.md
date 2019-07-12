@@ -100,6 +100,8 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Managed Renewal for ACM's Amazon-Issued Certificates ](https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html)
 * [Tutorial: Sending VPC Flow Logs to Splunk Using Amazon Kinesis Data Firehose ](https://docs.aws.amazon.com/firehose/latest/dev/vpc-splunk-tutorial.html)
 * [How to Visualize and Refine Your Network’s Security by Adding Security Group IDs to Your VPC Flow Logs](https://aws.amazon.com/blogs/security/how-to-visualize-and-refine-your-networks-security-by-adding-security-group-ids-to-your-vpc-flow-logs/)
+* [Announcing the Golden AMI Pipeline](https://aws.amazon.com/blogs/awsmarketplace/announcing-the-golden-ami-pipeline/)
+* [Creating a Golden AMI Pipeline Integrated with Qualys for Vulnerability Assessments](https://aws.amazon.com/blogs/apn/creating-a-golden-ami-pipeline-integrated-with-qualys-for-vulnerability-assessments/)
 
 
 ### Arquiteturas de Referência & Tools
