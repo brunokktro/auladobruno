@@ -84,6 +84,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [How Does AWS CloudFormation Work?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-howdoesitwork.html)
 * [Creating a Stack on the AWS CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)
 * [Template Snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html)
+* [Getting Started with AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
 * [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 
 
