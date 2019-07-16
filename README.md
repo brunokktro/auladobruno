@@ -125,12 +125,13 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 
 ### Workshops & Laboratórios
 
-* [LABS] [Free Qwiklabs (AWS)](https://run.qwiklabs.com/catalog?keywords=&locale=&cloud%5B%5D=AWS&format%5B%5D=any&level%5B%5D=any&duration%5B%5D=any&price%5B%5D=free&modality%5B%5D=any&language%5B%5D=any)
+* [LABS] [AWS Qwiklabs (Free)](https://run.qwiklabs.com/catalog?keywords=&locale=&cloud%5B%5D=AWS&format%5B%5D=any&level%5B%5D=any&duration%5B%5D=any&price%5B%5D=free&modality%5B%5D=any&language%5B%5D=any)
 * [LABS] [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
 * [LABS] [VMware Cloud on AWS](https://www.vmware.com/try-vmware/vmc-aws-hol-labs.html)
 * [Workshop] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
 * [Workshop] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
 * [Workshop] [Amazon EKS Workshop](https://eksworkshop.com/)
+* [Workshop] [Amazon Lightsail Workshop](https://lightsailworkshop.com/)
 * [Workshop] [AWS Cloud Development Kit (CDK) Workshop](https://cdkworkshop.com/)
 * [Workshop] [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops)
 * [Workshop] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
