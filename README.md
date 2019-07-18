@@ -39,6 +39,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Overview of Managing Access on S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html#so-which-one-should-i-use)
 * [Using static IP addresses for Application Load Balancers](https://aws.amazon.com/blogs/networking-and-content-delivery/using-static-ip-addresses-for-application-load-balancers/)
 * [Debugging tool for network connectivity from Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/debugging-tool-for-network-connectivity-from-amazon-vpc/)
+* [VPC sharing: A new approach to multiple accounts and VPC management](https://aws.amazon.com/blogs/networking-and-content-delivery/vpc-sharing-a-new-approach-to-multiple-accounts-and-vpc-management/)
 * [Working with Direct Connect Gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html)
 * [AWS Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
 * [AWS Network Connectivity Over MPLS](https://aws.amazon.com/answers/networking/aws-network-connectivity-over-mpls/)
