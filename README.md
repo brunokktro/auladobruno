@@ -93,6 +93,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 ### Security Engineering on AWS
 
 * [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
+* [AWS IP Address Ranges](https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html)
 * [Limitations on IAM Entities and Objects](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html)
 * [IAM Policy Elements: Variables and Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html)
 * [IAM: Policies and Permissions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html)
