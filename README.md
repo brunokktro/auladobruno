@@ -137,6 +137,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Workshop] [Amazon EKS Workshop](https://eksworkshop.com/)
 * [Workshop] [Amazon Lightsail Workshop](https://lightsailworkshop.com/)
 * [Workshop] [AWS Cloud Development Kit (CDK) Workshop](https://cdkworkshop.com/)
+* [Workshop] [AWS Quick Start Workshop](https://workshop.quickstart.awspartner.com/)
 * [Workshop] [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops)
 * [Workshop] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
 * [Workshop] [Security Workshops - Permission Boundaries: How to Truly Delegate Permissions on AWS](https://awssecworkshops.com/builder-sessions/permission-boundary/build/)
