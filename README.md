@@ -15,7 +15,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 - [X] Faça um treinamento oficial da AWS com foco na preparação do exame; os **_Exam Readiness_**
 - [X] Faça um **_Practice Exam_** oficial (simulado)
 - [X] Agende seu [exame de certificação](https://www.aws.training/Certification) na **PSI** ou **Person Vue**
-- [X] Adicione 30 minutos a mais em seu exame com o **_ESL +30 MINUTES_** (disponível para não-nativos americanos) 
+- [X] Adicione [30 minutos a mais](https://www.linkedin.com/pulse/30-minute-extension-your-aws-certification-exam-garcia-lozano/) em seu exame com o **_ESL +30 MINUTES_** (disponível para não-nativos americanos) 
 - [X] Seja um certificado AWS!
 - [X] Aproveite os [benefícios](https://aws.amazon.com/certification/benefits/) concedidos só a quem tem certificações AWS
 
