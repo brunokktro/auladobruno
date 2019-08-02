@@ -92,6 +92,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Creating a Stack on the AWS CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)
 * [Template Snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html)
 * [Getting Started with AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
+* [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/)
 * [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 
 
