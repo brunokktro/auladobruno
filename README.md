@@ -82,6 +82,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Managing Amazon EKS Clusters with Rancher](https://aws.amazon.com/blogs/opensource/managing-eks-clusters-rancher/)
 * [Use Amazon WorkSpaces on Your Samsung Galaxy S8/S8+ With the New Samsung DeX](https://aws.amazon.com/blogs/aws/use-amazon-workspaces-on-your-samsung-galaxy-s8s8-with-the-new-samsung-dex/)
 * [New – Amazon FSx for Windows File Server – Fast, Fully Managed, and Secure](https://aws.amazon.com/blogs/aws/new-amazon-fsx-for-windows-file-server-fast-fully-managed-and-secure/)
+* [Working with Shadow Copies](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/shadow-copies-fsxW.html)
 * [Deploying Multi-AZ File Systems](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/multi-az-deployments.html)
 * [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [CloudWatch Events Tutorials](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatch-Events-Tutorials.html)
