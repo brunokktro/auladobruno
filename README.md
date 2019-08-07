@@ -117,6 +117,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Reduce DDoS Risks Using Amazon Route 53 and AWS Shield](https://aws.amazon.com/blogs/aws/reduce-ddos-risks-using-amazon-route-53-and-aws-shield/)
 * [Building ADFS Federation for your Web App using Amazon Cognito User Pools](https://aws.amazon.com/blogs/mobile/building-adfs-federation-for-your-web-app-using-amazon-cognito-user-pools/)
 * [Git pre-commit validation of AWS CloudFormation templates with cfn-lint](https://aws.amazon.com/blogs/mt/git-pre-commit-validation-of-aws-cloudformation-templates-with-cfn-lint/)
+* [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
 
 
 ### Arquiteturas de Referência & Tools
