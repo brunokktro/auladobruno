@@ -151,6 +151,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Workshop] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
 * [Workshop] [Security Workshops - Permission Boundaries: How to Truly Delegate Permissions on AWS](https://awssecworkshops.com/builder-sessions/permission-boundary/build/)
 * [Workshop] [Security Workshops - Data Protection, Detection, Identity, Threat Detection](https://awssecworkshops.com/workshops/)
+* [Workshop] [Scaling threat detection and response in AWS](https://scaling-threat-detection.awssecworkshops.com/)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
 * [VIDEO-LABS] [AWS Technical Essentials](http://bit.ly/tesslabs)
