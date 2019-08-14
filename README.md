@@ -142,7 +142,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [LABS] [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
 * [LABS] [VMware Cloud on AWS](https://www.vmware.com/try-vmware/vmc-aws-hol-labs.html)
 * [Workshop] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
-* [Workshop] [Amazon FSx workshops](https://github.com/aws-samples/amazon-fsx-workshop)
+* [Workshop] [Amazon FSx Workshop](https://github.com/aws-samples/amazon-fsx-workshop)
 * [Workshop] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
 * [Workshop] [Amazon EKS Workshop](https://eksworkshop.com/)
 * [Workshop] [Amazon Lightsail Workshop](https://lightsailworkshop.com/)
