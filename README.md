@@ -85,6 +85,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [New – Amazon FSx for Windows File Server – Fast, Fully Managed, and Secure](https://aws.amazon.com/blogs/aws/new-amazon-fsx-for-windows-file-server-fast-fully-managed-and-secure/)
 * [Working with Shadow Copies](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/shadow-copies-fsxW.html)
 * [Deploying Multi-AZ File Systems](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/multi-az-deployments.html)
+* [Achieving 80,000 IOPS for SQL Server on AWS EC2 and EBS](https://youtu.be/Uv9zjdeFUhg)
 * [How Amazon Uses Explosive-Resistant Devices To Transfer Data To AWS (AWS Snowball)](https://youtu.be/H3_ZqnqLyVo)
 * [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [CloudWatch Events Tutorials](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatch-Events-Tutorials.html)
