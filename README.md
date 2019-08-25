@@ -122,6 +122,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Building ADFS Federation for your Web App using Amazon Cognito User Pools](https://aws.amazon.com/blogs/mobile/building-adfs-federation-for-your-web-app-using-amazon-cognito-user-pools/)
 * [Git pre-commit validation of AWS CloudFormation templates with cfn-lint](https://aws.amazon.com/blogs/mt/git-pre-commit-validation-of-aws-cloudformation-templates-with-cfn-lint/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
+* [Tutorial: Blocking IP Addresses That Submit Bad Requests ](https://docs.aws.amazon.com/waf/latest/developerguide/tutorials-4xx-blocking.html)
 
 
 ### Arquiteturas de Referência & Tools
