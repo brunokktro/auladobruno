@@ -114,6 +114,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [AWS Global Condition Context Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html)
 * [Announcing the Golden AMI Pipeline](https://aws.amazon.com/blogs/awsmarketplace/announcing-the-golden-ami-pipeline/)
 * [Creating a Golden AMI Pipeline Integrated with Qualys for Vulnerability Assessments](https://aws.amazon.com/blogs/apn/creating-a-golden-ami-pipeline-integrated-with-qualys-for-vulnerability-assessments/)
+* [How can I use user data to replace a lost SSH key pair after the initial launch of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/user-data-replace-key-pair-ec2/)
 * [How to Detect and Automatically Revoke Unintended IAM Access with Amazon CloudWatch Events](https://aws.amazon.com/blogs/security/how-to-detect-and-automatically-revoke-unintended-iam-access-with-amazon-cloudwatch-events/)
 * [AWS re:Invent 2018: How Nubank Automates Fine-Grained Security with IAM, AWS Lambda, & CI/CD](https://youtu.be/eQ549RvQDeI)
 * [AWS re:Invent 2017: Use Amazon EC2 Systems Manager to Perform Automated Resilience](https://youtu.be/jihhLckop6A)
