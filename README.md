@@ -172,4 +172,5 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [VIDEO-LABS] [Architecting on AWS](http://bit.ly/arclabs)
 * [VIDEO-LABS] [Systems Operations on AWS](http://bit.ly/opslabs)
 * [VIDEO-LABS] [Developing on AWS](http://bit.ly/Devlabs)
+* [VIDEO-LABS] [Advanced Architecting on AWS](http://bit.ly/aarclabs)
 
