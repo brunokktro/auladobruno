@@ -99,6 +99,9 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Template Snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html)
 * [Getting Started with AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
 * [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/)
+* [AWS re:Invent 2015: A Day in the Life of a Netflix Engineer](https://youtu.be/-mL3zT1iIKw)
+* [AWS re:Invent 2016: Another Day in the Life of a Netflix Engineer](https://youtu.be/aWgtRKfrtMY)
+* [AWS re:Invent 2017: A Day in the Life of a Netflix Engineer III](https://youtu.be/T_D1G42G0dE)
 * [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 
 
