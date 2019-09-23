@@ -1,6 +1,6 @@
 ![](https://blogdolopez.files.wordpress.com/2019/05/aws-tc_resize.jpg)
 # Aula do Bruno
-Links e materiais disponibilizados como conteúdo adicional para os estudos nos treinamentos da AWS. As informações aqui inseridas são mantidas por mim mesmo, e não expressam nenhuma informação oficial por parte da AWS; mesmo que em sua maioria sejam artigos e blog posts oficiais da Amazon Web Services.
+Links e materiais disponibilizados como conteúdo adicional para os estudos nos treinamentos da AWS. As informações aqui inseridas são mantidas por mim mesmo, e não expressam nenhuma informação oficial por parte da AWS; mesmo que em sua maioria sejam artigos e blog _posts oficiais_ da **Amazon Web Services**.
 
 
 ### Dicas de estudo para as certificações
@@ -172,6 +172,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Workshop] [AWS Protecting Workloads Workshops](http://protecting-workloads.awssecworkshops.com/)
 * [Workshop] [Getting Hands on with Amazon GuardDuty](https://hands-on-guardduty.awssecworkshops.com/)
 * [Workshop] [Integrating security into your container pipeline](https://container-devsecops.awssecworkshops.com/)
+* [Workshop unnoficial][Welcome to the flAWS challenge](http://flaws.cloud/)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
 * [VIDEO-LABS] [AWS Technical Essentials](http://bit.ly/tesslabs)
