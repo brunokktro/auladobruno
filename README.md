@@ -133,8 +133,6 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Reduce DDoS Risks Using Amazon Route 53 and AWS Shield](https://aws.amazon.com/blogs/aws/reduce-ddos-risks-using-amazon-route-53-and-aws-shield/)
 * [Building ADFS Federation for your Web App using Amazon Cognito User Pools](https://aws.amazon.com/blogs/mobile/building-adfs-federation-for-your-web-app-using-amazon-cognito-user-pools/)
 * [Git pre-commit validation of AWS CloudFormation templates with cfn-lint](https://aws.amazon.com/blogs/mt/git-pre-commit-validation-of-aws-cloudformation-templates-with-cfn-lint/)
-* [Stelligent/CFN Nag](https://github.com/stelligent/cfn_nag)
-* [Skyscanner/CFripper](https://github.com/Skyscanner/cfripper/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
 * [Tutorial: Blocking IP Addresses That Submit Bad Requests ](https://docs.aws.amazon.com/waf/latest/developerguide/tutorials-4xx-blocking.html)
 
@@ -151,6 +149,10 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [TOOLS] [S3 Transfer Acceleration Speed Comparison Tool](http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
+* [TOOLS unofficial] [CloudFormation Lint: CFN Nag](https://github.com/stelligent/cfn_nag)
+* [TOOLS unofficial] [CloudFormation Lint: CFripper](https://github.com/Skyscanner/cfripper/)
+* [TOOLS unofficial] [Awesome Honeypots](https://github.com/paralax/awesome-honeypots)
+* [TOOLS unofficial] [Modern Honey Network](https://github.com/threatstream/mhn)
 
 
 ### Workshops & Laboratórios
@@ -172,7 +174,7 @@ Links e materiais disponibilizados como conteúdo adicional para os estudos nos 
 * [Workshop] [AWS Protecting Workloads Workshops](http://protecting-workloads.awssecworkshops.com/)
 * [Workshop] [Getting Hands on with Amazon GuardDuty](https://hands-on-guardduty.awssecworkshops.com/)
 * [Workshop] [Integrating security into your container pipeline](https://container-devsecops.awssecworkshops.com/)
-* [Workshop unnoficial] [Welcome to the flAWS challenge](http://flaws.cloud/)
+* [Workshop unofficial] [Welcome to the flAWS challenge](http://flaws.cloud/)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
 * [VIDEO-LABS] [AWS Technical Essentials](http://bit.ly/tesslabs)
