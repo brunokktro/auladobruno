@@ -124,6 +124,7 @@
 * [AWS re:Invent 2017: Use Amazon EC2 Systems Manager to Perform Automated Resilience](https://youtu.be/jihhLckop6A)
 * [Enabling MFA Devices](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable.html)
 * [Monitor Amazon Aurora Database Activities Using DataSunrise Database Security](https://aws.amazon.com/es/blogs/database/monitor-amazon-aurora-database-activities-using-datasunrise-database-security/)
+* [How to use AWS Secrets Manager to rotate credentials for all Amazon RDS database types, including Oracle](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-rotate-credentials-amazon-rds-database-types-oracle/)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
 * [Managed Renewal for ACM's Amazon-Issued Certificates ](https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html)
