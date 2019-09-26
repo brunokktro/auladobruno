@@ -126,7 +126,7 @@
 * [Monitor Amazon Aurora Database Activities Using DataSunrise Database Security](https://aws.amazon.com/es/blogs/database/monitor-amazon-aurora-database-activities-using-datasunrise-database-security/)
 * [How to use AWS Secrets Manager to rotate credentials for all Amazon RDS database types, including Oracle](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-rotate-credentials-amazon-rds-database-types-oracle/)
 * [Using SSL/TLS to Encrypt a Connection to a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html)
-* [](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
+* [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
 * [Best practices for securing sensitive data in AWS data stores](https://aws.amazon.com/blogs/database/best-practices-for-securing-sensitive-data-in-aws-data-stores/)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
