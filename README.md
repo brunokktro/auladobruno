@@ -188,6 +188,7 @@
 * [Workshop] [Getting Hands on with Amazon GuardDuty](https://hands-on-guardduty.awssecworkshops.com/)
 * [Workshop] [Integrating security into your container pipeline](https://container-devsecops.awssecworkshops.com/)
 * [Workshop unofficial] [Welcome to the flAWS challenge](http://flaws.cloud/)
+* [FILES] [Security Engineering on AWS - script Lab 2](https://danidoo.github.io/lab2.html)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
 * [VIDEO-LABS] [AWS Technical Essentials](http://bit.ly/tesslabs)
@@ -195,8 +196,6 @@
 * [VIDEO-LABS] [Systems Operations on AWS](http://bit.ly/opslabs)
 * [VIDEO-LABS] [Developing on AWS](http://bit.ly/Devlabs)
 * [VIDEO-LABS] [Advanced Architecting on AWS](http://bit.ly/aarclabs)
-
-
 
 
 
