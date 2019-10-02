@@ -166,6 +166,7 @@
 * [TOOLS unofficial] [CloudFormation Lint: CFripper](https://github.com/Skyscanner/cfripper/)
 * [TOOLS unofficial] [Awesome Honeypots](https://github.com/paralax/awesome-honeypots)
 * [TOOLS unofficial] [Modern Honey Network](https://github.com/threatstream/mhn)
+* [TOOLS unofficial] [Console Recorder for AWS](https://github.com/iann0036/AWSConsoleRecorder)
 
 
 ### Workshops & Laboratórios
