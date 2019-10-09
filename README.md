@@ -94,6 +94,7 @@
 * [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [CloudWatch Events Tutorials](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatch-Events-Tutorials.html)
 * [Monitoring Trusted Advisor with Amazon CloudWatch Events and Amazon CloudWatch](https://docs.aws.amazon.com/awssupport/latest/user/cloudwatch-ta.html)
+* [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
 * [Monitoring Amazon GuardDuty Findings with Amazon CloudWatch Events ](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html)
 * [How Does AWS CloudFormation Work?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-howdoesitwork.html)
 * [How do I resolve AWS CloudFormation template validation errors or template format errors?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudformation-template-validation/)
