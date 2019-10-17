@@ -150,6 +150,8 @@
 * [Building ADFS Federation for your Web App using Amazon Cognito User Pools](https://aws.amazon.com/blogs/mobile/building-adfs-federation-for-your-web-app-using-amazon-cognito-user-pools/)
 * [Git pre-commit validation of AWS CloudFormation templates with cfn-lint](https://aws.amazon.com/blogs/mt/git-pre-commit-validation-of-aws-cloudformation-templates-with-cfn-lint/)
 * [How to Use AWS Config to Monitor for and Respond to Amazon S3 Buckets Allowing Public Access](https://aws.amazon.com/blogs/security/how-to-use-aws-config-to-monitor-for-and-respond-to-amazon-s3-buckets-allowing-public-access/)
+* [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
+* [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
 * [Tutorial: Blocking IP Addresses That Submit Bad Requests ](https://docs.aws.amazon.com/waf/latest/developerguide/tutorials-4xx-blocking.html)
 
