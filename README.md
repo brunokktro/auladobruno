@@ -45,6 +45,7 @@
 * [Debugging tool for network connectivity from Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/debugging-tool-for-network-connectivity-from-amazon-vpc/)
 * [VPC sharing: A new approach to multiple accounts and VPC management](https://aws.amazon.com/blogs/networking-and-content-delivery/vpc-sharing-a-new-approach-to-multiple-accounts-and-vpc-management/)
 * [Multiple Region Multi-VPC Connectivity](https://aws.amazon.com/answers/networking/aws-multiple-region-multi-vpc-connectivity/)
+* [How to securely publish Internet applications at scale using Application Load Balancer and AWS PrivateLink](https://aws.amazon.com/blogs/networking-and-content-delivery/how-to-securely-publish-internet-applications-at-scale-using-application-load-balancer-and-aws-privatelink/)
 * [Working with Direct Connect Gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html)
 * [AWS Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
 * [AWS Network Connectivity Over MPLS](https://aws.amazon.com/answers/networking/aws-network-connectivity-over-mpls/)
