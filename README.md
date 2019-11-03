@@ -77,6 +77,7 @@
 * [Taking Advantage of Amazon EC2 Spot Instance Interruption Notices](https://aws.amazon.com/blogs/compute/taking-advantage-of-amazon-ec2-spot-instance-interruption-notices/)
 * [How do I stop and start Amazon EC2 instances at regular intervals using Lambda?](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-cloudwatch/)
 * [How do I stop and start my instances using the AWS Instance Scheduler?](https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/)
+* [AWS Transit Gateway Egress VPC Demo](https://github.com/aws-samples/aws-transit-gateway-egress-vpc-demo)
 * [Announcing Lambda Support for PowerShell Core](https://aws.amazon.com/blogs/developer/announcing-lambda-support-for-powershell-core/)
 * [A Simple Way to Export Your IAM Settings](https://aws.amazon.com/blogs/security/a-simple-way-to-export-your-iam-settings/)
 * [Use Cases for AWS Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_use_cases.html)
