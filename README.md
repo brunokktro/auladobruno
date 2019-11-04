@@ -208,6 +208,7 @@
 * [VIDEO-LABS] [Systems Operations on AWS](http://bit.ly/opslabs)
 * [VIDEO-LABS] [Developing on AWS](http://bit.ly/Devlabs)
 * [VIDEO-LABS] [Advanced Architecting on AWS](http://bit.ly/aarclabs)
+* [VIDEO-LABS] [IoT in Scale: IoT Solution using AWS Services](http://bit.ly/iotscale)
 
 
 
