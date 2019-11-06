@@ -59,6 +59,7 @@
 * [Validating AWS CloudFormation Templates](https://aws.amazon.com/blogs/devops/validating-aws-cloudformation-templates/)
 * [Implementation Considerations - Learn Caching Design Patterns](https://aws.amazon.com/caching/implementation-considerations/)
 * [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/)
+* [Firecracker – Lightweight Virtualization for Serverless Computing](https://aws.amazon.com/blogs/aws/firecracker-lightweight-virtualization-for-serverless-computing/)
 * [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
 
 
