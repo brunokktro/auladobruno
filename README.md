@@ -38,6 +38,7 @@
 * [Best Practices for Designing and Using Partition Keys Effectively ](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)
 * [Introducing Amazon Elasticsearch Service as a target in AWS Database Migration Service](https://aws.amazon.com/blogs/database/introducing-amazon-elasticsearch-service-as-a-target-in-aws-database-migration-service/)
 * [Migration Complete – Amazon’s Consumer Business Just Turned off its Final Oracle Database](https://aws.amazon.com/blogs/aws/migration-complete-amazons-consumer-business-just-turned-off-its-final-oracle-database/)
+* [Scaling Your Amazon RDS Instance Vertically and Horizontally](https://aws.amazon.com/blogs/database/scaling-your-amazon-rds-instance-vertically-and-horizontally/)
 * [Amazon S3 + Amazon CloudFront: A Match Made in the Cloud](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-s3-amazon-cloudfront-a-match-made-in-the-cloud/)
 * [Overview of Managing Access on S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html#so-which-one-should-i-use)
 * [New – AWS Storage Gateway Hardware Appliance](https://aws.amazon.com/blogs/aws/new-aws-storage-gateway-hardware-appliance/)
