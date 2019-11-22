@@ -178,6 +178,7 @@
 * [TOOLS] [Amazon WorkSpaces - Connection Health Check](https://clients.amazonworkspaces.com/Health.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
+* [TOOLS unofficial] [Cloudcraft - Create smart AWS diagrams](https://cloudcraft.co/)
 * [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
 * [TOOLS unofficial] [The Grinder](http://grinder.sourceforge.net/)
 * [TOOLS unofficial] [Apache JMeter](https://jmeter.apache.org/)
