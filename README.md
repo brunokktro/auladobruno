@@ -65,6 +65,11 @@
 * [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
 
 
+### Advanced Architecting on AWS
+
+* [Overlay Multicast in Amazon Virtual Private Cloud](https://aws.amazon.com/articles/overlay-multicast-in-amazon-virtual-private-cloud/)
+
+
 ### Systems Operations on AWS
 
 * [AWS Command Line Interface](https://aws.amazon.com/cli/)
