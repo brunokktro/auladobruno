@@ -60,6 +60,7 @@
 * [Running Scripts from GitHub and Amazon S3 ](https://docs.aws.amazon.com/systems-manager/latest/userguide/integration-remote-scripts.html)
 * [Validating AWS CloudFormation Templates](https://aws.amazon.com/blogs/devops/validating-aws-cloudformation-templates/)
 * [Implementation Considerations - Learn Caching Design Patterns](https://aws.amazon.com/caching/implementation-considerations/)
+* [Caching Content Based on Query String Parameters](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/QueryStringParameters.html)
 * [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/)
 * [Firecracker – Lightweight Virtualization for Serverless Computing](https://aws.amazon.com/blogs/aws/firecracker-lightweight-virtualization-for-serverless-computing/)
 * [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
@@ -68,6 +69,7 @@
 ### Advanced Architecting on AWS
 
 * [Overlay Multicast in Amazon Virtual Private Cloud](https://aws.amazon.com/articles/overlay-multicast-in-amazon-virtual-private-cloud/)
+* [Introducing Bring Your Own IP (BYOIP) for Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-bring-your-own-ip-byoip-for-amazon-vpc/)
 
 
 ### Systems Operations on AWS
