@@ -176,6 +176,7 @@
 
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
+* [The Amazon Builders' Library](https://aws.amazon.com/builders-library/)
 * [AWS Samples](https://github.com/aws-samples)
 * [AWS CloudFormation Sample Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html)
 * [AWS SAM - Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
