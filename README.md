@@ -99,6 +99,7 @@
 * [Automatically update instances in an Amazon ECS cluster using the AMI ID parameter](https://aws.amazon.com/blogs/compute/automatically-update-instances-in-an-amazon-ecs-cluster-using-the-ami-id-parameter/)
 * [Managing Amazon EKS Clusters with Rancher](https://aws.amazon.com/blogs/opensource/managing-eks-clusters-rancher/)
 * [Build Your Own Face Recognition Service Using Amazon Rekognition](https://aws.amazon.com/blogs/machine-learning/build-your-own-face-recognition-service-using-amazon-rekognition/)
+* [Using Amazon RDS Proxy with AWS Lambda](https://aws.amazon.com/blogs/compute/using-amazon-rds-proxy-with-aws-lambda/)
 * [Use Amazon WorkSpaces on Your Samsung Galaxy S8/S8+ With the New Samsung DeX](https://aws.amazon.com/blogs/aws/use-amazon-workspaces-on-your-samsung-galaxy-s8s8-with-the-new-samsung-dex/)
 * [New – Amazon FSx for Windows File Server – Fast, Fully Managed, and Secure](https://aws.amazon.com/blogs/aws/new-amazon-fsx-for-windows-file-server-fast-fully-managed-and-secure/)
 * [Working with Shadow Copies](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/shadow-copies-fsxW.html)
