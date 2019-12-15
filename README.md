@@ -217,6 +217,7 @@
 * [Workshop] [AWS Protecting Workloads Workshops](http://protecting-workloads.awssecworkshops.com/)
 * [Workshop] [Getting Hands on with Amazon GuardDuty](https://hands-on-guardduty.awssecworkshops.com/)
 * [Workshop] [Integrating security into your container pipeline](https://container-devsecops.awssecworkshops.com/)
+* [Workshop] [DevSecOps with Snyk](https://snyk.modernize.awsworkshop.io/)
 * [Workshop unofficial] [Welcome to the flAWS challenge](http://flaws.cloud/)
 * [SLIDES] [Technical Essentials on AWS](https://www.slideshare.net/AmazonWebServices/technical-essentials-training-aws-innovate-ottawa)
 * [FILES] [Security Engineering on AWS - script lab 2](https://danidoo.github.io/lab2.html)
