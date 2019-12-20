@@ -198,6 +198,7 @@
 * [TOOLS unofficial] [Awesome Honeypots](https://github.com/paralax/awesome-honeypots)
 * [TOOLS unofficial] [Modern Honey Network](https://github.com/threatstream/mhn)
 * [TOOLS unofficial] [Console Recorder for AWS](https://github.com/iann0036/AWSConsoleRecorder)
+* [TOOLS unofficial] [AWS CloudFront CDN Edge Locations](https://www.feitsui.com/en/blog/page/3)
 
 
 ### Workshops & Laboratórios
