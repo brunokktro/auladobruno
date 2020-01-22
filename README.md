@@ -216,6 +216,7 @@
 * [Workshop] [AWS Quick Start Workshop](https://workshop.quickstart.awspartner.com/)
 * [Workshop] [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops)
 * [Workshop] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
+* [Workshop] [Networking Workshop - Transit Gateway and Traffic Mirroring](https://www.networking-workshop.com/#/)
 * [Workshop] [Security Workshops - Permission Boundaries: How to Truly Delegate Permissions on AWS](https://awssecworkshops.com/builder-sessions/permission-boundary/build/)
 * [Workshop] [Security Workshops - Data Protection, Detection, Identity, Threat Detection](https://awssecworkshops.com/workshops/)
 * [Workshop] [AWS Protecting Workloads Workshops](http://protecting-workloads.awssecworkshops.com/)
