@@ -207,6 +207,7 @@
 * [LABS] [AWS Qwiklabs](https://amazon.qwiklabs.com)
 * [LABS] [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
 * [LABS] [VMware Cloud on AWS](https://www.vmware.com/try-vmware/vmc-aws-hol-labs.html)
+* [Workshop] [AWS JAM - Put Your Skills to the Test](https://jam.awsevents.com/)
 * [Workshop] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
 * [Workshop] [Amazon FSx Workshop](https://github.com/aws-samples/amazon-fsx-workshop)
 * [Workshop] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
