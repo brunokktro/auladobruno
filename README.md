@@ -232,6 +232,7 @@
 * [Workshop] [DevSecOps with Snyk](https://snyk.modernize.awsworkshop.io/)
 * [Workshop unofficial] [Welcome to the flAWS challenge](http://flaws.cloud/)
 * [Workshop unofficial] [Play with Docker](https://labs.play-with-docker.com/)
+* [Workshop unofficial] [Hello Kubernetes w/ Minikube](https://kubernetes.io/docs/tutorials/hello-minikube/)
 * [SLIDES] [Technical Essentials on AWS](https://www.slideshare.net/AmazonWebServices/technical-essentials-training-aws-innovate-ottawa)
 * [FILES] [Security Engineering on AWS - script lab 2](https://danidoo.github.io/lab2.html)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
