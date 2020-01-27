@@ -2,8 +2,10 @@
 # Aula do Bruno
 **[DISCLAIMER]** Links e materiais disponibilizados como conteúdo adicional para os estudos nos treinamentos da AWS. As informações aqui inseridas são mantidas por mim mesmo, e não expressam nenhuma informação oficial por parte da AWS; mesmo que em sua maioria sejam artigos e _blog posts_ oficiais da **Amazon Web Services**.
 
+#Validation
+Teste
 
-### Dicas de estudo para as certificações TESTE TESTE
+### Dicas de estudo para as certificações
 
 - [X] Escolha sua [carreira de certificações](https://aws.amazon.com/certification/)
 - [X] Revise o arquivo **_Exam Guide_** do respectivo exame de certificação
