@@ -71,6 +71,7 @@
 
 * [Overlay Multicast in Amazon Virtual Private Cloud](https://aws.amazon.com/articles/overlay-multicast-in-amazon-virtual-private-cloud/)
 * [Introducing Bring Your Own IP (BYOIP) for Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-bring-your-own-ip-byoip-for-amazon-vpc/)
+* [Use the Serverless Developer Portal to Catalog Your API Gateway APIs ](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-developer-portal.html)
 
 
 ### Systems Operations on AWS
