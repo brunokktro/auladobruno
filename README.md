@@ -215,6 +215,7 @@
 * [Workshop] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
 * [Workshop] [Amazon EKS Workshop](https://eksworkshop.com/)
 * [Workshop] [Amazon Lightsail Workshop](https://lightsailworkshop.com/)
+* [Workshop] [Amazon DynamoDB Labs](https://amazon-dynamodb-labs.com/index.html)
 * [Workshop] [AWS Cloud Development Kit (CDK) Workshop](https://cdkworkshop.com/)
 * [Workshop] [AWS Quick Start Workshop](https://workshop.quickstart.awspartner.com/)
 * [Workshop] [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops)
