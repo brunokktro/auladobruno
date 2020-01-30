@@ -73,6 +73,7 @@
 * [Introducing Bring Your Own IP (BYOIP) for Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-bring-your-own-ip-byoip-for-amazon-vpc/)
 * [Use the Serverless Developer Portal to Catalog Your API Gateway APIs ](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-developer-portal.html)
 * [Centralized Management of Multiple Accounts and Cross-Platform EC2 Instances Using AWS Systems Manager](https://aws.amazon.com/blogs/mt/centralized-management-of-multiple-accounts-and-cross-platform-ec2-instances-using-aws-systems-manager/)
+* [Understanding Burst vs. Baseline Performance with Amazon RDS and GP2](https://aws.amazon.com/blogs/database/understanding-burst-vs-baseline-performance-with-amazon-rds-and-gp2/)
 
 
 ### Systems Operations on AWS
