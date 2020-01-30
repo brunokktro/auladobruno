@@ -184,6 +184,7 @@
 
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
+* [AWS Simple Monthly Calculator](https://calculator.s3.amazonaws.com/index.html)
 * [The Amazon Builders' Library](https://aws.amazon.com/builders-library/)
 * [AWS Samples](https://github.com/aws-samples)
 * [AWS CloudFormation Sample Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html)
