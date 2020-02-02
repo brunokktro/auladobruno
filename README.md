@@ -41,6 +41,7 @@
 * [Scaling Your Amazon RDS Instance Vertically and Horizontally](https://aws.amazon.com/blogs/database/scaling-your-amazon-rds-instance-vertically-and-horizontally/)
 * [Right-size Amazon RDS instances at scale based on Oracle performance metrics](https://aws.amazon.com/blogs/database/right-sizing-amazon-rds-instances-at-scale-based-on-oracle-performance-metrics/)
 * [Amazon S3 + Amazon CloudFront: A Match Made in the Cloud](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-s3-amazon-cloudfront-a-match-made-in-the-cloud/)
+* [How to set up a CloudFront distribution for Amazon S3](https://aws.amazon.com/cloudfront/getting-started/S3/)
 * [Overview of Managing Access on S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html#so-which-one-should-i-use)
 * [New – AWS Storage Gateway Hardware Appliance](https://aws.amazon.com/blogs/aws/new-aws-storage-gateway-hardware-appliance/)
 * [Using static IP addresses for Application Load Balancers](https://aws.amazon.com/blogs/networking-and-content-delivery/using-static-ip-addresses-for-application-load-balancers/)
