@@ -137,6 +137,12 @@
 * [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 
 
+### DevOps Engineering on AWS
+
+* [DevOps and AWS](https://aws.amazon.com/devops/)
+* [Setting up a CI/CD pipeline by integrating Jenkins with AWS CodeBuild and AWS CodeDeploy](https://aws.amazon.com/blogs/devops/setting-up-a-ci-cd-pipeline-by-integrating-jenkins-with-aws-codebuild-and-aws-codedeploy/)
+
+
 ### Security Engineering on AWS
 
 * [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
