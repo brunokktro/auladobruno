@@ -83,6 +83,7 @@
 ### Systems Operations on AWS
 
 * [AWS Command Line Interface](https://aws.amazon.com/cli/)
+* [AWS CLI v2 is now generally available](https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/)
 * [AWS Tools for PowerShell](https://aws.amazon.com/powershell/)
 * [Using the AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-using.html)
 * [How can I execute user data to automatically create a file with every restart of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/execute-user-data-ec2/)
