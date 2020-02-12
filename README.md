@@ -141,6 +141,8 @@
 
 * [DevOps and AWS](https://aws.amazon.com/devops/)
 * [Setting up a CI/CD pipeline by integrating Jenkins with AWS CodeBuild and AWS CodeDeploy](https://aws.amazon.com/blogs/devops/setting-up-a-ci-cd-pipeline-by-integrating-jenkins-with-aws-codebuild-and-aws-codedeploy/)
+* [Running AWS commands from Slack using AWS Chatbot](https://aws.amazon.com/blogs/devops/running-aws-commands-from-slack-using-aws-chatbot/)
+* [Introducing AWS Chatbot: ChatOps for AWS](https://aws.amazon.com/blogs/devops/introducing-aws-chatbot-chatops-for-aws/)
 
 
 ### Security Engineering on AWS
