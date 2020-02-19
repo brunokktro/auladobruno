@@ -148,6 +148,14 @@
 * [Setting up a CI/CD pipeline by integrating Jenkins with AWS CodeBuild and AWS CodeDeploy](https://aws.amazon.com/blogs/devops/setting-up-a-ci-cd-pipeline-by-integrating-jenkins-with-aws-codebuild-and-aws-codedeploy/)
 * [Running AWS commands from Slack using AWS Chatbot](https://aws.amazon.com/blogs/devops/running-aws-commands-from-slack-using-aws-chatbot/)
 * [Introducing AWS Chatbot: ChatOps for AWS](https://aws.amazon.com/blogs/devops/introducing-aws-chatbot-chatops-for-aws/)
+* [Creating a Trail for an Organization](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/creating-trail-organization.html)
+* [How to Enable Caching for AWS CodeBuild](https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/)
+* [Integrating AWS CodeCommit with Jenkins](https://aws.amazon.com/blogs/devops/integrating-aws-codecommit-with-jenkins/)
+* [How to Test and Debug AWS CodeDeploy Locally Before You Ship Your Code](https://aws.amazon.com/blogs/devops/how-to-test-and-debug-aws-codedeploy-locally-before-you-ship-your-code/)
+* [Implementing DevSecOps Using AWS CodePipeline](https://aws.amazon.com/blogs/devops/implementing-devsecops-using-aws-codepipeline/)
+* [Automating rollback of failed Amazon ECS deployments](https://aws.amazon.com/blogs/compute/automating-rollback-of-failed-amazon-ecs-deployments/)
+* [Amazon ECS Task Placement Strategies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html)
+* [Task Definition Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#network_mode)
 
 
 ### Security Engineering on AWS
