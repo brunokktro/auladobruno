@@ -158,6 +158,7 @@
 * [Automating rollback of failed Amazon ECS deployments](https://aws.amazon.com/blogs/compute/automating-rollback-of-failed-amazon-ecs-deployments/)
 * [Amazon ECS Task Placement Strategies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html)
 * [Task Definition Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#network_mode)
+* [Private Registry Authentication for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/private-auth.html)
 
 
 ### Security Engineering on AWS
