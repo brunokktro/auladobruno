@@ -190,6 +190,7 @@
 * [Performing SQL database client-side encryption for multi-Region high availability](https://aws.amazon.com/blogs/database/performing-sql-database-client-side-encryption-for-multi-region-high-availability/)
 * [How to use AWS Secrets Manager to rotate credentials for all Amazon RDS database types, including Oracle](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-rotate-credentials-amazon-rds-database-types-oracle/)
 * [How to use AWS Secrets Manager to securely store and rotate SSH key pairs](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-securely-store-rotate-ssh-key-pairs/)
+* [Post-quantum TLS now supported in AWS KMS](https://aws.amazon.com/blogs/security/post-quantum-tls-now-supported-in-aws-kms/)
 * [How to add DNS filtering to your NAT instance with Squid](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
