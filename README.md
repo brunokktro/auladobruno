@@ -125,6 +125,7 @@
 * [Achieving 80,000 IOPS for SQL Server on AWS EC2 and EBS](https://youtu.be/Uv9zjdeFUhg)
 * [How Amazon Uses Explosive-Resistant Devices To Transfer Data To AWS (AWS Snowball)](https://youtu.be/H3_ZqnqLyVo)
 * [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
+* [CloudWatch Logs Agent Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html)
 * [CloudWatch Events Tutorials](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatch-Events-Tutorials.html)
 * [Monitoring Trusted Advisor with Amazon CloudWatch Events and Amazon CloudWatch](https://docs.aws.amazon.com/awssupport/latest/user/cloudwatch-ta.html)
 * [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
