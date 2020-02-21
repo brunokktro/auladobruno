@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Enables an AWS Config rule to check whether the root user of your AWS account requires multi-factor authentication for console sign-in.
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Configuration
+      - Parameters:
+          - Frequency
+    ParameterLabels:
+      - Frequency:
+          default: Frequency
+
+Parameters:
+
+  Frequency:
+    Type: String
+    Default: 24hours
+    Description: Maximum rule execution frequency.
+    AllowedValues:
+      - 1hour
+      - 3hours
+      - 6hours
+      - 12hours
+      - 24hours
+
+Mappings:
+  Settings:
+    FrequencyMap:
+      1hour   : One_Hour
+      3hours  : Three_Hours
+      6hours  : Six_Hours
+      12hours : Twelve_Hours
+      24hours : TwentyFour_Hours
+
+Resources:
+  CheckForRootMFA:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      Description: Checks whether the root user of your AWS account requires multi-factor authentication for console sign-in.
+      MaximumExecutionFrequency: !FindInMap
+          - Settings
+          - FrequencyMap
+          - !Ref Frequency
+      Source:
+        Owner: AWS
+        SourceIdentifier: ROOT_ACCOUNT_MFA_ENABLED

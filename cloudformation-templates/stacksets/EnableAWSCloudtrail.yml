@@ -1,0 +1,157 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Enable AWS CloudTrail. This template creates a CloudTrail trail, an Amazon S3 bucket where logs are published, and an Amazon SNS topic where notifications are sent.
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Trail Configuration
+        Parameters:
+          - EnableLogFileValidation
+          - IncludeGlobalEvents
+          - MultiRegion
+      - Label:
+          default: Delivery Notifications
+        Parameters:
+          - PublishToTopic
+          - NotificationEmail
+    ParameterLabels:
+      EnableLogFileValidation:
+        default: Enable log file validation
+      IncludeGlobalEvents:
+        default: Include global service events
+      MultiRegion:
+        default: Is this a multi-region trail
+      PublishToTopic:
+        default: Send notifications to SNS
+      NotificationEmail:
+        default: Notification Email (optional)
+
+Parameters:
+  EnableLogFileValidation:
+    Type: String
+    Default: False
+    Description: Indicates whether CloudTrail validates the integrity of log files.
+    AllowedValues:
+      - True
+      - False
+
+  IncludeGlobalEvents:
+    Type: String
+    Default: False
+    Description: Indicates whether the trail is publishing events from global services, such as IAM, to the log files.
+    AllowedValues:
+      - True
+      - False
+
+  MultiRegion:
+    Type: String
+    Default: False
+    Description: Indicates whether the CloudTrail trail is created in the region in which you create the stack (false) or in all regions (true).
+    AllowedValues:
+      - True
+      - False
+
+  PublishToTopic:
+    Type: String
+    Default: False
+    Description: Indicates whether notifications are published to SNS.
+    AllowedValues:
+      - True
+      - False
+
+  NotificationEmail:
+    Type: String
+    Default: ''
+    Description: Email address for notifications (for new topics).
+
+Conditions:
+  IsMultiRegion: !Equals
+    - !Ref MultiRegion
+    - True
+  Publish: !Equals
+    - !Ref PublishToTopic
+    - True
+  CreateSubscription: !And
+    - !Condition Publish
+    - !Not
+      - !Equals
+        - !Ref NotificationEmail
+        - ''
+
+Resources:
+  TrailBucket:
+    DeletionPolicy: Retain
+    Type: AWS::S3::Bucket
+
+  TrailBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref TrailBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: AWSTrailBucketPermissionsCheck
+            Effect: Allow
+            Principal:
+              Service:
+                - cloudtrail.amazonaws.com
+            Action: s3:GetBucketAcl
+            Resource:
+              - !Sub "arn:aws:s3:::${TrailBucket}"
+          - Sid: AWSTrailBucketDelivery
+            Effect: Allow
+            Principal:
+              Service:
+                - cloudtrail.amazonaws.com
+            Action: s3:PutObject
+            Resource: !Sub "arn:aws:s3:::${TrailBucket}/AWSLogs/${AWS::AccountId}/*"
+
+  TrailTopic:
+    Condition: Publish
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: AWS CloudTrail Notification Topic
+
+  TrailTopicPolicy:
+    Condition: Publish
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref TrailTopic
+      PolicyDocument:
+        Statement:
+          - Sid: AWSCloudTrailSNSPolicy
+            Action:
+              - sns:Publish
+            Effect: Allow
+            Resource: !Ref TrailTopic
+            Principal:
+              Service:
+                - cloudtrail.amazonaws.com
+
+  EmailNotification:
+    Condition: CreateSubscription
+    Type: AWS::SNS::Subscription
+    Properties:
+      Endpoint: !Ref NotificationEmail
+      Protocol: email
+      TopicArn: !Ref TrailTopic
+
+  Trail:
+    DependsOn:
+      - TrailBucketPolicy
+    Type: AWS::CloudTrail::Trail
+    Properties:
+      S3BucketName: !Ref TrailBucket
+      SnsTopicName: !If
+        - Publish
+        - !GetAtt TrailTopic.TopicName
+        - !Ref AWS::NoValue
+      IsLogging: true
+      EnableLogFileValidation: !Ref EnableLogFileValidation
+      IncludeGlobalServiceEvents: !If
+        - IsMultiRegion
+        - true
+        - !Ref IncludeGlobalEvents
+      IsMultiRegionTrail: !Ref MultiRegion

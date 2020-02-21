@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Enables an AWS Config rule to check whether EBS volumes that are in an attached state are encrypted. Optionally, you can specify the ID of a KMS key to use to encrypt the volume.
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Rule Parameters
+      - Parameters:
+          - KMSId
+    ParameterLabels:
+      - KMSId:
+          default: KMS Key Id or ARN
+
+Parameters:
+  KMSId:
+    Type: String
+    Description: "[Optional] Id or ARN of the KMS key that is used to encrypt the volume."
+    Default: ""
+
+Conditions:
+  HasKMSKeyId: !Not
+    - !Equals
+      - !Ref KMSId
+      - ""
+
+Resources:
+  CheckForEncryptedVolumes:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      Description: Checks whether EBS volumes that are in an attached state are encrypted.
+      Source:
+        Owner: AWS
+        SourceIdentifier: ENCRYPTED_VOLUMES
+      Scope:
+        ComplianceResourceTypes:
+          - AWS::EC2::Volume
+      InputParameters:
+        kmsId: !If
+          - HasKMSKeyId
+          - !Ref KMSId
+          - !Ref AWS::NoValue

@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Enables an AWS Config rule to check whether all EIP addresses allocated to a VPC are attached to EC2 instances or in-use ENIs.
+
+Resources:
+  CheckForEIPAttached:
+    Type: AWS::Config::ConfigRule
+    Properties:
+      Description: Checks whether all EIP addresses allocated to a VPC are attached to EC2 instances or in-use ENIs.
+      Source:
+        Owner: AWS
+        SourceIdentifier: EIP_ATTACHED
+      Scope:
+        ComplianceResourceTypes:
+          - AWS::EC2::EIP
