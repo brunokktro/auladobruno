@@ -54,6 +54,7 @@
 * [Working with Direct Connect Gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html)
 * [AWS Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
 * [AWS Network Connectivity Over MPLS](https://aws.amazon.com/answers/networking/aws-network-connectivity-over-mpls/)
+* [How do I create an IAM policy to control access to Amazon EC2 resources using tags?](https://aws.amazon.com/premiumsupport/knowledge-center/iam-ec2-resource-tags/)
 * [Writing IAM Policies: Grant Access to User-Specific Folders in an Amazon S3 Bucket](https://aws.amazon.com/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/)
 * [Now Create and Manage AWS IAM Roles More Easily with the Updated IAM Console](https://aws.amazon.com/blogs/security/now-create-and-manage-aws-iam-roles-more-easily-with-the-updated-iam-console/)
 * [Guidelines for protecting your AWS account while using programmatic access](https://aws.amazon.com/blogs/security/guidelines-for-protecting-your-aws-account-while-using-programmatic-access/)
