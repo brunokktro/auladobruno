@@ -282,6 +282,7 @@
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
 * [VIDEO-LABS] [How to use QwikLabs](http://bit.ly/labintro)
 * [VIDEO-LABS] [AWS Technical Essentials](http://bit.ly/tesslabs)
+* [VIDEO-LABS] [AWS Cloud Practitioner Essentials](http://bit.ly/cpelabs)
 * [VIDEO-LABS] [Architecting on AWS](http://bit.ly/arclabs)
 * [VIDEO-LABS] [Systems Operations on AWS](http://bit.ly/opslabs)
 * [VIDEO-LABS] [Security Engineering on AWS](http://bit.ly/seceng-labs)
