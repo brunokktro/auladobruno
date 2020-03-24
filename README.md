@@ -285,8 +285,11 @@
 * [VIDEO-LABS] [AWS Cloud Practitioner Essentials](http://bit.ly/cpelabs)
 * [VIDEO-LABS] [Architecting on AWS](http://bit.ly/arclabs)
 * [VIDEO-LABS] [Systems Operations on AWS](http://bit.ly/opslabs)
-* [VIDEO-LABS] [Security Engineering on AWS](http://bit.ly/seceng-labs)
 * [VIDEO-LABS] [Developing on AWS](http://bit.ly/Devlabs)
+* [VIDEO-LABS] [Security Engineering on AWS](http://bit.ly/seceng-labs)
+* [VIDEO-LABS] [Planning and Designing Database on AWS](http://bit.ly/PD_DBLAB)
+* [VIDEO-LABS] [Deep Learning on AWS](http://bit.ly/deeplabs)
+* [VIDEO-LABS] [Moving to AWS Serverless](http://bit.ly/TC-MTAS )
 * [VIDEO-LABS] [Advanced Architecting on AWS](http://bit.ly/aarclabs)
 * [VIDEO-LABS] [IoT in Scale: IoT Solution using AWS Services](http://bit.ly/iotscale)
 
