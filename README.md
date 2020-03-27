@@ -96,6 +96,8 @@
 * [AWS Tools for PowerShell](https://aws.amazon.com/powershell/)
 * [Using the AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-using.html)
 * [How can I execute user data to automatically create a file with every restart of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/execute-user-data-ec2/)
+* [How can I connect to my Amazon EC2 instance if I lost my SSH key pair after its initial launch?](https://aws.amazon.com/premiumsupport/knowledge-center/user-data-replace-key-pair-ec2/)
+* [How do I install AWS Systems Manager Agent (SSM Agent) on an Amazon EC2 Linux instance at launch?](https://aws.amazon.com/premiumsupport/knowledge-center/install-ssm-agent-ec2-linux/)
 * [Running Ansible Playbooks using EC2 Systems Manager Run Command and State Manager](https://aws.amazon.com/blogs/mt/running-ansible-playbooks-using-ec2-systems-manager-run-command-and-state-manager/)
 * [Query for the latest Amazon Linux AMI IDs using AWS Systems Manager Parameter Store](https://aws.amazon.com/blogs/compute/query-for-the-latest-amazon-linux-ami-ids-using-aws-systems-manager-parameter-store/)
 * [Query for the Latest Windows AMI Using Systems Manager Parameter Store](https://aws.amazon.com/blogs/mt/query-for-the-latest-windows-ami-using-systems-manager-parameter-store/)
