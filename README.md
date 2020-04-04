@@ -146,6 +146,8 @@
 * [AWS re:Invent 2015: A Day in the Life of a Netflix Engineer](https://youtu.be/-mL3zT1iIKw)
 * [AWS re:Invent 2016: Another Day in the Life of a Netflix Engineer](https://youtu.be/aWgtRKfrtMY)
 * [AWS re:Invent 2017: A Day in the Life of a Netflix Engineer III](https://youtu.be/T_D1G42G0dE)
+* [AWS re:Invent 2018: Another Day in the Life of a Cloud Network Engineer at Netflix](https://youtu.be/95nfMj4PVDA)
+* [AWS re:Invent 2019: A day in the life of a Netflix engineer IV](https://youtu.be/0QS1TWLooo0)
 * [Conformity Monkey](https://github.com/Netflix/SimianArmy/wiki/Conformity-Home)
 
 
