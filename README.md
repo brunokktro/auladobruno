@@ -274,6 +274,7 @@
 * [Workshop] [HA Wordpress Workshop](http://webapp-workshop.com/)
 * [Workshop] [Amazon DynamoDB Labs](https://amazon-dynamodb-labs.com/index.html)
 * [Workshop] [Amazon Aurora Labs for MySQL](https://awsauroralabsmy.com/prereqs/environment/)
+* [Workshop] [AWS Lake Formation Workshop](https://lakeformation.aworkshop.io/)
 * [Workshop] [AWS Cloud Development Kit (CDK) Workshop](https://cdkworkshop.com/)
 * [Workshop] [AWS App Mesh Workshop](https://www.appmeshworkshop.com/)
 * [Workshop] [Service coordination using AWS Step Functions](https://step-functions-workshop.go-aws.com/)
