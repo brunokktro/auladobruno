@@ -111,6 +111,8 @@
 * [AWS Transit Gateway Egress VPC Demo](https://github.com/aws-samples/aws-transit-gateway-egress-vpc-demo)
 * [Announcing Lambda Support for PowerShell Core](https://aws.amazon.com/blogs/developer/announcing-lambda-support-for-powershell-core/)
 * [A Simple Way to Export Your IAM Settings](https://aws.amazon.com/blogs/security/a-simple-way-to-export-your-iam-settings/)
+* [Reset Your AWS Root Account’s Lost MFA Device Faster by Using the AWS Management Console](https://aws.amazon.com/blogs/security/reset-your-aws-root-accounts-lost-mfa-device-faster-by-using-the-aws-management-console/)
+* [How can I reset the administrator password on an EC2 Windows instance?](https://aws.amazon.com/premiumsupport/knowledge-center/reset-admin-password/)
 * [Use Cases for AWS Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_use_cases.html)
 * [Enabling Federation to AWS Using Windows Active Directory, ADFS, and SAML 2.0](https://aws.amazon.com/blogs/security/enabling-federation-to-aws-using-windows-active-directory-adfs-and-saml-2-0/)
 * [How to automate SAML federation to multiple AWS accounts from Microsoft Azure Active Directory](https://aws.amazon.com/blogs/security/how-to-automate-saml-federation-to-multiple-aws-accounts-from-microsoft-azure-active-directory/)
