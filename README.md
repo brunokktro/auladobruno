@@ -95,6 +95,7 @@
 * [AWS CLI v2 is now generally available](https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/)
 * [AWS Tools for PowerShell](https://aws.amazon.com/powershell/)
 * [Using the AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-using.html)
+* [Building a Virtual Classroom Application using the Amazon Chime SDK](https://aws.amazon.com/blogs/business-productivity/building-a-virtual-classroom-application-using-the-amazon-chime-sdk/)
 * [How can I execute user data to automatically create a file with every restart of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/execute-user-data-ec2/)
 * [How can I connect to my Amazon EC2 instance if I lost my SSH key pair after its initial launch?](https://aws.amazon.com/premiumsupport/knowledge-center/user-data-replace-key-pair-ec2/)
 * [How do I install AWS Systems Manager Agent (SSM Agent) on an Amazon EC2 Linux instance at launch?](https://aws.amazon.com/premiumsupport/knowledge-center/install-ssm-agent-ec2-linux/)
