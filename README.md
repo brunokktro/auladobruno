@@ -241,6 +241,7 @@
 * [TOOLS] [Amazon WorkSpaces - Connection Health Check](https://clients.amazonworkspaces.com/Health.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
+* [TOOLS unofficial] [JMESPath](https://jmespath.org/)
 * [TOOLS unofficial] [AWS IP Ranges](http://52.24.200.194/)
 * [TOOLS unofficial] [Cloudcraft - Create smart AWS diagrams](https://cloudcraft.co/)
 * [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
