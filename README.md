@@ -125,7 +125,7 @@
 * [Build Your Own Face Recognition Service Using Amazon Rekognition](https://aws.amazon.com/blogs/machine-learning/build-your-own-face-recognition-service-using-amazon-rekognition/)
 * [Using Amazon RDS Proxy with AWS Lambda](https://aws.amazon.com/blogs/compute/using-amazon-rds-proxy-with-aws-lambda/)
 * [Use Amazon WorkSpaces on Your Samsung Galaxy S8/S8+ With the New Samsung DeX](https://aws.amazon.com/blogs/aws/use-amazon-workspaces-on-your-samsung-galaxy-s8s8-with-the-new-samsung-dex/)
-* [https://aws.amazon.com/premiumsupport/knowledge-center/datasync-transfer-efs-s3/](https://aws.amazon.com/premiumsupport/knowledge-center/datasync-transfer-efs-s3/)
+* [How can I use DataSync to transfer data from an Amazon EFS file system to an Amazon S3 bucket?](https://aws.amazon.com/premiumsupport/knowledge-center/datasync-transfer-efs-s3/)
 * [New – Amazon FSx for Windows File Server – Fast, Fully Managed, and Secure](https://aws.amazon.com/blogs/aws/new-amazon-fsx-for-windows-file-server-fast-fully-managed-and-secure/)
 * [Working with Shadow Copies](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/shadow-copies-fsxW.html)
 * [Deploying Multi-AZ File Systems](https://docs.aws.amazon.com/fsx/latest/WindowsGuide/multi-az-deployments.html)
