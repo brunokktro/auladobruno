@@ -148,6 +148,7 @@
 * [A deep dive into testing with TaskCat](https://aws.amazon.com/blogs/infrastructure-and-automation/a-deep-dive-into-testing-with-taskcat/)
 * [Creating a Stack on the AWS CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)
 * [New – Import Existing Resources into a CloudFormation Stack](https://aws.amazon.com/blogs/aws/new-import-existing-resources-into-a-cloudformation-stack/)
+* [How do I prevent the resources in my AWS CloudFormation stack from getting deleted or updated?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudformation-accidental-updates/)
 * [Template Snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html)
 * [Using AWS Service Catalog Constraints](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints.html)
 * [Getting Started with AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
