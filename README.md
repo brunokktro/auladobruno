@@ -24,6 +24,7 @@
 
 * [AWS Global Cloud Infrastructure](https://infrastructure.aws/)
 * [Learn how we secure AWS data centers](https://aws.amazon.com/compliance/data-center/)
+* [Compute Abstractions on AWS: A Visual Story](https://aws.amazon.com/blogs/architecture/compute-abstractions-on-aws-a-visual-story/)
 * [AWS Well-Architected - Learn, measure, and build using architectural best practices](https://aws.amazon.com/architecture/well-architected/)
 * [AWS Well-Architected Framework](https://wa.aws.amazon.com/index.html)
 * [AWS Well-Architected Tool – Review Workloads Against Best Practices](https://aws.amazon.com/blogs/aws/new-aws-well-architected-tool-review-workloads-against-best-practices/)
