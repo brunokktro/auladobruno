@@ -163,6 +163,8 @@
 ### DevOps Engineering on AWS
 
 * [DevOps and AWS](https://aws.amazon.com/devops/)
+* [What is Continuous Delivery?](https://aws.amazon.com/devops/continuous-delivery/)
+* [What is Continuous Integration?](https://aws.amazon.com/devops/continuous-integration/)
 * [Setting up a CI/CD pipeline by integrating Jenkins with AWS CodeBuild and AWS CodeDeploy](https://aws.amazon.com/blogs/devops/setting-up-a-ci-cd-pipeline-by-integrating-jenkins-with-aws-codebuild-and-aws-codedeploy/)
 * [Running AWS commands from Slack using AWS Chatbot](https://aws.amazon.com/blogs/devops/running-aws-commands-from-slack-using-aws-chatbot/)
 * [Introducing AWS Chatbot: ChatOps for AWS](https://aws.amazon.com/blogs/devops/introducing-aws-chatbot-chatops-for-aws/)
@@ -177,6 +179,8 @@
 * [Amazon ECS Task Placement Strategies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html)
 * [Task Definition Parameters](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#network_mode)
 * [Private Registry Authentication for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/private-auth.html)
+* [AWS Summit - DevOps Culture at Amazon](https://youtu.be/mBU3AJ3j1rg)
+* [AWS re:Invent 2018: Moving to DevOps the Amazon Way](https://youtu.be/Pvb74TlV8SA)
 
 
 ### Security Engineering on AWS
