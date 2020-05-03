@@ -221,6 +221,7 @@
 * [How to add DNS filtering to your NAT instance with Squid](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
+* [Automated Response and Remediation with AWS Security Hub](https://aws.amazon.com/blogs/security/automated-response-and-remediation-with-aws-security-hub/)
 * [Managed Renewal for ACM's Amazon-Issued Certificates ](https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html)
 * [Tutorial: Sending VPC Flow Logs to Splunk Using Amazon Kinesis Data Firehose ](https://docs.aws.amazon.com/firehose/latest/dev/vpc-splunk-tutorial.html)
 * [How to Visualize and Refine Your Network’s Security by Adding Security Group IDs to Your VPC Flow Logs](https://aws.amazon.com/blogs/security/how-to-visualize-and-refine-your-networks-security-by-adding-security-group-ids-to-your-vpc-flow-logs/)
