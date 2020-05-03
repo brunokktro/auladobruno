@@ -137,6 +137,7 @@
 * [Achieving 80,000 IOPS for SQL Server on AWS EC2 and EBS](https://youtu.be/Uv9zjdeFUhg)
 * [AWS re:Invent 2018: Powering Next-Gen EC2 Instances: Deep Dive into the Nitro System](https://youtu.be/e8DVmwj3OEs)
 * [How Amazon Uses Explosive-Resistant Devices To Transfer Data To AWS (AWS Snowball)](https://youtu.be/H3_ZqnqLyVo)
+* [AWS OpsHub for Snow Family](https://youtu.be/_A3A47Vuu0I)
 * [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [CloudWatch Logs Agent Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html)
 * [CloudWatch Events Tutorials](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatch-Events-Tutorials.html)
