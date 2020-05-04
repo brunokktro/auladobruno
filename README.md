@@ -205,6 +205,7 @@
 * [Creating a Golden AMI Pipeline Integrated with Qualys for Vulnerability Assessments](https://aws.amazon.com/blogs/apn/creating-a-golden-ami-pipeline-integrated-with-qualys-for-vulnerability-assessments/)
 * [Getting Started with Automation](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-setup.html)
 * [How can I use user data to replace a lost SSH key pair after the initial launch of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/user-data-replace-key-pair-ec2/)
+* [AWS re:Invent 2019: Deep dive on Amazon EBS](https://youtu.be/wsMWANWNoqQ)
 * [What to Do If You Inadvertently Expose an AWS Access Key](https://aws.amazon.com/blogs/security/what-to-do-if-you-inadvertently-expose-an-aws-access-key/)
 * [How to Detect and Automatically Revoke Unintended IAM Access with Amazon CloudWatch Events](https://aws.amazon.com/blogs/security/how-to-detect-and-automatically-revoke-unintended-iam-access-with-amazon-cloudwatch-events/)
 * [AWS re:Invent 2018: How Nubank Automates Fine-Grained Security with IAM, AWS Lambda, & CI/CD](https://youtu.be/eQ549RvQDeI)
