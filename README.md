@@ -171,6 +171,7 @@
 * [Running AWS commands from Slack using AWS Chatbot](https://aws.amazon.com/blogs/devops/running-aws-commands-from-slack-using-aws-chatbot/)
 * [Introducing AWS Chatbot: ChatOps for AWS](https://aws.amazon.com/blogs/devops/introducing-aws-chatbot-chatops-for-aws/)
 * [Creating a Trail for an Organization](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/creating-trail-organization.html)
+* [Easier way to control access to AWS regions using IAM policies](https://aws.amazon.com/blogs/security/easier-way-to-control-access-to-aws-regions-using-iam-policies/)
 * [How to Enable Caching for AWS CodeBuild](https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/)
 * [Integrating AWS CodeCommit with Jenkins](https://aws.amazon.com/blogs/devops/integrating-aws-codecommit-with-jenkins/)
 * [How to Test and Debug AWS CodeDeploy Locally Before You Ship Your Code](https://aws.amazon.com/blogs/devops/how-to-test-and-debug-aws-codedeploy-locally-before-you-ship-your-code/)
