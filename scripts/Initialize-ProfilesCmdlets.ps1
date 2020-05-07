@@ -8,6 +8,7 @@ https://s3.amazonaws.com/aws-cli/AWSCLISetup.exe
 aws configure
 
 #Setup Inicial para PowerShell (lembre-se de alterar as informações entre <> e removê-los) 
+Import-Module AWSPowerShell
 Set-AWSCredentials -AccessKey <AKIA***********> -SecretKey <********************************> -StoreAs <profile-name>
 Set-DefaultAWSRegion -Region sa-east-1
 Initialize-AWSDefaultConfiguration -ProfileName <profile-name> -Region sa-east-1
