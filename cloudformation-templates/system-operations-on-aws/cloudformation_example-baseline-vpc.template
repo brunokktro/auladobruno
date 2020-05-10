@@ -1,0 +1,811 @@
+############################################################
+# This is a baseline example of a Cloudformation template  #
+# for use in Qwiklab. This example is not usable because   #
+# of all of the comments such as this one. However, this   #
+# will give you a good idea of how to build your own       #
+# template for a lab. The baseline template gives you a    #
+# VPC with two private, and two public subnets, with a     #
+# running NAT instance.                                    #
+#                                                          #
+# A clean/usable version of this template is available:    #
+# example-baseline-vpc-clean.template                      #
+############################################################
+
+
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Example Baseline Cloudformation for Qwiklab Based Lab",
+    "Parameters": {
+
+############################################################
+
+The first set of Parameters here set up your basic VPC
+with two public and two private subnets. The recommendation
+is to change the CIDR ranges to meet your needs. The thought
+around adding the AllowedValues for these Parameters is to
+prevent students from changing the expected values for your
+lab environment (helpful if students are running the template).
+
+############################################################
+
+        "VPCCIDR": {
+            "Description": "CIDR Block for VPC",
+            "Type": "String",
+            "Default": "10.1.0.0/16",
+            "AllowedValues": [ "10.1.0.0/16" ]
+        },
+        "PublicSubnet1Param": {
+            "Description": "Public Subnet 1",
+            "Type": "String",
+            "Default": "10.1.10.0/24",
+            "AllowedValues": [ "10.1.10.0/24" ]
+        },
+        "PublicSubnet2Param": {
+            "Description": "Public Subnet 2",
+            "Type": "String",
+            "Default": "10.1.15.0/24",
+            "AllowedValues": [ "10.1.15.0/24" ]
+        },
+        "PrivateSubnet1Param": {
+            "Description": "Private Subnet 1",
+            "Type": "String",
+            "Default": "10.1.50.0/24",
+            "AllowedValues": [ "10.1.50.0/24" ]
+        },
+        "PrivateSubnet2Param": {
+            "Description": "Private Subnet 2",
+            "Type": "String",
+            "Default": "10.1.55.0/24",
+            "AllowedValues": [ "10.1.55.0/24" ]
+        },
+
+############################################################
+
+The next set of Parameters are Qwiklab specific. Best practice
+is to always include a default value - this can help you run
+and test in your own AWS account prior to running in Qwiklab.
+
+Keyname - When you run a Cloudformation template in the Qwiklab
+environment, the Qwiklab platform will input the auto-generated
+Qwiklab keypair name here - don't put an AllowedValues option
+here since that will break.
+
+############################################################
+
+        "KeyName": {
+            "Type": "String",
+            "Description": "Keyname for the keypair that Qwiklab will use to launch EC2 instances",
+            "Default": "default-lab-key"
+        },
+
+############################################################
+
+The AdministratorPassword is set by the Qwiklab platform to
+be the random password which is created for the IAM student
+account. By leveraging this as a Parameter, you can also
+use this same password in your other resources, such as EC2.
+
+If you want to display the Administrator Password and User
+for the student in the Qwiklab page - then you should also
+use the AdministratorUser Parameter here --and-- be sure
+to also use the relevant Outputs for Qwiklab.
+############################################################
+
+        "AdministratorPassword": {
+            "Type": "String",
+            "Description": "Randomly generated password Qwiklab will set which can then be re-used for other resources",
+            "Default": "Default-Admin-Password123"
+        },
+        "AdministratorUser": {
+            "Type": "String",
+            "Description": "The Administrator username which is assoicated with the previous Parameter - AdministratorPassword",
+            "Default": "Default-Admin-User"
+        },
+
+############################################################
+
+The AWSAccessKey and AWSSecretAccessKey Parameters are set by
+the Qwiklab platform and are associated to the IAM student
+account "awsstudent". If you want to leverage these values
+somewhere else, such as on an EC2 instance, use these
+parameters.
+
+############################################################
+
+        "AWSAccessKey": {
+            "Type": "String",
+            "Description": "Automatically created Access Key, associated to the IAM student account, which can then be re-used for other resources",
+            "Default": "Default-IAM-AWSAccessKey"
+        },
+        "AWSSecretAccessKey": {
+            "Type": "String",
+            "Description": "Automatically created SecretAccess Key, associated to the IAM student account, which can then be re-used for other resources",
+            "Default": "Default-IAM-AWSSecretAccessKey"
+        },
+
+############################################################
+
+The AWSAmiId is a special Qwiklab Parameter that allows you
+to search for the latest/current AMI based on a name search.
+This is mostly helpful for Windows AMI's - to avoid the
+automatic deprecation of AMI's. Note that you cannot easily
+test this one outside of Qwiklab since it is a function.
+When testing outside of Qwiklab, your best bet is to change
+the default to a known AMI id.
+
+Note that this will search for the name with wildcards in
+front and after the name you provide. It will hit the first
+match it finds -- therefore the more precision in the name
+you provide is better.
+
+############################################################
+
+        "AWSAmiId" : {
+            "Description": "Qwiklab function to search for and return the AMI id based on a name with wildcards on both ends",
+            "Type": "String",
+            "Default": "x86_64,Windows_Server-2008-R2_SP1-English-64Bit-Base"
+        },
+
+############################################################
+
+The Bucket and Prefix Parameters are used to create isolated
+assets - that is hosted objects for the lab to use
+programmatically. Take care with this - the Qwiklab platform
+will input it's own values for these Parameters in production
+which means that you cannot predict the URL. It is intended
+for programmtic scripting usage - not student interactive
+usage.
+
+The Bucket Parameter should be set to the AWS team production
+bucket used for publishing. At the time of this writing,
+that bucket is "aws-training". The Prefix is the lab specific
+prefix you have used for publishing - referenced in your
+project.yml file.
+
+############################################################
+
+        "Bucket": {
+          "Default": "aws-training",
+          "Description": "Bucket for staged assets.",
+          "Type": "String"
+        },
+        "Prefix": {
+          "Default": "awsu-ilt/essentials/v99.99/lab-99-aws-service/",
+          "Description": "Prefix for staged assets.",
+          "Type": "String"
+        },
+
+############################################################
+
+The QwiklabLocale Parameter is used to grab the locale of a
+student based on the locale they pass to the Qwiklab platform
+via their browser. This parameter can be used for interesting
+solutions to localize a template - such as selecting different
+AMI's based on locale.
+
+Before using this, please test to confirm what locale values
+ar passed so that you know what to match against in your
+template.
+
+############################################################
+
+       "QwiklabLocale": {
+          "Default": "en",
+          "Description": "The locale of the student will be passed in to this parameter via the Qwiklab platform (via the student's browser)",
+          "Type": "String"
+        }
+
+    },
+
+############################################################
+
+This is a simple/standard AMI mapping example - there is nothing
+Qwiklab specific about mappings.
+
+Please be sure you have some plan for keeping the mappings
+section current/updated over time. This is an area that breaks
+many labs over time.
+
+############################################################
+
+ "Mappings": {
+        "AmazonLinuxAMI": {
+            "us-east-1": {
+                "AMI": "ami-76817c1e"
+            },
+            "us-west-2": {
+                "AMI": "ami-d13845e1"
+            },
+            "us-west-1": {
+                "AMI": "ami-f0d3d4b5"
+            },
+            "eu-west-1": {
+                "AMI": "ami-892fe1fe"
+            },
+            "ap-southeast-1": {
+                "AMI": "ami-a6b6eaf4"
+            },
+            "ap-northeast-1": {
+                "AMI": "ami-29dc9228"
+            },
+            "ap-southeast-2": {
+                "AMI": "ami-d9fe9be3"
+            },
+            "sa-east-1": {
+                "AMI": "ami-c9e649d4"
+            }
+        }
+    },
+
+
+    "Resources": {
+
+############################################################
+
+The baseline VPC created here is tagged with a name of "Lab VPC",
+and also with the name of the class and lab.
+
+Make sure you update this. Small oversights like this become
+easy targets to criticize in a classroom or bootcamp setting.
+
+############################################################
+
+        "VPC": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": {
+                    "Ref": "VPCCIDR"
+                },
+                "EnableDnsSupport": "true",
+                "EnableDnsHostnames": "true",
+                "Tags": [
+                    {
+                        "Key": "VPC",
+                        "Value": "Architecting on AWS v4.0 Lab 4"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "Lab VPC"
+                    }
+                ]
+            }
+        },
+
+############################################################
+
+Please note the gratuitous use of "DependsOn" in the template.
+This is very purposeful - many many errors (both intermittent and
+consistent) are due to timing issues around resource creation.
+
+Please ensure you have a dependency for each and every resource
+your template creates. Many times, later resources will have
+several dependencies.
+
+A common baseline dependency list for many higher level services
+will be:
+"AttachGateway", "NATInstance", "PublicRoute", "PrivateRoute"
+
+############################################################
+        "InternetGateway": {
+            "Type": "AWS::EC2::InternetGateway",
+            "DependsOn": "VPC"
+        },
+        "AttachGateway": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "DependsOn": ["VPC", "InternetGateway"],
+            "Properties": {
+                "VpcId": {"Ref": "VPC"},
+                "InternetGatewayId": {"Ref": "InternetGateway"}
+            }
+        },
+
+############################################################
+
+Note the use of the two intrinsic functions in selecting the
+AZ. This design is used to ensure that the template will be
+globally usable. As a general requirement - we do not
+hardcode labs to any region and should always use flexible
+designs like below.
+
+Also note that the subnets are tagged with names - you
+should edit these names to suit your needs if the simple
+default does not.
+
+############################################################
+
+        "PublicSubnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "AttachGateway",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": {
+                    "Ref": "PublicSubnet1Param"
+                },
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "0",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Public Subnet 1"
+                    }
+                ]
+            }
+        },
+        "PublicSubnet2": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "AttachGateway",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": {
+                    "Ref": "PublicSubnet2Param"
+                },
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "1",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Public Subnet 2"
+                    }
+                ]
+            }
+        },
+        "PrivateSubnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "AttachGateway",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": {
+                    "Ref": "PrivateSubnet1Param"
+                },
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "0",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Private Subnet 1"
+                    }
+                ]
+            }
+        },
+        "PrivateSubnet2": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "AttachGateway",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": {
+                    "Ref": "PrivateSubnet2Param"
+                },
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "1",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Private Subnet 2"
+                    }
+                ]
+            }
+        },
+        "PublicRouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "DependsOn": ["VPC", "AttachGateway"],
+            "Properties": {
+                "VpcId": {"Ref": "VPC"},
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Public"
+                    }
+                ]
+            }
+        },
+        "PublicRoute": {
+            "Type": "AWS::EC2::Route",
+            "DependsOn": ["PublicRouteTable", "AttachGateway"],
+            "Properties": {
+                "RouteTableId": {"Ref": "PublicRouteTable"},
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {"Ref": "InternetGateway"}
+            }
+        },
+        "PublicSubnet1RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": ["PublicRouteTable", "PublicSubnet1", "AttachGateway"],
+            "Properties": {
+                "SubnetId": {"Ref": "PublicSubnet1"},
+                "RouteTableId": {"Ref": "PublicRouteTable"}
+            }
+        },
+        "PublicSubnet2RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": ["PublicRouteTable", "PublicSubnet2"],
+            "Properties": {
+                "SubnetId": {"Ref": "PublicSubnet2"},
+                "RouteTableId": {"Ref": "PublicRouteTable"}
+            }
+        },
+        "PrivateRouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "DependsOn": "AttachGateway",
+            "Properties": {
+                "VpcId": {"Ref": "VPC"},
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Private"
+                    }
+                ]
+            }
+        },
+        "PrivateSubnet1RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": ["PublicRouteTable", "PrivateSubnet1", "AttachGateway"],
+            "Properties": {
+                "SubnetId": {"Ref": "PrivateSubnet1"},
+                "RouteTableId": {"Ref": "PrivateRouteTable"}
+            }
+        },
+        "PrivateSubnet2RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": ["PublicRouteTable", "PrivateSubnet2", "AttachGateway"],
+            "Properties": {
+                "SubnetId": {"Ref": "PrivateSubnet2"},
+                "RouteTableId": {"Ref": "PrivateRouteTable"}
+            }
+        },
+        "PrivateNetworkAcl": {
+            "Type": "AWS::EC2::NetworkAcl",
+            "DependsOn": "AttachGateway",
+            "Properties": {
+                "VpcId": {"Ref": "VPC"},
+                "Tags": [
+                    {
+                        "Key": "Network",
+                        "Value": "Private"
+                    }
+                ]
+            }
+        },
+
+############################################################
+
+The design choice below is not to use the comnunity NAT AMI,
+but rather to use a vanilla Amazon Linux AMI and then run the
+bootstrapping to configure it as a NAT.
+
+Note that some design choices here are arbitrary starting
+points and you should adjust to meet your needs while keeping
+Amazon Principles such as Frugality in mind. For example:
+InstanceType and SubnetId
+
+############################################################
+
+        "NATInstance": {
+            "Type": "AWS::EC2::Instance",
+            "DependsOn": ["AttachGateway", "PublicRoute", "PublicSubnet1", "PublicSubnet2"]
+            "Properties": {
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "AmazonLinuxAMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        "AMI"
+                    ]
+                },
+                "KeyName": {"Ref": "KeyName"},
+                "InstanceType": "t2.small",
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "AssociatePublicIpAddress": "true",
+                        "SubnetId": { "Ref": "PublicSubnet1" },
+                        "GroupSet": [{ "Ref": "NATSecurityGroup" }]
+                    }
+                ],
+                "SourceDestCheck": "false",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "NAT"
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "\n",
+                            [
+                                "#!/bin/bash",
+                                "yum -y update",
+                                "echo 1 > /proc/sys/net/ipv4/ip_forward",
+                                "echo 0 > /proc/sys/net/ipv4/conf/eth0/send_redirects",
+                                "/sbin/iptables -t nat -A POSTROUTING -o eth0 -s 0.0.0.0/0 -j MASQUERADE",
+                                "/sbin/iptables-save > /etc/sysconfig/iptables",
+                                "mkdir -p /etc/sysctl.d/",
+                                "cat <<EOF > /etc/sysctl.d/nat.conf",
+                                "net.ipv4.ip_forward = 1",
+                                "net.ipv4.conf.eth0.send_redirects = 0",
+                                "EOF \n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+
+############################################################
+
+The security group for the NAT instance is designed with least
+privilege in mind - only allowing the private subnets to
+communicate with it, and only allowing standard low-level
+ports. Be sure to adjust these rules if you make
+any changes to subnets - or if you need to NAT out higher
+level ports.
+
+############################################################
+
+        "NATSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "DependsOn": "AttachGateway",
+            "Properties": {
+                "GroupDescription": "Enable internal access to the NAT device",
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "0",
+                        "ToPort": "1024",
+                        "CidrIp": {
+                            "Ref": "PrivateSubnet1Param"
+                        }
+                    },
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "0",
+                        "ToPort": "1024",
+                        "CidrIp": {
+                            "Ref": "PrivateSubnet1Param"
+                        }
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "0",
+                        "ToPort": "1024",
+                        "CidrIp": {
+                            "Ref": "PrivateSubnet2Param"
+                        }
+                    },
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "0",
+                        "ToPort": "1024",
+                        "CidrIp": {
+                            "Ref": "PrivateSubnet2Param"
+                        }
+                    }
+                ],
+                "SecurityGroupEgress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "0",
+                        "ToPort": "65535",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "0",
+                        "ToPort": "65535",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        },
+        "PrivateRoute": {
+            "Type": "AWS::EC2::Route",
+            "DependsOn": ["NATInstance", "PrivateRouteTable"],
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PrivateRouteTable"
+                },
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "InstanceId": {
+                    "Ref": "NATInstance"
+                }
+            }
+        },
+        "ExampleSecurityGroup" : {
+          "Type" : "AWS::EC2::SecurityGroup",
+          "DependsOn": "AttachGateway",
+          "Properties" : {
+            "GroupDescription" : "Security Group for ExampleEC2Instance",
+            "VpcId" : {"Ref": "VPC"},
+            "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "ExampleSecurityGroup"
+                    }
+                ],
+            "SecurityGroupEgress": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": "0",
+                    "ToPort": "65535",
+                    "CidrIp": "0.0.0.0/0"
+                },
+                {
+                    "IpProtocol": "udp",
+                    "FromPort": "0",
+                    "ToPort": "65535",
+                    "CidrIp": "0.0.0.0/0"
+                }
+            ],
+            "SecurityGroupIngress": [
+               {
+                    "IpProtocol": "tcp",
+                    "FromPort": "80",
+                    "ToPort": "80",
+                    "CidrIp": "0.0.0.0/0"
+                    },
+          }
+        },
+        "ExampleEC2Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "KeyName": {"Ref": "KeyName"},
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "AmazonLinuxAMI",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        "AMI"
+                    ]
+                },
+                "InstanceType": "m3.medium",
+                "NetworkInterfaces": [
+                    {
+                        "DeviceIndex": "0",
+                        "AssociatePublicIpAddress": "true",
+                        "SubnetId": { "Ref": "PublicSubnet2" },
+                        "GroupSet": [{ "Ref": "ExampleSecurityGroup" }]
+                    }
+                ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "ExampleEC2Instance"
+                    }
+                ],
+############################################################
+
+Note the example below showing how to use the Bucket and Prefix
+Parameters. The way this works is that when we publish a lab,
+the Qwiklab platform will copy these objects from our production
+bucket, and place them in their own production bucket. Then,
+the platform inserts their production bucket and prefix for
+Parameters when the student runs the lab. This is what they
+call "isolation" - the lab assets/objects are not being referenced
+from our S3 buckets - but instead Qwiklab S3 buckets.
+
+############################################################
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -ex \n",
+                                "yum -y update \n",
+                                "yum -y install httpd \n",
+                                "#wget ",
+                                "https://",
+                                    {"Ref" : "AWS::Region"},
+                                    "-",
+                                    {"Ref" : "Bucket"},
+                                    ".s3.amazonaws.com/",
+                                    {"Ref" : "Prefix"},
+                                    "static/example.zip"
+
+                            ]
+                        ]
+                    }
+                }
+        }
+    }
+},
+
+    "Outputs": {
+
+############################################################
+
+This is an example Outputs section that has the Qwiklab
+specific outputs displayed. The way this has been implemented,
+Qwiklab consumes only one Output - which itself is a joined
+JSON string of one or more values.
+
+The double escaping of JSON inside of JSON is confusing -
+take great care here. If you want to display any of this
+information the student taking your lab on the Qwiklab
+page - you must use these outputs.
+
+Summary of Outputs below:
+
+Connection: a string that should have the URL or IP address for the
+student to connect to. (you can also render html here). If the first
+six characters are the html designator " <html> ", then the rest is
+assumed to be html. The platform will strip the opening html designator and
+simply render the content.
+
+UserName: The username the student should use to connect to a
+resource in the lab - you typically Ref the AdministratorUser,
+however you don't have to.
+
+Password: The password the student should use to connect to a
+resource in the lab - you typically Ref the AdministratorPassword,
+however you don't have to.
+
+############################################################
+
+  "qwikLAB": {
+    "Description": "Outputs to be used by qwikLAB",
+    "Value": {
+      "Fn::Join": [
+        "",
+        [
+          "{",
+          "\"UserName\": \"",
+          {
+            "Ref": "AdministratorUser"
+          },
+          "\",",
+          "\"Password\": \"",
+          {
+            "Ref": "AdministratorPassword"
+          },
+          "\",",
+          "\"Connection\": \"http://",
+          {
+            "Fn::GetAtt" : [ "ExampleEC2Instance" , "PublicIp" ]
+          },
+          "/connection\"",
+          "}"
+        ]
+      ]
+    }
+  }
+
+
+    }
+}
