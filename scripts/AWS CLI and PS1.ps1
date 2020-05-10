@@ -41,6 +41,13 @@ aws ec2 run-instances --image-id ami-04bfee437f38a691e --count 1 --instance-type
 #>>>>Em PowerShell
 New-EC2Instance -ImageId ami-04bfee437f38a691e -MinCount 1 -MaxCount 1 -KeyName "Amazon Linux 2" -SecurityGroupId sg-01baab8c8e2041a06 -InstanceType t3.nano -SubnetId subnet-91fcccdb
 
+############################################
+
+#Comando para retornar o histórico de preço de Spot Instances a partir de uma data específica, em uma AZ determinada
+aws ec2 describe-spot-price-history --instance-types "c4.large" --product-descriptions "Linux/UNIX" --availability-zone us-east-1a --start-time "2020-01-01T00:00:00.000" --output table
+
+#>>>>Em PowerShell
+Get-EC2SpotPriceHistory -InstanceType c4.large -AvailabilityZone sa-east-1a | Select-Object -First 10 | ft
 
 ############################################
 
