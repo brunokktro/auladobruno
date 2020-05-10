@@ -120,6 +120,7 @@
 * [How can I reset the administrator password on an EC2 Windows instance?](https://aws.amazon.com/premiumsupport/knowledge-center/reset-admin-password/)
 * [ELB Connection Draining – Remove Instances From Service With Care](https://aws.amazon.com/blogs/aws/elb-connection-draining-remove-instances-from-service-with-care/)
 * [Use Cases for AWS Managed Microsoft AD](https://docs.aws.amazon.com/directoryservice/latest/admin-guide/ms_ad_use_cases.html)
+* [Enabling SAML for your AWS resources](https://aws.amazon.com/identity/saml/)
 * [Enabling Federation to AWS Using Windows Active Directory, ADFS, and SAML 2.0](https://aws.amazon.com/blogs/security/enabling-federation-to-aws-using-windows-active-directory-adfs-and-saml-2-0/)
 * [How to automate SAML federation to multiple AWS accounts from Microsoft Azure Active Directory](https://aws.amazon.com/blogs/security/how-to-automate-saml-federation-to-multiple-aws-accounts-from-microsoft-azure-active-directory/)
 * [How do I grant my Active Directory users access to the API or AWS CLI with AD FS?](https://aws.amazon.com/premiumsupport/knowledge-center/adfs-grant-ad-access-api-cli/)
