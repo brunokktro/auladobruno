@@ -23,6 +23,7 @@
 ### Architecting on AWS
 
 * [AWS Global Cloud Infrastructure](https://infrastructure.aws/)
+* [AWS Global Infrastructure Regions](https://aws.amazon.com/about-aws/global-infrastructure/)
 * [Learn how we secure AWS data centers](https://aws.amazon.com/compliance/data-center/)
 * [Compute Abstractions on AWS: A Visual Story](https://aws.amazon.com/blogs/architecture/compute-abstractions-on-aws-a-visual-story/)
 * [AWS Well-Architected - Learn, measure, and build using architectural best practices](https://aws.amazon.com/architecture/well-architected/)
