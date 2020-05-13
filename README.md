@@ -118,6 +118,8 @@
 * [Resolving DNS queries between VPCs and your network](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html)
 * [Securely Access Services Over AWS PrivateLink](https://d1.awsstatic.com/whitepapers/aws-privatelink.pdf)
 * [Securely Connect to Linux Instances Running in a Private Amazon VPC (Agent Forwarding)](https://aws.amazon.com/blogs/security/securely-connect-to-linux-instances-running-in-a-private-amazon-vpc/)
+* [New – Port Forwarding Using AWS System Manager Session Manager](https://aws.amazon.com/blogs/aws/new-port-forwarding-using-aws-system-manager-sessions-manager/)
+* [Remote Desktop Gateway on AWS - AWS Quick Starts](https://aws.amazon.com/quickstart/architecture/rd-gateway/)
 * [Announcing Lambda Support for PowerShell Core](https://aws.amazon.com/blogs/developer/announcing-lambda-support-for-powershell-core/)
 * [A Simple Way to Export Your IAM Settings](https://aws.amazon.com/blogs/security/a-simple-way-to-export-your-iam-settings/)
 * [Reset Your AWS Root Account’s Lost MFA Device Faster by Using the AWS Management Console](https://aws.amazon.com/blogs/security/reset-your-aws-root-accounts-lost-mfa-device-faster-by-using-the-aws-management-console/)
