@@ -7,7 +7,7 @@
 
 - [X] Escolha sua [carreira de certificações](https://aws.amazon.com/certification/)
 - [X] Revise o arquivo **_Exam Guide_** do respectivo exame de certificação
-- [X] Defina uma boa estratégia e organização dos estudos. Há algumas técnicas bem interessantes como o [_Retrieval_](https://aws.amazon.com/blogs/training-and-certification/using-retrieval-practice-techniques-to-improve-learning/), [_Spaced_](https://aws.amazon.com/blogs/training-and-certification/use-spaced-practice-to-increase-learning-retention/) e o [_Elaboration_](https://aws.amazon.com/blogs/training-and-certification/cognitive-science-post-3-using-elaboration-to-reinforce-your-understanding-of-concepts/)
+- [X] Defina uma estratégia eficiente de estudos. Há algumas técnicas bem interessantes como o [_Retrieval_](https://aws.amazon.com/blogs/training-and-certification/using-retrieval-practice-techniques-to-improve-learning/), [_Spaced_](https://aws.amazon.com/blogs/training-and-certification/use-spaced-practice-to-increase-learning-retention/) e o [_Elaboration_](https://aws.amazon.com/blogs/training-and-certification/cognitive-science-post-3-using-elaboration-to-reinforce-your-understanding-of-concepts/)
 - [X] Faça um treinamento presencial oficial da AWS em [aws.training](https://www.aws.training/)
 - [X] Faça laboratórios e ganhe experiência prática
 - [X] Revise o arquivo de **_Sample Questions_** do respectivo exame de certificação
