@@ -147,6 +147,7 @@
 * [Amazon FSx for Windows File Server, Capítulo 4 – Migrando dados com o AWS DataSync (Cenário de Multi-Região)](https://aws.amazon.com/pt/blogs/aws-brasil/amazon-fsx-for-windows-file-server-capitulo-4-migrando-dados-com-o-aws-datasync-cenario-de-multi-regiao/)
 * [Achieving 80,000 IOPS for SQL Server on AWS EC2 and EBS](https://youtu.be/Uv9zjdeFUhg)
 * [AWS re:Invent 2018: Powering Next-Gen EC2 Instances: Deep Dive into the Nitro System](https://youtu.be/e8DVmwj3OEs)
+* [AWS re:Inforce 2019: Security benefits of the Nitro architecture](https://youtu.be/kN9XcFp5vUM)
 * [How Amazon Uses Explosive-Resistant Devices To Transfer Data To AWS (AWS Snowball)](https://youtu.be/H3_ZqnqLyVo)
 * [AWS OpsHub for Snow Family](https://youtu.be/_A3A47Vuu0I)
 * [Amazon S3 performance and cost optimization](https://d1.awsstatic.com/events/reinvent/2019/REPEAT_4_Amazon_S3_performance_and_cost_optimization_STG320-R4.pdf)
