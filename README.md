@@ -69,6 +69,7 @@
 * [CloudWatch Logs Subscription Consumer + Elasticsearch + Kibana Dashboards](https://aws.amazon.com/blogs/aws/cloudwatch-logs-subscription-consumer-elasticsearch-kibana-dashboards/)
 * [Running Scripts from GitHub and Amazon S3 ](https://docs.aws.amazon.com/systems-manager/latest/userguide/integration-remote-scripts.html)
 * [Validating AWS CloudFormation Templates](https://aws.amazon.com/blogs/devops/validating-aws-cloudformation-templates/)
+* [Amazon CloudFront Dynamic Content Delivery](https://aws.amazon.com/cloudfront/dynamic-content/)
 * [Implementation Considerations - Learn Caching Design Patterns](https://aws.amazon.com/caching/implementation-considerations/)
 * [Caching Content Based on Query String Parameters](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/QueryStringParameters.html)
 * [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/)
