@@ -305,6 +305,7 @@
 * [LABS] [AWS Qwiklabs](https://amazon.qwiklabs.com)
 * [LABS] [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
 * [LABS] [VMware Cloud on AWS](https://www.vmware.com/try-vmware/vmc-aws-hol-labs.html)
+* [Workshop] [AWS Cloud Champion](https://aws.amazon.com/blogs/publicsector/announcing-aws-cloud-champion-gamified-tutorial-working-teaching-engaging-remotely/)
 * [Workshop] [AWSome AWS Workshops](https://awesome-aws-workshops.com/)
 * [Workshop] [Networking Workshop - Transit Gateway and Traffic Mirroring](https://www.networking-workshop.com/#/)
 * [Workshop] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
