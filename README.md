@@ -6,7 +6,7 @@
 ### Dicas de estudo para as certificações
 
 - [X] Escolha sua [carreira de certificações](https://aws.amazon.com/certification/) e organize o seu [roteiro de aprendizado](https://aws.amazon.com/training/learning-paths/)
-- [X] Revise o arquivo [Exam Guide](https://aws.amazon.com/certification/certification-prep/) do respectivo exame de certificação
+- [X] Revise o arquivo [_Exam Guide_](https://aws.amazon.com/certification/certification-prep/) do respectivo exame de certificação
 - [X] Defina uma estratégia eficiente de estudos. Há algumas técnicas bem interessantes como o [_Retrieval_](https://aws.amazon.com/blogs/training-and-certification/using-retrieval-practice-techniques-to-improve-learning/), [_Spaced_](https://aws.amazon.com/blogs/training-and-certification/use-spaced-practice-to-increase-learning-retention/) e o [_Elaboration_](https://aws.amazon.com/blogs/training-and-certification/cognitive-science-post-3-using-elaboration-to-reinforce-your-understanding-of-concepts/)
 - [X] Faça um treinamento presencial oficial da AWS em [aws.training](https://www.aws.training/)
 - [X] Faça laboratórios e ganhe experiência prática
