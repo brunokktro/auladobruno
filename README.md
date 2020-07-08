@@ -56,7 +56,7 @@
 * [Multiple Region Multi-VPC Connectivity](https://aws.amazon.com/answers/networking/aws-multiple-region-multi-vpc-connectivity/)
 * [Working with Direct Connect Gateways](https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-gateways.html)
 * [AWS Direct Connect Partners](https://aws.amazon.com/directconnect/partners/)
-* [AWS Network Connectivity Over MPLS](https://aws.amazon.com/answers/networking/aws-network-connectivity-over-mpls/)
+* [How do I provision an AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/provision-direct-connection/)
 * [Building a Serverless Dynamic DNS System with AWS](https://aws.amazon.com/blogs/startups/building-a-serverless-dynamic-dns-system-with-aws/)
 * [How do I create an IAM policy to control access to Amazon EC2 resources using tags?](https://aws.amazon.com/premiumsupport/knowledge-center/iam-ec2-resource-tags/)
 * [Simplify granting access to your AWS resources by using tags on AWS IAM users and roles](https://aws.amazon.com/blogs/security/simplify-granting-access-to-your-aws-resources-by-using-tags-on-aws-iam-users-and-roles/)
