@@ -95,6 +95,7 @@
 * [AWS Server Migration Service – Server Migration to the Cloud Made Easy](https://aws.amazon.com/blogs/apn/aws-server-migration-service-server-migration-to-the-cloud-made-easy/)
 * [Query any data source with Amazon Athena’s new federated query](https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/)
 * [Harmonize, Query, and Visualize Data from Various Providers using AWS Glue, Amazon Athena, and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/harmonize-query-and-visualize-data-from-various-providers-using-aws-glue-amazon-athena-and-amazon-quicksight/)
+* [AWS Outposts Now Available – Order Yours Today!](https://aws.amazon.com/blogs/aws/aws-outposts-now-available-order-your-racks-today/)
 
 
 ### Systems Operations on AWS
