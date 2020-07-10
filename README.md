@@ -305,7 +305,7 @@
 ### Workshops & Laboratórios
 
 * [LABS] [AWS Qwiklabs](https://amazon.qwiklabs.com)
-* [LABS] [AWS Well-Architected Labs](http://dx1572sre29wk.cloudfront.net/README.html)
+* [LABS] [AWS Well-Architected Labs](https://wellarchitectedlabs.com)
 * [LABS] [VMware Cloud on AWS](https://www.vmware.com/try-vmware/vmc-aws-hol-labs.html)
 * [Workshop] [AWS Cloud Champion](https://aws.amazon.com/blogs/publicsector/announcing-aws-cloud-champion-gamified-tutorial-working-teaching-engaging-remotely/)
 * [Workshop] [AWSome AWS Workshops](https://awesome-aws-workshops.com/)
