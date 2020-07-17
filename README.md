@@ -331,6 +331,7 @@
 * [Workshop] [Integrating security into your container pipeline](https://container-devsecops.awssecworkshops.com/)
 * [Workshop] [DevSecOps with Snyk](https://snyk.modernize.awsworkshop.io/)
 * [Workshop] [Microsoft Workloads Immersion Day](http://msft-on-aws.corp.amazon.com/#)
+* [Workshop] [Learn Python On AWS Workshop](https://learn-to-code.workshop.aws/)
 * [Workshop unofficial] [Welcome to the flAWS challenge](http://flaws.cloud/)
 * [Workshop unofficial] [Welcome to the flAWS 2 challenge](http://flaws2.cloud/)
 * [Workshop unofficial] [Play with Docker](https://labs.play-with-docker.com/)
