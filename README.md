@@ -260,6 +260,7 @@
 * [SAML Security Cheat Sheet - OWASP](https://cheatsheetseries.owasp.org/cheatsheets/SAML_Security_Cheat_Sheet.html)
 * [Git pre-commit validation of AWS CloudFormation templates with cfn-lint](https://aws.amazon.com/blogs/mt/git-pre-commit-validation-of-aws-cloudformation-templates-with-cfn-lint/)
 * [How to Use AWS Config to Monitor for and Respond to Amazon S3 Buckets Allowing Public Access](https://aws.amazon.com/blogs/security/how-to-use-aws-config-to-monitor-for-and-respond-to-amazon-s3-buckets-allowing-public-access/)
+* (AWS Config: Checking for Compliance with New Managed Rule Options)[https://aws.amazon.com/blogs/devops/aws-config-checking-for-compliance-with-new-managed-rule-options/]
 * [Using AWS Service Catalog Constraints](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints.html)
 * [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
