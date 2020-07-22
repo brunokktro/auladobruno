@@ -1,0 +1,212 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation template to launch instances for Inventory, Patching, and Compliance demo environment for AWS Systems Manager
+Parameters :
+  CentralAccountS3Bucket :
+    Type : 'String'
+    Description: 'Name of the S3 bucket that lives in the central account.'
+  ExistingManagedInstanceProfile : 
+    Type : 'String'
+    Description : "(Optional) The name of the IAM Instance Profile that grants permissions to AWS Systems Manager."
+  LatestWindowsAmiId :
+    # Use public Systems Manager Parameter
+    Type : 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base'
+  LatestAmazonLinuxAmiId :
+    # Use public Systems Manager Parameter
+    Type : 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2'
+Conditions:
+  CreateManagedInstanceProfileCondition:
+    Fn::Equals:
+    - Ref: ExistingManagedInstanceProfile
+    - ''
+Resources:
+  WebServersRG:
+    Type: AWS::ResourceGroups::Group
+    Properties: 
+      Description: 'This is a test Resource Group'
+      Name: WebServers
+      ResourceQuery: 
+        Type: "TAG_FILTERS_1_0"
+        Query: 
+          ResourceTypeFilters:
+           - "AWS::AllSupported"
+          TagFilters:
+            -
+              Key: "Patch"
+              Values: 
+                - "True"
+  ManagedInstanceRole:
+    Type: AWS::IAM::Role
+    Condition: CreateManagedInstanceProfileCondition
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ec2.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      Path: "/"
+      Policies:
+      - PolicyName: CentralAccountS3Permissions
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - s3:GetObject
+            - s3:PutObject
+            - s3:PutObjectAcl
+            Resource: 
+              - !Join [ '', ['arn:aws:s3:::', !Ref 'CentralAccountS3Bucket'] ]
+              - !Join [ '', ['arn:aws:s3:::', !Ref 'CentralAccountS3Bucket', '/*'] ]
+  ManagedInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Condition: CreateManagedInstanceProfileCondition
+    Properties:
+      Path: "/"
+      Roles:
+      - !Ref ManagedInstanceRole
+      InstanceProfileName: ManagedInstanceProfile 
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags:
+      - Key: Name
+        Value: Automation-CF
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+      - Key: Name
+        Value: Automation-CF
+  VPCGatewayAttachment:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  SubnetPublic:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select [0, !GetAZs '']
+      CidrBlock: 10.0.0.0/20
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref VPC
+      Tags:
+      - Key: Name
+        Value: Automation-CF
+  RouteTablePublic:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+      - Key: Name
+        Value: Automation-CF
+  RouteTableAssociationPublic:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref SubnetPublic
+      RouteTableId: !Ref RouteTablePublic
+  RouteTablePublicInternetRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: VPCGatewayAttachment
+    Properties:
+      RouteTableId: !Ref RouteTablePublic
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref InternetGateway
+  NetworkAclPublic:
+    Type: 'AWS::EC2::NetworkAcl'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+      - Key: Name
+        Value: Automation-CF
+  SubnetNetworkAclAssociationPublic:
+    Type: 'AWS::EC2::SubnetNetworkAclAssociation'
+    Properties:
+      SubnetId: !Ref SubnetPublic
+      NetworkAclId: !Ref NetworkAclPublic
+  NetworkAclEntryInPublicAllowAll:
+    Type: 'AWS::EC2::NetworkAclEntry'
+    Properties:
+      NetworkAclId: !Ref NetworkAclPublic
+      RuleNumber: 100
+      Protocol: -1
+      RuleAction: allow
+      Egress: false
+      CidrBlock: '0.0.0.0/0'
+  NetworkAclEntryOutPublicAllowAll:
+    Type: 'AWS::EC2::NetworkAclEntry'
+    Properties:
+      NetworkAclId: !Ref NetworkAclPublic
+      RuleNumber: 100
+      Protocol: -1
+      RuleAction: allow
+      Egress: true
+      CidrBlock: '0.0.0.0/0'
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Security Group for Automation patching test instances"
+      GroupName: Automation-CF
+      SecurityGroupEgress: 
+        - IpProtocol: -1
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      Tags: 
+        - Key: Name
+          Value: Automation-CF
+      VpcId: !Ref VPC
+  LinuxEc2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.small
+      ImageId: !Ref LatestAmazonLinuxAmiId
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet: 
+            - Ref: "InstanceSecurityGroup"
+          SubnetId: 
+            Ref: "SubnetPublic"
+      IamInstanceProfile: 
+         Fn::If:
+          - CreateManagedInstanceProfileCondition
+          - !Ref ManagedInstanceProfile
+          - !Ref ExistingManagedInstanceProfile
+      Tags:
+        - Key: Name
+          Value: AmazonLinux
+        - Key: Patch
+          Value: 'True'
+  WindowsEc2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: t2.small
+      ImageId: !Ref LatestWindowsAmiId
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          GroupSet: 
+            - Ref: "InstanceSecurityGroup"
+          SubnetId: 
+            Ref: "SubnetPublic"
+      IamInstanceProfile: 
+         Fn::If:
+          - CreateManagedInstanceProfileCondition
+          - !Ref ManagedInstanceProfile
+          - !Ref ExistingManagedInstanceProfile
+      Tags:
+        - Key: Name
+          Value: Windows
+        - Key: Patch
+          Value: 'True'

@@ -1,0 +1,589 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation template to create a scheduled multi-account and multi-region Automation patching operation. | Automation Service
+Parameters :
+  CloudWatchEventRuleSchedule :
+    Type: String
+    Description: 'The cron or rate expression to use for the CloudWatch Event rule. For example: cron(0 09 ? * FRI *). Important: The time zone used is UTC.'
+  ExecutionRoleName:
+    Type: String
+    Default: AWS-SystemsManager-AutomationExecutionRole
+    Description: >-
+      The Automation execution role to be assumed in target accounts during multi-account and multi-Region Automation patching operations.
+  ExistingAutomationAdministrationRole :
+    Type: String
+    Description: "(Optional) The IAM role ARN of an Automation Administration role which has permissions to invoke multi-account and multi-Region Autmation workflows."
+  ExistingGlueCrawlerRole :
+    Type: String
+    Description: "(Optional) The IAM role ARN to be used for the Glue Crawler."
+  MaximumConcurrency:
+    Type: String
+    Default: 10%
+    Description: >-
+      Specify the number or percentage of targets on which to execute the task at the same time. You can specify a number, such as 10, or a percentage, such as 10%. The default value is 10%.
+  MaximumErrors:
+    Type: String
+    Default: 10%
+    Description: >-
+      The number of errors that are allowed before the system stops initiating the automation on additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the target set, for example 10%. The default value is 10%.
+  ResourceGroupName:
+    Type: String
+    Description: >-
+      Enter a resource group that includes the resources you want to target. Important: The Resource Group name is case sensitive.
+    Default: WebServers
+  RunPatchBaselineOperation:
+    Type: String
+    Default: Scan
+    AllowedValues:
+      - Scan
+      - Install
+    Description: >-
+      (Required) The update or configuration to perform on the instance. The Scan operation checks if patches specified in the patch baseline are installed on the instance. The Install operation installs patches missing from the baseline.
+  RunPatchBaselineRebootOption:
+    Type: String
+    Default: RebootIfNeeded
+    AllowedValues:
+      - RebootIfNeeded
+      - NoReboot
+    Description: >-
+      (Optional) Reboot behavior after a patch Install operation. If you choose NoReboot and patches are installed, the instance is marked as non-compliant until a subsequent reboot and scan.
+  RunPatchBaselineInstallOverrideList:
+    Type: String
+    Default: ''
+    AllowedPattern: '(^$)|^https://.+$|^s3://([^/]+)/(.*?([^/]+))$'
+    Description: >-
+      (Optional) An https URL or an Amazon S3 path-style URL to the list of patches to be installed. This patch installation list overrides the patches specified by the default patch baseline.
+  S3BucketInventoryPrefix :
+    Type : 'String'
+    Description: 'Name of the prefix to use in the S3 bucket for aggregating inventory, patching, and compliance data.'
+    Default: 'inventory'
+  TargetAccounts:
+    Type: String
+    Description: >-
+      Comma separated list of AWS Account Ids or AWS Organization OU Ids for the target account(s).
+  TargetLocationMaxConcurrency:
+    Type: String
+    Default: '1'
+    Description: >-
+      Specify the number or percentage of locations (account-Region pairs) on which to execute the task at the same time. You can specify a number, such as 10, or a percentage, such as 10%. The default value is 1.
+  TargetLocationMaxErrors:
+    Type: String
+    Default: '1'
+    Description: >-
+      Specify an error threshold which will stop the task after the task fails on a specific number or percentage of locations. You can specify either an absolute number of errors, for example 10, or a percentage of the locations, for example 10%. The default value is 1.
+  TargetRegionIds:
+    Type: String
+    Description: >-
+      Comma separated list of AWS Regions to target. For example: us-east-1,ap-south-1.
+Conditions:
+  CreateAutomationAdministrationRoleCondition:
+    Fn::Equals:
+    - Ref: ExistingAutomationAdministrationRole
+    - ''
+  CreateGlueCrawlerCondition:
+    Fn::Equals:
+    - Ref: ExistingGlueCrawlerRole
+    - ''
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'systems-manager-${AWS::Region}-${AWS::AccountId}'
+  S3BucketPolicy:
+      Type: "Custom::LambdaFunction"
+      Properties:
+        ServiceToken: !GetAtt AddS3BucketPolicyLambdaFunction.Arn
+  AddS3BucketPolicyLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties: 
+      Code: 
+        ZipFile: !Sub | 
+          import boto3
+          import json
+          import os
+
+          import sys
+          from pip._internal import main
+
+          main(['install', '-I', '-q', 'crhelper', '--target', '/tmp/', '--no-cache-dir', '--disable-pip-version-check'])
+          sys.path.insert(0,'/tmp/')
+
+          from crhelper import CfnResource
+
+          helper = CfnResource()
+
+          @helper.create
+          @helper.update
+          def add_bucket_policy(event, _):
+              S3BucketArn=os.environ['S3BucketArn']
+              S3BucketName=os.environ['S3BucketName']
+              S3BucketPrefix=os.environ['S3BucketPrefix']
+              TargetAccounts=os.environ['TargetAccounts']
+              b = str(TargetAccounts)
+              TargetAccountsArray = b.split(",")
+
+              s3bucketresource = '/'.join([S3BucketArn,S3BucketPrefix,'*/accountid=account-id/*'])
+              principal = "arn:aws:iam::account-id:root"
+              principalkey = "AWS"
+              principallist = dict()
+              principallist.setdefault(principalkey, [])
+              
+              s3bucketresources = []
+              
+              for account in TargetAccountsArray:
+                  s3bucketresources.append(s3bucketresource.replace("account-id", account))
+                  principallist[principalkey].append(principal.replace("account-id", account))
+                  
+              s3bucketresourcelist = []
+              s3bucketresourcelist.append(S3BucketArn)
+              s3bucketresourcelist.append(S3BucketArn+'/*')
+              
+              policy = '''{
+                 "Version":"2012-10-17",
+                 "Statement":[
+                    {
+                       "Sid":"SSMBucketPermissionsCheck",
+                       "Effect":"Allow",
+                       "Principal":{
+                          "Service":"ssm.amazonaws.com"
+                       },
+                       "Action":"s3:GetBucketAcl",
+                       "Resource":""
+                    },
+                    {
+                       "Sid":"SSMBucketDelivery",
+                       "Effect":"Allow",
+                       "Principal":{
+                          "Service":"ssm.amazonaws.com"
+                       },
+                       "Action":"s3:PutObject",
+                       "Resource":"",
+                       "Condition":{
+                          "StringEquals":{
+                             "s3:x-amz-acl":"bucket-owner-full-control"
+                          }
+                       }
+                    },
+                    {
+                        "Sid": "CrossAccountManagedInstancesBucketAccess",
+                        "Effect": "Allow",
+                        "Principal": {
+                            "AWS": "arn:aws:iam::account-id:root"
+                        },
+                        "Action": "s3:PutObject",
+                        "Resource": [
+                            "arn:aws:s3:::bucketname"
+                        ]
+                    }
+                 ]
+              }'''
+              
+              polDict = json.loads(policy)
+              statement = polDict["Statement"]
+              
+              for obj in statement:
+                  try:
+                      if obj["Sid"] == "SSMBucketDelivery":
+                          obj["Resource"] = s3bucketresources
+                  except KeyError:
+                      continue
+                  try:
+                      if obj["Sid"] == "SSMBucketPermissionsCheck":
+                          obj["Resource"] = S3BucketArn
+                  except KeyError:
+                      continue
+                  try:
+                      if obj["Sid"] == "CrossAccountManagedInstancesBucketAccess":
+                          obj["Principal"] = principallist
+                          obj["Resource"] = s3bucketresourcelist
+                  except KeyError:
+                      continue
+              
+              jsonifyDict = json.dumps(polDict)
+              
+              s3 = boto3.client('s3')
+              
+              addNewPolicy = s3.put_bucket_policy(
+                  Bucket=S3BucketName,
+                  Policy=jsonifyDict
+              )
+          @helper.delete
+          def no_op(_, __):
+              pass
+
+          def handler(event, context):
+              helper(event, context)
+      Environment: 
+        Variables:
+            TargetAccounts: !Ref TargetAccounts
+            S3BucketArn: !GetAtt S3Bucket.Arn
+            S3BucketName: !Ref S3Bucket
+            S3BucketPrefix: !Ref S3BucketInventoryPrefix
+      FunctionName: AddS3BucketPrefix
+      Handler: index.handler
+      Role: !GetAtt AWSLambdaSSMMultiAccountRole.Arn 
+      Runtime: python3.7
+  CWScheduleEventCFN:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Cloudwatch Schedule Event Rule Created for Scheduled SSM MultiAccount Patching using lambda
+      Name: Schedule-Trigger-for-Lambda-MultiAccountPatching
+      ScheduleExpression:
+        Ref: CloudWatchEventRuleSchedule
+      State: ENABLED
+      Targets:
+      - Arn:
+          Fn::GetAtt:
+          - MultiAccountPatchingLambdaFunction
+          - Arn
+        Id: MultiAccountPatching
+  PermissionForEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Ref: MultiAccountPatchingLambdaFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn:
+        Fn::GetAtt:
+        - CWScheduleEventCFN
+        - Arn
+  AWSLambdaSSMMultiAccountRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: AWS-Lambda-SSM-MultiAccountRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ssm.amazonaws.com
+            - lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: AWSLambdaSSMMultiAccountPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - ssm:StartAutomationExecution
+            Resource:
+              - Fn::Sub: arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:automation-definition/${AutomationDocumentMamrRunPatchBaseline}:$DEFAULT
+          - Action: iam:PassRole
+            Resource:
+              Fn::Sub: arn:${AWS::Partition}:iam::${AWS::AccountId}:role/AWS-SystemsManager-AutomationAdministrationRole
+            Effect: Allow
+          - Action: logs:CreateLogGroup
+            Resource:
+              Fn::Sub: arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:*
+            Effect: Allow
+          - Action:
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource:
+              Fn::Sub: arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/MultiAccountPatching:*
+            Effect: Allow
+          - Action:
+            - s3:PutBucketPolicy
+            Resource: !GetAtt S3Bucket.Arn
+            Effect: Allow
+  MultiAccountPatchingLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties: 
+      Code: 
+        ZipFile: !Sub | 
+          import boto3
+          import os
+          import string
+          import uuid
+
+          client = boto3.client('ssm')
+
+          def handler(event,context):
+              TargetAccounts=os.environ['TargetAccounts']
+              b = str(TargetAccounts)
+              TargetAccountsArray = b.split(",")
+              TargetRegionIds=os.environ['TargetRegionIds']
+              b = str(TargetRegionIds)
+              TargetRegionIdsArray = b.split(",")
+              RunPatchBaselineOperation=os.environ['RunPatchBaselineOperation']
+              RunPatchBaselineRebootOption=os.environ['RunPatchBaselineRebootOption']
+              RunPatchBaselineInstallOverrideList=os.environ['RunPatchBaselineInstallOverrideList']
+              ResourceGroupName=os.environ['ResourceGroupName']
+              MaximumConcurrency=os.environ['MaximumConcurrency']
+              MaximumErrors=os.environ['MaximumErrors']
+              TargetLocationMaxConcurrency=os.environ['TargetLocationMaxConcurrency']
+              TargetLocationMaxErrors=os.environ['TargetLocationMaxErrors']
+              ExecutionRoleName=os.environ['ExecutionRoleName']
+              MasterAccountID=os.environ['MasterAccountID']
+              AutomationDocumentMamrRunPatchBaseline=os.environ['AutomationDocumentMamrRunPatchBaseline']
+              
+              if len(RunPatchBaselineInstallOverrideList) > 0:
+                  response = client.start_automation_execution(
+                  DocumentName=f'{AutomationDocumentMamrRunPatchBaseline}',
+                  
+                  Parameters={
+                      'AutomationAssumeRole':[f'arn:aws:iam::{MasterAccountID}:role/AWS-SystemsManager-AutomationAdministrationRole'] ,
+                      'Operation' : [f'{RunPatchBaselineOperation}'] ,
+                      'RebootOption' : [f'{RunPatchBaselineRebootOption}'] ,
+                      'InstallOverrideList' : [f'{RunPatchBaselineInstallOverrideList}'] ,
+                      'SnapshotId' : [str(uuid.uuid4())]
+                  },
+                  TargetLocations=[
+                      {
+                          'Accounts': TargetAccountsArray,
+                          'Regions': TargetRegionIdsArray,
+                          'TargetLocationMaxConcurrency': f'{TargetLocationMaxConcurrency}',
+                          'TargetLocationMaxErrors': f'{TargetLocationMaxErrors}',
+                          'ExecutionRoleName': f'{ExecutionRoleName}'
+                      }
+                  ]
+              )
+              else:
+                  response = client.start_automation_execution(
+                  DocumentName=f'{AutomationDocumentMamrRunPatchBaseline}',
+                  
+                  Parameters={
+                      'AutomationAssumeRole':[f'arn:aws:iam::{MasterAccountID}:role/AWS-SystemsManager-AutomationAdministrationRole'] ,
+                      'Operation' : [f'{RunPatchBaselineOperation}'] ,
+                      'RebootOption' : [f'{RunPatchBaselineRebootOption}'] ,
+                      'SnapshotId' : [str(uuid.uuid4())]
+                  },
+                  TargetLocations=[
+                      {
+                          'Accounts': TargetAccountsArray,
+                          'Regions': TargetRegionIdsArray,
+                          'TargetLocationMaxConcurrency': f'{TargetLocationMaxConcurrency}',
+                          'TargetLocationMaxErrors': f'{TargetLocationMaxErrors}',
+                          'ExecutionRoleName': f'{ExecutionRoleName}'
+                      }
+                  ]
+              )
+              print(response)
+      Environment: 
+        Variables:
+            TargetAccounts: !Ref TargetAccounts
+            TargetRegionIds: !Ref TargetRegionIds
+            RunPatchBaselineOperation: !Ref RunPatchBaselineOperation
+            RunPatchBaselineRebootOption: !Ref RunPatchBaselineRebootOption
+            RunPatchBaselineInstallOverrideList: !Ref RunPatchBaselineInstallOverrideList
+            ResourceGroupName: !Ref ResourceGroupName
+            MaximumConcurrency: !Ref MaximumConcurrency
+            MaximumErrors: !Ref MaximumErrors
+            TargetLocationMaxConcurrency: !Ref TargetLocationMaxConcurrency
+            TargetLocationMaxErrors: !Ref TargetLocationMaxErrors
+            ExecutionRoleName: !Ref ExecutionRoleName
+            MasterAccountID: !Sub ${AWS::AccountId}
+            AutomationDocumentMamrRunPatchBaseline: !Ref AutomationDocumentMamrRunPatchBaseline
+      FunctionName: MultiAccountPatching
+      Handler: index.handler
+      Role: !GetAtt AWSLambdaSSMMultiAccountRole.Arn 
+      Runtime: python3.7
+  AutomationAdministrationServiceRole:
+    Type: AWS::IAM::Role
+    Condition: CreateAutomationAdministrationRoleCondition
+    Properties:
+      RoleName: AWS-SystemsManager-AutomationAdministrationRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: ssm.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: AssumeRole-AWSSystemsManagerAutomationExecutionRole
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - sts:AssumeRole
+            Resource:
+              Fn::Sub: arn:${AWS::Partition}:iam::*:role/AWS-SystemsManager-AutomationExecutionRole
+          - Effect: Allow
+            Action:
+            - organizations:ListAccountsForParent
+            Resource:
+            - "*"
+  AutomationDocumentMamrRunPatchBaseline:
+    Type: AWS::SSM::Document
+    Properties: 
+      DocumentType: Automation
+      Content:
+        description: >-
+          **Description**
+          
+          This document runs the Command document ```AWS-RunPatchBaseline``` on the specified instances.
+        schemaVersion: '0.3'
+        assumeRole: '{{ AutomationAssumeRole }}'
+        parameters:
+          AutomationAssumeRole: 
+            type: String
+            description: The ARN of the Automation service role to assume.
+          Operation:
+            type: String
+            default: Scan
+            description: >-
+              (Required) The update or configuration to perform on the instance. The
+              system checks if patches specified in the patch baseline are installed on
+              the instance. The install operation installs patches missing from the
+              baseline.
+          RebootOption:
+            type: String
+            default: RebootIfNeeded
+            description: >-
+              (Optional) Reboot behavior after a patch Install operation. If you choose
+              NoReboot and patches are installed, the instance is marked as non-compliant 
+              until a subsequent reboot and scan.
+          InstallOverrideList:
+            type: String
+            default: ""
+            description: >-
+              (Optional) An https URL or an Amazon S3 path-style URL to the list of patches to be installed. This patch installation list overrides the patches specified by the default patch baseline.
+          SnapshotId:
+            type: String
+            default: ""
+            description: >-
+              (Optional) The snapshot ID to use to retrieve a patch baseline snapshot.
+        mainSteps:
+          - name: runPatchBaseline
+            action: 'aws:runCommand'
+            timeoutSeconds: 7200
+            onFailure: Abort
+            inputs:
+              DocumentName: AWS-RunPatchBaseline
+              Targets:
+              - Key: 'resource-groups:Name'
+                Values:
+                  - !Ref ResourceGroupName
+              Parameters:
+                Operation: '{{ Operation }}'
+                RebootOption: '{{ RebootOption }}'
+                SnapshotId: '{{ SnapshotId }}'
+                InstallOverrideList: '{{ InstallOverrideList }}'
+              OutputS3BucketName: !Ref S3Bucket
+              OutputS3KeyPrefix: 'patching/{{global:ACCOUNT_ID}}/{{global:REGION}}'
+              MaxConcurrency: !Ref MaximumConcurrency
+              MaxErrors: !Ref MaximumErrors
+            description: >-
+              This command runs the Command document ```AWS-RunPatchBaseline``` on the
+              specified instances.
+  GlueCrawlerRole:
+    Type: AWS::IAM::Role
+    Condition: CreateGlueCrawlerCondition
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - glue.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Path: "/service-role/"
+      Description: Role created by SSM for Glue to access resource data sync S3 bucket
+      RoleName: !Join [ '-', ['Amazon-GlueServiceRoleForSSM', !Ref 'AWS::StackName'] ]
+      Policies:
+      - PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - s3:GetObject
+            - s3:PutObject
+            Resource:
+            - !Join [ '', [!GetAtt S3Bucket.Arn, '/*'] ]
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource:
+            - "*"
+        PolicyName: !Join [ '-', ['Amazon-GlueServicePolicyForSSM', !Ref S3Bucket] ]
+  SsmGlueCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      DatabaseName: 
+        !Join [ '_', [!Ref S3Bucket, 'database'] ]
+      Description: Crawler for AWS Systems Manager Patching, Inventory, and Compliance data
+      Name: 
+        !Join [ '_', ['AWSSystemsManager', !Ref S3Bucket] ]
+      Role: 
+        Fn::If:
+          - CreateGlueCrawlerCondition
+          - !GetAtt GlueCrawlerRole.Arn
+          - !Ref ExistingGlueCrawlerRole
+      Schedule: 
+        ScheduleExpression: 'cron(0 */12 ? * * *)'
+      Targets: 
+        S3Targets: 
+          - Path: !Join [ '/', [!Ref S3Bucket, 'inventory'] ]
+            Exclusions:
+              - AWS:InstanceInformation/accountid=*/test.json
+  AthenaQueryNonCompliantPatch:
+    Type: AWS::Athena::NamedQuery
+    Properties: 
+      Database: !Join [ '-', [!Ref S3Bucket, 'database'] ]
+      Description: Example query to list managed instances that are non-compliant for patching.
+      Name: QueryNonCompliantPatch
+      QueryString: |
+        SELECT 
+          * 
+        FROM 
+          aws_complianceitem 
+        WHERE 
+          status='NON_COMPLIANT' AND compliancetype='Patch' 
+        LIMIT 20
+  AthenaQuerySSMAgent:
+    Type: AWS::Athena::NamedQuery
+    Properties: 
+      Database: !Join [ '-', [!Ref S3Bucket, 'database'] ]
+      Description: Example query to list SSM Agent versions installed on managed instances.
+      Name: QuerySSMAgentVersion
+      QueryString: |
+        SELECT
+          *
+        FROM
+          aws_application 
+        WHERE 
+          name='Amazon SSM Agent' OR name='amazon-ssm-agent' 
+        LIMIT 20;
+  AthenaQueryInstanceList:
+    Type: AWS::Athena::NamedQuery
+    Properties: 
+      Database: !Join [ '-', [!Ref S3Bucket, 'database'] ]
+      Description: Example query to return a list of non-terminated instances.
+      Name: QueryInstanceList
+      QueryString: |
+        SELECT 
+          * 
+        FROM 
+          aws_instanceinformation 
+        WHERE 
+          instancestatus IS NULL;
+  AthenaQueryInstanceApplications:
+    Type: AWS::Athena::NamedQuery
+    Properties: 
+      Database: !Join [ '-', [!Ref S3Bucket, 'database'] ]
+      Description: Example query to return a list of non-terminated instances and their applications installed.
+      Name: QueryInstanceApplications
+      QueryString: |
+        SELECT
+          name,applicationtype,publisher,version,instanceid
+        FROM
+          aws_application, aws_instanceinformation
+        WHERE
+          aws_instanceinformation.instancestatus IS NULL;
+Outputs:
+  S3BucketName:
+    Description: The name of the centralized S3 bucket.
+    Value: !Ref S3Bucket

@@ -1,0 +1,150 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation template to configure a child account for a scheduled multi-account and multi-region Automation patching operation | Automation Service
+Parameters :
+  CentralAccountNumber :
+    Type : 'String'
+    Description: 'Account number for the central account.'
+    Default: ''
+  CentralAccountS3Bucket :
+    Type : 'String'
+    Description: 'Name of the S3 bucket that lives in the central account.'
+    Default: ''
+  CentralAccountS3BucketInventoryPrefix :
+    Type : 'String'
+    Description: 'Name of the prefix to use in the central account S3 bucket for inventory data.'
+    Default: 'inventory'
+  CentralAccountS3BucketInventoryExecutionPrefix :
+    Type : 'String'
+    Description: 'Name of the prefix to use in the central account S3 bucket for inventory execution data.'
+    Default: 'inventory-execution-logs'
+  CentralAccountS3BucketRegion :
+    Type : 'String'
+    Description: 'Region where the central account S3 bucket is located.'
+    Default: ''
+  ExistingAutomationExecutionRole :
+    Type : 'String'
+    Description: '(Optional) The IAM role ARN of an Automation Execution role which has permissions to invoke patching Automation workflows and has a trust relationship with the central account.'
+    Default: ''
+  ResourceDataSyncName :
+    Type : 'String'
+    Description: 'Name for the Resource Data Sync.'
+    Default: 'InventoryData'
+Conditions:
+  CreateAutomationExecutionRoleCondition:
+    Fn::Equals:
+    - Ref: ExistingAutomationExecutionRole
+    - ''
+Resources:
+  AutomationExecutionServiceRole:
+    Type: AWS::IAM::Role
+    Condition: CreateAutomationExecutionRoleCondition
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ssm.amazonaws.com
+            AWS: 
+            - !Join [ '', ['arn:aws:iam::', !Ref 'CentralAccountNumber', ':root'] ]
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AmazonSSMAutomationRole
+      Path: "/"
+      RoleName: AWS-SystemsManager-AutomationExecutionRole
+      Policies:
+      - PolicyName: passRole
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - iam:PassRole
+            Resource: 
+            - !Join [ '', ['arn:aws:iam::', !Ref 'AWS::AccountId', ':role/AWS-SystemsManager-AutomationExecutionRole'] ]
+      - PolicyName: getTagPermissions
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - tag:GetResources
+            Resource: "*"
+      - PolicyName: listResourceGroupResourcesPermissions
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - resource-groups:listGroupResources
+            Resource: "*"
+  InventoryAssociation:
+    Type: AWS::SSM::Association
+    Properties:
+      AssociationName: Inventory-Association
+      Name: AWS-GatherSoftwareInventory
+      ScheduleExpression: "rate(1 day)"
+      OutputLocation:
+        S3Location: 
+          OutputS3BucketName: !Ref CentralAccountS3Bucket
+          OutputS3KeyPrefix: !Join [ '', [!Ref CentralAccountS3BucketInventoryExecutionPrefix, '/', !Ref 'AWS::AccountId', '/', !Ref 'AWS::Region'] ]
+      Targets:
+      - Key: InstanceIds
+        Values:
+        - "*"
+      Parameters: 
+        applications: 
+          - "Enabled"
+        awsComponents: 
+          - "Enabled"
+        files:
+          - ""
+        networkConfig: 
+          - "Enabled"
+        windowsUpdates: 
+          - "Enabled"
+        instanceDetailedInformation: 
+          - "Enabled"
+        services: 
+          - "Enabled"
+        windowsRegistry:
+          - ""
+        windowsRoles: 
+          - "Enabled"
+        customInventory:
+          - "Enabled"
+        billingInfo: 
+          - "Enabled"
+  ResourceDataSync:
+    Type: AWS::SSM::ResourceDataSync
+    Properties: 
+      BucketName: !Ref CentralAccountS3Bucket
+      BucketPrefix: !Ref CentralAccountS3BucketInventoryPrefix
+      BucketRegion: !Ref CentralAccountS3BucketRegion
+      SyncFormat: 'JsonSerDe'
+      SyncName: !Ref ResourceDataSyncName
+  AwsConfigPatchComplianceRule:
+    Type: 'AWS::Config::ConfigRule'
+    Properties:
+      ConfigRuleName: ec2-managedinstance-patch-compliance-status-check
+      Description: >-
+        Checks whether the compliance status of the Amazon EC2 Systems Manager patch compliance is COMPLIANT or NON_COMPLIANT after the patch installation on the instance. The rule is COMPLIANT if the field status is COMPLIANT.
+      Scope:
+          ComplianceResourceTypes: 
+            - AWS::SSM::PatchCompliance
+      Source:
+        Owner: AWS
+        SourceIdentifier: EC2_MANAGEDINSTANCE_PATCH_COMPLIANCE_STATUS_CHECK
+  AwsConfigAssociationComplianceRule:
+    Type: 'AWS::Config::ConfigRule'
+    Properties:
+      ConfigRuleName: ec2-managedinstance-association-compliance-status-check
+      Description: >-
+        Checks whether the compliance status of the Amazon EC2 Systems Manager association compliance is COMPLIANT or NON_COMPLIANT after the association execution on the instance. The rule is COMPLIANT if the field status is COMPLIANT. 
+      Scope:
+          ComplianceResourceTypes: 
+            - AWS::SSM::AssociationCompliance
+      Source:
+        Owner: AWS
+        SourceIdentifier: EC2_MANAGEDINSTANCE_ASSOCIATION_COMPLIANCE_STATUS_CHECK
