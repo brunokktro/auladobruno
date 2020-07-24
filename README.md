@@ -30,6 +30,7 @@
 * [AWS Well-Architected - Learn, measure, and build using architectural best practices](https://aws.amazon.com/architecture/well-architected/)
 * [AWS Well-Architected Framework](https://wa.aws.amazon.com/index.html)
 * [AWS Well-Architected Tool – Review Workloads Against Best Practices](https://aws.amazon.com/blogs/aws/new-aws-well-architected-tool-review-workloads-against-best-practices/)
+* [AWS Well-Architected Tool – DEMO](https://d3nn3d4w2aqyem.cloudfront.net/mp4/Getting_started_video.mp4)
 * [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
 * [Spot Instance Advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)
 * [Amazon EC2 Auto Scaling Lifecycle Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
