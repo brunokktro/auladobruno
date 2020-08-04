@@ -1,0 +1,110 @@
+Description: VPN Lab - VPG side
+Parameters:
+  AWSAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+    Description: AMI ID pointer in SSM. Default latest AMI Amazon Linux2
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the test instance
+    Type: String
+    Default: 'default-lab-key'
+
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.2.0.0/16
+      Tags:
+        - Key: Name
+          Value: lab-vpc
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: Name
+          Value: lab-igw
+  AttachGateway:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicSubnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs ''
+      CidrBlock: 10.2.0.0/24
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: lab-subnet-public
+  ExternalRoutingTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+  DefaultRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: AttachGateway
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref ExternalRoutingTable
+  ExternalNetworkRouteAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref ExternalRoutingTable
+      SubnetId: !Ref PublicSubnet
+  TestInstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security Group for Bastion / VPN instance
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: TestInstanceSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 10.0.0.0/8
+        - IpProtocol: icmp
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 10.0.0.0/8
+  TestInstance:
+    Type: 'AWS::EC2::Instance'
+    CreationPolicy:
+      ResourceSignal:
+        Count: '1'
+        Timeout: PT15M
+    Properties:
+      ImageId: !Ref AWSAmiId
+      PrivateIpAddress: 10.2.0.100
+      Tags:
+        - Key: Name
+          Value: Test (Secondary)
+      InstanceType: t2.micro
+      # DO NOT USE KeyName AS STUDENTS WILL USE PASSWORD TO ACCESS TESTINSTANCE. USAGE OF KeyName is failing pre-warming randomly.
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref TestInstanceSecurityGroup
+      UserData:
+        'Fn::Base64':
+          !Sub |
+            #!/bin/bash -ex
+            # Turn on password authentication for last part of lab
+            echo 'lab-password' | passwd ec2-user --stdin &&
+            sed -i 's|[#]*PasswordAuthentication no|PasswordAuthentication yes|g' /etc/ssh/sshd_config &&
+            /bin/systemctl restart sshd &&
+
+            /opt/aws/bin/cfn-signal --stack ${AWS::StackName} --resource TestInstance --region ${AWS::Region}

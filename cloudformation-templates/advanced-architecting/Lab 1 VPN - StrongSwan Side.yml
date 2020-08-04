@@ -1,0 +1,370 @@
+Description: 'Lab 1: VPN - StrongSwan Side'
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the test instance
+    Type: String
+    Default: 'default-lab-key'
+  AWSAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+    Description: AMI ID pointer in SSM. Default latest AMI Amazon Linux2
+  UserId:
+    Default: awsstudent
+    Type: String
+  kaizenPrefix:
+    Type: String
+    Description: 'The path prefix where lab resources are stored (Leading and trailing slash required!)'
+    Default: "courses/ILT-TF-200-ADVARC/v2.7.7/lab-1-vpn"
+    # Default: courses/ILT-TF-200-ADVARC/v2.7.0/lab-1-vpn
+
+Conditions:
+  InUsEast1: !Equals
+    - !Ref 'AWS::Region'
+    - us-east-1
+
+Mappings:
+  UbuntuRegionMap:
+    us-east-1:
+      AMI: ami-90fd5dea
+    us-east-2:
+      AMI: ami-9e3e11fb
+    us-west-1:
+      AMI: ami-a81428c8
+    us-west-2:
+      AMI: ami-852fe1fd
+    ca-central-1:
+      AMI: ami-bf4af2db
+    eu-west-1:
+      AMI: ami-3db41044
+    eu-west-2:
+      AMI: ami-936b77f7
+    eu-central-1:
+      AMI: ami-f6dc6699
+    sa-east-1:
+      AMI: ami-ab6e16c7
+    ap-southeast-1:
+      AMI: ami-e3c58580
+    ap-southeast-2:
+      AMI: ami-10dc3372
+    ap-south-1:
+      AMI: ami-3a93de55
+    ap-northeast-1:
+      AMI: ami-425efe24
+    ap-northeast-2:
+      AMI: ami-99a501f7
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.1.0.0/16
+      Tags:
+        - Key: Name
+          Value: lab-vpc
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: Name
+          Value: lab-igw
+  AttachGateway:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicSubnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs ''
+      CidrBlock: 10.1.0.0/24
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: lab-subnet-public
+  ExternalRoutingTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+  DefaultRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: AttachGateway
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref ExternalRoutingTable
+  VpnRoute:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      DestinationCidrBlock: 10.2.0.0/16
+      InstanceId: !Ref BastionVpnInstance
+      RouteTableId: !Ref ExternalRoutingTable
+  ExternalNetworkRouteAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref ExternalRoutingTable
+      SubnetId: !Ref PublicSubnet
+  InstanceSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Security Group for SSH and Ping instance
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: InstanceSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: icmp
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 10.0.0.0/8
+  BastionVpnInstance:
+    Type: 'AWS::EC2::Instance'
+    DependsOn: AttachGateway
+    CreationPolicy:
+      ResourceSignal:
+        Count: '1'
+        Timeout: PT15M
+    Properties:
+      ImageId: !FindInMap
+        - UbuntuRegionMap
+        - !Ref 'AWS::Region'
+        - AMI
+      Tags:
+        - Key: Name
+          Value: Bastion-StrongSwan
+      InstanceType: t2.medium
+      SourceDestCheck: false
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      # IamInstanceProfile: !Ref RootInstanceProfile
+      UserData:
+        'Fn::Base64':
+          !Sub |
+            #!/bin/bash -ex
+
+            apt-get update &&
+            apt-get -y install strongswan python-setuptools &&
+
+            easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz &&
+            wget https://${AWS::Region}-tcprod.s3.amazonaws.com/${kaizenPrefix}/scripts/get-pip.py &&
+
+            python get-pip.py &&
+            pip install awscli --ignore-installed &&
+            # aws cloudformation create-stack --stack-name ${AWS::StackName}vpg  --template-url https://${AWS::Region}-tcprod.s3.amazonaws.com/${kaizenPrefix}/scripts/lab1.secondary.template --parameters ParameterKey=KeyName,ParameterValue='${KeyName}' &&
+            # aws cloudformation wait stack-create-complete --stack-name ${AWS::StackName}vpg &&
+
+            cat <<EOF > /etc/ipsec.conf
+            # Created by user-data
+            config setup
+
+            conn %default
+                    esp=aes128-sha1-modp1024
+                    ikelifetime=28800s
+                    keylife=3600s
+                    rekeymargin=3m
+                    keyingtries=%forever
+                    keyexchange=ikev1
+                    mobike=no
+                    left=%any
+                    leftsubnet=10.1.0.0/16
+                    dpdaction=restart
+                    auto=start
+                    authby=secret
+                    rightsubnet=10.2.0.0/16
+
+            conn VPC-CUST-GW1
+                right=TUNNEL_1_IP_ADDRESS
+            conn VPC-CUST-GW2
+                right=TUNNEL_2_IP_ADDRESS
+            EOF
+
+            cat <<EOF > /etc/ipsec.secrets
+            TUNNEL_1_IP_ADDRESS : PSK "TUNNEL_1_PRESHARED_KEY"
+            TUNNEL_2_IP_ADDRESS : PSK "TUNNEL_2_PRESHARED_KEY"
+            EOF
+
+            echo 1 > /proc/sys/net/ipv4/ip_forward &&
+            echo 0 > /proc/sys/net/ipv4/conf/all/send_redirects &&
+            echo 0 > /proc/sys/net/ipv4/conf/eth0/send_redirects &&
+            echo 'net.ipv4.ip_forward = 1' |  tee -a /etc/sysctl.conf &&
+            echo 'net.ipv4.conf.all.send_redirects = 0' |  tee -a /etc/sysctl.conf &&
+            echo 'net.ipv4.conf.eth0.send_redirects = 0' |  tee -a /etc/sysctl.conf &&
+            echo 127.0.0.1     $(hostname) >> /etc/hosts  &&
+            mkdir /tmp/ssm  &&
+            cd /tmp/ssm   &&
+            wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb  &&
+            dpkg -i amazon-ssm-agent.deb   &&
+
+            /usr/local/bin/cfn-signal --stack ${AWS::StackName} --resource BastionVpnInstance --region ${AWS::Region}
+
+  EIP:
+    Type: 'AWS::EC2::EIP'
+    Properties:
+      InstanceId: !Ref BastionVpnInstance
+  TestInstance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref AWSAmiId
+      Tags:
+        - Key: Name
+          Value: Test (Primary)
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+  ReadOnlyGroup:
+    Type: 'AWS::IAM::Group'
+    Properties:
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/ReadOnlyAccess'
+  GroupAssignment:
+    Type: 'AWS::IAM::UserToGroupAddition'
+    Properties:
+      GroupName: !Ref ReadOnlyGroup
+      Users:
+        - !Ref UserId
+
+  secondaryLambda:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Description: This Lambda function triggers Cloudformation to remote region.
+      Code:
+        ZipFile: !Sub |
+          import boto3, os, time, random
+          def lambda_handler(event, context):
+
+            #Get the region
+            if '${AWS::Region}' == 'us-east-1':
+              region='us-west-2'
+            else:
+              region='us-east-1'
+
+            # Generate a random number for entropy
+            cfn_version = str(random.randint(0,1000))
+
+            # Invoke cloudformation to the remote region
+            cf_client = boto3.client('cloudformation', region_name=region)
+
+            # Should add a create/delete if in here so that it cleans itself up? not sure with random stack name how easy that would be.
+            cf_client.create_stack(
+              StackName='${AWS::StackName}vpg'+cfn_version,
+              TemplateURL='https://${AWS::Region}-tcprod.s3.amazonaws.com/${kaizenPrefix}/scripts/lab1.secondary.template',
+              Parameters=[
+                {
+                  'ParameterKey': 'KeyName',
+                  'ParameterValue': '${KeyName}'
+                },
+              ]
+            )
+
+            curlCMD = "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",\"Reason\" : \"Configuration Complete\",\"PhysicalResourceId\" : \"secondaryLambda\",\"StackId\" : \"" + event["StackId"] + "\",\"RequestId\" : \"" + event["RequestId"] + "\",\"LogicalResourceId\" : \"" + event["LogicalResourceId"] + "\",\"UniqueId\" : \"secondaryLambda1\"}' \"" + event["ResponseURL"] + "\""
+            print(curlCMD)
+            try:
+              os.system(curlCMD)
+            except Exception as e:
+              print('Error: ' + str(e))
+
+      Handler: index.lambda_handler
+      Role: !GetAtt 'LambdaExecutionRole.Arn'
+      Runtime: python3.7
+      Timeout: 300
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: customLambdaPol
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudformation:CreateStack
+                  - cloudformation:CreateUploadBucket
+                  - cloudformation:DeleteStack
+                  - cloudformation:SignalResource
+                  - cloudformation:TagResource
+                  - cloudformation:UntagResource
+                  - cloudformation:UpdateStack
+                  - cloudformation:ValidateTemplate
+                  - ec2:AllocateAddress
+                  - ec2:AssignIpv6Addresses
+                  - ec2:AssignPrivateIpAddresses
+                  - ec2:AssociateAddress
+                  - ec2:AssociateDhcpOptions
+                  - ec2:AssociateIamInstanceProfile
+                  - ec2:AssociateRouteTable
+                  - ec2:AssociateSubnetCidrBlock
+                  - ec2:AssociateVpcCidrBlock
+                  - ec2:AttachInternetGateway
+                  - ec2:AttachNetworkInterface
+                  - ec2:AttachVolume
+                  - ec2:AuthorizeSecurityGroupEgress
+                  - ec2:AuthorizeSecurityGroupIngress
+                  - ec2:CreateInternetGateway
+                  - ec2:CreateRoute
+                  - ec2:CreateRouteTable
+                  - ec2:CreateSecurityGroup
+                  - ec2:CreateSubnet
+                  - ec2:CreateTags
+                  - ec2:CreateVolume
+                  - ec2:CreateVpc
+                  - ec2:Describe*
+                  - ec2:ModifySubnetAttribute
+                  - ec2:ModifyVpcAttribute
+                  - ec2:RevokeSecurityGroupEgress
+                  - ec2:RunInstances
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - ssm:GetParameters
+                Resource: "*"
+
+  #Custom Resource to trigger lambda function.
+  invokeLambda:
+    Type: AWS::CloudFormation::CustomResource
+    Version: "1.0"
+    Properties:
+      ServiceToken: !GetAtt secondaryLambda.Arn
+
+Outputs:
+  Bastion:
+    Description: Bastion server in Primary region
+    Value: !GetAtt
+      - BastionVpnInstance
+      - PublicIp
+  PrimaryRegion:
+    Description: Primary Region for this lab
+    Value: !Ref 'AWS::Region'
+  SecondaryRegion:
+    Description: Secondary Region for this lab
+    Value: !If
+      - InUsEast1
+      - us-west-2 (Oregon)
+      - us-east-1 (N. Virginia)
