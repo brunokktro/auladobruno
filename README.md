@@ -283,6 +283,7 @@
 
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
+* [AWS Cloud Design Patterns](http://en.clouddesignpattern.org/index.php/Main_Page)
 * [AWS Simple Monthly Calculator](https://calculator.s3.amazonaws.com/index.html)
 * [AWS Pricing Calculator](https://calculator.aws/#/)
 * [The Amazon Builders' Library](https://aws.amazon.com/builders-library/)
