@@ -1,0 +1,312 @@
+Description: Lab 2 - Build a Failover Solution
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair
+    Type: String
+    Default: 'default-lab-key'
+  kaizenPrefix:
+    Type: String
+    Description: 'The path prefix where lab resources are stored (Leading and trailing slash required!)'
+    Default: "courses/ILT-TF-200-ADVARC/v2.7.7/lab-2-r53"
+    #Default: courses/ILT-TF-200-ADVARC/v2.7.0/lab-2-r53
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 10.1.0.0/16
+      Tags:
+        - Key: Name
+          Value: lab-vpc
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: Name
+          Value: lab-igw
+  AttachGateway:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicSubnet1:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs ''
+      CidrBlock: 10.1.1.0/24
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: 'true'
+      Tags:
+        - Key: Name
+          Value: lab-subnet-public1
+  PublicSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select
+        - '1'
+        - !GetAZs ''
+      CidrBlock: 10.1.2.0/24
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: 'true'
+      Tags:
+        - Key: Name
+          Value: lab-subnet-public2
+  PublicRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+  PublicDefaultRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn: AttachGateway
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref PublicRouteTable
+  PublicRouteAssociation1:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet1
+  PublicRouteAssociation2:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet2
+  PrivateSubnet1:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs ''
+      CidrBlock: 10.1.3.0/24
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: lab-subnet-private1
+  PrivateSubnet2:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select
+        - '1'
+        - !GetAZs ''
+      CidrBlock: 10.1.4.0/24
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: lab-subnet-private2
+  PrivateRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Private Route Table
+  PrivateRouteAssociation1:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      SubnetId: !Ref PrivateSubnet1
+  PrivateRouteAssociation2:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      SubnetId: !Ref PrivateSubnet2
+  DBSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: DB Instance Security Group
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: DBSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '3306'
+          ToPort: '3306'
+          SourceSecurityGroupId: !GetAtt
+            - EBSecurityGroup
+            - GroupId
+  EBSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Beanstalk Security Group
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: EBSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+  DBSubnetGroup:
+    Type: 'AWS::RDS::DBSubnetGroup'
+    Properties:
+      DBSubnetGroupDescription: Lab DB Subnet Group
+      SubnetIds:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+  EBStackInfo:
+    Type: 'Custom::EBStackInfo'
+    Properties:
+      ServiceToken: !GetAtt
+        - EBStackInfoFunction
+        - Arn
+      Match: 64bit Amazon Linux (.*) Python 2.7
+  EBStackInfoFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Code:
+        S3Bucket: !Sub "${AWS::Region}-tcprod"
+        S3Key: !Sub "${kaizenPrefix}/scripts/EBStackInfoFunction.zip"
+      Handler: index.handler
+      MemorySize: '128'
+      Role: !GetAtt
+        - LambdaExecutionRole
+        - Arn
+      Runtime: python2.7
+      Timeout: '300'
+  LambdaExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: 'arn:aws:logs:*:*:*'
+              - Effect: Allow
+                Action:
+                  - 'elasticbeanstalk:ListAvailableSolutionStacks'
+                Resource: '*'
+  EBWebTierRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier'
+  EBWebTierInstanceProfile:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      Path: /
+      Roles:
+        - !Ref EBWebTierRole
+  EBServiceRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: elasticbeanstalk.amazonaws.com
+            Action: 'sts:AssumeRole'
+            Condition:
+              StringEquals:
+                'sts:ExternalId': elasticbeanstalk
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService'
+        - 'arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth'
+  AirportsApplication:
+    Type: 'AWS::ElasticBeanstalk::Application'
+    Properties:
+      Description: Airports Application
+  AirportsApplicationVersion:
+    Type: 'AWS::ElasticBeanstalk::ApplicationVersion'
+    Properties:
+      ApplicationName: !Ref AirportsApplication
+      Description: AWS ElasticBeanstalk Sample Application Version
+      SourceBundle:
+        S3Bucket: !Join
+          - ''
+          - - !Ref 'AWS::Region'
+            - '-tcprod'
+        S3Key: courses/ILT-TF-200-ADVARC/v2.6.1/lab-2-r53/scripts/app.zip
+  AirportsConfigurationTemplate:
+    Type: 'AWS::ElasticBeanstalk::ConfigurationTemplate'
+    Properties:
+      ApplicationName: !Ref AirportsApplication
+      Description: Airports configuration
+      OptionSettings:
+        - Namespace: 'aws:elasticbeanstalk:environment'
+          OptionName: EnvironmentType
+          Value: SingleInstance
+        - Namespace: 'aws:elasticbeanstalk:environment'
+          OptionName: ServiceRole
+          Value: !Ref EBServiceRole
+        - Namespace: 'aws:ec2:vpc'
+          OptionName: VPCId
+          Value: !Ref VPC
+        - Namespace: 'aws:ec2:vpc'
+          OptionName: Subnets
+          Value: !Ref PublicSubnet1
+        - Namespace: 'aws:ec2:vpc'
+          OptionName: AssociatePublicIpAddress
+          Value: 'true'
+        - Namespace: 'aws:autoscaling:launchconfiguration'
+          OptionName: InstanceType
+          Value: t2.medium
+        - Namespace: 'aws:autoscaling:launchconfiguration'
+          OptionName: SecurityGroups
+          Value: !Ref EBSecurityGroup
+        - Namespace: 'aws:autoscaling:launchconfiguration'
+          OptionName: IamInstanceProfile
+          Value: !Ref EBWebTierInstanceProfile
+        - Namespace: 'aws:elasticbeanstalk:application:environment'
+          OptionName: DATABASE_HOST
+          Value: ''
+        - Namespace: 'aws:elasticbeanstalk:application:environment'
+          OptionName: DATABASE_USER
+          Value: master
+        - Namespace: 'aws:elasticbeanstalk:application:environment'
+          OptionName: DATABASE_PASSWORD
+          Value: ry245ur6123!
+        - Namespace: 'aws:elasticbeanstalk:application:environment'
+          OptionName: DATABASE_DB_NAME
+          Value: Airports
+      SolutionStackName: !GetAtt
+        - EBStackInfo
+        - SolutionStackName
+  AirportsEnvironment:
+    Type: 'AWS::ElasticBeanstalk::Environment'
+    Properties:
+      ApplicationName: !Ref AirportsApplication
+      EnvironmentName: secondary
+      Description: Production Environment
+      TemplateName: !Ref AirportsConfigurationTemplate
+      VersionLabel: !Ref AirportsApplicationVersion
+
+Outputs:
+  DBSubnetGroup:
+    Description: DBSubnetGroup
+    Value: !Ref DBSubnetGroup
+  DBSecurityGroup:
+    Description: DBSubnetGroup
+    Value: !Ref DBSecurityGroup
