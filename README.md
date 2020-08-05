@@ -82,6 +82,7 @@
 
 * [AWS re:Invent 2019: Advanced VPC design and new capabilities for Amazon VPC](https://youtu.be/7acKgdDOOu4)
 * [Integrating AWS Transit Gateway with AWS PrivateLink and Amazon Route 53 Resolver](https://aws.amazon.com/blogs/networking-and-content-delivery/integrating-aws-transit-gateway-with-aws-privatelink-and-amazon-route-53-resolver/)
+* [Route 53 - Choosing between alias and non-alias records](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html)
 * [Overlay Multicast in Amazon Virtual Private Cloud](https://aws.amazon.com/articles/overlay-multicast-in-amazon-virtual-private-cloud/)
 * [Introducing Bring Your Own IP (BYOIP) for Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-bring-your-own-ip-byoip-for-amazon-vpc/)
 * [Using redundant Site-to-Site VPN connections to provide failover](https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-redundant-connection.html)
@@ -89,6 +90,8 @@
 * [Scaling VPN throughput using AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/scaling-vpn-throughput-using-aws-transit-gateway/)
 * [How to Connect Your On-Premises Active Directory to AWS Using AD Connector](https://aws.amazon.com/blogs/security/how-to-connect-your-on-premises-active-directory-to-aws-using-ad-connector/)
 * [How do I use the AWS CLI to perform a multipart upload of a file to Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-multipart-upload-cli/)
+* [AWS Snowball Device Differences](https://docs.aws.amazon.com/snowball/latest/ug/device-differences.html)
+* [Best Practices for the AWS Snowball Edge Device](https://docs.aws.amazon.com/snowball/latest/developer-guide/BestPractices.html)
 * [Use the Serverless Developer Portal to Catalog Your API Gateway APIs ](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-developer-portal.html)
 * [Managing AWS resources across multiple accounts and Regions using AWS Systems Manager Automation](https://aws.amazon.com/blogs/mt/managing-aws-resources-across-multiple-accounts-and-regions-using-aws-systems-manager-automation/)
 * [How Moody’s uses AWS Systems Manager to patch servers across multiple cloud providers](https://aws.amazon.com/blogs/mt/how-moodys-uses-aws-systems-manager-to-patch-servers-across-multiple-cloud-providers/)
