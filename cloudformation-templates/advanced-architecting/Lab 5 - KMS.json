@@ -1,0 +1,369 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Lab 5: KMS",
+    "Parameters": {
+        "UserId": {
+            "Default": "awsstudent",
+            "Type": "String"
+        }
+    },
+    "Resources": {
+        "VPC": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "10.100.0.0/16",
+                "EnableDnsSupport": "true",
+                "EnableDnsHostnames": "true",
+                "Tags": [
+                    {
+                        "Key": "VPC",
+                        "Value": "Advanced Architecting on AWS VPC"
+                    },
+                    {
+                        "Key": "Name",
+                        "Value": "Lab VPC"
+                    }
+                ]
+            }
+        },
+        "InternetGateway": {
+            "Type": "AWS::EC2::InternetGateway",
+            "DependsOn": "VPC"
+        },
+        "AttachGateway": {
+            "Type": "AWS::EC2::VPCGatewayAttachment",
+            "DependsOn": [
+                "VPC",
+                "InternetGateway"
+            ],
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "InternetGatewayId": {
+                    "Ref": "InternetGateway"
+                }
+            }
+        },
+        "PublicSubnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "VPC",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": "10.100.10.0/24",
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "0",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "MapPublicIpOnLaunch": "true",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Public Subnet 1"
+                    }
+                ]
+            }
+        },
+        "PublicSubnet2": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "VPC",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": "10.100.15.0/24",
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "1",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "MapPublicIpOnLaunch": "true",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Public Subnet 2"
+                    }
+                ]
+            }
+        },
+        "PrivateSubnet1": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "VPC",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": "10.100.50.0/24",
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "0",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Private Subnet 1"
+                    }
+                ]
+            }
+        },
+        "PrivateSubnet2": {
+            "Type": "AWS::EC2::Subnet",
+            "DependsOn": "VPC",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "CidrBlock": "10.100.55.0/24",
+                "AvailabilityZone": {
+                    "Fn::Select": [
+                        "1",
+                        {
+                            "Fn::GetAZs": ""
+                        }
+                    ]
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Private Subnet 2"
+                    }
+                ]
+            }
+        },
+        "PublicRouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "DependsOn": [
+                "VPC",
+                "AttachGateway"
+            ],
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Public"
+                    }
+                ]
+            }
+        },
+        "PublicRoute": {
+            "Type": "AWS::EC2::Route",
+            "DependsOn": [
+                "VPC",
+                "PublicRouteTable",
+                "InternetGateway",
+                "AttachGateway"
+            ],
+            "Properties": {
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                },
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": {
+                    "Ref": "InternetGateway"
+                }
+            }
+        },
+        "PublicSubnet1RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": [
+                "PublicRouteTable",
+                "PublicSubnet1"
+            ],
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "PublicSubnet1"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "PublicSubnet2RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": [
+                "PublicRouteTable",
+                "PublicSubnet2"
+            ],
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "PublicSubnet2"
+                },
+                "RouteTableId": {
+                    "Ref": "PublicRouteTable"
+                }
+            }
+        },
+        "PrivateRouteTable": {
+            "Type": "AWS::EC2::RouteTable",
+            "DependsOn": "VPC",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Private"
+                    }
+                ]
+            }
+        },
+        "PrivateSubnet1RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": [
+                "PublicRouteTable",
+                "PrivateSubnet1"
+            ],
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "PrivateSubnet1"
+                },
+                "RouteTableId": {
+                    "Ref": "PrivateRouteTable"
+                }
+            }
+        },
+        "PrivateSubnet2RouteTableAssociation": {
+            "Type": "AWS::EC2::SubnetRouteTableAssociation",
+            "DependsOn": [
+                "PublicRouteTable",
+                "PrivateSubnet2"
+            ],
+            "Properties": {
+                "SubnetId": {
+                    "Ref": "PrivateSubnet2"
+                },
+                "RouteTableId": {
+                    "Ref": "PrivateRouteTable"
+                }
+            }
+        },
+        "PrivateNetworkAcl": {
+            "Type": "AWS::EC2::NetworkAcl",
+            "DependsOn": "VPC",
+            "Properties": {
+                "VpcId": {
+                    "Ref": "VPC"
+                },
+                "Tags": [
+                    {
+                        "Key": "Network",
+                        "Value": "Private"
+                    }
+                ]
+            }
+        },
+        "KMSPowerUserRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName": "KeyRole",
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/"
+            }
+        },
+        "KMSPowerUserRolePolicy": {
+            "Type": "AWS::IAM::Policy",
+            "Properties": {
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": {
+                        "Effect": "Allow",
+                        "Action": [
+                            "kms:CreateAlias",
+                            "kms:CreateKey",
+                            "kms:DeleteAlias",
+                            "kms:Describe*",
+                            "kms:GenerateRandom",
+                            "kms:Get*",
+                            "kms:List*",
+                            "kms:TagResource",
+                            "kms:UntagResource",
+                            "iam:ListGroups",
+                            "iam:ListRoles",
+                            "iam:ListUsers"
+                        ],
+                        "Resource": [
+                            "*"
+                        ]
+                    }
+                },
+                "PolicyName": "AWSKeyManagementServicePowerUserRolePolicy",
+                "Roles": [
+                    {
+                        "Ref": "KMSPowerUserRole"
+                    }
+                ]
+            }
+        },
+        "KeyRoleInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "KMSPowerUserRole"
+                    }
+                ]
+            }
+        },
+        "ReadOnlyGroup": {
+            "Type": "AWS::IAM::Group",
+            "Properties": {
+                "GroupName": "QLReadOnly",
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/ReadOnlyAccess"
+                ]
+            }
+        },
+        "GroupAssignment": {
+            "Type": "AWS::IAM::UserToGroupAddition",
+            "DependsOn": "ReadOnlyGroup",
+            "Properties": {
+                "GroupName": "QLReadOnly",
+                "Users": [
+                    {
+                        "Ref": "UserId"
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs": {
+        "Region": {
+            "Value": {
+                "Ref": "AWS::Region"
+            }
+        }
+    }
+}
