@@ -88,6 +88,7 @@
 * [Using redundant Site-to-Site VPN connections to provide failover](https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-redundant-connection.html)
 * [AWS Solution – Transit VPC](https://aws.amazon.com/blogs/aws/aws-solution-transit-vpc/)
 * [Scaling VPN throughput using AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/scaling-vpn-throughput-using-aws-transit-gateway/)
+* [How do I increase my security group limits in Amazon VPC?](https://aws.amazon.com/premiumsupport/knowledge-center/increase-security-group-rule-limit/)
 * [How to Connect Your On-Premises Active Directory to AWS Using AD Connector](https://aws.amazon.com/blogs/security/how-to-connect-your-on-premises-active-directory-to-aws-using-ad-connector/)
 * [How do I use the AWS CLI to perform a multipart upload of a file to Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-multipart-upload-cli/)
 * [AWS Snowball Device Differences](https://docs.aws.amazon.com/snowball/latest/ug/device-differences.html)
@@ -106,6 +107,7 @@
 * [Query any data source with Amazon Athena’s new federated query](https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/)
 * [Harmonize, Query, and Visualize Data from Various Providers using AWS Glue, Amazon Athena, and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/harmonize-query-and-visualize-data-from-various-providers-using-aws-glue-amazon-athena-and-amazon-quicksight/)
 * [AWS Outposts Now Available – Order Yours Today!](https://aws.amazon.com/blogs/aws/aws-outposts-now-available-order-your-racks-today/)
+* [Deploy a dashboard for AWS WAF with minimal effort](https://aws.amazon.com/blogs/security/deploy-dashboard-for-aws-waf-minimal-effort/)
 
 
 ### Systems Operations on AWS
