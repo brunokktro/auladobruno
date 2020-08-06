@@ -1,0 +1,15 @@
+#!/bin/bash -x
+yum -y update
+yum -y install cowsay python2-pip
+pip install --upgrade awscli
+pip install boto3
+su ec2-user <<'EOF'
+mkdir /home/ec2-user/.aws
+EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+EC2_REGION="`echo \"$EC2_AVAIL_ZONE\" | sed -e 's:\([0-9][0-9]*\)[a-z]*\$:\\1:'`"
+echo "[default]" > /home/ec2-user/.aws/config
+echo "region = $EC2_REGION" >> /home/ec2-user/.aws/config
+cd /home/ec2-user ; mkdir message ; cd message/
+wget https://s3-us-west-2.amazonaws.com/us-west-2-tcprod/courses/ILT-TF-200-ADVARC/v2.7.7/lab-5-kms/scripts/advarch_kms_lab.py
+python advarch_kms_lab.py
+EOF
