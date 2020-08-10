@@ -370,6 +370,7 @@
 * [VIDEO-LABS] [Systems Operations on AWS](http://bit.ly/opslabs)
 * [VIDEO-LABS] [Developing on AWS](http://bit.ly/Devlabs)
 * [VIDEO-LABS] [Security Engineering on AWS](http://bit.ly/seceng-labs)
+* [VIDEO-LABS] [AWS Security Essentials](https://bit.ly/secess-labs)
 * [VIDEO-LABS] [Planning and Designing Database on AWS](http://bit.ly/PD_DBLAB)
 * [VIDEO-LABS] [Deep Learning on AWS](http://bit.ly/deeplabs)
 * [VIDEO-LABS] [Moving to AWS Serverless](http://bit.ly/TC-MTAS )
