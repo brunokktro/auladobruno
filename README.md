@@ -62,6 +62,7 @@
 * [How do I create an IAM policy to control access to Amazon EC2 resources using tags?](https://aws.amazon.com/premiumsupport/knowledge-center/iam-ec2-resource-tags/)
 * [Simplify granting access to your AWS resources by using tags on AWS IAM users and roles](https://aws.amazon.com/blogs/security/simplify-granting-access-to-your-aws-resources-by-using-tags-on-aws-iam-users-and-roles/)
 * [Writing IAM Policies: Grant Access to User-Specific Folders in an Amazon S3 Bucket](https://aws.amazon.com/blogs/security/writing-iam-policies-grant-access-to-user-specific-folders-in-an-amazon-s3-bucket/)
+* [IAM Policies and Bucket Policies and ACLs! Oh, My! (Controlling Access to S3 Resources)](https://aws.amazon.com/blogs/security/iam-policies-and-bucket-policies-and-acls-oh-my-controlling-access-to-s3-resources/)
 * [Now Create and Manage AWS IAM Roles More Easily with the Updated IAM Console](https://aws.amazon.com/blogs/security/now-create-and-manage-aws-iam-roles-more-easily-with-the-updated-iam-console/)
 * [Guidelines for protecting your AWS account while using programmatic access](https://aws.amazon.com/blogs/security/guidelines-for-protecting-your-aws-account-while-using-programmatic-access/)
 * [Creating a Billing Alarm to Monitor Your Estimated AWS Charges ](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html)
