@@ -98,6 +98,7 @@
 * [Best Practices for the AWS Snowball Edge Device](https://docs.aws.amazon.com/snowball/latest/developer-guide/BestPractices.html)
 * [Use the Serverless Developer Portal to Catalog Your API Gateway APIs ](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-developer-portal.html)
 * [How to use service control policies to set permission guardrails across accounts in your AWS Organization](https://aws.amazon.com/blogs/security/how-to-use-service-control-policies-to-set-permission-guardrails-across-accounts-in-your-aws-organization/)
+* [Manage Software Licenses with AWS License Manager – DEMO](https://youtu.be/ikL5Axehutk)
 * [Managing AWS resources across multiple accounts and Regions using AWS Systems Manager Automation](https://aws.amazon.com/blogs/mt/managing-aws-resources-across-multiple-accounts-and-regions-using-aws-systems-manager-automation/)
 * [How Moody’s uses AWS Systems Manager to patch servers across multiple cloud providers](https://aws.amazon.com/blogs/mt/how-moodys-uses-aws-systems-manager-to-patch-servers-across-multiple-cloud-providers/)
 * [Centralized multi-account and multi-Region patching with AWS Systems Manager Automation](https://aws.amazon.com/blogs/mt/centralized-multi-account-and-multi-region-patching-with-aws-systems-manager-automation/)
