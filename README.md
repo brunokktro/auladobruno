@@ -49,6 +49,7 @@
 * [How to set up a CloudFront distribution for Amazon S3](https://aws.amazon.com/cloudfront/getting-started/S3/)
 * [Overview of Managing Access on S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html#so-which-one-should-i-use)
 * [New – AWS Storage Gateway Hardware Appliance](https://aws.amazon.com/blogs/aws/new-aws-storage-gateway-hardware-appliance/)
+* [Expanded availability and streamlined ordering of the AWS Storage Gateway Hardware Appliance](https://aws.amazon.com/blogs/storage/expanded-availability-and-streamlined-ordering-of-the-aws-storage-gateway-hardware-appliance/)
 * [Using static IP addresses for Application Load Balancers](https://aws.amazon.com/blogs/networking-and-content-delivery/using-static-ip-addresses-for-application-load-balancers/)
 * [New – Application Load Balancer Simplifies Deployment with Weighted Target Groups](https://aws.amazon.com/blogs/aws/new-application-load-balancer-simplifies-deployment-with-weighted-target-groups/)
 * [How to securely publish Internet applications at scale using Application Load Balancer and AWS PrivateLink](https://aws.amazon.com/blogs/networking-and-content-delivery/how-to-securely-publish-internet-applications-at-scale-using-application-load-balancer-and-aws-privatelink/)
