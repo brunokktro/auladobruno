@@ -96,6 +96,7 @@
 * [Scaling VPN throughput using AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/scaling-vpn-throughput-using-aws-transit-gateway/)
 * [How do I increase my security group limits in Amazon VPC?](https://aws.amazon.com/premiumsupport/knowledge-center/increase-security-group-rule-limit/)
 * [New – VPC Ingress Routing – Simplifying Integration of Third-Party Appliances](https://aws.amazon.com/blogs/aws/new-vpc-ingress-routing-simplifying-integration-of-third-party-appliances/)
+* [Deploy an Elastic HPC Cluster](https://aws.amazon.com/getting-started/hands-on/deploy-elastic-hpc-cluster/)
 * [How to Connect Your On-Premises Active Directory to AWS Using AD Connector](https://aws.amazon.com/blogs/security/how-to-connect-your-on-premises-active-directory-to-aws-using-ad-connector/)
 * [Integrando o AWS Directory Service com o AWS Console – AD Connector](https://aws.amazon.com/pt/blogs/aws-brasil/integrando-o-aws-directory-service-com-o-aws-console-ad-connector/)
 * [AWS AD Connector – o curioso caso de falha em localização de objetos](https://aws.amazon.com/pt/blogs/aws-brasil/aws-ad-connector-o-curioso-caso-de-falha-em-localizacao-de-objetos/)
