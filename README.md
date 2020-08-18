@@ -91,6 +91,7 @@
 * [How to run Schneider Electric’s Responder OMS using AWS Transit Gateway multicast](https://aws.amazon.com/blogs/publicsector/how-to-run-schneider-electrics-responder-oms-using-aws-transit-gateway-multicast/)
 * [Introducing Bring Your Own IP (BYOIP) for Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-bring-your-own-ip-byoip-for-amazon-vpc/)
 * [Using redundant Site-to-Site VPN connections to provide failover](https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-redundant-connection.html)
+* [How do I provision a new link aggregation group (LAG) using AWS Direct Connect connections?](https://aws.amazon.com/premiumsupport/knowledge-center/provision-lag-dx/)
 * [AWS Solution – Transit VPC](https://aws.amazon.com/blogs/aws/aws-solution-transit-vpc/)
 * [Scaling VPN throughput using AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/scaling-vpn-throughput-using-aws-transit-gateway/)
 * [How do I increase my security group limits in Amazon VPC?](https://aws.amazon.com/premiumsupport/knowledge-center/increase-security-group-rule-limit/)
