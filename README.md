@@ -94,6 +94,8 @@
 * [How do I provision a new link aggregation group (LAG) using AWS Direct Connect connections?](https://aws.amazon.com/premiumsupport/knowledge-center/provision-lag-dx/)
 * [AWS Solution – Transit VPC](https://aws.amazon.com/blogs/aws/aws-solution-transit-vpc/)
 * [Scaling VPN throughput using AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/scaling-vpn-throughput-using-aws-transit-gateway/)
+* [How to integrate third-party firewall appliances into an AWS environment](https://aws.amazon.com/blogs/networking-and-content-delivery/how-to-integrate-third-party-firewall-appliances-into-an-aws-environment/)
+* [Securing VPCs Egress using IDS/IPS leveraging Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/securing-egress-using-ids-ips-leveraging-transit-gateway/)
 * [How do I increase my security group limits in Amazon VPC?](https://aws.amazon.com/premiumsupport/knowledge-center/increase-security-group-rule-limit/)
 * [New – VPC Ingress Routing – Simplifying Integration of Third-Party Appliances](https://aws.amazon.com/blogs/aws/new-vpc-ingress-routing-simplifying-integration-of-third-party-appliances/)
 * [Deploy an Elastic HPC Cluster](https://aws.amazon.com/getting-started/hands-on/deploy-elastic-hpc-cluster/)
