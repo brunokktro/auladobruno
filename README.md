@@ -103,6 +103,7 @@
 * [Integrando o AWS Directory Service com o AWS Console – AD Connector](https://aws.amazon.com/pt/blogs/aws-brasil/integrando-o-aws-directory-service-com-o-aws-console-ad-connector/)
 * [AWS AD Connector – o curioso caso de falha em localização de objetos](https://aws.amazon.com/pt/blogs/aws-brasil/aws-ad-connector-o-curioso-caso-de-falha-em-localizacao-de-objetos/)
 * [How do I use the AWS CLI to perform a multipart upload of a file to Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-multipart-upload-cli/)
+* [Building and Maintaining an Amazon S3 Metadata Index without Servers](https://aws.amazon.com/blogs/big-data/building-and-maintaining-an-amazon-s3-metadata-index-without-servers/)
 * [AWS Snowball Device Differences](https://docs.aws.amazon.com/snowball/latest/ug/device-differences.html)
 * [Best Practices for the AWS Snowball Edge Device](https://docs.aws.amazon.com/snowball/latest/developer-guide/BestPractices.html)
 * [Use the Serverless Developer Portal to Catalog Your API Gateway APIs ](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-developer-portal.html)
