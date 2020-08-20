@@ -131,6 +131,7 @@
 * [Deploy a dashboard for AWS WAF with minimal effort](https://aws.amazon.com/blogs/security/deploy-dashboard-for-aws-waf-minimal-effort/)
 * [WAF - Preconfigured Rules & Tutorials](https://aws.amazon.com/waf/preconfiguredrules/)
 * [How do I block common attacks with AWS WAF?](https://aws.amazon.com/premiumsupport/knowledge-center/waf-block-common-attacks/)
+* [WAF Sandwich](https://www.cloudaxis.com/2016/11/21/waf-sandwich/)
 
 
 
@@ -148,6 +149,11 @@
 * [Query for the latest Amazon Linux AMI IDs using AWS Systems Manager Parameter Store](https://aws.amazon.com/blogs/compute/query-for-the-latest-amazon-linux-ami-ids-using-aws-systems-manager-parameter-store/)
 * [Query for the Latest Windows AMI Using Systems Manager Parameter Store](https://aws.amazon.com/blogs/mt/query-for-the-latest-windows-ami-using-systems-manager-parameter-store/)
 * [New – Query for AWS Regions, Endpoints, and More Using AWS Systems Manager Parameter Store](https://aws.amazon.com/blogs/aws/new-query-for-aws-regions-endpoints-and-more-using-aws-systems-manager-parameter-store/)
+* [How AWS Systems Manager Parameter Store uses AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/services-parameter-store.html)
+* [The Right Way to Store Secrets using Parameter Store](https://aws.amazon.com/blogs/mt/the-right-way-to-store-secrets-using-parameter-store/)
+* [Use Parameter Store to Securely Access Secrets and Config Data in AWS CodeDeploy](https://aws.amazon.com/blogs/mt/use-parameter-store-to-securely-access-secrets-and-config-data-in-aws-codedeploy/)
+* [Rotating Your AWS Secrets Manager Secrets](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)
+* [How to create and retrieve secrets managed in AWS Secrets Manager using AWS CloudFormation templates](https://aws.amazon.com/blogs/security/how-to-create-and-retrieve-secrets-managed-in-aws-secrets-manager-using-aws-cloudformation-template/)
 * [Patching your Windows EC2 instances using AWS Systems Manager Patch Manager](https://aws.amazon.com/blogs/mt/patching-your-windows-ec2-instances-using-aws-systems-manager-patch-manager/)
 * [How to patch Windows EC2 instances in private subnets Using AWS Systems Manager](https://aws.amazon.com/blogs/mt/how-to-patch-windows-ec2-instances-in-private-subnets-using-aws-systems-manager/)
 * [How patches are installed - AWS Systems Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-installation.html)
