@@ -250,6 +250,7 @@
 ### Security Engineering on AWS
 
 * [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
+* [Navegando na conformidade com a LGPD na AWS](https://d1.awsstatic.com/whitepapers/pt_BR/compliance/LGPD_Compliance_on_AWS.pdf)
 * [AWS IP Address Ranges](https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html)
 * [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 * [Limitations on IAM Entities and Objects](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html)
