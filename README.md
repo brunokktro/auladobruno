@@ -120,6 +120,8 @@
 * [New – Amazon Connect and Amazon Lex Integration](https://aws.amazon.com/blogs/aws/new-amazon-connect-and-amazon-lex-integration/)
 * [Integrating Amazon SES with Microsoft Exchange](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-exchange.html)
 * [AWS Server Migration Service – Server Migration to the Cloud Made Easy](https://aws.amazon.com/blogs/apn/aws-server-migration-service-server-migration-to-the-cloud-made-easy/)
+* [Importing Data to an Amazon RDS MySQL or MariaDB DB Instance with Reduced Downtime](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html)
+* [Strategies for Migrating Oracle Databases to AWS](https://d1.awsstatic.com/whitepapers/strategies-for-migrating-oracle-database-to-aws.pdf)
 * [Query any data source with Amazon Athena’s new federated query](https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/)
 * [Harmonize, Query, and Visualize Data from Various Providers using AWS Glue, Amazon Athena, and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/harmonize-query-and-visualize-data-from-various-providers-using-aws-glue-amazon-athena-and-amazon-quicksight/)
 * [AWS Outposts Now Available – Order Yours Today!](https://aws.amazon.com/blogs/aws/aws-outposts-now-available-order-your-racks-today/)
