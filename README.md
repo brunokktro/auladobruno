@@ -166,6 +166,7 @@
 * [Packaging to Distribution – Using AWS Systems Manager Distributor to deploy Datadog](https://aws.amazon.com/blogs/mt/packaging-to-distribution-using-aws-systems-manager-distributor-to-deploy-datadog/)
 * [Taking Advantage of Amazon EC2 Spot Instance Interruption Notices](https://aws.amazon.com/blogs/compute/taking-advantage-of-amazon-ec2-spot-instance-interruption-notices/)
 * [CPU credits and baseline utilization for burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html)
+* [Understanding T2 Standard Instance CPU Credits](https://d1.awsstatic.com/whitepapers/t2-std-cpu-credits.pdf)
 * [How do I stop and start Amazon EC2 instances at regular intervals using Lambda?](https://aws.amazon.com/premiumsupport/knowledge-center/start-stop-lambda-cloudwatch/)
 * [How do I stop and start my instances using the AWS Instance Scheduler?](https://aws.amazon.com/premiumsupport/knowledge-center/stop-start-instance-scheduler/)
 * [AWS Transit Gateway Egress VPC Demo](https://github.com/aws-samples/aws-transit-gateway-egress-vpc-demo)
