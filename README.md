@@ -95,6 +95,7 @@
 * [How can I configure VPN as a backup for my AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/configure-vpn-backup-dx/)
 * [How do I configure Direct Connect and VPN failover with Transit Gateway?](https://aws.amazon.com/premiumsupport/knowledge-center/dx-configure-dx-and-vpn-failover-tgw/)
 * [How do I provision a new link aggregation group (LAG) using AWS Direct Connect connections?](https://aws.amazon.com/premiumsupport/knowledge-center/provision-lag-dx/)
+* [What’s the difference between a hosted virtual interface (VIF) and a hosted connection?](https://aws.amazon.com/premiumsupport/knowledge-center/direct-connect-types/)
 * [AWS Solution – Transit VPC](https://aws.amazon.com/blogs/aws/aws-solution-transit-vpc/)
 * [How to integrate third-party firewall appliances into an AWS environment](https://aws.amazon.com/blogs/networking-and-content-delivery/how-to-integrate-third-party-firewall-appliances-into-an-aws-environment/)
 * [Securing VPCs Egress using IDS/IPS leveraging Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/securing-egress-using-ids-ips-leveraging-transit-gateway/)
