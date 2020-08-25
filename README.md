@@ -31,6 +31,7 @@
 * [AWS Well-Architected Framework](https://wa.aws.amazon.com/index.html)
 * [AWS Well-Architected Tool – Review Workloads Against Best Practices](https://aws.amazon.com/blogs/aws/new-aws-well-architected-tool-review-workloads-against-best-practices/)
 * [AWS Well-Architected Tool – DEMO](https://d3nn3d4w2aqyem.cloudfront.net/mp4/Getting_started_video.mp4)
+* [Nine Ways to Reduce Your AWS Bill](https://pages.awscloud.com/Nine-Ways-to-Reduce-Your-AWS-Bill_2020_0008-CMP_OD.html)
 * [Amazon S3 + Amazon CloudFront: A Match Made in the Cloud](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-s3-amazon-cloudfront-a-match-made-in-the-cloud/)
 * [How to set up a CloudFront distribution for Amazon S3](https://aws.amazon.com/cloudfront/getting-started/S3/)
 * [Overview of Managing Access on S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html#so-which-one-should-i-use)
