@@ -44,6 +44,7 @@
 * [Recovering files from an Amazon EBS volume backup](https://aws.amazon.com/blogs/compute/recovering-files-from-an-amazon-ebs-volume-backup/)
 * [New – Multi-Attach for Provisioned IOPS (io1) Amazon EBS Volumes](https://aws.amazon.com/blogs/aws/new-multi-attach-for-provisioned-iops-io1-amazon-ebs-volumes/)
 * [Can I use EBS Multi-Attach volumes to enable multiple EC2 instances to simultaneously access a standard file system?](https://aws.amazon.com/premiumsupport/knowledge-center/ebs-access-volumes-using-multi-attach/)
+* [Working with Aurora Multi-Master Clusters](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-multi-master.html)
 * [Amazon Aurora Backtrack – Turn Back Time](https://aws.amazon.com/blogs/aws/amazon-aurora-backtrack-turn-back-time/)
 * [Best Practices for Designing and Architecting with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html)
 * [Best Practices for Designing and Using Partition Keys Effectively ](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)
