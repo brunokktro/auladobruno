@@ -96,6 +96,7 @@
 * [Overlay Multicast in Amazon Virtual Private Cloud](https://aws.amazon.com/articles/overlay-multicast-in-amazon-virtual-private-cloud/)
 * [How to run Schneider Electric’s Responder OMS using AWS Transit Gateway multicast](https://aws.amazon.com/blogs/publicsector/how-to-run-schneider-electrics-responder-oms-using-aws-transit-gateway-multicast/)
 * [Introducing Bring Your Own IP (BYOIP) for Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-bring-your-own-ip-byoip-for-amazon-vpc/)
+* [Configurable Reverse DNS for Amazon EC2’s Elastic IP Addresses](https://aws.amazon.com/blogs/aws/reverse-dns-for-ec2s-elastic-ip-addresses/)
 * [Using redundant Site-to-Site VPN connections to provide failover](https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-redundant-connection.html)
 * [Scaling VPN throughput using AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/scaling-vpn-throughput-using-aws-transit-gateway/)
 * [How can I configure VPN as a backup for my AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/configure-vpn-backup-dx/)
