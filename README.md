@@ -73,6 +73,7 @@
 * [Creating a Billing Alarm to Monitor Your Estimated AWS Charges ](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html)
 * [How to better monitor your custom application metrics using Amazon CloudWatch Agent](https://aws.amazon.com/blogs/devops/new-how-to-better-monitor-your-custom-application-metrics-using-amazon-cloudwatch-agent/)
 * [CloudWatch Search Expression Examples](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/search-expression-examples.html)
+* [Upgrading to Amazon EventBridge from Amazon CloudWatch Events](https://aws.amazon.com/blogs/compute/upgrading-to-amazon-eventbridge-from-amazon-cloudwatch-events/)
 * [CloudWatch Logs Subscription Consumer + Elasticsearch + Kibana Dashboards](https://aws.amazon.com/blogs/aws/cloudwatch-logs-subscription-consumer-elasticsearch-kibana-dashboards/)
 * [Running Scripts from GitHub and Amazon S3 ](https://docs.aws.amazon.com/systems-manager/latest/userguide/integration-remote-scripts.html)
 * [Validating AWS CloudFormation Templates](https://aws.amazon.com/blogs/devops/validating-aws-cloudformation-templates/)
