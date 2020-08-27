@@ -50,6 +50,7 @@
 * [Best Practices for Designing and Using Partition Keys Effectively ](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)
 * [Building resiliency at scale at Tinder with Amazon ElastiCache](https://aws.amazon.com/blogs/database/building-resiliency-at-scale-at-tinder-with-amazon-elasticache/)
 * [How to work with Cluster Mode on Amazon ElastiCache for Redis](https://aws.amazon.com/blogs/database/work-with-cluster-mode-on-amazon-elasticache-for-redis/)
+* [Comparing Redis and Memcached](https://aws.amazon.com/elasticache/redis-vs-memcached/)
 * [Introducing Amazon Elasticsearch Service as a target in AWS Database Migration Service](https://aws.amazon.com/blogs/database/introducing-amazon-elasticsearch-service-as-a-target-in-aws-database-migration-service/)
 * [Migration Complete – Amazon’s Consumer Business Just Turned off its Final Oracle Database](https://aws.amazon.com/blogs/aws/migration-complete-amazons-consumer-business-just-turned-off-its-final-oracle-database/)
 * [Scaling Your Amazon RDS Instance Vertically and Horizontally](https://aws.amazon.com/blogs/database/scaling-your-amazon-rds-instance-vertically-and-horizontally/)
