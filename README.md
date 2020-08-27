@@ -238,6 +238,7 @@
 * [New – Import Existing Resources into a CloudFormation Stack](https://aws.amazon.com/blogs/aws/new-import-existing-resources-into-a-cloudformation-stack/)
 * [How do I prevent the resources in my AWS CloudFormation stack from getting deleted or updated?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudformation-accidental-updates/)
 * [Template Snippets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html)
+* [AWS CloudFormation Update – Public Coverage Roadmap & CDK Goodies](https://aws.amazon.com/blogs/aws/aws-cloudformation-update-public-coverage-roadmap-cdk-goodies/)
 * [Getting Started with AWS Support](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
 * [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/)
 * [AWS re:Invent 2015: A Day in the Life of a Netflix Engineer](https://youtu.be/-mL3zT1iIKw)
