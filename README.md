@@ -56,6 +56,7 @@
 * [Migration Complete – Amazon’s Consumer Business Just Turned off its Final Oracle Database](https://aws.amazon.com/blogs/aws/migration-complete-amazons-consumer-business-just-turned-off-its-final-oracle-database/)
 * [Scaling Your Amazon RDS Instance Vertically and Horizontally](https://aws.amazon.com/blogs/database/scaling-your-amazon-rds-instance-vertically-and-horizontally/)
 * [Right-size Amazon RDS instances at scale based on Oracle performance metrics](https://aws.amazon.com/blogs/database/right-sizing-amazon-rds-instances-at-scale-based-on-oracle-performance-metrics/)
+* [Using in-Region read replicas in Amazon RDS for SQL Server](https://aws.amazon.com/blogs/database/using-in-region-read-replicas-in-amazon-rds-for-sql-server/)
 * [New – AWS Storage Gateway Hardware Appliance](https://aws.amazon.com/blogs/aws/new-aws-storage-gateway-hardware-appliance/)
 * [Expanded availability and streamlined ordering of the AWS Storage Gateway Hardware Appliance](https://aws.amazon.com/blogs/storage/expanded-availability-and-streamlined-ordering-of-the-aws-storage-gateway-hardware-appliance/)
 * [Using static IP addresses for Application Load Balancers](https://aws.amazon.com/blogs/networking-and-content-delivery/using-static-ip-addresses-for-application-load-balancers/)
