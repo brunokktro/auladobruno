@@ -404,6 +404,7 @@
 * [Workshop] [Amazon Lightsail Workshop](https://lightsailworkshop.com/)
 * [Workshop] [Amazon DynamoDB Labs](https://amazon-dynamodb-labs.com/index.html)
 * [Workshop] [Amazon Aurora Labs for MySQL](https://awsauroralabsmy.com/prereqs/environment/)
+* [Workshop] [Amazon MQ Workshop](https://amazon-mq-intro.workshop.aws/)
 * [Workshop] [CloudEndure Deep Dive - Workshop](http://02h.s3-website.eu-central-1.amazonaws.com/)
 * [Workshop] [Migration and Modernization Workshop Guide](https://application-migration-with-aws.workshop.aws/)
 * [Workshop] [Kynesis Streaming Analytics Workshop](https://streaming-analytics.labgui.de/)
