@@ -77,5 +77,5 @@ Get-GLCVaultList
 
 ### STS ####################################
 # Comando para retornar o token da sessão usado em uma IAM Role
-aws sts assume-role --role-arn arn:aws:iam::518028969861:role/lopez-role-readonly --role-session-name "RoleSessionDemo" --profile lopez-aws > assume-role-output.txt
+aws sts assume-role --role-arn arn:aws:iam::518028969861:role/lopez-role-readonly --role-session-name "RoleSessionDemo" --profile default --output json
 ############################################
