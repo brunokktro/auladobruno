@@ -305,6 +305,7 @@
 * [Announcing the Golden AMI Pipeline](https://aws.amazon.com/blogs/awsmarketplace/announcing-the-golden-ami-pipeline/)
 * [Creating a Golden AMI Pipeline Integrated with Qualys for Vulnerability Assessments](https://aws.amazon.com/blogs/apn/creating-a-golden-ami-pipeline-integrated-with-qualys-for-vulnerability-assessments/)
 * [Getting Started with Automation](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-setup.html)
+* [Use AWS Fargate and Prowler to send security configuration findings about AWS services to Security Hub](https://aws.amazon.com/blogs/security/use-aws-fargate-prowler-send-security-configuration-findings-about-aws-services-security-hub/)
 * [How can I use user data to replace a lost SSH key pair after the initial launch of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/user-data-replace-key-pair-ec2/)
 * [AWS re:Invent 2019: Security best practices for the Amazon EC2 instance metadata service](https://youtu.be/2B5bhZzayjI)
 * [AWS re:Invent 2019: Deep dive on Amazon EBS](https://youtu.be/wsMWANWNoqQ)
