@@ -74,3 +74,8 @@ aws glacier list-vaults --account-id 774223929296
 # Em PowerShell
 Get-GLCVaultList
 ############################################
+
+### STS ####################################
+# Comando para retornar o token da sessão usado em uma IAM Role
+aws sts assume-role --role-arn arn:aws:iam::518028969861:role/lopez-aws-switch-role --role-session-name "RoleSessionDemo" --profile lopez-aws > assume-role-output.txt
+############################################
