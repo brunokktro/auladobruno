@@ -312,6 +312,7 @@
 * [AWS re:Invent 2019: Deep dive on Amazon EBS](https://youtu.be/wsMWANWNoqQ)
 * [Automating processes for handling and remediating AWS Abuse alerts](https://aws.amazon.com/blogs/mt/automating-processes-for-handling-and-remediating-aws-abuse-alerts/)
 * [I received an abuse report from AWS about my resources– what should I do?](https://aws.amazon.com/premiumsupport/knowledge-center/aws-abuse-report/)
+* [How do I report abuse of AWS resources?](https://aws.amazon.com/premiumsupport/knowledge-center/report-aws-abuse/)
 * [What to Do If You Inadvertently Expose an AWS Access Key](https://aws.amazon.com/blogs/security/what-to-do-if-you-inadvertently-expose-an-aws-access-key/)
 * [How to Detect and Automatically Revoke Unintended IAM Access with Amazon CloudWatch Events](https://aws.amazon.com/blogs/security/how-to-detect-and-automatically-revoke-unintended-iam-access-with-amazon-cloudwatch-events/)
 * [AWS re:Invent 2018: How Nubank Automates Fine-Grained Security with IAM, AWS Lambda, & CI/CD](https://youtu.be/eQ549RvQDeI)
