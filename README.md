@@ -337,6 +337,7 @@
 * [How to add DNS filtering to your NAT instance with Squid](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
 * [How to Use Nubeva with Amazon VPC Traffic Mirroring to Gain Decrypted Visibility of Your Network Traffic](https://aws.amazon.com/blogs/apn/how-to-use-nubeva-with-amazon-vpc-traffic-mirroring-to-gain-decrypted-visibility-of-your-network-traffic/)
 * [Why is my presigned URL for an Amazon S3 bucket expiring before the expiration time that I specified?](https://aws.amazon.com/premiumsupport/knowledge-center/presigned-url-s3-bucket-expiration/)
+* [Analyzing encrypted S3 objects with Amazon Macie](https://docs.aws.amazon.com/macie/latest/user/discovery-supported-encryption-types.html)
 * [How to Enhance the Security of Sensitive Customer Data by Using Amazon CloudFront Field-Level Encryption](https://aws.amazon.com/blogs/security/how-to-enhance-the-security-of-sensitive-customer-data-by-using-amazon-cloudfront-field-level-encryption/)
 * [Authorization@Edge using cookies: Protect your Amazon CloudFront content from being downloaded by unauthenticated users](https://aws.amazon.com/blogs/networking-and-content-delivery/authorizationedge-using-cookies-protect-your-amazon-cloudfront-content-from-being-downloaded-by-unauthenticated-users/)
 * [How do I use CloudFront to serve a static website hosted on Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
