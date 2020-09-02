@@ -350,6 +350,7 @@
 * [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
+* [Standardized Architecture for PCI DSS on the AWS Cloud](https://docs.aws.amazon.com/quickstart/latest/compliance-pci/welcome.html)
 * [Tutorial: Blocking IP Addresses That Submit Bad Requests ](https://docs.aws.amazon.com/waf/latest/developerguide/tutorials-4xx-blocking.html)
 
 
