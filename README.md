@@ -328,6 +328,7 @@
 * [How to use AWS Secrets Manager to securely store and rotate SSH key pairs](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-securely-store-rotate-ssh-key-pairs/)
 * [Post-quantum TLS now supported in AWS KMS](https://aws.amazon.com/blogs/security/post-quantum-tls-now-supported-in-aws-kms/)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
+* [GuardDuty EC2 finding types](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_finding-types-ec2.html)
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
 * [Automated Response and Remediation with AWS Security Hub](https://aws.amazon.com/blogs/security/automated-response-and-remediation-with-aws-security-hub/)
 * [Managed Renewal for ACM's Amazon-Issued Certificates ](https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html)
