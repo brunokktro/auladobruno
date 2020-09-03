@@ -332,6 +332,7 @@
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
 * [Automated Response and Remediation with AWS Security Hub](https://aws.amazon.com/blogs/security/automated-response-and-remediation-with-aws-security-hub/)
 * [Enabling AWS Security Hub integration with AWS Chatbot](https://aws.amazon.com/blogs/security/enabling-aws-security-hub-integration-with-aws-chatbot/)
+* [AWS Security Hub - Managed insights](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-managed-insights.html)
 * [Managed Renewal for ACM's Amazon-Issued Certificates ](https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html)
 * [Why did my ACM certificate fail automatic renewal?](https://aws.amazon.com/premiumsupport/knowledge-center/certificate-fails-to-auto-renew/)
 * [Tutorial: Sending VPC Flow Logs to Splunk Using Amazon Kinesis Data Firehose ](https://docs.aws.amazon.com/firehose/latest/dev/vpc-splunk-tutorial.html)
