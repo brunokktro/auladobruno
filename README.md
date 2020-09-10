@@ -147,6 +147,7 @@
 * [Importing Data to an Amazon RDS MySQL or MariaDB DB Instance with Reduced Downtime](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html)
 * [Strategies for Migrating Oracle Databases to AWS](https://d1.awsstatic.com/whitepapers/strategies-for-migrating-oracle-database-to-aws.pdf)
 * [Migrating Oracle databases with near-zero downtime using AWS DMS](https://aws.amazon.com/blogs/database/migrating-oracle-databases-with-near-zero-downtime-using-aws-dms/)
+* [Schema Conversion Tool blog series: Introducing new features in build 613](https://aws.amazon.com/blogs/database/schema-conversion-tool-blog-series-introducing-new-features-in-build-613/)
 * [Enable large-scale database migrations with AWS DMS and AWS Snowball](https://aws.amazon.com/blogs/storage/enable-large-scale-database-migrations-with-aws-dms-and-aws-snowball/)
 * [Query any data source with Amazon Athena’s new federated query](https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/)
 * [Harmonize, Query, and Visualize Data from Various Providers using AWS Glue, Amazon Athena, and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/harmonize-query-and-visualize-data-from-various-providers-using-aws-glue-amazon-athena-and-amazon-quicksight/)
