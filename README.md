@@ -371,6 +371,7 @@
 * [Conformance Pack Sample Templates](https://docs.aws.amazon.com/config/latest/developerguide/conformancepack-sample-templates.html)
 * [Using AWS Service Catalog Constraints](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints.html)
 * [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
+* [AWS Control Tower](https://hackmd.io/@matheuslra/r1o5k2-Xw)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
 * [Standardized Architecture for PCI DSS on the AWS Cloud](https://docs.aws.amazon.com/quickstart/latest/compliance-pci/welcome.html)
