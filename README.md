@@ -127,6 +127,7 @@
 * [How do I use the AWS CLI to perform a multipart upload of a file to Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-multipart-upload-cli/)
 * [Building and Maintaining an Amazon S3 Metadata Index without Servers](https://aws.amazon.com/blogs/big-data/building-and-maintaining-an-amazon-s3-metadata-index-without-servers/)
 * [How can I check the integrity of an object uploaded to Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/data-integrity-s3/)
+* [Performance Design Patterns for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/optimizing-performance-design-patterns.html#optimizing-performance-parallelization)
 * [S3 Select and Glacier Select – Retrieving Subsets of Objects](https://aws.amazon.com/blogs/aws/s3-glacier-select/)
 * [AWS Snowball Device Differences](https://docs.aws.amazon.com/snowball/latest/ug/device-differences.html)
 * [Best Practices for the AWS Snowball Edge Device](https://docs.aws.amazon.com/snowball/latest/developer-guide/BestPractices.html)
