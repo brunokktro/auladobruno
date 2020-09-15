@@ -457,6 +457,7 @@
 * [Workshop unofficial] [Play with Docker](https://labs.play-with-docker.com/)
 * [Workshop unofficial] [Hello Kubernetes w/ Minikube](https://kubernetes.io/docs/tutorials/hello-minikube/)
 * [SLIDES] [Technical Essentials on AWS](https://www.slideshare.net/AmazonWebServices/technical-essentials-training-aws-innovate-ottawa)
+* [SLIDES] [AWS Business Essentials Day](https://www.slideshare.net/AmazonWebServices/aws-business-essentials-day-236263685)
 * [EBOOK] [Hands-On AWS Penetration Testing with Kali Linux](https://github.com/PacktPublishing/Hands-On-AWS-Penetration-Testing-with-Kali-Linux)
 * [FILES] [Security Engineering on AWS - script lab 2](https://danidoo.github.io/lab2.html)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
