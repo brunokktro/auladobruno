@@ -26,6 +26,7 @@
 | ------------- |
 | [Architecting on AWS](https://github.com/brunokktro/auladobruno#architecting-on-aws) | 
 | [Advanced Architecting on AWS](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
+| [Planning and Designing Databases on AWS](https://github.com/brunokktro/auladobruno#planning-and-designing-databases-on-aws)     |
 | [Systems Operations on AWS](https://github.com/brunokktro/auladobruno#systems-operations-on-aws)    | 
 | [DevOps Engineering on AWS](https://github.com/brunokktro/auladobruno#devops-engineering-on-aws)    |
 | [Security Engineering on AWS](https://github.com/brunokktro/auladobruno#security-engineering-on-aws)    |
