@@ -1,0 +1,496 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Planning and Designing Databases on AWS - Lab 5 - Working with Amazon Redshift clusters
+
+Parameters:
+  AdministratorPassword:
+    Type: String
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+
+  WindowsAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base
+
+  DBName:
+    Type: String
+    Description: The name of the database in the Redshift cluster.
+    Default: imdb
+
+  DBUsername:
+    Type: String
+    Description: The username for the Redshift cluster.
+    Default: masteruser
+
+  DBPassword:
+    Type: String
+    Description: The password for the Redshift cluster.
+    Default: Pa33w0rd!
+
+  S3PathPrefix:
+    Type: String
+    Description: The path prefix where the lab resources are stored.
+    Default: courses/ILT-TF-200-DBDBAW/v1.2.4/lab5-redshift
+
+  S3ResourceBucket:
+    Type: String
+    Description: The S3 Bucket of where to pull lab resources from.
+    Default: -tcprod
+
+Resources:
+  # Create the VPC for the Redshift Cluster and the Command Host
+
+  LabVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: LabVPC
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref LabVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    DependsOn: AttachGateway
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Public Subnet
+
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.101.0/24
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Private Subnet
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: PublicSubnet
+    Properties:
+      VpcId: !Ref LabVPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: PublicSubnet
+    Properties:
+      VpcId: !Ref LabVPC
+      Tags:
+        - Key: Name
+          Value: Private Route Table
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn: PublicRoute
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  # Create the Windows Instance
+
+  WindowsSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the Command Host Instance
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3389
+          ToPort: 3389
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref LabVPC
+
+  WindowsInstance:
+    Type: AWS::EC2::Instance
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT15M
+    DependsOn:
+      - PublicSubnetRouteTableAssociation
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          sources:
+            C:\Users\Administrator\Desktop\workbench: http://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/SPLs/SharedSoftware/Workbench-Build123.zip
+          files:
+            C:\Users\Administrator\Desktop\RedshiftJDBC41-1.1.10.1010.jar:
+              source: https://s3.amazonaws.com/redshift-downloads/drivers/RedshiftJDBC41-1.1.10.1010.jar
+            C:\cfn\temp\jre.exe:
+              source: http://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/SPLs/SharedSoftware/jre-8u162-windows-x64.exe
+          commands:
+            1-Change-Password:
+              command: !Sub net user Administrator "${AdministratorPassword}"
+              waitAfterCompletion: 0
+            2-Install-Java-Runtime:
+              command: jre.exe /s
+              cwd: C:\cfn\temp\
+              waitAfterCompletion: 0
+            3-Create-Shortcut:
+              command: powershell.exe -Command "New-Item -ItemType SymbolicLink -Path C:\Users\Administrator\Desktop -Name SQLWorkbench.lnk -Value C:\Users\Administrator\Desktop\workbench\SQLWorkbench64.exe"
+              waitAfterCompletion: 0
+    Properties:
+      ImageId: !Ref WindowsAmiId
+      InstanceType: t3.medium
+      KeyName: !Ref KeyName
+      SecurityGroupIds:
+        - !Ref WindowsSecurityGroup
+      SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: WindowsInstance
+      UserData:
+        Fn::Base64: !Sub |
+          <script>
+            cfn-init.exe -v --stack ${AWS::StackName} --region ${AWS::Region} --resource WindowsInstance
+            cfn-signal.exe --stack ${AWS::StackName} --region ${AWS::Region} --resource WindowsInstance --exit-code %ERRORLEVEL%
+          </script>
+
+  # Create the Redshift Cluster
+
+  RedshiftSubnetGroup:
+    Type: AWS::Redshift::ClusterSubnetGroup
+    Properties:
+      Description: Subnet Group for the Redshift Cluster
+      SubnetIds:
+        - !Ref PrivateSubnet
+
+  RedshiftSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the Redshift Cluster
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5439
+          ToPort: 5439
+          SourceSecurityGroupId: !Ref WindowsSecurityGroup
+      VpcId: !Ref LabVPC
+
+  RedshiftParameterGroup:
+    Type: AWS::Redshift::ClusterParameterGroup
+    Properties:
+      Description: Parameter Group for the Redshift Cluster
+      ParameterGroupFamily: redshift-1.0
+      Parameters:
+        - ParameterName: enable_user_activity_logging
+          ParameterValue: "true"
+
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    Properties:
+      ClusterParameterGroupName: !Ref RedshiftParameterGroup
+      ClusterSubnetGroupName: !Ref RedshiftSubnetGroup
+      ClusterType: multi-node
+      DBName: !Ref DBName
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      NodeType: ds2.xlarge
+      NumberOfNodes: 2
+      Port: 5439
+      PubliclyAccessible: false
+      VpcSecurityGroupIds:
+        - !Ref RedshiftSecurityGroup
+
+  RedshiftAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: redshift.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+      Policies:
+        - PolicyName: LabDataBucket
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - s3:PutObject
+                Effect: Allow
+                Resource: !Sub ${LabDataBucket.Arn}/*
+
+  # Lab Data Copy and Setup Logic
+  #
+  # 1) The 'LabDataCopyFunction' requests Capstone to copy the data to the 'LabDataBucket'.
+  # 2) S3 events trigger the 'LabDataSetupFunction' which unzips the data.
+  # 3) The 'LabDataWaitCondition' is used to wait for one successful run of 'LabDataSetupFunction'.
+
+  LabDataWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  LabDataWaitCondition:
+    Type: AWS::CloudFormation::WaitCondition
+    Properties:
+      Handle: !Ref LabDataWaitHandle
+      Timeout: "3600"
+      Count: 1
+
+  LabDataBucket:
+    Type: AWS::S3::Bucket
+
+  LabDataBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref LabDataBucket
+      PolicyDocument:
+        Statement:
+          - Sid: Capstone
+            Action:
+              - s3:PutObject
+            Effect: Allow
+            Resource: !Sub ${LabDataBucket.Arn}/*
+            Principal:
+              AWS: arn:aws:sts::507824744738:assumed-role/capstone-dev-us-east-1-lambdaRole/capstone-dev-dataCopy
+
+  LabDataExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: LabData-Access
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - s3:PutBucketNotification
+                Effect: Allow
+                Resource: !GetAtt LabDataBucket.Arn
+              - Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:DeleteObject
+                Effect: Allow
+                Resource: !Sub ${LabDataBucket.Arn}/*
+
+  LabDataCopyFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          import boto3
+          import cfnresponse
+          import json
+          import urllib3
+
+          http = urllib3.PoolManager()
+          s3_client = boto3.client("s3")
+
+          def add_bucket_notification(properties):
+            return s3_client.put_bucket_notification_configuration(
+              Bucket=properties["Bucket"],
+              NotificationConfiguration={
+                "LambdaFunctionConfigurations": [
+                  {
+                    "LambdaFunctionArn": properties["FunctionArn"],
+                    "Events": [
+                      "s3:ObjectCreated:*"
+                    ],
+                    "Filter": {
+                      "Key": {
+                        "FilterRules": [
+                          {
+                            "Name": "suffix",
+                            "Value": ".zip"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            )
+
+          def request_data_via_capstone(properties):
+            response = http.request(
+              "PUT",
+              "https://81pywpf962.execute-api.us-east-1.amazonaws.com/dev/capstone",
+              body=json.dumps({
+                "sku": properties["SKU"],
+                "account": properties["Account"],
+                "bucket": properties["Bucket"]
+              }),
+              headers={
+                "Content-Type": "application/json",
+                "x-api-key": "eDOQbpbHh48P71is2MRULaYEcTpOlWzX5F7tpAoy"
+              }
+            )
+
+            return json.loads(response.data.decode("UTF-8"))
+
+          def handler(event, context):
+            status = cfnresponse.SUCCESS
+            data = {}
+
+            try:
+              type = event.get("RequestType")
+              properties = event.get("ResourceProperties")
+
+              if type == "Create":
+                data["Notification"] = add_bucket_notification(properties)
+                data["Capstone"] = request_data_via_capstone(properties)
+            except Exception as exception:
+              status = cfnresponse.FAILED
+              data["Exception"] = str(exception)
+            finally:
+              cfnresponse.send(event, context, status, data)
+      Handler: index.handler
+      Role: !GetAtt LabDataExecutionRole.Arn
+      Runtime: python3.7
+      Timeout: 60
+
+  LabDataSetupFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          import boto3
+          import io
+          import json
+          import os
+          import urllib3
+          import zipfile
+
+          http = urllib3.PoolManager()
+          s3 = boto3.resource("s3")
+
+          def handler(event, context):
+            for record in event["Records"]:
+              bucket = record["s3"]["bucket"]["name"]
+              key = record["s3"]["object"]["key"]
+
+              print(f"Extracting the Zip File: s3://{bucket}/{key}")
+
+              s3_bucket = s3.Bucket(bucket)
+              s3_object = s3_bucket.Object(key)
+              buffer = io.BytesIO(s3_object.get()["Body"].read())
+              zip_file = zipfile.ZipFile(buffer)
+
+              for file_name in zip_file.namelist():
+                s3_bucket.put_object(
+                    Body=zip_file.open(file_name),
+                    Key=file_name
+                )
+
+              print(f"Deleting the Zip File: s3://{bucket}/{key}")
+
+              s3_object.delete()
+
+              http.request(
+                "PUT",
+                os.environ["WaitHandle"],
+                body=json.dumps({
+                  "Status": "SUCCESS",
+                  "Reason": "Setup Complete",
+                  "UniqueId": key,
+                  "Data": "Lab data setup completed successfully."
+                })
+              )
+      Environment:
+        Variables:
+          WaitHandle: !Ref LabDataWaitHandle
+      Handler: index.handler
+      Role: !GetAtt LabDataExecutionRole.Arn
+      Runtime: python3.7
+      Timeout: 180
+      MemorySize: 2048
+
+  LabDataSetupPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt LabDataSetupFunction.Arn
+      Principal: s3.amazonaws.com
+      SourceArn: !GetAtt LabDataBucket.Arn
+
+  LabData:
+    Type: Custom::LabData
+    DependsOn:
+      - LabDataSetupPermission
+    Properties:
+      ServiceToken: !GetAtt LabDataCopyFunction.Arn
+      Account: !Ref AWS::AccountId
+      Bucket: !Ref LabDataBucket
+      FunctionArn: !GetAtt LabDataSetupFunction.Arn
+      SKU: ILT-TF-200-DBDBAW-1/lab5-redshift
+
+  ReadOnlyGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+
+  GroupAssignment:
+    Type: AWS::IAM::UserToGroupAddition
+    Properties:
+      GroupName: !Ref ReadOnlyGroup
+      Users:
+        - awsstudent
+
+Outputs:
+  AdministratorPassword:
+    Description: The password for the Windows Instance and the Redshift Cluster.
+    Value: !Ref AdministratorPassword
+
+  LabDataBucket:
+    Description: The name of the S3 Bucket containing the lab data.
+    Value: !Ref LabDataBucket
+
+  JDBCClusterEndpoint:
+    Description: The JDBC connection string for the Redshift Cluster.
+    Value: !Sub jdbc:redshift://${RedshiftCluster.Endpoint.Address}:${RedshiftCluster.Endpoint.Port}/imdb
+
+  RedshiftAccessRoleArn:
+    Description: The ARN for the role that allows the Redshift Cluster to access S3.
+    Value: !GetAtt RedshiftAccessRole.Arn
+
+  ReplaceWebsite:
+    Description: The URL for the find and replace tool.
+    Value: !Sub https://${AWS::Region}${S3ResourceBucket}.s3.${AWS::Region}.amazonaws.com/${S3PathPrefix}/scripts/convert.html
+
+  Region:
+    Description: The lab's region.
+    Value: !Ref AWS::Region
