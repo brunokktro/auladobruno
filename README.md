@@ -21,6 +21,13 @@
 - [X] Aproveite os [benefícios](https://aws.amazon.com/certification/benefits/) concedidos só a quem tem certificações AWS
 
 
+| Summary       | 
+| ------------- |
+| col 3 is      | 
+| col 2 is      |
+| zebra stripes | 
+
+
 ### Architecting on AWS
 
 * [AWS Global Cloud Infrastructure Map](https://infrastructure.aws/)
