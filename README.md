@@ -181,6 +181,10 @@
 * [WAF Sandwich](https://www.cloudaxis.com/2016/11/21/waf-sandwich/)
 
 
+### Planning and Designing Databases on AWS
+
+* [Learning Path - Databases](https://aws.amazon.com/training/path-databases/)
+
 
 ### Systems Operations on AWS
 
