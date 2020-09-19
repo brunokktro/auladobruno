@@ -27,6 +27,10 @@
 | [Architecting on AWS](https://github.com/brunokktro/auladobruno#architecting-on-aws) | 
 | col 2 is      |
 | zebra stripes | 
+| zebra stripes |
+| zebra stripes |
+| zebra stripes |
+| zebra stripes |
 
 ---
 
