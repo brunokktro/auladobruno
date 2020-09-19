@@ -25,12 +25,12 @@
 | Table of Content | 
 | ------------- |
 | [Architecting on AWS](https://github.com/brunokktro/auladobruno#architecting-on-aws) | 
-| col 2 is      |
-| zebra stripes | 
-| zebra stripes |
-| zebra stripes |
-| zebra stripes |
-| zebra stripes |
+| [Advanced Architecting on AWS](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
+| [Systems Operations on AWS](https://github.com/brunokktro/auladobruno#systems-operations-on-aws)    | 
+| [DevOps Engineering on AWS](https://github.com/brunokktro/auladobruno#devops-engineering-on-aws)    |
+| [Security Engineering on AWS](https://github.com/brunokktro/auladobruno#security-engineering-on-aws)    |
+| [Arquiteturas de Referência & Tools](https://github.com/brunokktro/auladobruno#arquiteturas-de-refer%C3%AAncia--tools)    |
+| [Workshops & Laboratórios](https://github.com/brunokktro/auladobruno#workshops--laborat%C3%B3rios)    |
 
 ---
 
