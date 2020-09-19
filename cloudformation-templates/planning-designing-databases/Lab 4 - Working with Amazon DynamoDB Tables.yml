@@ -1,0 +1,417 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Planning and Designing Databases on AWS - Lab 4 - Working with Amazon DynamoDB Tables
+
+Parameters:
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+
+  LinuxAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
+  S3PathPrefix:
+    Type: String
+    Description: The path prefix where the lab resources are stored.
+    Default: courses/ILT-TF-200-DBDBAW/v1.2.4/lab4-dynamodb
+
+  S3ResourceBucket:
+    Type: String
+    Description: The S3 Bucket of where to pull lab resources from.
+    Default: -tcprod
+
+Resources:
+  # Create the VPC for the DynamoDB Accelerator Cluster and the Command Host
+
+  LabVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: LabVPC
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref LabVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    DependsOn: AttachGateway
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Public Subnet
+
+  PrivateSubnetAZ1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.101.0/24
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Private Subnet (AZ1)
+
+  PrivateSubnetAZ2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.102.0/24
+      AvailabilityZone: !Select
+        - 1
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Private Subnet (AZ2)
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: PublicSubnet
+    Properties:
+      VpcId: !Ref LabVPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn: PublicRoute
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  # Lab Data Copy Logic
+  #
+  # 1) The 'LabDataCopyFunction' function requests Capstone to copy the data to the 'LabDataBucket'.
+  # 2) Files are being copied from the 'LabDataBucket' to the user directories on the 'CommandHostInstance'.
+
+  LabDataBucket:
+    Type: AWS::S3::Bucket
+
+  LabDataBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref LabDataBucket
+      PolicyDocument:
+        Statement:
+          - Sid: Capstone
+            Action:
+              - s3:PutObject
+            Effect: Allow
+            Resource: !Sub ${LabDataBucket.Arn}/*
+            Principal:
+              AWS: arn:aws:sts::507824744738:assumed-role/capstone-dev-us-east-1-lambdaRole/capstone-dev-dataCopy
+
+  LabDataExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  LabDataCopyFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: |
+          import cfnresponse
+          import json
+          import urllib3
+
+          http = urllib3.PoolManager()
+
+          def request_data_via_capstone(properties):
+            response = http.request(
+              "PUT",
+              "https://81pywpf962.execute-api.us-east-1.amazonaws.com/dev/capstone",
+              body=json.dumps({
+                "sku": properties["SKU"],
+                "account": properties["Account"],
+                "bucket": properties["Bucket"]
+              }),
+              headers={
+                "Content-Type": "application/json",
+                "x-api-key": "eDOQbpbHh48P71is2MRULaYEcTpOlWzX5F7tpAoy"
+              }
+            )
+
+            return json.loads(response.data.decode("UTF-8"))
+
+          def handler(event, context):
+            status = cfnresponse.SUCCESS
+            data = {}
+
+            try:
+              type = event.get("RequestType")
+              properties = event.get("ResourceProperties")
+
+              if type == "Create":
+                data["Capstone"] = request_data_via_capstone(properties)
+            except Exception as exception:
+              status = cfnresponse.FAILED
+              data["Exception"] = str(exception)
+            finally:
+              cfnresponse.send(event, context, status, data)
+      Handler: index.handler
+      Role: !GetAtt LabDataExecutionRole.Arn
+      Runtime: python3.7
+      Timeout: 60
+
+  LabData:
+    Type: Custom::LabData
+    Properties:
+      ServiceToken: !GetAtt LabDataCopyFunction.Arn
+      Account: !Ref AWS::AccountId
+      Bucket: !Ref LabDataBucket
+      SKU: ILT-TF-200-DBDBAW-1/lab4-dynamodb
+
+  # Create the DynamoDB Accelerator Cluster
+
+  DAXSubnetGroup:
+    Type: AWS::DAX::SubnetGroup
+    Properties:
+      Description: Subnet Group for the DynamoDB Accelerator Cluster
+      SubnetIds:
+        - !Ref PrivateSubnetAZ1
+        - !Ref PrivateSubnetAZ2
+
+  DAXSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the DynamoDB Accelerator Cluster
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 8111
+          ToPort: 8111
+          SourceSecurityGroupId: !Ref CommandHostSecurityGroup
+      VpcId: !Ref LabVPC
+
+  DAXRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - dax.amazonaws.com
+      Policies:
+        - PolicyName: DAXServiceRoleForDynamoDBAccess
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - dynamodb:BatchGetItem
+                  - dynamodb:BatchWriteItem
+                  - dynamodb:ConditionCheckItem
+                  - dynamodb:DeleteItem
+                  - dynamodb:DescribeTable
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                  - dynamodb:UpdateItem
+                Effect: Allow
+                Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:*
+
+  DAXParameterGroup:
+    Type: AWS::DAX::ParameterGroup
+    Properties:
+      Description: Parameter Group for the DynamoDB Accelerator Cluster
+      ParameterNameValues:
+        query-ttl-millis: 75000
+        record-ttl-millis: 88000
+
+  DAXCluster:
+    Type: AWS::DAX::Cluster
+    Properties:
+      ClusterName: DAXCluster
+      IAMRoleARN: !GetAtt DAXRole.Arn
+      NodeType: dax.r4.large
+      ParameterGroupName: !Ref DAXParameterGroup
+      ReplicationFactor: 2
+      SecurityGroupIds:
+        - !Ref DAXSecurityGroup
+      SubnetGroupName: !Ref DAXSubnetGroup
+
+  # Create the Command Host
+
+  CommandHostSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the Command Host Instance
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref LabVPC
+
+  CommandHostRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      Policies:
+        - PolicyName: Other
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:BatchWriteItem
+                  - dynamodb:CreateTable
+                  - dynamodb:DeleteTable
+                  - dynamodb:PutItem
+                Resource: "*"
+
+  CommandHostInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref CommandHostRole
+
+  CommandHostInstance:
+    Type: AWS::EC2::Instance
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT15M
+    DependsOn:
+      - LabData
+      - PublicSubnetRouteTableAssociation
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          default:
+            - Dependencies
+            - AWS
+            - Data
+            - Workspace
+            - SSM
+        Dependencies:
+          commands:
+            1-Install-Yum-Packages:
+              command: yum install -y python-pip python-tools
+            2-Update-Yum-Packages:
+              command: yum update -y
+            3-Install-Pip-Packages:
+              command: python -m pip install amazon-dax-client boto3
+        AWS:
+          commands:
+            1-AWS-Default-Region:
+              command: !Sub sudo -u ec2-user aws configure set default.region ${AWS::Region}
+        Data:
+          commands:
+            1-Copy-Data:
+              command: !Sub aws s3 sync s3://${LabDataBucket}/ /home/ec2-user/
+        Workspace:
+          sources:
+            /home/ec2-user: !Sub https://${AWS::Region}${S3ResourceBucket}.s3.${AWS::Region}.amazonaws.com/${S3PathPrefix}/scripts/workspace.zip
+          files:
+            /home/ec2-user/TryDax.zip:
+              source: !Sub https://${AWS::Region}${S3ResourceBucket}.s3.${AWS::Region}.amazonaws.com/${S3PathPrefix}/scripts/TryDax.zip
+          commands:
+            1-Update-Ownership:
+              command: chown -R ec2-user:ec2-user /home/ec2-user
+        SSM:
+          users:
+            ssm-user:
+              uid: 1001
+              homeDir: /home/ssm-user
+          files:
+            /etc/sudoers.d/ssm-agent-users:
+              content: |
+                # User rules for ssm-user
+                ssm-user ALL=(ALL) NOPASSWD:ALL
+              mode: "000440"
+          commands:
+            1-Copy-Home-Directory:
+              command: cp -a /home/ec2-user /home/ssm-user
+            2-Change-Ownership:
+              command: chown -R ssm-user:ssm-user /home/ssm-user
+    Properties:
+      IamInstanceProfile: !Ref CommandHostInstanceProfile
+      ImageId: !Ref LinuxAmiId
+      InstanceType: t3.medium
+      KeyName: !Ref KeyName
+      SecurityGroupIds:
+        - !Ref CommandHostSecurityGroup
+      SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: CommandHost
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -x
+          yum update -y aws-cfn-bootstrap
+          /opt/aws/bin/cfn-init --stack ${AWS::StackName} --region ${AWS::Region} --resource CommandHostInstance
+          /opt/aws/bin/cfn-signal --stack ${AWS::StackName} --region ${AWS::Region} --resource CommandHostInstance --exit-code $?
+
+  ReadOnlyGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+
+  GroupAssignment:
+    Type: AWS::IAM::UserToGroupAddition
+    Properties:
+      GroupName: !Ref ReadOnlyGroup
+      Users:
+        - awsstudent
+
+Outputs:
+  CommandHost:
+    Description: The IP address of the command host.
+    Value: !GetAtt CommandHostInstance.PublicIp
+
+  CommandHostSessionUrl:
+    Description: The URL to the Session Management Console for the command host.
+    Value: !Sub https://${AWS::Region}.console.aws.amazon.com/systems-manager/session-manager/${CommandHostInstance}?region=${AWS::Region}
+
+  Region:
+    Description: The lab's region.
+    Value: !Ref AWS::Region
