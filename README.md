@@ -20,13 +20,15 @@
 - [X] Seja um certificado AWS!
 - [X] Aproveite os [benefícios](https://aws.amazon.com/certification/benefits/) concedidos só a quem tem certificações AWS
 
+<p>
 
-| Summary       | 
+| Table of Content | 
 | ------------- |
-| col 3 is      | 
+| [Architecting on AWS](https://github.com/brunokktro/auladobruno#architecting-on-aws) | 
 | col 2 is      |
 | zebra stripes | 
 
+</p>
 
 ### Architecting on AWS
 
