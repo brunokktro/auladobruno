@@ -20,7 +20,7 @@
 - [X] Seja um certificado AWS!
 - [X] Aproveite os [benefícios](https://aws.amazon.com/certification/benefits/) concedidos só a quem tem certificações AWS
 
-<p>
+---
 
 | Table of Content | 
 | ------------- |
@@ -28,7 +28,7 @@
 | col 2 is      |
 | zebra stripes | 
 
-</p>
+---
 
 ### Architecting on AWS
 
