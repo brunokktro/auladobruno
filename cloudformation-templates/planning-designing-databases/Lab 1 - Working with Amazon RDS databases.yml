@@ -1,0 +1,440 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Planning and Designing Databases on AWS - Lab 1 - Working with Amazon RDS databases
+
+Parameters:
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+
+  LinuxAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
+  DBId:
+    Type: String
+    Description: The identifier for the RDS instance.
+    Default: mydb
+
+  DBName:
+    Type: String
+    Description: The name of the database in the RDS instance.
+    Default: mydb
+
+  DBUsername:
+    Type: String
+    Description: The username for the RDS instance.
+    Default: admin
+
+  DBPassword:
+    Type: String
+    Description: The password for the RDS instance.
+    Default: Pa33w0rd!
+    NoEcho: true
+
+  S3PathPrefix:
+    Type: String
+    Description: The path prefix where the lab resources are stored.
+    Default: courses/ILT-TF-200-DBDBAW/v1.2.4/lab1-rds
+
+  S3ResourceBucket:
+    Type: String
+    Description: The S3 Bucket of where to pull lab resources from.
+    Default: -tcprod
+
+Resources:
+  # Create the VPC for RDS Instance and the Command Host
+
+  LabVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: RDSVPC
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref LabVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    DependsOn: AttachGateway
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Public Subnet
+
+  PrivateSubnetAZ1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.101.0/24
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Private Subnet (AZ1)
+
+  PrivateSubnetAZ2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref LabVPC
+      CidrBlock: 10.0.102.0/24
+      AvailabilityZone: !Select
+        - 1
+        - !GetAZs
+      Tags:
+        - Key: Name
+          Value: Private Subnet (AZ2)
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: PublicSubnet
+    Properties:
+      VpcId: !Ref LabVPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn: PublicRoute
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  # Create the RDS Instance (MySQL)
+
+  myDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet Group for the RDS Instance
+      SubnetIds:
+        - !Ref PrivateSubnetAZ1
+        - !Ref PrivateSubnetAZ2
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the RDS Instance
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !Ref CommandHostSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !Ref SecretRotationSecurityGroup
+      VpcId: !Ref LabVPC
+
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: "20"
+      BackupRetentionPeriod: 10
+      DBInstanceClass: db.t3.micro
+      DBInstanceIdentifier: !Ref DBId
+      DBName: !Ref DBName
+      DBSubnetGroupName: !Ref myDBSubnetGroup
+      DeletionProtection: false
+      Engine: MySQL
+      EngineVersion: 5.7.22
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      MultiAZ: true
+      PubliclyAccessible: false
+      StorageEncrypted: true
+      StorageType: Standard
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+
+  # Create the Command Host
+
+  CommandHostSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the Command Host Instance
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref LabVPC
+
+  CommandHostRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      Policies:
+        - PolicyName: Other
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - secretsmanager:GetSecretValue
+                  - secretsmanager:UpdateSecretVersionStage
+                Effect: Allow
+                Resource: "*"
+
+  CommandHostInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref CommandHostRole
+
+  CommandHostInstance:
+    Type: AWS::EC2::Instance
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT15M
+    DependsOn:
+      - PublicSubnetRouteTableAssociation
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          default:
+            - Dependencies
+            - AWS
+            - Workspace
+            - SSM
+        Dependencies:
+          commands:
+            1-Install-Yum-Packages:
+              command: yum install -y jq mysql python3 python3-setuptools
+            2-Update-Yum-Packages:
+              command: yum update -y
+        AWS:
+          commands:
+            1-AWS-Default-Region:
+              command: !Sub sudo -u ec2-user aws configure set default.region ${AWS::Region}
+        Workspace:
+          sources:
+            /home/ec2-user: !Sub https://${AWS::Region}${S3ResourceBucket}.s3.${AWS::Region}.amazonaws.com/${S3PathPrefix}/scripts/workspace.zip
+          files:
+            /home/ec2-user/rds-combined-ca-bundle.pem:
+              source: https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem
+          commands:
+            1-Update-Ownership:
+              command: chown -R ec2-user:ec2-user /home/ec2-user
+        SSM:
+          users:
+            ssm-user:
+              uid: 1001
+              homeDir: /home/ssm-user
+          files:
+            /etc/sudoers.d/ssm-agent-users:
+              content: |
+                # User rules for ssm-user
+                ssm-user ALL=(ALL) NOPASSWD:ALL
+              mode: "000440"
+          commands:
+            1-Copy-Home-Directory:
+              command: cp -a /home/ec2-user /home/ssm-user
+            2-Change-Ownership:
+              command: chown -R ssm-user:ssm-user /home/ssm-user
+    Properties:
+      IamInstanceProfile: !Ref CommandHostInstanceProfile
+      ImageId: !Ref LinuxAmiId
+      InstanceType: t3.micro
+      KeyName: !Ref KeyName
+      SecurityGroupIds:
+        - !Ref CommandHostSecurityGroup
+      SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: CommandHost
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -x
+          yum update -y aws-cfn-bootstrap
+          /opt/aws/bin/cfn-init --stack ${AWS::StackName} --region ${AWS::Region} --resource CommandHostInstance
+          /opt/aws/bin/cfn-signal --stack ${AWS::StackName} --region ${AWS::Region} --resource CommandHostInstance --exit-code $?
+
+  # Create the Lambda Function Used to Rotate Secrets
+  # For details about rotation lambdas, see: https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html
+
+  SecretRotationSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the Lambda Functions
+      VpcId: !Ref LabVPC
+
+  SecretRotationEndpointSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for the VPC Endpoint
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !Ref CommandHostSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !Ref SecretRotationSecurityGroup
+      VpcId: !Ref LabVPC
+
+  SecretRotationEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcEndpointType: Interface
+      PrivateDnsEnabled: true
+      VpcId: !Ref LabVPC
+      SubnetIds:
+        - !Ref PrivateSubnetAZ1
+        - !Ref PrivateSubnetAZ2
+      SecurityGroupIds:
+        - !Ref SecretRotationEndpointSecurityGroup
+      ServiceName: !Sub com.amazonaws.${AWS::Region}.secretsmanager
+
+  SecretRotationExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+      Policies:
+        - PolicyName: AWSSecretsManagerRotationPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - secretsmanager:DescribeSecret
+                  - secretsmanager:GetRandomPassword
+                  - secretsmanager:GetSecretValue
+                  - secretsmanager:PutSecretValue
+                  - secretsmanager:UpdateSecretVersionStage
+                Effect: Allow
+                Resource: "*"
+
+  SecretRotationFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: rotation-lambda
+      Description: Rotates the MySQL User Password
+      Code:
+        S3Bucket: !Sub ${AWS::Region}${S3ResourceBucket}
+        S3Key: !Sub ${S3PathPrefix}/scripts/secretrotation.zip
+      Environment:
+        Variables:
+          SECRETS_MANAGER_ENDPOINT: !Sub https://secretsmanager.${AWS::Region}.amazonaws.com
+      Handler: mysql_secret_rotation.lambda_handler
+      MemorySize: 128
+      Role: !GetAtt SecretRotationExecutionRole.Arn
+      Runtime: python3.8
+      Timeout: 60
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref SecretRotationSecurityGroup
+        SubnetIds:
+          - !Ref PrivateSubnetAZ1
+          - !Ref PrivateSubnetAZ2
+
+  SecretRotationInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref SecretRotationFunction
+      Action: lambda:InvokeFunction
+      Principal: secretsmanager.amazonaws.com
+
+  EnhancedMonitoringRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: rds-monitoring-role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          Action:
+            - sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service: monitoring.rds.amazonaws.com
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole
+
+  ReadOnlyGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+
+  GroupAssignment:
+    Type: AWS::IAM::UserToGroupAddition
+    Properties:
+      GroupName: !Ref ReadOnlyGroup
+      Users:
+        - awsstudent
+
+Outputs:
+  CommandHost:
+    Description: The IP address of the command host.
+    Value: !GetAtt CommandHostInstance.PublicIp
+
+  CommandHostSessionUrl:
+    Description: The URL to the Session Management Console for the command host.
+    Value: !Sub https://${AWS::Region}.console.aws.amazon.com/systems-manager/session-manager/${CommandHostInstance}?region=${AWS::Region}
+
+  Endpoint:
+    Description: The IP address of the RDS instance.
+    Value: !GetAtt DBInstance.Endpoint.Address
+
+  mydbMasterUser:
+    Description: The username for the RDS instance.
+    Value: !Ref DBUsername
+
+  mydbMasterPassword:
+    Description: The password for the RDS instance.
+    Value: !Ref DBPassword
+
+  Region:
+    Description: The lab's region.
+    Value: !Ref AWS::Region
