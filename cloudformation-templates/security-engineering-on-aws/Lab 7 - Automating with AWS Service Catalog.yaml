@@ -1,0 +1,206 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+ Base lab template to create a product and portfolio in the account, as well as
+ the IAM permsisions that will be needed by the user during a run
+Parameters:
+  S3PathPrefix:
+    Type: String
+    Description: "The path prefix where lab resources are stored"
+    Default: "courses/ILT-TF-200-SISECO/v2.3.1/lab-7-servicecatalog"
+    #Default: "courses/ILT-TF-200-SISECO/v2.1.1/lab-7-servicecatalog"
+  QwiklabLocale:
+    Default: en
+    Type: String
+    Description: The locale of the student will be passed in to this parameter via the Qwiklab platform via the students browser
+Resources:
+  # IAM
+  rIAMServiceCatalogGroup:
+    Type: 'AWS::IAM::Group'
+    Properties:
+      GroupName: ServiceCatalogAppCreation
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSServiceCatalogEndUserFullAccess
+  rIAMServiceCatalogUser:
+    Type: 'AWS::IAM::User'
+    DependsOn:
+      - rIAMServiceCatalogGroup
+    Properties:
+      UserName: 'ServiceCatalogAppUser'
+      Groups:
+        - !Ref rIAMServiceCatalogGroup
+      LoginProfile:
+        Password: SecurityRocks!
+        PasswordResetRequired: false
+  GameLaunchRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: GameLaunchRole
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: 'Allow'
+          Principal:
+            Service: ['servicecatalog.amazonaws.com']
+          Action: ['sts:AssumeRole']
+      Path: '/'
+      Policies:
+      - PolicyName: ServiceCatalogLaunchRole-Policy
+        PolicyDocument:
+          Statement:
+          - Effect: 'Allow'
+            Action: [ 'servicecatalog:*',
+                      'cloudformation:CreateStack',
+                      'cloudformation:DeleteStack',
+                      'cloudformation:DescribeStackEvents',
+                      'cloudformation:DescribeStacks',
+                      'cloudformation:GetTemplateSummary',
+                      'cloudformation:SetStackPolicy',
+                      'cloudformation:ValidateTemplate',
+                      'cloudformation:UpdateStack',
+                      's3:GetObject',
+                      'elasticloadbalancing:*',
+                      'AutoScaling:*',
+                      'iam:PassRole',
+                      'iam:CreateServiceLinkedRole',
+                      'ec2:*' ]
+            Resource: '*'
+  LaunchRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: 'Allow'
+          Principal:
+            Service: ['servicecatalog.amazonaws.com']
+          Action: ['sts:AssumeRole']
+      Path: '/'
+      Policies:
+      - PolicyName: ServiceCatalogLaunchRole-Policy
+        PolicyDocument:
+          Statement:
+          - Effect: 'Allow'
+            Action: [ 'servicecatalog:*',
+                      'cloudformation:CreateStack',
+                      'cloudformation:DeleteStack',
+                      'cloudformation:DescribeStackEvents',
+                      'cloudformation:DescribeStacks',
+                      'cloudformation:GetTemplateSummary',
+                      'cloudformation:SetStackPolicy',
+                      'cloudformation:ValidateTemplate',
+                      'cloudformation:UpdateStack',
+                      's3:GetObject',
+                      'ec2:*' ]
+            Resource: '*'
+  AppLoggingRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: [ec2.amazonaws.com]
+            Action: ['sts:AssumeRole']
+        Path: /
+        Policies:
+        - PolicyName: CommandHost-Policy
+          PolicyDocument:
+            Statement:
+            - Effect: "Allow"
+              Action: [ 'logs:CreateLogGroup',
+                        'logs:CreateLogStream',
+                        'logs:PutLogEvents',
+                        'logs:DescribeLogStreams' ]
+              Resource: 'arn:aws:logs:*:*:*'
+  AppLoggingInstProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref AppLoggingRole
+      InstanceProfileName: AppLoggingInstanceProfile
+# Service Catalog Setup the Portfolio for applications
+  AccountBasicPortfolio:
+    Type: "AWS::ServiceCatalog::Portfolio"
+    Properties:
+      ProviderName: 'InfoSec'
+      Description: 'Products that should be run after you receive your account. '
+      DisplayName: 'Account Provisioning'
+# Grant the access to the IAM User Group to launch product from this portfolio
+  AccountPortfolioPrincipalAssociation:
+    DependsOn:
+      - AccountBasicPortfolio
+      - rIAMServiceCatalogGroup
+    Type: "AWS::ServiceCatalog::PortfolioPrincipalAssociation"
+    Properties:
+      PrincipalARN: !GetAtt rIAMServiceCatalogGroup.Arn
+      PortfolioId: !Ref AccountBasicPortfolio
+      PrincipalType: IAM
+# Adding Networing Layer as a Product to the Portfolio
+  rNetworkingProduct:
+    Type: "AWS::ServiceCatalog::CloudFormationProduct"
+    Properties:
+      Owner: 'Information Security Department'
+      Distributor: 'InfoSec'
+      SupportDescription: 'For question/issue contact example at ext 000'
+      Description: 'Deploys a Networking layer, for the apps to be deployed'
+      SupportEmail: 'example@email.com'
+      SupportUrl: 'https://nettech.exammple.internal'
+      Name: 'Base-Networking'
+      ProvisioningArtifactParameters:
+        - Name: 'Base-Networking-1'
+          Description: 'A Description for the provisioning artifact'
+          Info:
+            LoadTemplateFromURL: !Join
+            - ""
+            - - "https://"
+              - !Ref "AWS::Region"
+              - "-tcprod.s3.amazonaws.com/"
+              - !Ref S3PathPrefix
+              - "/scripts/NetworkingLayer.yaml"
+# Attache a Service Catelog Product to the Portfolio
+  AccountPortfolioAssociation:
+    Type: "AWS::ServiceCatalog::PortfolioProductAssociation"
+    DependsOn:
+      - AccountBasicPortfolio
+      - rNetworkingProduct
+    Properties:
+      PortfolioId: !Ref AccountBasicPortfolio
+      ProductId: !Ref rNetworkingProduct
+# Attache the correct LaunchRole to the Product Protfolio so Service Catalog is able to launch it
+  rConstraint:
+    Type: "AWS::ServiceCatalog::LaunchRoleConstraint"
+    DependsOn:
+      - AccountPortfolioAssociation
+      - AccountPortfolioPrincipalAssociation
+      - AccountBasicPortfolio
+      - rNetworkingProduct
+      - LaunchRole
+    Properties:
+      PortfolioId: !Ref AccountBasicPortfolio
+      ProductId: !Ref rNetworkingProduct
+      RoleArn: !GetAtt LaunchRole.Arn
+Outputs:
+  AppLogingRole:
+    Value: !Ref AppLoggingInstProfile
+    Description: 'Name of the instant Profile to Assume for log shipping'
+    Export:
+      Name: AppLoggingInstProfile
+  GameLaunchRoleARN:
+    Value: !GetAtt GameLaunchRole.Arn
+    Description: 'ARN of the role for App Deploy via SC'
+    Export:
+      Name: GameLaunchRole
+  EndUserName:
+    Value: !Ref rIAMServiceCatalogUser
+    Description: 'The enduser account name to browse the products in Service Catalog'
+  EndUserPassword:
+    Value: 'SecurityRocks!'
+    Description: 'Password for the account to browse the product in service catalog'
+  EndUserSignPage:
+    Value: !Sub 'https://${AWS::AccountId}.signin.aws.amazon.com/console'
+    Description: 'URL for the enduser account to log-in to.'
+  Region:
+    Description: The AWS region in which the lab is running
+    Value:
+      !Sub ${AWS::Region}
+
+

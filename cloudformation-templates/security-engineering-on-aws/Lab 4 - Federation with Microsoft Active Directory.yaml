@@ -1,0 +1,697 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: (000B) - This template deploys a lab that teaches Microsoft Active Directory
+  Federation Services with the AWS cloud
+
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: default-lab-key
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+
+  AdministratorPassword:
+    Type: String
+    Default: 12#soupBUBBLEblue
+
+  Windows2016BaseAMIID:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-windows-latest/Windows_Server-2016-English-Full-Base
+
+  InstanceType:
+    Description: Amazon EC2 instance type
+    Type: String
+    Default: m5.large
+    AllowedValues:
+      - m5.large
+      - m5.medium
+    ConstraintDescription: must be a valid EC2 instance type.
+
+  NATInstanceType:
+    Description: Amazon EC2 instance type for the NAT Instances
+    Type: String
+    Default: t2.small
+    AllowedValues:
+      - t2.small
+      - t2.medium
+
+  WindowsInstanceType:
+    Description: Amazon EC2 instance type for the Windows Instances
+    Type: String
+    Default: m5.large
+    AllowedValues:
+      - m5.large
+      - m5.medium
+
+  SourceCidrForRDP:
+    Description: IP Cidr from which you are likely to RDP into the instances. You
+      can add rules later by modifying the created security groups e.g. 54.32.98.160/32
+    Type: String
+    MinLength: '9'
+    MaxLength: '18'
+    Default: '0.0.0.0/0'
+    AllowedPattern: ^([0-9]+\.){3}[0-9]+\/[0-9]+$
+
+  DomainDNSName:
+    Description: DNS Domain for the AD Domain (example.com)
+    Type: String
+    Default: mydomain.local
+
+  DomainNetBiosName:
+    Description: Netbios name for the domain (EXAMPLE)
+    Type: String
+    Default: mydomain
+
+
+  ADServer1PrivateIp:
+    Description: Fixed private IP for the first Domain Controller located in AZ1
+    Type: String
+    Default: 10.0.0.10
+
+  ADFSPrivateIp:
+    Description: Fixed private IP for the first Domain Controller located in AZ1
+    Type: String
+    Default: 10.0.0.15
+
+  DMZ1CIDR:
+    Description: CIDR Block for the Public DMZ Subnet located in AZ1
+    Type: String
+    Default: 10.0.32.0/20
+    AllowedPattern: '[a-zA-Z0-9]+\..+'
+
+  PrivateSubnet1CIDR:
+    Description: CIDR Block for Private Subnet 1 located in AZ1
+    Type: String
+    Default: 10.0.0.0/19
+    AllowedPattern: '[a-zA-Z0-9]+\..+'
+
+  VPCCIDR:
+    Description: CIDR Block for the VPC
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedPattern: '[a-zA-Z0-9]+\..+'
+
+Resources:
+  EC2Role:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: EC2Role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: EC2RolePolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - elasticloadbalancing:DescribeLoadBalancers
+                  - ec2:DescribeInstances
+                  - elasticloadbalancing:RegisterInstancesWithLoadBalancer
+                Resource:
+                  - '*'
+
+  EC2RoleInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref 'EC2Role'
+  LabVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref 'VPCCIDR'
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackName'
+        - Key: Network
+          Value: Public
+        - Key: Name
+          Value: LabVPC
+
+  DMZ1Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'LabVPC'
+      CidrBlock: !Ref 'DMZ1CIDR'
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs ''
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackName'
+        - Key: Network
+          Value: Public
+        - Key: Role
+          Value: DMZ 1 Subnet
+        - Key: Name
+          Value: DMZ1Subnet
+
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref 'LabVPC'
+      CidrBlock: !Ref 'PrivateSubnet1CIDR'
+      AvailabilityZone: !Select
+        - 0
+        - !GetAZs ''
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackName'
+        - Key: Network
+          Value: Private
+        - Key: Role
+          Value: Private Subnet 1
+        - Key: Name
+          Value: PrivateSubnet1
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackName'
+        - Key: Network
+          Value: Public
+        - Key: Name
+          Value: InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref 'LabVPC'
+      InternetGatewayId: !Ref 'InternetGateway'
+
+  DMZRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'LabVPC'
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackName'
+        - Key: Network
+          Value: DMZ
+        - Key: Name
+          Value: DMZRouteTable
+
+  DMZRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref 'DMZRouteTable'
+      DestinationCidrBlock: '0.0.0.0/0'
+      GatewayId: !Ref 'InternetGateway'
+
+  DMZ1SubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref 'DMZ1Subnet'
+      RouteTableId: !Ref 'DMZRouteTable'
+
+  PrivateRouteTable1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref 'LabVPC'
+      Tags:
+        - Key: Application
+          Value: !Ref 'AWS::StackName'
+        - Key: Network
+          Value: AZ1 Private
+        - Key: Name
+          Value: PrivateRouteTable1
+
+  PrivateRoute:
+    DependsOn: PrivateRouteTable1
+    DependsOn: NAT
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref 'PrivateRouteTable1'
+      DestinationCidrBlock: '0.0.0.0/0'
+      NatGatewayId: !Ref NAT
+
+  PrivateSubnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref 'PrivateSubnet1'
+      RouteTableId: !Ref 'PrivateRouteTable1'
+
+  RdgwEIP1:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: LabVPC
+      InstanceId: !Ref 'RDGW'
+
+  NAT:
+    DependsOn: AttachGateway
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::GetAtt:
+          - NATIP
+          - AllocationId
+      SubnetId: !Ref 'DMZ1Subnet'
+      Tags:
+        - Key: Name
+          Value: NAT
+
+  NATIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: LabVPC
+
+  DomainController:
+    Type: AWS::EC2::Instance
+    DependsOn: NAT
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          files:
+            c:\cfn\cfn-hup.conf:
+              content: !Join
+                - ''
+                - - "[main]\n"
+                  - stack=
+                  - !Ref 'AWS::StackId'
+                  - "\n"
+                  - "region="
+                  - !Ref 'AWS::Region'
+                  - "\n"
+            c:\cfn\hooks.d\cfn-auto-reloader.conf:
+              content: !Join
+                - ''
+                - - "[cfn-auto-reloader-hook]\n"
+                  - "triggers=post.update\n"
+                  - "path=Resources.DomainController.Metadata.AWS::CloudFormation::Init\n"
+                  - action=cfn-init.exe
+                  - '       --stack '
+                  - !Ref 'AWS::StackId'
+                  - '       --resource DomainController'
+                  - "       --region "
+                  - !Ref 'AWS::Region'
+                  - "\n"
+            C:\cfn\RunCommand.bat:
+              content: "%~1\nIF %ERRORLEVEL% GTR 10 ( exit /b 1 ) else ( exit /b 0\
+                \ )"
+          commands:
+            1-run-dcpromo:
+              command: !Join
+                - ''
+                - - 'C:\cfn\RunCommand.bat "dcpromo /unattend  /ReplicaOrNewDomain:Domain  /NewDomain:Forest  /NewDomainDNSName:'
+                  - !Ref 'DomainDNSName'
+                  - '  /ForestLevel:4 /DomainNetbiosName:'
+                  - !Ref 'DomainNetBiosName'
+                  - ' /DomainLevel:4  /InstallDNS:Yes  /ConfirmGc:Yes  /CreateDNSDelegation:No  /DatabasePath:"C:\Windows\NTDS"  /LogPath:"C:\Windows\NTDS"  /SYSVOLPath:"C:\Windows\SYSVOL"
+                    /SafeModeAdminPassword='
+                  - !Ref 'AdministratorPassword'
+                  - ' /RebootOnCompletion:Yes"'
+              waitAfterCompletion: forever
+            b-rename-computer:
+              command: powershell.exe -Command Rename-Computer -NewName DC1 -Restart
+              waitAfterCompletion: forever
+            3-signal-success:
+              command: !Join
+                - ''
+                - - cfn-signal.exe -e 0 "
+                  - !Base64
+                    Ref: DomainControllerWaitHandle
+                  - '"'
+          services:
+            windows:
+              cfn-hup:
+                enabled: 'true'
+                ensureRunning: 'true'
+                files:
+                  - c:\cfn\cfn-hup.conf
+                  - c:\cfn\hooks.d\cfn-auto-reloader.conf
+    Properties:
+      Tags:
+        - Key: Name
+          Value: DC
+      ImageId: !Ref Windows2016BaseAMIID
+      InstanceType: !Ref 'InstanceType'
+      SubnetId: !Ref 'PrivateSubnet1'
+      SecurityGroupIds:
+        - !Ref AllTrafficSecurityGroup
+      IamInstanceProfile: !Ref 'EC2RoleInstanceProfile'
+      PrivateIpAddress: !Ref 'ADServer1PrivateIp'
+      KeyName: !Ref 'KeyName'
+      UserData: !Base64
+        Fn::Sub:
+        - |-
+          <script>
+          net user Administrator ${AdministratorPassword}
+          cfn-init.exe -v -s ${AWS::StackName} -r DomainController --region ${AWS::Region}
+          cfn-signal.exe -e %ERRORLEVEL% ${Param1}
+          </script>
+        - Param1: !Base64
+            Ref: DomainControllerWaitHandle
+
+  DomainControllerWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+
+  DCWaitCondition:
+      Type: AWS::CloudFormation::WaitCondition
+      DependsOn: DomainController
+      Properties:
+        Handle: !Ref DomainControllerWaitHandle
+        Timeout: 800
+
+  ADFS:
+    Type: AWS::EC2::Instance
+    DependsOn: NAT
+    Properties:
+      Tags:
+        - Key: Name
+          Value: ADFS
+      ImageId: !Ref Windows2016BaseAMIID
+      InstanceType: !Ref InstanceType
+      SubnetId: !Ref PrivateSubnet1
+      SecurityGroupIds:
+        - !Ref AllTrafficSecurityGroup
+      PrivateIpAddress: !Ref ADFSPrivateIp
+      KeyName: !Ref 'KeyName'
+      UserData:
+        'Fn::Base64':
+          !Sub |
+            <powershell>
+              net user Administrator ${AdministratorPassword}
+              $LocalTempDir = $env:TEMP
+              $ChromeInstaller = "ChromeInstaller.exe"
+              (new-object    System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', "$LocalTempDir\$ChromeInstaller"); & "$LocalTempDir\$ChromeInstaller" /silent /install; $Process2Monitor =  "ChromeInstaller"
+              Do { $ProcessesFound = Get-Process | ?{$Process2Monitor -contains $_.Name} | Select-Object -ExpandProperty Name
+              If ($ProcessesFound) { "Still running: $($ProcessesFound -join ', ')" | Write-Host; Start-Sleep -Seconds 2 } else { rm "$LocalTempDir\$ChromeInstaller" -ErrorAction SilentlyContinue -Verbose } } Until (!$ProcessesFound)
+              C:\"Program Files"\Amazon\cfn-bootstrap\cfn-signal.exe -e %ERRORLEVEL% --stack ${AWS::StackId} --resource WindowsEC2Host --region ${AWS::Region}
+            </powershell>
+
+  RDGW:
+    Type: AWS::EC2::Instance
+    DependsOn: DomainControllerWaitHandle
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          config:
+            - setup
+            - rename
+            - finalize
+        setup:
+          files:
+            c:\cfn\cfn-hup.conf:
+              content: !Join
+                - ''
+                - - "[main]\n"
+                  - stack=
+                  - !Ref 'AWS::StackName'
+                  - "\n"
+                  - region=
+                  - !Ref 'AWS::Region'
+                  - "\n"
+            c:\cfn\hooks.d\cfn-auto-reloader.conf:
+              content: !Join
+                - ''
+                - - "[cfn-auto-reloader-hook]\n"
+                  - "triggers=post.update\n"
+                  - "path=Resources.RDGW.Metadata.AWS::CloudFormation::Init\n"
+                  - 'action=cfn-init.exe -v -c config -s '
+                  - !Ref 'AWS::StackId'
+                  - ' -r RDGW'
+                  - ' --region '
+                  - !Ref 'AWS::Region'
+                  - "\n"
+            c:\cfn\hooks.d\joindomain.ps1:
+              content: !Join
+                - ''
+                - - "$DNS = \"10.0.0.10\" \n"
+                  - "Set-DnsClientServerAddress -InterfaceIndex 1, 2, 3, 4, 5, 6,\
+                    \ 7, 8, 9, 10, 11, 12, 13, 14, 15, 15, 17, 18, 19, 20 -ServerAddresses\
+                    \ ($DNS) \n"
+                  - "$UserPS='Administrator' \n"
+                  - $PassPS = ConvertTo-SecureString "
+                  - !Ref 'AdministratorPassword'
+                  - "\" -AsPlainText -Force \n"
+                  - "$DomainCred = New-Object System.Management.Automation.PSCredential\
+                    \ $UserPS, $PassPS\n"
+                  - $DomainPS="
+                  - !Ref 'DomainDNSName'
+                  - "\"\n"
+                  - "echo \"Joining server to domain $DomainPS with user $UserPS\"\
+                    \n"
+                  - "Add-Computer -DomainName $DomainPS -Credential $DomainCred -Restart\
+                    \ \n"
+            c:\cfn\scripts\Unzip-Archive.ps1:
+              source: https://s3.amazonaws.com/quickstart-reference/microsoft/utilities/latest/scripts/Unzip-Archive.ps1
+            c:\cfn\modules\AWSQuickStart.zip:
+              source: https://s3.amazonaws.com/quickstart-reference/microsoft/utilities/latest/scripts/AWSQuickStart.zip
+            c:\cfn\scripts\CreateWaitHandle.ps1:
+              source: https://s3.amazonaws.com/quickstart-reference/microsoft/utilities/latest/scripts/CreateWaitHandle.ps1
+            c:\cfn\scripts\Reset-LocalAdminPassword.ps1:
+              source: https://s3.amazonaws.com/quickstart-reference/microsoft/powershelldsc/latest/scripts/Reset-LocalAdminPassword.ps1
+            c:\cfn\scripts\Get-EC2InstanceGuid.psm1:
+              source: https://s3.amazonaws.com/quickstart-reference/microsoft/powershelldsc/latest/scripts/Get-EC2InstanceGuid.psm1
+          services:
+            windows:
+              cfn-hup:
+                enabled: 'true'
+                ensureRunning: 'true'
+                files:
+                  - c:\cfn\cfn-hup.conf
+                  - c:\cfn\hooks.d\cfn-auto-reloader.conf
+          commands:
+            a-set-execution-policy:
+              command: powershell.exe -command Set-ExecutionPolicy RemoteSigned -Force
+              waitAfterCompletion: '0'
+            b-unpack-quickstart-module:
+              command: powershell.exe -command c:\cfn\scripts\Unzip-Archive.ps1 -Source
+                c:\cfn\modules\AWSQuickStart.zip -Destination C:\Windows\system32\WindowsPowerShell\v1.0\Modules\
+              waitAfterCompletion: '0'
+            c-create-waithandle:
+              command: !Join
+                - ''
+                - - powershell.exe -command "c:\cfn\scripts\CreateWaitHandle.ps1 -Handle
+                    '
+                  - '''"'
+              waitAfterCompletion: '0'
+        rename:
+          commands:
+            a-reset-local-admin:
+              command: !Join
+                - ''
+                - - powershell.exe -command C:\cfn\scripts\Reset-LocalAdminPassword.ps1
+                    -password '
+                  - !Ref 'AdministratorPassword'
+                  - ''''
+              waitAfterCompletion: '0'
+            b-execute-powershell-script-RenameComputer:
+              command: powershell.exe -Command Rename-Computer -NewName RDGW -Restart
+              waitAfterCompletion: forever
+        finalize:
+          commands:
+            a-write-status:
+              command: powershell.exe -command Write-AWSQuickStartStatus
+              waitAfterCompletion: '0'
+    Properties:
+      ImageId: !Ref Windows2016BaseAMIID
+      InstanceType: !Ref 'WindowsInstanceType'
+      SubnetId: !Ref 'DMZ1Subnet'
+      Tags:
+        - Key: Name
+          Value: RDGW
+        - Key: guid
+          Value: 7e92b294-5ff5-462e-9ffc-a5951698b594
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: '50'
+            VolumeType: gp2
+      SecurityGroupIds:
+        - !Ref RDGWSecurityGroup
+        - !Ref DomainMemberSecurityGroup
+        - !Ref TargetNode
+      IamInstanceProfile: !Ref 'EC2RoleInstanceProfile'
+      KeyName: !Ref 'KeyName'
+      UserData: !Base64
+        Fn::Join:
+          - ''
+          - - "<script>\n"
+            - 'cfn-init.exe -v -c config -s '
+            - !Ref 'AWS::StackId'
+            - ' -r RDGW'
+            - ' --region '
+            - !Ref 'AWS::Region'
+            - "\n"
+            - "</script>\n"
+
+
+  NATSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: NATSecurityGroup
+      GroupDescription: Enables SSH access to NAT1 in AZ1 via port 22 and outbound
+        internet access via private subnets
+      VpcId: !Ref 'LabVPC'
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: icmp
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: '-1'
+          FromPort: '1'
+          ToPort: '65535'
+          CidrIp: !Ref 'PrivateSubnet1CIDR'
+        - IpProtocol: icmp
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: !Ref 'PrivateSubnet1CIDR'
+      Tags:
+        - Key: Name
+          Value: NATSecurityGroup
+
+  RDGWSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: RDGWSecurityGroup
+      GroupDescription: Enable RDP access from the Internet
+      VpcId: !Ref 'LabVPC'
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '3389'
+          ToPort: '3389'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: icmp
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: '0.0.0.0/0'
+      Tags:
+        - Key: Name
+          Value: RDGWSecurityGroup
+
+  AllTrafficSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: AllTrafficSecurityGroup
+      GroupDescription: Enable RDP access from the Internet
+      VpcId: !Ref 'LabVPC'
+      SecurityGroupIngress:
+        - IpProtocol: '-1'
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: '0.0.0.0/0'
+      Tags:
+        - Key: Name
+          Value: AllTrafficSecurityGroup
+
+  TargetNode:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: TargetNode
+      GroupDescription: DSC Target Nodes Source Group
+      VpcId: !Ref 'LabVPC'
+      Tags:
+        - Key: Name
+          Value: TargetNode
+
+  DomainControllerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: DomainControllerSecurityGroup
+      GroupDescription: Domain Controller
+      VpcId: !Ref 'LabVPC'
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '5985'
+          ToPort: '5985'
+          CidrIp: !Ref 'VPCCIDR'
+        - IpProtocol: tcp
+          FromPort: '135'
+          ToPort: '135'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '9389'
+          ToPort: '9389'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '445'
+          ToPort: '445'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: udp
+          FromPort: '445'
+          ToPort: '445'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '464'
+          ToPort: '464'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '49152'
+          ToPort: '65535'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '389'
+          ToPort: '389'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '636'
+          ToPort: '636'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '3268'
+          ToPort: '3268'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '3269'
+          ToPort: '3269'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '53'
+          ToPort: '53'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '88'
+          ToPort: '88'
+          SourceSecurityGroupId: !Ref 'DomainMemberSecurityGroup'
+        - IpProtocol: tcp
+          FromPort: '3389'
+          ToPort: '3389'
+          CidrIp: !Ref 'VPCCIDR'
+        - IpProtocol: icmp
+          FromPort: '-1'
+          ToPort: '-1'
+          CidrIp: !Ref 'DMZ1CIDR'
+      Tags:
+        - Key: Name
+          Value: DomainControllerSecurityGroup
+
+  DomainMemberSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: DomainMemberSecurityGroup
+      GroupDescription: Domain Members
+      VpcId: !Ref 'LabVPC'
+      SecurityGroupIngress: []
+      Tags:
+        - Key: Name
+          Value: DomainMemberSecurityGroup
+
+Outputs:
+
+  RDGWPublicIP:
+    Value: !GetAtt RDGW.PublicIp
+
+  DomainControllerPrivateIP:
+    Value: !Ref ADServer1PrivateIp
+
+  ADFSPrivateIp:
+    Value: !Ref ADFSPrivateIp
+
+  AdministratorPassword:
+    Value: !Ref AdministratorPassword
+

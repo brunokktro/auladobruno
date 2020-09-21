@@ -1,0 +1,394 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Security Engineering on AWS - Lab 5"
+Parameters:
+  KeyName:
+    Type: String
+    Description: Enter the name of the instance keypair you would like to use on the work instance
+    Default: default-lab-key
+  S3PathPrefix:
+    Type: String
+    Description: "The path prefix where lab resources are stored (Leading and trailing slash required!)"
+    Default: "courses/ILT-TF-200-SISECO/v2.4.3/lab-5-config"
+  AWSAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: >-
+      /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
+Resources:
+  CommandHostInstProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref CommandHostRole
+      InstanceProfileName: CommandHostInstanceProfile
+  CommandHostRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: 'Allow'
+          Principal:
+            Service: ['ec2.amazonaws.com']
+          Action: ['sts:AssumeRole']
+      Path: '/'
+      Policies:
+      - PolicyName: CommandHostRole
+        PolicyDocument:
+          Statement:
+          - Effect:  'Allow'
+            Action: [ 'cloudwatch:PutMetricData',
+                      'config:BatchGetAggregateResourceConfig',
+                      'config:BatchGetResourceConfig',
+                      'config:DeliverConfigSnapshot',
+                      'config:Describe*',
+                      'config:Get*',
+                      'config:ListAggregateDiscoveredResources',
+                      'config:ListDiscoveredResources',
+                      'config:ListTagsForResource',
+                      'config:PutAggregationAuthorization',
+                      'config:PutConfigRule',
+                      'config:PutConfigurationAggregator',
+                      'config:PutConfigurationRecorder',
+                      'config:PutDeliveryChannel',
+                      'config:PutEvaluations',
+                      'config:SelectResourceConfig',
+                      'config:Start*',
+                      'config:Stop*',
+                      'config:TagResource',
+                      'config:UntagResource',
+                      'ec2:DescribeInstanceStatus',
+                      'ec2messages:AcknowledgeMessage',
+                      'ec2messages:DeleteMessage',
+                      'ec2messages:FailMessage',
+                      'ec2messages:GetEndpoint',
+                      'ec2messages:GetMessages',
+                      'ec2messages:SendReply',
+                      'events:ActivateEventSource',
+                      'events:CreateEventBus',
+                      'events:Deactivate*',
+                      'events:EnableRule',
+                      'events:List*',
+                      'events:PutEvents',
+                      'events:PutPermission',
+                      'events:PutRule',
+                      'events:PutTargets',
+                      'events:RemovePermission',
+                      'events:RemoveTargets',
+                      'events:TagResource',
+                      'events:TestEventPattern',
+                      'events:UntagResource',
+                      'iam:PassRole',
+                      'lambda:AddPermission',
+                      'lambda:CreateAlias',
+                      'lambda:CreateFunction',
+                      'lambda:DeleteAlias',
+                      'lambda:DeleteFunction',
+                      'lambda:Get*',
+                      'lambda:InvokeAsync',
+                      'lambda:InvokeFunction',
+                      'lambda:List*',
+                      'lambda:PublishVersion',
+                      'lambda:UpdateAlias',
+                      'lambda:UpdateFunctionCode',
+                      'lambda:UpdateFunctionConfiguration',
+                      'logs:CreateLogGroup',
+                      'logs:CreateLogStream',
+                      'logs:DescribeLogGroups',
+                      'logs:DescribeLogStreams',
+                      'logs:PutLogEvents',
+                      'sns:Subscribe',
+                      'ssm:Desc*',
+                      'ssm:ExecuteAutomation',
+                      'ssm:Get*',
+                      'ssm:List*',
+                      'ssm:PutComplianceItems',
+                      'ssm:PutConfigurePackageResult',
+                      'ssm:PutInventory',
+                      'ssm:RunCommand',
+                      'ssm:SendCommand',
+                      'ssm:StartAutomationExecution',
+                      'ssm:UpdateAssociationStatus',
+                      'ssm:UpdateInstanceAssociationStatus',
+                      'ssm:UpdateInstanceInformation' ]
+            Resource: '*'
+  ConfigRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSConfigRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: "Allow"
+          Principal:
+            Service: "config.amazonaws.com"
+          Action:
+            - "sts:AssumeRole"
+      Policies:
+        - PolicyName: "ConfigCustomRule"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+            - Effect: "Allow"
+              Action: [ 's3:DeleteObject',
+                        's3:DeleteObjectTagging',
+                        's3:DeleteObjectVersionTagging',
+                        's3:DescribeJob',
+                        's3:Get*',
+                        's3:HeadBucket',
+                        's3:List*',
+                        's3:PutBucketTagging',
+                        's3:PutObject',
+                        's3:PutObjectTagging',
+                        's3:PutObjectVersionTagging',
+                        's3:ReplicateTags',
+                        'sns:CheckIfPhoneNumberIsOptedOut',
+                        'sns:ConfirmSubscription',
+                        'sns:CreateTopic',
+                        'sns:DeleteTopic',
+                        'sns:Get*',
+                        'sns:List*',
+                        'sns:Publish',
+                        'sns:SetSMSAttributes',
+                        'sns:SetSubscriptionAttributes',
+                        'sns:SetTopicAttributes',
+                        'sns:Subscribe',
+                        'sns:Unsubscribe' ]
+              Resource: '*'
+      RoleName: ConfigRole
+  LambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: "Allow"
+          Principal:
+            Service: "lambda.amazonaws.com"
+          Action:
+            - "sts:AssumeRole"
+      Policies:
+        - PolicyName: LambdaRole
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+            - Effect: "Allow"
+              Action: ['sns:Publish',
+                       's3:GetBucketAcl',
+                       's3:PutBucketAcl',
+                       's3:GetBucketPolicy',
+                       's3:GetBucketTagging',
+                       'logs:CreateLogGroup',
+                       'logs:CreateLogStream',
+                       'logs:PutLogEvents' ]
+              Resource: "*"
+      RoleName: LambdaRole
+  ConfigSNSTopic:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      DisplayName: ConfigSNSTopic
+  ConfigBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      AccessControl: LogDeliveryWrite
+  ConfigBucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    DependsOn: ConfigBucket
+    Properties:
+      Bucket: !Ref ConfigBucket
+      PolicyDocument:
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service: "config.amazonaws.com"
+            Action:
+              - "s3:PutObject"
+            Resource:
+              !Sub arn:aws:s3:::${ConfigBucket}/AWSLogs/${AWS::AccountId}/*
+          - Effect: "Allow"
+            Principal:
+              Service: "config.amazonaws.com"
+            Action:
+              - "s3:GetBucketAcl"
+            Resource:
+              !Sub arn:aws:s3:::${ConfigBucket}
+  PublicBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Sub publicbucket-${AWS::AccountId}
+      Tags:
+        - Key: CanBePublic
+          Value: 1
+  PrivateBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      AccessControl: PublicReadWrite
+      BucketName: !Sub privatebucket-${AWS::AccountId}
+      Tags:
+        - Key: CanBePublic
+          Value: 0
+  VPC:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value:
+            Ref: AWS::StackName
+  PublicSubnet:
+    Type: "AWS::EC2::Subnet"
+    DependsOn: VPC
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: true
+      VpcId: {Ref: VPC}
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value:
+            Fn::Join:
+              - '-'
+              - [{Ref: 'AWS::StackName'}, "a"]
+  InternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+    Properties:
+      Tags:
+      - Key: Name
+        Value:
+          Ref: AWS::StackName
+  GatewayAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    DependsOn:
+        - VPC
+        - InternetGateway
+    Properties:
+      InternetGatewayId:
+        Ref: InternetGateway
+      VpcId:
+        Ref: VPC
+  RouteTable:
+    Type: "AWS::EC2::RouteTable"
+    DependsOn: VPC
+    Properties:
+      Tags:
+        - Key: Name
+          Value: {Ref: 'AWS::StackName'}
+      VpcId:
+        Ref: VPC
+  PublicRoute:
+    Type: "AWS::EC2::Route"
+    DependsOn:
+      - RouteTable
+      - GatewayAttachment
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: InternetGateway
+      RouteTableId:
+        Ref: RouteTable
+  PublicTableAssociation:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    DependsOn:
+      - RouteTable
+      - PublicSubnet
+    Properties:
+      SubnetId:
+        Ref: PublicSubnet
+      RouteTableId:
+        Ref: RouteTable
+  SecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    DependsOn:
+      - VPC
+    Properties:
+      GroupDescription: Allow user to ssh to host
+      VpcId:
+        Ref: VPC
+      SecurityGroupIngress:
+        -
+          # SSH port
+          IpProtocol: tcp
+          FromPort: "22"
+          ToPort: "22"
+          CidrIp: 0.0.0.0/0
+  CommandHost:
+    Type: "AWS::EC2::Instance"
+    DependsOn:
+      - SecurityGroup
+      - GatewayAttachment
+    #CreationPolicy:
+    #  ResourceSignal:
+    #    Count: 1
+    #    Timeout: PT10M
+    Properties:
+      IamInstanceProfile: !Ref CommandHostInstProfile
+      KeyName: !Ref KeyName
+      ImageId: !Ref AWSAmiId
+      InstanceType: "t2.micro"
+      NetworkInterfaces:
+        -
+          DeviceIndex: "0"
+          AssociatePublicIpAddress: "true"
+          SubnetId:
+            Ref: PublicSubnet
+          GroupSet:
+            - Ref: SecurityGroup
+      Tags:
+        -
+          Key: "Name"
+          Value: "CommandHost"
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -ex
+          yum -y update &&
+          yum install -y aws-cli &&
+
+          mkdir /home/ec2-user/.aws &&
+          echo "[default]" > /home/ec2-user/.aws/config &&
+          echo "region = ${AWS::Region}" >> /home/ec2-user/.aws/config &&
+          mkdir -p /home/ssm-user/.aws &&
+          echo "[default]" > /home/ssm-user/.aws/config &&
+          echo "region = ${AWS::Region}" >> /home/ssm-user/.aws/config &&
+
+          # curl -o /home/ec2-user/lambda_function.py https://${AWS::Region}-tcprod.s3.amazonaws.com/courses/ILT-TF-200-SISECO/v2.4.3/lab-5-config/lambda_function.py &&
+          curl -o /home/ec2-user/lambda_function.py https://${AWS::Region}-tcprod.s3.amazonaws.com/${S3PathPrefix}/lambda_function.py &&
+          chown ec2-user.ec2-user /home/ec2-user/lambda_function.py &&
+
+          cp /home/ec2-user/lambda_function.py /home/ssm-user/lambda_function.py &&
+          until (( $(id -u ssm-user) )); do sleep 10; done &&
+          chown -R ssm-user:ssm-user /home/ssm-user/ &&
+
+          /usr/local/bin/cfn-signal --exit-code $? --stack ${AWS::StackName} --resource CommandHost --region ${AWS::Region}
+
+Outputs:
+  CommandHost:
+    Value: !GetAtt CommandHost.PublicIp
+    Description: Public IP of the Command Host
+  ConfigRoleARN:
+    Value: !GetAtt ConfigRole.Arn
+    Description: Role ARN for AWS Config to use
+  ConfigS3BucketName:
+    Value: !Ref ConfigBucket
+    Description: Bucket Name for AWS Config Logging
+  ConfigSNSTopic:
+    Value: !Ref ConfigSNSTopic
+    Description: Topic ARN for AWS Config SNS Topic
+  LambdaRoleARN:
+    Value: !GetAtt LambdaRole.Arn
+    Description: Role ARN for Lambda to use
+  DefaultRegionName:
+    Value: !Ref AWS::Region
+    Description: Default AWS Region
+  CommandHostSessionManagementUrl:
+    Description: The URL to the Session Management Console for CommandHost
+    Value: !Sub https://${AWS::Region}.console.aws.amazon.com/systems-manager/session-manager/${CommandHost}?region=${AWS::Region}
+  

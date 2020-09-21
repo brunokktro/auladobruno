@@ -1,0 +1,286 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Security Engineering Lab Logs.  EC2 log source.  Firehose DeliveryStream to S3 Destination.  AWS Glue service role.
+
+Parameters:
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  AWSAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+  S3PathPrefix:
+    Type: String
+    Description: 'The path prefix where lab resources are stored (Leading and trailing slash required!)'
+    Default: 'courses/ILT-TF-200-SISECO/v2.4.3/lab-3-logs'
+    # Default: 'd1x95xd81tsazs.cloudfront.net/ILT-TF-200-SISECO-2/lab-3-logs'
+
+
+Resources:
+  ## WebServer Access
+  LogRoleInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+      - Ref: LogRole
+  LogRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: ['ec2.amazonaws.com',
+                      'ssm.amazonaws.com']
+          Action: ['sts:AssumeRole']
+      Path: "/"
+      Policies:
+      - PolicyName: LogRolePolicy
+        PolicyDocument:
+          Version: 2012-10-17
+          Statement:
+            - Effect: 'Allow'
+              Action: [ 'cloudwatch:PutMetricData',
+                        'ec2:DescribeInstanceStatus',
+                        'ec2messages:AcknowledgeMessage',
+                        'ec2messages:DeleteMessage',
+                        'ec2messages:FailMessage',
+                        'ec2messages:GetEndpoint',
+                        'ec2messages:GetMessages',
+                        'ec2messages:SendReply',
+                        'logs:CreateLogGroup',
+                        'logs:CreateLogStream',
+                        'logs:DescribeLogGroups',
+                        'logs:DescribeLogStreams',
+                        'logs:PutLogEvents',
+                        'ssm:Desc*',
+                        'ssm:ExecuteAutomation',
+                        'ssm:Get*',
+                        'ssm:List*',
+                        'ssm:PutComplianceItems',
+                        'ssm:PutConfigurePackageResult',
+                        'ssm:PutInventory',
+                        'ssm:ResumeSession',
+                        'ssm:RunCommand',
+                        'ssm:SendCommand',
+                        'ssm:StartSession',
+                        'ssm:StartAutomationExecution',
+                        'ssm:TerminateSession',
+                        'ssm:UpdateAssociationStatus',
+                        'ssm:UpdateInstanceAssociationStatus',
+                        'ssm:UpdateInstanceInformation' ]
+              Resource: '*'
+            - Effect: Allow
+              Action: [ 'firehose:DeleteDeliveryStream',
+                        'firehose:PutRecord',
+                        'firehose:PutRecordBatch',
+                        'firehose:UpdateDestination' ]
+              Resource: 'arn:aws:firehose:*:*:deliverystream/*'
+
+
+  ## Web server security group, open 90 and 22
+  WebServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable HTTP access via port 80 and SSH access via port 22
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 0.0.0.0/0
+  
+  ## Web server instance
+  WebServerHost:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref AWSAmiId
+      KeyName:
+        Ref: KeyName
+      InstanceType: t2.micro
+      SecurityGroups:
+      - Ref: WebServerSecurityGroup
+      IamInstanceProfile:
+        Ref: LogRoleInstanceProfile
+      UserData:
+        "Fn::Base64":
+          !Sub |
+            #!/bin/bash -xe
+            # Get the latest CloudFormation package
+            yum update aws-cfn-bootstrap -y &&
+            yum update -y &&
+            yum install aws-cli httpd php git java-1.8.0-openjdk -y &&
+
+            chmod 755 /var/log/httpd &&
+
+            # Configure the EC2 and ssm users to work properly.
+            mkdir /home/ec2-user/.aws &&
+            echo "[default]" > /home/ec2-user/.aws/config &&
+            echo "region = ${AWS::Region}" >> /home/ec2-user/.aws/config &&
+            mkdir -p /home/ssm-user/.aws &&
+            echo "[default]" > /home/ssm-user/.aws/config &&
+            echo "region = ${AWS::Region}" >> /home/ssm-user/.aws/config &&
+
+            # Pull down the default website and unzip it to the www directory
+            curl -o /home/ec2-user/website.zip https://${AWS::Region}-tcprod.s3-${AWS::Region}.amazonaws.com/${S3PathPrefix}/scripts/website.zip
+            unzip /home/ec2-user/website.zip -d /var/www/html
+
+            systemctl enable httpd.service
+            systemctl start httpd.service
+
+            until (( $(id -u ssm-user) )); do sleep 10; done &&
+            chown -R ssm-user:ssm-user /home/ssm-user/ &&
+
+            # Start cfn-init
+            /opt/aws/bin/cfn-init -s ${AWS::StackId} -r WebServerHost --region ${AWS::Region} || error_exit 'Failed to run cfn-init'
+            # Start up the cfn-hup daemon to listen for changes to the EC2 instance metadata
+            /opt/aws/bin/cfn-hup || error_exit 'Failed to start cfn-hup'
+            # All done so signal success
+            /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WebServerHost --region ${AWS::Region}
+
+  ## Kinesis stream
+  ### Kinesis Policy
+  deliveryPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: firehose_delivery_policy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: [ 's3:AbortMultipartUpload',
+                      's3:GetBucketLocation',
+                      's3:GetObject',
+                      's3:ListBucket',
+                      's3:ListBucketMultipartUploads',
+                      's3:PutObject' ]
+            Resource: 
+              - !Sub arn:aws:s3:::${s3Bucket}
+              - !Sub arn:aws:s3:::${s3Bucket}/*
+          - Effect: Allow
+            Action: [ 'glue:GetTableVersions',
+                      'logs:PutLogEvents',
+                      'kinesis:DescribeStream',
+                      'kinesis:GetShardIterator',
+                      'kinesis:GetRecords' ]
+            Resource:
+              - '*'
+      Roles:
+        - !Ref deliveryRole
+  ### Kinesis Role
+  deliveryRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: firehose.amazonaws.com
+            Action: 'sts:AssumeRole'
+            Condition:
+              StringEquals:
+                'sts:ExternalId': !Ref 'AWS::AccountId'
+  ### Kinesis Stream
+  deliveryStream:
+    DependsOn:
+      - deliveryPolicy
+    Type: 'AWS::KinesisFirehose::DeliveryStream'
+    Properties:
+      ExtendedS3DestinationConfiguration:
+        BucketARN: !Join
+          - ''
+          - - 'arn:aws:s3:::'
+            - !Ref s3Bucket
+        BufferingHints:
+          IntervalInSeconds: '60'
+          SizeInMBs: '5'
+        CompressionFormat: UNCOMPRESSED
+        Prefix: logs/
+        RoleARN: !GetAtt deliveryRole.Arn
+  
+  ## S3 Bucket for storage
+  s3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub 's3bucket-deliverystream-${AWS::StackName}'
+  
+  # GlueServiceRole & GlueServiceRolePolicyExtra used by AWS Glue via console
+  GlueServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: GlueServiceRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - glue.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+      Path: "/"
+  GlueServiceRolePolicyExtra:
+    DependsOn:
+      - GlueServiceRole
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Effect: "Allow"
+          Action:
+            - "s3:GetObject"
+            - "s3:PutObject"
+          Resource:
+            - !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref s3Bucket
+            - !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref s3Bucket
+                - '*'
+      PolicyName: GlueServiceRolePolicy
+      Roles:
+        - !Ref GlueServiceRole
+
+## Some good outputs to use in the lab
+Outputs:
+  InstanceId:
+    Description: The instance ID of the web server
+    Value:
+      Ref: WebServerHost
+  WebsiteURL:
+    Value:
+      !Sub 'http://${WebServerHost.PublicDnsName}'
+    Description: URL for newly created LAMP stack
+  PublicIP:
+    Description: Public IP address of the web server
+    Value:
+      !GetAtt WebServerHost.PublicIp
+  DeliveryStream:
+    Description: The ID of the Kinesis Firehose
+    Value:
+      Ref: deliveryStream
+  S3Bucket:
+    Description: The name of the log S3 bucket
+    Value:
+      Ref: s3Bucket
+  AWSRegion:
+    Description: The AWS region in which the lab is running
+    Value:
+      !Sub ${AWS::Region}
+  WebServerHostSessionManagementUrl:
+    Description: The URL to the Session Management Console for WebServerHost
+    Value: !Sub https://${AWS::Region}.console.aws.amazon.com/systems-manager/session-manager/${WebServerHost}?region=${AWS::Region}
