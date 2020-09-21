@@ -1,0 +1,185 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Security Engineering on AWS - Lab 1; Cross Account Authentication
+Parameters:
+  VPCCIDR:
+    Description: CIDR Block for VPC
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedValues:
+      - 10.0.0.0/16
+  PublicSubnetParam:
+    Description: Public Subnet 1
+    Type: String
+    Default: 10.0.10.0/24
+    AllowedValues:
+      - 10.0.10.0/24
+  KeyName:
+    Type: String
+    Description: Keyname for the keypair that Qwiklab will use to launch EC2 instances
+    Default: default-lab-key
+  AWSAmiId:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: !Ref VPCCIDR
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: VPC
+          Value: CLI-Server
+        - Key: Name
+          Value: Lab VPC
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    DependsOn: VPC
+  AttachGateway:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    DependsOn:
+      - VPC
+      - InternetGateway
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicSubnet:
+    Type: 'AWS::EC2::Subnet'
+    DependsOn: AttachGateway
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !Ref PublicSubnetParam
+      AvailabilityZone: !Select
+        - '0'
+        - !GetAZs ''
+      Tags:
+        - Key: Name
+          Value: Public Subnet
+  PublicRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    DependsOn:
+      - VPC
+      - AttachGateway
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public
+  PublicRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn:
+      - PublicRouteTable
+      - AttachGateway
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  PublicSubnetRouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    DependsOn:
+      - PublicRouteTable
+      - PublicSubnet
+      - AttachGateway
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+  CLISecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    DependsOn:
+      - AttachGateway
+    Properties:
+      GroupDescription: Enable http access to the web server
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: CLISecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: '0'
+          ToPort: '65535'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: '0'
+          ToPort: '65535'
+          CidrIp: 0.0.0.0/0
+
+  ### Server used to verify cross account access. 
+  CommandHostInstProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref CommandHostRole
+      InstanceProfileName: CommandHostInstanceProfile
+  CommandHostRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: 'Allow'
+          Principal:
+            Service: ['ec2.amazonaws.com']
+          Action: ['sts:AssumeRole']
+      Path: '/'
+
+  CommandHost:
+    Type: 'AWS::EC2::Instance'
+    DependsOn:
+      - AttachGateway
+      - PublicRoute
+      - PublicSubnet
+      - CLISecurityGroup
+    Properties:
+      IamInstanceProfile: !Ref CommandHostInstProfile
+      ImageId: !Ref AWSAmiId
+      KeyName: !Ref KeyName
+      InstanceType: t2.micro
+      NetworkInterfaces:
+        - DeviceIndex: '0'
+          AssociatePublicIpAddress: 'true'
+          SubnetId: !Ref PublicSubnet
+          GroupSet:
+            - !Ref CLISecurityGroup
+      SourceDestCheck: 'false'
+      Tags:
+        - Key: Name
+          Value: CommandHost
+      UserData: 
+        Fn::Base64: !Sub |
+          #!/bin/bash -ex
+          yum install -y git aws-cfn-bootstrap aws-apitools-common aws-apitools-ec2
+          yum -y update
+          # Configure the EC2 and ssm users to work properly.
+          mkdir /home/ec2-user/.aws &&
+          echo "[default]" > /home/ec2-user/.aws/config &&
+          echo "region = ${AWS::Region}" >> /home/ec2-user/.aws/config &&
+          mkdir -p /home/ssm-user/.aws &&
+          echo "[default]" > /home/ssm-user/.aws/config &&
+          echo "region = ${AWS::Region}" >> /home/ssm-user/.aws/config &&
+
+          until (( $(id -u ssm-user) )); do sleep 10; done &&
+          chown -R ssm-user:ssm-user /home/ssm-user/ &&
+
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WebServerHost --region ${AWS::Region}
+
+
+Outputs:
+  KeyName:
+    Value: !Ref KeyName
+  DefaultRegionName:
+    Value: !Ref 'AWS::Region'
+  CommandHostSessionManagementUrl:
+    Description: The URL to the Session Management Console for CommandHost
+    Value: !Sub https://${AWS::Region}.console.aws.amazon.com/systems-manager/session-manager/${CommandHost}?region=${AWS::Region}
+  CommandHost:
+    Value: !GetAtt  CommandHost.PublicIp
+    Description: 'Public IP of the CommandHost'
+
