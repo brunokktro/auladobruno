@@ -180,6 +180,7 @@
 * [WAF - Preconfigured Rules & Tutorials](https://aws.amazon.com/waf/preconfiguredrules/)
 * [How do I block common attacks with AWS WAF?](https://aws.amazon.com/premiumsupport/knowledge-center/waf-block-common-attacks/)
 * [WAF Sandwich](https://www.cloudaxis.com/2016/11/21/waf-sandwich/)
+* [AWS Solutions - AWS Perspective](https://aws.amazon.com/solutions/implementations/aws-perspective/)
 
 
 ### Planning and Designing Databases on AWS
