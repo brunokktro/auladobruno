@@ -397,6 +397,7 @@
 * [AWS Config: Checking for Compliance with New Managed Rule Options](https://aws.amazon.com/blogs/devops/aws-config-checking-for-compliance-with-new-managed-rule-options/)
 * [Conformance Pack Sample Templates](https://docs.aws.amazon.com/config/latest/developerguide/conformancepack-sample-templates.html)
 * [Using AWS Service Catalog Constraints](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints.html)
+* [Building a React Frontend for Service Catalog with AWS Amplify](https://aws.amazon.com/blogs/opensource/react-frontend-service-catalog-aws-amplify/)
 * [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
 * [AWS Control Tower](https://hackmd.io/@matheuslra/r1o5k2-Xw)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
