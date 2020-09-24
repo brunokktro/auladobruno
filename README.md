@@ -209,6 +209,7 @@
 * [How to create and retrieve secrets managed in AWS Secrets Manager using AWS CloudFormation templates](https://aws.amazon.com/blogs/security/how-to-create-and-retrieve-secrets-managed-in-aws-secrets-manager-using-aws-cloudformation-template/)
 * [Patching your Windows EC2 instances using AWS Systems Manager Patch Manager](https://aws.amazon.com/blogs/mt/patching-your-windows-ec2-instances-using-aws-systems-manager-patch-manager/)
 * [How to patch Windows EC2 instances in private subnets Using AWS Systems Manager](https://aws.amazon.com/blogs/mt/how-to-patch-windows-ec2-instances-in-private-subnets-using-aws-systems-manager/)
+* [How do I install .NET Framework 3.5 on an EC2 Windows instance that doesn't have internet access?](https://aws.amazon.com/premiumsupport/knowledge-center/net-framework-windows/)
 * [How patches are installed - AWS Systems Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-installation.html)
 * [Packaging to Distribution – Using AWS Systems Manager Distributor to deploy Datadog](https://aws.amazon.com/blogs/mt/packaging-to-distribution-using-aws-systems-manager-distributor-to-deploy-datadog/)
 * [Taking Advantage of Amazon EC2 Spot Instance Interruption Notices](https://aws.amazon.com/blogs/compute/taking-advantage-of-amazon-ec2-spot-instance-interruption-notices/)
