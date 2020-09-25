@@ -61,6 +61,7 @@
 * [Can I use EBS Multi-Attach volumes to enable multiple EC2 instances to simultaneously access a standard file system?](https://aws.amazon.com/premiumsupport/knowledge-center/ebs-access-volumes-using-multi-attach/)
 * [Working with Aurora Multi-Master Clusters](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-multi-master.html)
 * [Amazon Aurora Backtrack – Turn Back Time](https://aws.amazon.com/blogs/aws/amazon-aurora-backtrack-turn-back-time/)
+* [Amazon DynamoDB - Choosing Initial Throughput Settings ](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughput.html#ProvisionedThroughput.CapacityUnits.InitialSettings)
 * [Best Practices for Designing and Architecting with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html)
 * [Best Practices for Designing and Using Partition Keys Effectively ](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html)
 * [Building resiliency at scale at Tinder with Amazon ElastiCache](https://aws.amazon.com/blogs/database/building-resiliency-at-scale-at-tinder-with-amazon-elasticache/)
