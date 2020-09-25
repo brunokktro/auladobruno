@@ -460,6 +460,7 @@
 * [Workshop] [Amazon CloudWatch](https://ako.aws-management.tools/tko372759/en/cw.html)
 * [Workshop] [SSM & Config](https://ako.aws-management.tools/tko372759/en/ssm.html)
 * [Workshop] [Amazon FSx Workshop](https://github.com/aws-samples/amazon-fsx-workshop)
+* [Workshop] [SQL Server Immersion Day](https://sql-immersionday.workshop.aws/)
 * [Workshop] [Amazon ECS Workshop for AWS Fargate](https://ecsworkshop.com/)
 * [Workshop] [Amazon EKS Workshop](https://eksworkshop.com/)
 * [Workshop] [Amazon Lightsail Workshop](https://lightsailworkshop.com/)
