@@ -289,6 +289,7 @@
 
 ### DevOps Engineering on AWS
 
+* [Introduction to DevOps on AWS](http://d0.awsstatic.com/whitepapers/AWS_DevOps.pdf)
 * [DevOps and AWS](https://aws.amazon.com/devops/)
 * [What is Continuous Delivery?](https://aws.amazon.com/devops/continuous-delivery/)
 * [What is Continuous Integration?](https://aws.amazon.com/devops/continuous-integration/)
