@@ -124,6 +124,7 @@
 * [Configurable Reverse DNS for Amazon EC2’s Elastic IP Addresses](https://aws.amazon.com/blogs/aws/reverse-dns-for-ec2s-elastic-ip-addresses/)
 * [Using redundant Site-to-Site VPN connections to provide failover](https://docs.aws.amazon.com/vpn/latest/s2svpn/vpn-redundant-connection.html)
 * [Scaling VPN throughput using AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/scaling-vpn-throughput-using-aws-transit-gateway/)
+* [Improve VPN Network Performance of AWS Hybrid Cloud with Global Accelerator](https://aws.amazon.com/blogs/architecture/improve-vpn-network-performance-of-aws-hybrid-cloud-with-global-accelerator/)
 * [How can I configure VPN as a backup for my AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/configure-vpn-backup-dx/)
 * [How do I configure Direct Connect and VPN failover with Transit Gateway?](https://aws.amazon.com/premiumsupport/knowledge-center/dx-configure-dx-and-vpn-failover-tgw/)
 * [How do I provision a new link aggregation group (LAG) using AWS Direct Connect connections?](https://aws.amazon.com/premiumsupport/knowledge-center/provision-lag-dx/)
