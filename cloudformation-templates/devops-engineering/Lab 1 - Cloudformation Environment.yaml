@@ -1,0 +1,102 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Lab1 Environment
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: 192.168.128.0/24
+      InstanceTenancy: default
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: CFN Stack
+          Value: !Ref 'AWS::StackName'
+        - Key: Name
+          Value: PC Device Management WS 192.168.128.0/24
+  PubSubnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 192.168.128.0/25
+      MapPublicIpOnLaunch: 'true'
+      AvailabilityZone: !Join 
+        - ''
+        - - !Ref 'AWS::Region'
+          - a
+      Tags:
+        - Key: CFN Stack
+          Value: !Ref 'AWS::StackName'
+        - Key: Name
+          Value: Public Subnet Device Management WS 192.168.128.0/25
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties:
+      Tags:
+        - Key: CFN Stack
+          Value: !Ref 'AWS::StackName'
+        - Key: Name
+          Value: Inet GW
+  GatewayToInternet:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    DependsOn: GatewayToInternet
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: CFN Stack
+          Value: !Ref 'AWS::StackName'
+        - Key: Name
+          Value: PublicRouteTable
+  PublicRoute:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  PubSubnetRTAssoc:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    Properties:
+      SubnetId: !Ref PubSubnet
+      RouteTableId: !Ref PublicRouteTable
+  cloud9Server:
+    Type: 'AWS::Cloud9::EnvironmentEC2'
+    Properties:
+      Name: Lab1
+      InstanceType: t2.medium
+      SubnetId: !Ref PubSubnet
+      OwnerArn: !Sub arn:aws:iam::${AWS::AccountId}:user/awsstudent
+      Repositories:
+        - PathComponent: /templates
+          RepositoryUrl: !Sub >-
+            https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/lab1
+  lab1Repo:
+    Type: 'AWS::CodeCommit::Repository'
+    Properties:
+      Code:
+        S3:
+          Bucket: !Sub '${AWS::Region}-tcprod'
+          Key: courses/ILT-TF-200-DEVOPS/v3.0.7/lab-1-Cloudformation/bundles/lab1.zip
+      RepositoryDescription: Repository for Lab1 templates
+      RepositoryName: lab1
+  ReadOnlyGroup:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: QLReadOnly
+      ManagedPolicyArns: [ "arn:aws:iam::aws:policy/ReadOnlyAccess" ]
+  GroupAssignment:
+    Type: "AWS::IAM::UserToGroupAddition"
+    DependsOn: ReadOnlyGroup
+    Properties:
+      GroupName: QLReadOnly
+      Users:
+        - awsstudent
+Outputs:
+  LabRegion:
+    Description: This is the AWS region that this lab was launched in.
+    Value: !Ref "AWS::Region"
+    Export:
+      Name: LabRegion
