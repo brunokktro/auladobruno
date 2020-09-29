@@ -189,6 +189,7 @@
 ### Planning and Designing Databases on AWS
 
 * [Learning Path - Databases](https://aws.amazon.com/training/path-databases/)
+* [Hands-On Tutorials - Move to managed databases](https://aws.amazon.com/getting-started/hands-on/move-to-managed/)
 
 
 ### Systems Operations on AWS
