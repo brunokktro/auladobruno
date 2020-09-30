@@ -339,6 +339,7 @@
 * [Implementing DevSecOps Using AWS CodePipeline](https://aws.amazon.com/blogs/devops/implementing-devsecops-using-aws-codepipeline/)
 * [Tutorial: Creating a service using a blue/green deployment](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-blue-green.html)
 * [Automating Blue/Green Deployments of Infrastructure and Application Code using AMIs, AWS Developer Tools, & Amazon EC2 Systems Manager](https://aws.amazon.com/blogs/devops/bluegreen-infrastructure-application-deployment-blog/)
+* [Automate OS Image Build Pipelines with EC2 Image Builder](https://aws.amazon.com/blogs/aws/automate-os-image-build-pipelines-with-ec2-image-builder/)
 * [Use AWS CodeDeploy to Implement Blue/Green Deployments for AWS Fargate and Amazon ECS](https://aws.amazon.com/blogs/devops/use-aws-codedeploy-to-implement-blue-green-deployments-for-aws-fargate-and-amazon-ecs/)
 * [IT Governance in a Dynamic DevOps Environment](https://aws.amazon.com/blogs/devops/it-governance-in-a-dynamic-devops-environment/)
 * [AWS Summit - DevOps Culture at Amazon](https://youtu.be/mBU3AJ3j1rg)
