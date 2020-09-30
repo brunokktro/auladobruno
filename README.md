@@ -329,6 +329,7 @@
 * [Can I have common environment variables for a group of Lambda functions?](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-common-environment-variables/)
 * [Announcing improved VPC networking for AWS Lambda functions](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/)
 * [Deploying Serverless Applications Gradually](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/automating-updates-to-serverless-apps.html)
+* [Integrating AWS X-Ray with other AWS services](https://docs.aws.amazon.com/xray/latest/devguide/xray-services.html)
 * [Docker basics for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html)
 * [Automating rollback of failed Amazon ECS deployments](https://aws.amazon.com/blogs/compute/automating-rollback-of-failed-amazon-ecs-deployments/)
 * [Build a Continuous Delivery Pipeline for Your Container Images with Amazon ECR as Source](https://aws.amazon.com/blogs/devops/build-a-continuous-delivery-pipeline-for-your-container-images-with-amazon-ecr-as-source/)
