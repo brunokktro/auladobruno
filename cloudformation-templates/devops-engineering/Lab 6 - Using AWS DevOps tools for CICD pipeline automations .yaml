@@ -1,0 +1,918 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "Continuous deployment infrastructure for sample calculator application"
+Parameters:
+  EnvironmentName: 
+    Description: "An environment name that will be prefixed to resource names"
+    Type: String
+    Default: "Lab6"
+  VpcCIDR:
+    Description: "Please enter the IP range (CIDR notation) for this VPC"
+    Type: String 
+    Default: "10.192.0.0/16"
+    AllowedValues:
+      - "10.192.0.0/16"
+  PublicSubnet1CIDR:
+    Description: "Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone"
+    Type: String 
+    Default: "10.192.0.0/20"
+    AllowedValues:
+      - "10.192.0.0/20"
+  ApplicationName:
+    Description: An application name that will be prefixed to resource names
+    Type: String
+    Default: simple-calculator
+  LatestAmiId:
+    Type: "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>"
+    Default: "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+
+Resources:
+  CodeCommitRepo:
+    Type: "AWS::CodeCommit::Repository"
+    Properties:
+      RepositoryName: !Ref EnvironmentName
+      RepositoryDescription: "Calculator application repository"
+      Code:
+        S3: 
+            Bucket: !Sub '${AWS::Region}-tcprod'
+            Key: courses/ILT-TF-200-DEVOPS/v3.0.7/lab-6-DevOpsTools/scripts/calculator.zip
+  VPC: 
+    Type: "AWS::EC2::VPC"
+    Properties: 
+      CidrBlock: !Ref VpcCIDR 
+      EnableDnsSupport: true 
+      EnableDnsHostnames: true 
+      Tags: 
+        - Key: Name 
+          Value: !Sub "${EnvironmentName} VPC" 
+  InternetGateway: 
+    Type: "AWS::EC2::InternetGateway"
+    Properties: 
+      Tags: 
+        - Key: Name 
+          Value: !Sub "${EnvironmentName} IG"
+  InternetGatewayAttachment: 
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties: 
+      InternetGatewayId: !Ref InternetGateway 
+      VpcId: !Ref VPC 
+  PublicSubnet1: 
+    Type: 'AWS::EC2::Subnet' 
+    Properties: 
+      VpcId: !Ref VPC 
+      AvailabilityZone: !Select  
+        - 0 
+        - !GetAZs '' 
+      CidrBlock: !Ref PublicSubnet1CIDR 
+      MapPublicIpOnLaunch: true 
+      Tags: 
+        - Key: Name 
+          Value: !Sub '${EnvironmentName} Public Subnet (AZ1)'
+  PublicSubnet4:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: "10.192.16.0/20"
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${ApplicationName} Public Subnet (AZ1)
+
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: "10.192.64.0/20"
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Sub ${ApplicationName} Private Subnet (AZ1)
+
+  NatGateway1EIP:
+    Type: AWS::EC2::EIP
+    DependsOn: InternetGatewayAttachment
+    Properties:
+      Domain: vpc
+
+  NatGateway1:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NatGateway1EIP.AllocationId
+      SubnetId: !Ref PublicSubnet4
+
+  PublicRouteTable: 
+    Type: 'AWS::EC2::RouteTable' 
+    Properties: 
+      VpcId: !Ref VPC 
+      Tags: 
+        - Key: Name 
+          Value: !Sub '${EnvironmentName} Public Routes' 
+  DefaultPublicRoute: 
+    Type: 'AWS::EC2::Route' 
+    DependsOn: InternetGatewayAttachment 
+    Properties: 
+      RouteTableId: !Ref PublicRouteTable 
+      DestinationCidrBlock: 0.0.0.0/0 
+      GatewayId: !Ref InternetGateway 
+  PublicSubnet1RouteTableAssociation: 
+    Type: 'AWS::EC2::SubnetRouteTableAssociation' 
+    Properties: 
+      RouteTableId: !Ref PublicRouteTable 
+      SubnetId: !Ref PublicSubnet1 
+  PublicSubnet4RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet4
+
+  PrivateRouteTable1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub ${ApplicationName} Private Routes (AZ1)
+
+  DefaultPrivateRoute1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable1
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway1
+
+  PrivateSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable1
+      SubnetId: !Ref PrivateSubnet1
+
+  PublicHttpIngressSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: "public-http-ingress-sg"
+      GroupDescription: "Security group that allows HTTP ingress from internet"
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+
+  PrivateHttpIngressSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: "private-http-ingress-sg"
+      GroupDescription: "Security group that allows HTTP ingress from load balancer"
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 8080
+        ToPort: 8080
+        SourceSecurityGroupId:
+          Ref: PublicHttpIngressSecurityGroup
+  C9IDE:
+    DependsOn:
+      - CodeCommitRepo
+    Type: "AWS::Cloud9::EnvironmentEC2"
+    Properties:
+      Name: !Ref EnvironmentName
+      Description: Cloud9 IDE for hands-on lab on developer tools
+      AutomaticStopTimeMinutes: 60
+      OwnerArn: !Sub "arn:aws:iam::${AWS::AccountId}:user/awsstudent"
+      SubnetId: !Ref PublicSubnet1
+      InstanceType: t2.micro
+      Repositories:
+        - PathComponent: Lab6
+          RepositoryUrl: !Sub "https://git-codecommit.${AWS::Region}.amazonaws.com/v1/repos/${EnvironmentName}"
+  CloudFormationTrustRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service:
+                - cloudformation.amazonaws.com
+      Path: /
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - 'iam:CreateInstanceProfile'
+                  - 'iam:DeleteInstanceProfile'
+                  - 'iam:GetRole'
+                  - 'iam:GetInstanceProfile' 
+                  - 'iam:RemoveRoleFromInstanceProfile'
+                  - 'iam:UpdateRoleDescription' 
+                  - 'iam:CreateRole'
+                  - 'iam:DeleteRole'
+                  - 'iam:AttachRolePolicy'
+                  - 'iam:PutRolePolicy'
+                  - 'iam:ListInstanceProfiles'
+                  - 'iam:AddRoleToInstanceProfile'
+                  - 'iam:ListInstanceProfilesForRole'
+                  - 'iam:PassRole'
+                  - 'iam:DetachRolePolicy'
+                  - 'iam:DeleteRolePolicy'
+                  - 'iam:ListRolePolicies'
+                  - 'iam:ListRoles'
+                  - 'iam:GetRolePolicy'
+                Effect: Allow
+                Resource:
+                  - !Sub 'arn:aws:iam::*:role/${AWS::StackName}*'
+                  - !Sub 'arn:aws:iam::*:instance-profile/${AWS::StackName}*'
+              - Action:
+                  - 'iam:CreateServiceLinkedRole' 
+                Effect: Allow
+                Resource:
+                  - 'arn:aws:iam::*:role/aws-service-role/*'
+              - Action:
+                  - 'ssm:GetParameters'
+                  - 'autoscaling:*'
+                  - 'ec2:*'
+                  - 'codedeploy:*'
+                  - 'elasticloadbalancing:*'
+                Effect: Allow
+                Resource:
+                  - '*'
+          PolicyName: !Join 
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - CloudFormationRolePolicy
+      RoleName: !Join 
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - CloudFormation
+    Type: 'AWS::IAM::Role'
+  LambdaCodePipelineExecutionPolicy:
+    DependsOn:
+      - CloudFormationTrustRole
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: LambdaRolePolicy
+      Roles:
+        - !Ref CodePipelineLambdaRole
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'logs:*'
+            Resource:
+              - 'arn:aws:logs:*:*:*'
+          - Effect: Allow
+            Action:
+              - 'codepipeline:PutJobSuccessResult'
+              - 'codepipeline:PutJobFailureResult'
+              - 's3:*'
+              - 'ec2:*'
+              - 'cloudformation:*'
+              - 'xray:*'
+            Resource:
+              - '*'
+          - Effect: Allow
+            Action:
+              - 'dynamodb:*'
+            Resource:
+              - '*'
+          - Effect: Allow
+            Action:
+              - 'sns:*'
+            Resource:
+              - '*'
+  CodeBuildPolicy:
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - 'logs:CreateLogGroup'
+              - 'logs:CreateLogStream'
+              - 'logs:PutLogEvents'
+            Effect: Allow
+            Resource: '*'
+          - Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:GetObjectVersion'
+            Effect: Allow
+            Resource:
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref ArtifactsBucket
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref ArtifactsBucket
+                  - /*
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref CacheBucket
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref CacheBucket
+                  - /*
+          - Action:
+              - 'codecommit:GitPull'
+            Effect: Allow
+            Resource:
+              - !Join 
+                - ':'
+                - - arn
+                  - aws
+                  - codecommit
+                  - !Ref 'AWS::Region'
+                  - !Ref 'AWS::AccountId'
+                  - !Ref EnvironmentName
+          - Action:
+              - 'kms:GenerateDataKey*'
+              - 'kms:Encrypt'
+              - 'kms:Decrypt'
+            Effect: Allow
+            Resource:
+              - !Join 
+                - ':'
+                - - 'arn:aws:kms'
+                  - !Ref 'AWS::Region'
+                  - !Ref 'AWS::AccountId'
+                  - !Join 
+                    - /
+                    - - alias
+                      - aws/s3
+      PolicyName: !Join 
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - CodeBuildPolicy
+      Roles:
+        - !Ref CodeBuildRole
+    Type: 'AWS::IAM::Policy'
+  CodeBuildProject:
+    DependsOn:
+      - CodeBuildPolicy
+    Properties:
+      Artifacts:
+        Location: !Ref ArtifactsBucket
+        Name: build-output.zip
+        NamespaceType: BUILD_ID
+        Packaging: ZIP
+        Path: codebuild
+        Type: S3
+      Cache:
+        Location: !Ref CacheBucket
+        Type: S3
+      Description: !Join 
+        - ''
+        - - 'CodeBuild Project for '
+          - !Ref 'AWS::StackName'
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: 'aws/codebuild/nodejs:8.11.0'
+        Type: LINUX_CONTAINER
+      Name: !Ref 'AWS::StackName'
+      ServiceRole: !Ref CodeBuildRole
+      Source:
+        Type: CODECOMMIT
+        Location: !Join 
+          - ''
+          - - 'https://git-codecommit.'
+            - !Ref 'AWS::Region'
+            - .amazonaws.com/v1/repos/
+            - !Ref EnvironmentName
+        BuildSpec: buildspecs/build-with-cache.yml
+    Type: 'AWS::CodeBuild::Project'
+  CodeBuildRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: 'sts:AssumeRole'
+            Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+      Path: /
+      RoleName: !Join 
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - CodeBuild
+    Type: 'AWS::IAM::Role'
+  CodePipelineLambdaRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+  CodePipelineTrustRole:
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: "sts:AssumeRole"
+            Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+            Sid: 1
+      Path: /
+      Policies:
+        - PolicyDocument:
+            Statement:
+              - Action:
+                  - 's3:GetObject'
+                  - 's3:GetObjectVersion'
+                  - 's3:GetBucketVersioning'
+                  - 's3:PutObject'
+                Effect: Allow
+                Resource:
+                  - !Join 
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref ArtifactsBucket
+                  - !Join 
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref ArtifactsBucket
+                      - /*
+              - Action:
+                  - 'codecommit:CancelUploadArchive'
+                  - 'codecommit:GetBranch'
+                  - 'codecommit:GetCommit'
+                  - 'codecommit:GetUploadArchiveStatus'
+                  - 'codecommit:UploadArchive'
+                Effect: Allow
+                Resource:
+                  - !Join 
+                    - ':'
+                    - - arn
+                      - aws
+                      - codecommit
+                      - !Ref 'AWS::Region'
+                      - !Ref 'AWS::AccountId'
+                      - !Ref EnvironmentName
+              - Action:
+                  - 'codebuild:StartBuild'
+                  - 'codebuild:BatchGetBuilds'
+                  - 'codebuild:StopBuild'
+                Effect: Allow
+                Resource:
+                  - !GetAtt CodeBuildProject.Arn
+              - Action:
+                  - 'codedeploy:CreateDeployment'
+                  - 'codedeploy:GetApplicationRevision'
+                  - 'codedeploy:GetDeployment'
+                  - 'codedeploy:GetDeploymentConfig'
+                  - 'codedeploy:RegisterApplicationRevision'
+                Effect: Allow
+                Resource:
+                  - !Join 
+                    - ':'
+                    - - arn
+                      - aws
+                      - codedeploy
+                      - !Ref 'AWS::Region'
+                      - !Ref 'AWS::AccountId'
+                      - deploymentgroup
+                      - !Join 
+                        - ''
+                        - - !Ref 'AWS::StackName'
+                          - '*'
+                  - !Join 
+                    - ':'
+                    - - arn
+                      - aws
+                      - codedeploy
+                      - !Ref 'AWS::Region'
+                      - !Ref 'AWS::AccountId'
+                      - application
+                      - !Join 
+                        - ''
+                        - - !Ref 'AWS::StackName'
+                          - '*'
+                  - !Join 
+                    - ':'
+                    - - arn
+                      - aws
+                      - codedeploy  
+                      - !Ref 'AWS::Region'
+                      - !Ref 'AWS::AccountId'
+                      - deploymentconfig
+                      - '*'
+              - Action:
+                  - 'cloudformation:CreateStack'
+                  - 'cloudformation:DescribeStacks'
+                  - 'cloudformation:DeleteStack'
+                  - 'cloudformation:UpdateStack'
+                  - 'cloudformation:CreateChangeSet'
+                  - 'cloudformation:ExecuteChangeSet'
+                  - 'cloudformation:DeleteChangeSet'
+                  - 'cloudformation:DescribeChangeSet'
+                  - 'cloudformation:SetStackPolicy'
+                Effect: Allow
+                Resource:
+                  - !Join 
+                    - ':'
+                    - - arn
+                      - aws
+                      - cloudformation
+                      - !Ref 'AWS::Region'
+                      - !Ref 'AWS::AccountId'
+                      - !Join 
+                        - /
+                        - - stack
+                          - !Join 
+                            - '-'
+                            - - !Ref 'AWS::StackName'
+                              - '*'
+              - Action:
+                  - 'iam:PassRole'
+                Effect: Allow
+                Resource:
+                  - !GetAtt 
+                    - CloudFormationTrustRole
+                    - Arn
+              - Action:
+                  - 'lambda:InvokeFunction'
+                Effect: Allow
+                Resource: '*'
+          PolicyName: !Join 
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - CodePipelineRolePolicy
+      RoleName: !Join 
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - CodePipeline
+    Type: 'AWS::IAM::Role'
+  CFNValidateLambda:
+    Type: 'AWS::Lambda::Function'
+    DependsOn:
+      - LambdaCodePipelineExecutionPolicy
+      - myDynamoDBTable
+    Properties:
+      Code:
+        S3Bucket: !Sub '${AWS::Region}-tcprod'
+        S3Key: courses/ILT-TF-200-DEVOPS/v3.0.7/lab-6-DevOpsTools/scripts/functions.zip
+      Role: !GetAtt 
+        - CodePipelineLambdaRole
+        - Arn
+      Description: Always return success
+      Timeout: 60
+      Handler: cfn_validate_lambda.lambda_handler
+      Runtime: python3.7
+      TracingConfig: 
+        Mode: Active 
+  servicestatus:
+    Type: 'AWS::Lambda::Function'
+    DependsOn:
+      - LambdaCodePipelineExecutionPolicy
+    Properties:
+      Code:
+        S3Bucket: !Sub '${AWS::Region}-tcprod'
+        S3Key: courses/ILT-TF-200-DEVOPS/v3.0.7/lab-6-DevOpsTools/scripts/functions.zip
+      Role: !GetAtt 
+        - CodePipelineLambdaRole
+        - Arn
+      Description: Always return success
+      Timeout: 60
+      Handler: index.handler
+      Runtime: nodejs10.x
+      TracingConfig: 
+        Mode: Active 
+  ArtifactBucketPolicy:
+    Properties:
+      Bucket: !Ref ArtifactsBucket
+      PolicyDocument:
+        Id: SSEAndSSLPolicy
+        Statement:
+          - Action:
+              - 's3:GetObject'
+              - 's3:GetObjectVersion'
+              - 's3:GetBucketVersioning'
+            Condition:
+              Bool:
+                'aws:SecureTransport': false
+            Effect: Allow
+            Principal:
+              AWS:
+                - !GetAtt 
+                  - CodePipelineTrustRole
+                  - Arn
+                - !GetAtt 
+                  - CodeBuildRole
+                  - Arn
+                - !GetAtt 
+                  - CloudFormationTrustRole
+                  - Arn
+            Resource:
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref ArtifactsBucket
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref ArtifactsBucket
+                  - /*
+            Sid: WhitelistedGet
+          - Action:
+              - 's3:PutObject'
+            Effect: Allow
+            Principal:
+              AWS:
+                - !GetAtt 
+                  - CodePipelineTrustRole
+                  - Arn
+                - !GetAtt 
+                  - CodeBuildRole
+                  - Arn
+            Resource:
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref ArtifactsBucket
+              - !Join 
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref ArtifactsBucket
+                  - /*
+            Sid: WhitelistedPut
+        Version: 2012-10-17
+    Type: 'AWS::S3::BucketPolicy'
+  ArtifactsBucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Delete
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Join 
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - ArtifactsBucket
+      VersioningConfiguration:
+        Status: Enabled
+  CacheBucket:
+    DeletionPolicy: Delete
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Join 
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - CacheBucket
+      LifecycleConfiguration:
+        Rules:
+          - ExpirationInDays: 30
+            Status: Enabled
+    Type: 'AWS::S3::Bucket'
+  myDynamoDBTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: rule
+          AttributeType: S
+      KeySchema:
+        - AttributeName: rule
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: lab6DDBRules
+  ReadOnlyGroup:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: QLReadOnly
+      ManagedPolicyArns: [ "arn:aws:iam::aws:policy/ReadOnlyAccess" ]
+  GroupAssignment:
+    Type: "AWS::IAM::UserToGroupAddition"
+    DependsOn: ReadOnlyGroup
+    Properties:
+      GroupName: QLReadOnly
+      Users:
+        - awsstudent
+  CloudFormationGroup:
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: CloudFormationGroup
+      ManagedPolicyArns: [ "arn:aws:iam::aws:policy/AWSCloudFormationFullAccess" ]
+  GroupAssignment2:
+    Type: "AWS::IAM::UserToGroupAddition"
+    DependsOn: ReadOnlyGroup
+    Properties:
+      GroupName: CloudFormationGroup
+      Users:
+        - awsstudent
+ 
+  CodeDeployApplication:
+    Properties:
+      ApplicationName: !Ref 'AWS::StackName'
+    Type: "AWS::CodeDeploy::Application"
+
+  CodeDeployRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "codedeploy.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        -
+          PolicyName: allow-autoscaling
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: Allow
+                Action:
+                  - ec2:*
+                  - autoscaling:*
+                Resource: "*"
+
+  InstanceRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Principal:
+              Service:
+                - "ec2.amazonaws.com"
+                - "codedeploy.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        -
+          PolicyName: "allow-deployment-bucket"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Action:
+                - "s3:GetObject"
+                - "s3:GetObjectVersion"
+                Resource:
+                  - !Join 
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref ArtifactsBucket
+                      - '/*'
+  InstanceProfile:
+    Type: "AWS::IAM::InstanceProfile"
+    Properties:
+      Roles:
+        - Ref: InstanceRole
+
+  LaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      AssociatePublicIpAddress: false
+      ImageId: !Ref LatestAmiId
+      InstanceType: t2.micro
+      SecurityGroups:
+        - Ref: PrivateHttpIngressSecurityGroup
+      IamInstanceProfile:
+        Ref: InstanceProfile
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum -y update
+          yum install -y ruby
+          cd /home/ec2-user
+          curl -O https://aws-codedeploy-${AWS::Region}.s3.amazonaws.com/latest/install
+          chmod +x ./install
+          ./install auto
+        
+Outputs:
+  ArtifactsBucket:
+    Description: "S3 bucket used for artifacts"
+    Export:
+      Name: "ArtifactsBucketExportParameter"
+    Value: !Ref ArtifactsBucket
+  CFNValidateLambda:
+    Description: "Lamdba Function used for Static_Check pipeline stage"
+    Export:
+      Name: "CFNValidateLambdaExportParameter"
+    Value: !Ref CFNValidateLambda
+  CloudFormationTrustRole:
+    Description: "The CodeBuild project name for the lab"
+    Value: !Ref CloudFormationTrustRole
+    Export: 
+      Name: "CloudFormationTrustRoleExportParameter"
+  CloudFormationTrustRoleARN:
+    Description: "The CodeBuild project name for the lab"
+    Value: !GetAtt CloudFormationTrustRole.Arn
+    Export: 
+      Name: "CloudFormationTrustRoleARNExportParameter"
+  CodeBuildProject:
+    Description: "The CodeBuild project name for the lab"
+    Value: !Ref CodeBuildProject
+    Export: 
+      Name: "CodeBuildProjectExportParameter"
+  CodeCommitRepo:
+    Description: "The CodeBuild project name for the lab"
+    Value: !GetAtt CodeCommitRepo.Name
+    Export: 
+      Name: "CodeCommitRepoExportParameter"
+  CodePipelineTrustRole:
+    Description: "IAM role allowing CodePipeline to interact with other AWS services"
+    Value: !Ref CodePipelineTrustRole
+    Export: 
+      Name: "CodePipelineTrustRoleExportParameter"
+  CodePipelineTrustRoleARN:
+    Description: "IAM role allowing CodePipeline to interact with other AWS services"
+    Value: !GetAtt 
+          - CodePipelineTrustRole
+          - Arn
+    Export: 
+      Name: "CodePipelineTrustRoleARNExportParameter"
+  LabRegion:
+    Description: This is the AWS region that this lab was launched in.
+    Value: !Ref "AWS::Region"
+    Export:
+      Name: LabRegion
+  parentStack:
+    Value: !Ref 'AWS::StackName'  
+    Export:
+      Name: parentStack
+      
+  TemplateURL:
+    Description: "URL used for building the release pipeline template in cloudformation"
+    Value: !Join
+              - ''
+              - - 'https://'
+                - !Ref 'AWS::Region'
+                - '-tcprod.s3.amazonaws.com/courses/ILT-TF-200-DEVOPS/v3.0.7/lab-6-DevOpsTools/scripts/releasePipelineTemplate.yaml'
+
+  ApplicationName:
+    Description: The application name
+    Value: !Ref ApplicationName
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, ApplicationName ] ]
+
+  CodeDeployApplication:
+    Description: A reference to the created CodeDeploy application
+    Value: !Ref CodeDeployApplication
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, CodeDeployApplication ] ]
+
+  CodeDeployUrl:
+    Description: The AWS console URL for the CodeDeploy application
+    Value:
+      Fn::Sub: 'https://${AWS::Region}.console.aws.amazon.com/codedeploy/home?region=${AWS::Region}#/applications/${CodeDeployApplication}'
+
+  CodeDeployRole:
+    Description: A reference to the created CodeDeploy role
+    Value: !GetAtt CodeDeployRole.Arn
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, CodeDeployRole ] ]
+
+  LaunchConfig:
+    Description: A reference to the created launch configuration
+    Value: !Ref LaunchConfig
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, LaunchConfig ] ]
+
+  VPC:
+    Description: A reference to the created VPC
+    Value: !Ref VPC
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, VPC ] ]
+
+  PublicSubnets:
+    Description: A list of the public subnets
+    Value: !Join [ ",", [ !Ref PublicSubnet1, !Ref PublicSubnet4]]
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, PublicSubnets ] ]
+
+  PrivateSubnets:
+    Description: A list of the private subnets
+    Value: !Join [ ",", [ !Ref PrivateSubnet1]]
+    Export:
+      Name: !Join [ ":", [lab6-shared-resources, PrivateSubnets ] ]
+
+  PublicHttpIngressSecurityGroup:
+    Description: Security group with HTTP ingress rule from internet
+    Value: !Ref PublicHttpIngressSecurityGroup
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, PublicHttpIngressSecurityGroup ] ]
+
+  PrivateHttpIngressSecurityGroup:
+    Description: Security group with HTTP ingress rule from load balancer
+    Value: !Ref PrivateHttpIngressSecurityGroup
+    Export:
+      Name: !Join [ ":", [ lab6-shared-resources, PrivateHttpIngressSecurityGroup ] ]
