@@ -342,6 +342,7 @@
 * [IT Governance in a Dynamic DevOps Environment](https://aws.amazon.com/blogs/devops/it-governance-in-a-dynamic-devops-environment/)
 * [AWS Summit - DevOps Culture at Amazon](https://youtu.be/mBU3AJ3j1rg)
 * [AWS re:Invent 2018: Moving to DevOps the Amazon Way](https://youtu.be/Pvb74TlV8SA)
+* [AWS Solutions - Distributed Load Testing on AWS](https://aws.amazon.com/solutions/implementations/distributed-load-testing-on-aws/)
 
 
 ### Security Engineering on AWS
