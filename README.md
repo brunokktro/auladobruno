@@ -510,6 +510,7 @@
 * [Workshop] [Security Workshops - Data Protection, Detection, Identity, Threat Detection](https://awssecworkshops.com/workshops/)
 * [Workshop] [AWS Protecting Workloads Workshops](http://protecting-workloads.awssecworkshops.com/)
 * [Workshop] [Getting Hands on with Amazon GuardDuty](https://hands-on-guardduty.awssecworkshops.com/)
+* [Workshop] [Scaling threat detection and response in AWS](https://scaling-threat-detection.awssecworkshops.com/)
 * [Workshop] [Integrating security into your container pipeline](https://container-devsecops.awssecworkshops.com/)
 * [Workshop] [DevSecOps with Snyk](https://snyk.modernize.awsworkshop.io/)
 * [Workshop] [Windows on AWS](https://winonaws.cloud/)
