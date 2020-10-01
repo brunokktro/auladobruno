@@ -460,6 +460,7 @@
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
+* [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
 * [TOOLS unofficial] [JMESPath](https://jmespath.org/)
 * [TOOLS unofficial] [AWS IP Ranges](http://52.24.200.194/)
