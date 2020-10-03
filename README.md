@@ -403,6 +403,7 @@
 * [How to Enable Custom Actions in AWS Security Hub](https://aws.amazon.com/blogs/apn/how-to-enable-custom-actions-in-aws-security-hub/)
 * [Managed Renewal for ACM's Amazon-Issued Certificates ](https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html)
 * [Why did my ACM certificate fail automatic renewal?](https://aws.amazon.com/premiumsupport/knowledge-center/certificate-fails-to-auto-renew/)
+* [What Is Amazon Kinesis Agent for Microsoft Windows?](https://docs.aws.amazon.com/kinesis-agent-windows/latest/userguide/what-is-kinesis-agent-windows.html)
 * [Tutorial: Sending VPC Flow Logs to Splunk Using Amazon Kinesis Data Firehose ](https://docs.aws.amazon.com/firehose/latest/dev/vpc-splunk-tutorial.html)
 * [Troubleshooting Kinesis Data Streams Consumers](https://docs.aws.amazon.com/streams/latest/dev/troubleshooting-consumers.html)
 * [Format Options for ETL Inputs and Outputs in AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-format.html)
