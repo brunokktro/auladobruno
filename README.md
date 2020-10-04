@@ -394,6 +394,7 @@
 * [How to use AWS Secrets Manager to rotate credentials for all Amazon RDS database types, including Oracle](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-rotate-credentials-amazon-rds-database-types-oracle/)
 * [How to use AWS Secrets Manager to securely store and rotate SSH key pairs](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-securely-store-rotate-ssh-key-pairs/)
 * [Post-quantum TLS now supported in AWS KMS](https://aws.amazon.com/blogs/security/post-quantum-tls-now-supported-in-aws-kms/)
+* [AWS re:Inforce 2019: How Encryption Works in AWS](https://youtu.be/plv7PQZICCM)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
 * [GuardDuty EC2 finding types](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_finding-types-ec2.html)
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
