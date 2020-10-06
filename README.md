@@ -465,6 +465,7 @@
 * [AWS Control Tower](https://hackmd.io/@matheuslra/r1o5k2-Xw)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
+* [Penetration Testing in the AWS Cloud: What You Need to Know](https://rhinosecuritylabs.com/penetration-testing/penetration-testing-aws-cloud-need-know/)
 * [Standardized Architecture for PCI DSS on the AWS Cloud](https://docs.aws.amazon.com/quickstart/latest/compliance-pci/welcome.html)
 * [Tutorial: Blocking IP Addresses That Submit Bad Requests ](https://docs.aws.amazon.com/waf/latest/developerguide/tutorials-4xx-blocking.html)
 
