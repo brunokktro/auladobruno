@@ -190,7 +190,28 @@
 
 * [Learning Path - Databases](https://aws.amazon.com/training/path-databases/)
 * [Hands-On Tutorials - Move to managed databases](https://aws.amazon.com/getting-started/hands-on/move-to-managed/)
-
+* [Amazon RDS Multi-AZ Deployments](https://aws.amazon.com/rds/features/multi-az/)
+* [Amazon RDS Read Replicas](https://aws.amazon.com/rds/features/read-replicas/)
+* [Implementing a disaster recovery strategy with Amazon RDS](https://aws.amazon.com/blogs/database/implementing-a-disaster-recovery-strategy-with-amazon-rds/)
+* [Best storage practices for running production workloads on hosted databases with Amazon RDS or Amazon EC2](https://aws.amazon.com/blogs/database/best-storage-practices-for-running-production-workloads-on-hosted-databases-with-amazon-rds-or-amazon-ec2/)
+* [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
+* [Securing data in Amazon RDS using AWS KMS encryption](https://aws.amazon.com/blogs/database/securing-data-in-amazon-rds-using-aws-kms-encryption/)
+* [Amazon DynamoDB global tables](https://aws.amazon.com/dynamodb/global-tables/)
+* [How to use Amazon DynamoDB global tables to power multiregion architectures](https://aws.amazon.com/blogs/database/how-to-use-amazon-dynamodb-global-tables-to-power-multiregion-architectures/)
+* [Amazon DynamoDB auto scaling: Performance and cost optimization at any scale](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/)
+* [Optimize Amazon DynamoDB scan latency through schema design](https://aws.amazon.com/blogs/database/optimizing-amazon-dynamodb-scan-latency-through-schema-design/)
+* [Caching for performance with Amazon DocumentDB and Amazon ElastiCache](https://aws.amazon.com/blogs/database/caching-for-performance-with-amazon-documentdb-and-amazon-elasticache/)
+* [Boosting application performance and reducing costs with Amazon ElastiCache for Redis](https://aws.amazon.com/blogs/database/boosting-application-performance-and-reducing-costs-with-amazon-elasticache-for-redis/)
+* [Working with Aurora Multi-Master Clusters](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-multi-master.html)
+* [Best practices for securing sensitive data in AWS data stores](https://aws.amazon.com/blogs/database/best-practices-for-securing-sensitive-data-in-aws-data-stores/)
+* [How LifeOmic’s JupiterOne simplifies security and compliance operations with Amazon Neptune](https://aws.amazon.com/blogs/database/how-lifeomics-jupiterone-simplifies-security-and-compliance-operations-with-amazon-neptune/)
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
 
 ### Systems Operations on AWS
 
