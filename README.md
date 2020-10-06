@@ -211,9 +211,19 @@
 * [Amazon Aurora as an Alternative to Oracle RAC](https://aws.amazon.com/blogs/database/amazon-aurora-as-an-alternative-to-oracle-rac/)
 * [Reducing Aurora PostgreSQL storage I/O costs](https://aws.amazon.com/blogs/database/reducing-aurora-postgresql-storage-i-o-costs/)
 * [How Cloudability boosted performance, simplified tuning, and lowered costs with Amazon Aurora](https://aws.amazon.com/blogs/database/how-cloudability-boosted-performance-simplified-tuning-and-lowered-costs-with-amazon-aurora/)
+* [Amazon Aurora Update – Call Lambda Functions From Stored Procedures; Load Data From S3](https://aws.amazon.com/blogs/aws/amazon-aurora-update-call-lambda-functions-from-stored-procedures-load-data-from-s3/)
+* [Amazon Aurora Update – PostgreSQL Compatibility](https://aws.amazon.com/blogs/aws/amazon-aurora-update-postgresql-compatibility/)
 * [Best practices for securing sensitive data in AWS data stores](https://aws.amazon.com/blogs/database/best-practices-for-securing-sensitive-data-in-aws-data-stores/)
+* [Database Migration—What Do You Need to Know Before You Start?](https://aws.amazon.com/blogs/database/database-migration-what-do-you-need-to-know-before-you-start/)
 * [Reduce database cost and improve availability when you migrate to the AWS Cloud](https://aws.amazon.com/blogs/database/reduce-database-cost-and-improve-availability-when-you-migrate-to-the-aws-cloud/)
+* [How do I perform common DBA tasks for Amazon RDS DB instances?](https://aws.amazon.com/premiumsupport/knowledge-center/rds-common-dba-tasks/)
+* [Part 1 – Role of the DBA When Moving to Amazon RDS: Responsibilities](https://aws.amazon.com/blogs/database/part-1-role-of-the-dba-when-moving-to-amazon-rds-responsibilities/)
 * [How to Scale AWS Database Migration Service (DMS) replication instances ](https://aws.amazon.com/blogs/database/how-to-scale-aws-database-migration-service-dms-replication-instances/)
+* [Best practices for migrating an Oracle database to Amazon RDS PostgreSQL or Amazon Aurora PostgreSQL: Source database considerations for the Oracle and AWS DMS CDC environment](https://aws.amazon.com/blogs/database/best-practices-for-migrating-an-oracle-database-to-amazon-rds-postgresql-or-amazon-aurora-postgresql-source-database-considerations-for-the-oracle-and-aws-dms-cdc-environment/)
+* [How to solve some common challenges faced while migrating from Oracle to PostgreSQL](https://aws.amazon.com/blogs/database/how-to-solve-some-common-challenges-faced-while-migrating-from-oracle-to-postgresql/)
+* [Automating database migration and refreshing activities with AWS DMS](https://aws.amazon.com/blogs/database/automating-database-migration-and-refreshing-activities-with-aws-dms/)
+* [Create AWS CloudFormation templates for AWS DMS tasks using Microsoft Excel](https://aws.amazon.com/blogs/database/create-aws-cloudformation-templates-for-aws-dms-tasks-using-microsoft-excel/)
+* [Automating table mappings creation in AWS DMS](https://aws.amazon.com/blogs/database/automating-table-mappings-creation-in-aws-dms/)
 
 
 ### Systems Operations on AWS
