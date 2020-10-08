@@ -115,6 +115,7 @@
 * [Getting started with tag policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies-getting-started.html)
 * [AWS re:Invent 2019: Advanced VPC design and new capabilities for Amazon VPC](https://youtu.be/7acKgdDOOu4)
 * [Integrating AWS Transit Gateway with AWS PrivateLink and Amazon Route 53 Resolver](https://aws.amazon.com/blogs/networking-and-content-delivery/integrating-aws-transit-gateway-with-aws-privatelink-and-amazon-route-53-resolver/)
+* [Centralized DNS management of hybrid cloud with Amazon Route 53 and AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-dns-management-of-hybrid-cloud-with-amazon-route-53-and-aws-transit-gateway/)
 * [Route 53 - Choosing between alias and non-alias records](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html)
 * [Amazon VPC for On-Premises Network Engineers – Part 1](https://aws.amazon.com/blogs/apn/amazon-vpc-for-on-premises-network-engineers-part-one/)
 * [Amazon VPC for On-Premises Network Engineers – Part 2](https://aws.amazon.com/blogs/apn/amazon-vpc-for-on-premises-network-engineers-part-two/)
