@@ -336,6 +336,7 @@
 * [Containers na AWS - Immersion Day](https://pages.awscloud.com/LATAM_TRAINCERT_WEBINAR_immersion-day-containers-video-series_20200331_7010z000001LIBT_LPVideos-CostOptimizationVideoSeries.html)
 * [Walkthrough: Refer to resource outputs in another AWS CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html)
 * [AWS CloudFormation best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+* [AWS CloudFormation Guard](https://github.com/aws-cloudformation/cloudformation-guard)
 * [Infrastructure as Code](https://d1.awsstatic.com/whitepapers/DevOps/infrastructure-as-code.pdf?trk=wp_card)
 * [AWS CDK examples](https://docs.aws.amazon.com/cdk/latest/guide/about_examples.html)
 * [Practicing Continuous Integration and Continuous Delivery on AWS](https://d0.awsstatic.com/whitepapers/DevOps/practicing-continuous-integration-continuous-delivery-on-AWS.pdf)
