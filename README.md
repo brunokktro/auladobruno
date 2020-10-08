@@ -440,6 +440,7 @@
 * [Post-quantum TLS now supported in AWS KMS](https://aws.amazon.com/blogs/security/post-quantum-tls-now-supported-in-aws-kms/)
 * [AWS re:Inforce 2019: How Encryption Works in AWS](https://youtu.be/plv7PQZICCM)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
+* [Amazon Inspector agents](https://docs.aws.amazon.com/inspector/latest/userguide/inspector_agents.html)
 * [GuardDuty EC2 finding types](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_finding-types-ec2.html)
 * [Amazon GuardDuty Partners](https://aws.amazon.com/guardduty/resources/partners/)
 * [Automated Response and Remediation with AWS Security Hub](https://aws.amazon.com/blogs/security/automated-response-and-remediation-with-aws-security-hub/)
