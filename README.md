@@ -516,6 +516,7 @@
 * [Penetration Testing in the AWS Cloud: What You Need to Know](https://rhinosecuritylabs.com/penetration-testing/penetration-testing-aws-cloud-need-know/)
 * [Standardized Architecture for PCI DSS on the AWS Cloud](https://docs.aws.amazon.com/quickstart/latest/compliance-pci/welcome.html)
 * [Tutorial: Blocking IP Addresses That Submit Bad Requests ](https://docs.aws.amazon.com/waf/latest/developerguide/tutorials-4xx-blocking.html)
+* [Architectures to exemplify digital signature and secure message transmission to the Brazilian Instant Payment System (PIX)](https://github.com/aws-samples/pix-proxy-samples)
 
 
 ### Arquiteturas de Referência & Tools
