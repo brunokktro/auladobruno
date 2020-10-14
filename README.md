@@ -328,6 +328,8 @@
 * [Monitoring Trusted Advisor with Amazon CloudWatch Events and Amazon CloudWatch](https://docs.aws.amazon.com/awssupport/latest/user/cloudwatch-ta.html)
 * [What are the differences between data and management events in CloudTrail?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudtrail-data-management-events/)
 * [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
+* [Trusted Advisor Tools](https://github.com/aws/Trusted-Advisor-Tools)
+* [AWS Trusted Advisor Aggregator](https://splunkbase.splunk.com/app/4207/)
 * [Monitoring Amazon GuardDuty Findings with Amazon CloudWatch Events ](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html)
 * [How Does AWS CloudFormation Work?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-howdoesitwork.html)
 * [How do I resolve AWS CloudFormation template validation errors or template format errors?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudformation-template-validation/)
