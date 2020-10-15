@@ -513,6 +513,7 @@
 * [Building a React Frontend for Service Catalog with AWS Amplify](https://aws.amazon.com/blogs/opensource/react-frontend-service-catalog-aws-amplify/)
 * [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
 * [AWS Control Tower](https://hackmd.io/@matheuslra/r1o5k2-Xw)
+* [AWS Control Tower – Set up & Govern a Multi-Account AWS Environment](https://aws.amazon.com/blogs/aws/aws-control-tower-set-up-govern-a-multi-account-aws-environment/)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
 * [Penetration Testing in the AWS Cloud: What You Need to Know](https://rhinosecuritylabs.com/penetration-testing/penetration-testing-aws-cloud-need-know/)
