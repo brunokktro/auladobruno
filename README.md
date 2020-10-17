@@ -226,6 +226,8 @@
 * [Caching for performance with Amazon DocumentDB and Amazon ElastiCache](https://aws.amazon.com/blogs/database/caching-for-performance-with-amazon-documentdb-and-amazon-elasticache/)
 * [Boosting application performance and reducing costs with Amazon ElastiCache for Redis](https://aws.amazon.com/blogs/database/boosting-application-performance-and-reducing-costs-with-amazon-elasticache-for-redis/)
 * [Amazon Elasticsearch Service Troubleshooting](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/aes-handling-errors.html)
+* [Analyze Amazon Neptune Graphs using Amazon SageMaker Jupyter Notebooks](https://aws.amazon.com/blogs/database/analyze-amazon-neptune-graphs-using-amazon-sagemaker-jupyter-notebooks/)
+* [Visualize data in Amazon Neptune using VIS.js library](https://github.com/aws-samples/amazon-neptune-samples/tree/master/gremlin/visjs-neptune)
 * [Amazon Redshift - Troubleshooting queries](https://docs.aws.amazon.com/redshift/latest/dg/queries-troubleshooting.html)
 * [Amazon Redshift - Troubleshooting data loads](https://docs.aws.amazon.com/redshift/latest/dg/t_Troubleshooting_load_errors.html)
 * [How LifeOmic’s JupiterOne simplifies security and compliance operations with Amazon Neptune](https://aws.amazon.com/blogs/database/how-lifeomics-jupiterone-simplifies-security-and-compliance-operations-with-amazon-neptune/)
