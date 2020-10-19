@@ -163,6 +163,7 @@
 * [New – Amazon Connect and Amazon Lex Integration](https://aws.amazon.com/blogs/aws/new-amazon-connect-and-amazon-lex-integration/)
 * [Integrating Amazon SES with Microsoft Exchange](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-exchange.html)
 * [AWS Server Migration Service – Server Migration to the Cloud Made Easy](https://aws.amazon.com/blogs/apn/aws-server-migration-service-server-migration-to-the-cloud-made-easy/)
+* [How to upgrade your legacy Windows applications to new versions of Windows Server without refactoring](https://aws.amazon.com/blogs/modernizing-with-aws/how-to-upgrade-your-legacy-windows-applications-to-new-versions-of-windows-server-without-refactoring/)
 * [Importing Data to an Amazon RDS MySQL or MariaDB DB Instance with Reduced Downtime](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html)
 * [Strategies for Migrating Oracle Databases to AWS](https://d1.awsstatic.com/whitepapers/strategies-for-migrating-oracle-database-to-aws.pdf)
 * [Migrating Oracle databases with near-zero downtime using AWS DMS](https://aws.amazon.com/blogs/database/migrating-oracle-databases-with-near-zero-downtime-using-aws-dms/)
