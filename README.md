@@ -178,6 +178,7 @@
 * [DynamoDB Streams Use Cases and Design Patterns](https://aws.amazon.com/blogs/database/dynamodb-streams-use-cases-and-design-patterns/)
 * [My DynamoDB table is being throttled](https://aws.amazon.com/premiumsupport/knowledge-center/dynamodb-table-throttled/)
 * [AWS Outposts Now Available – Order Yours Today!](https://aws.amazon.com/blogs/aws/aws-outposts-now-available-order-your-racks-today/)
+* [Caching Overview on AWS](https://aws.amazon.com/caching/)
 * [Amazon Builder's Library - Caching challenges and strategies](https://aws.amazon.com/builders-library/caching-challenges-and-strategies/)
 * [How to set up an outbound VPC proxy with domain whitelisting and content filtering](https://aws.amazon.com/blogs/security/how-to-set-up-an-outbound-vpc-proxy-with-domain-whitelisting-and-content-filtering/)
 * [WordPress: Best Practices on AWS](https://aws.amazon.com/blogs/architecture/wordpress-best-practices-on-aws/)
