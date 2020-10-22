@@ -309,6 +309,7 @@
 * [Scanning Docker Images for Vulnerabilities using Clair, Amazon ECS, ECR, and AWS CodePipeline](https://aws.amazon.com/blogs/compute/scanning-docker-images-for-vulnerabilities-using-clair-amazon-ecs-ecr-aws-codepipeline/)
 * [Automatically update instances in an Amazon ECS cluster using the AMI ID parameter](https://aws.amazon.com/blogs/compute/automatically-update-instances-in-an-amazon-ecs-cluster-using-the-ami-id-parameter/)
 * [Managing Amazon EKS Clusters with Rancher](https://aws.amazon.com/blogs/opensource/managing-eks-clusters-rancher/)
+* [AWS Batch Use cases](https://aws.amazon.com/batch/use-cases/)
 * [Build Your Own Face Recognition Service Using Amazon Rekognition](https://aws.amazon.com/blogs/machine-learning/build-your-own-face-recognition-service-using-amazon-rekognition/)
 * [Using Amazon RDS Proxy with AWS Lambda](https://aws.amazon.com/blogs/compute/using-amazon-rds-proxy-with-aws-lambda/)
 * [Use Amazon WorkSpaces on Your Samsung Galaxy S8/S8+ With the New Samsung DeX](https://aws.amazon.com/blogs/aws/use-amazon-workspaces-on-your-samsung-galaxy-s8s8-with-the-new-samsung-dex/)
