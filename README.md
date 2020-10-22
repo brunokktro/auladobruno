@@ -253,6 +253,7 @@
 * [Automating database migration and refreshing activities with AWS DMS](https://aws.amazon.com/blogs/database/automating-database-migration-and-refreshing-activities-with-aws-dms/)
 * [Create AWS CloudFormation templates for AWS DMS tasks using Microsoft Excel](https://aws.amazon.com/blogs/database/create-aws-cloudformation-templates-for-aws-dms-tasks-using-microsoft-excel/)
 * [Automating table mappings creation in AWS DMS](https://aws.amazon.com/blogs/database/automating-table-mappings-creation-in-aws-dms/)
+* [AWS Database Migration Service resources (Migration Playbooks)](https://aws.amazon.com/dms/resources/)
 
 
 ### Systems Operations on AWS
