@@ -282,6 +282,7 @@
 * [Windows Server Update Services on AWS](https://aws.amazon.com/quickstart/architecture/windows-server-update-services/)
 * [How do I install .NET Framework 3.5 on an EC2 Windows instance that doesn't have internet access?](https://aws.amazon.com/premiumsupport/knowledge-center/net-framework-windows/)
 * [How patches are installed - AWS Systems Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-how-it-works-installation.html)
+* [How do I enable the EPEL repository for my Amazon EC2 instance running CentOS, RHEL, or Amazon Linux?](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-enable-epel/)
 * [Packaging to Distribution – Using AWS Systems Manager Distributor to deploy Datadog](https://aws.amazon.com/blogs/mt/packaging-to-distribution-using-aws-systems-manager-distributor-to-deploy-datadog/)
 * [Taking Advantage of Amazon EC2 Spot Instance Interruption Notices](https://aws.amazon.com/blogs/compute/taking-advantage-of-amazon-ec2-spot-instance-interruption-notices/)
 * [CPU credits and baseline utilization for burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html)
