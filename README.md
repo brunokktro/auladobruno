@@ -410,6 +410,7 @@
 * [Deploying Serverless Applications Gradually](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/automating-updates-to-serverless-apps.html)
 * [Applying the Twelve-Factor App Methodology to Serverless Applications](https://aws.amazon.com/blogs/compute/applying-the-twelve-factor-app-methodology-to-serverless-applications/)
 * [Deploying applications to Elastic Beanstalk environments](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deploy-existing-version.html)
+* [Set up a Continuous Deployment Pipeline using AWS CodePipeline and AWS Elastic Beanstalk](https://aws.amazon.com/getting-started/hands-on/continuous-deployment-pipeline/)
 * [Docker basics for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html)
 * [Automating rollback of failed Amazon ECS deployments](https://aws.amazon.com/blogs/compute/automating-rollback-of-failed-amazon-ecs-deployments/)
 * [Build a Continuous Delivery Pipeline for Your Container Images with Amazon ECR as Source](https://aws.amazon.com/blogs/devops/build-a-continuous-delivery-pipeline-for-your-container-images-with-amazon-ecr-as-source/)
