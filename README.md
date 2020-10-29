@@ -438,6 +438,8 @@
 * [AWS Cloud Adoption Framework (CAF) - Security Perspective](https://d1.awsstatic.com/whitepapers/AWS_CAF_Security_Perspective.pdf)
 * [Navegando na conformidade com a LGPD na AWS](https://d1.awsstatic.com/whitepapers/pt_BR/compliance/LGPD_Compliance_on_AWS.pdf)
 * [NIST Cybersecurity Framework (CSF) - Aligning to the NIST CSF in the AWS Cloud](https://d0.awsstatic.com/whitepapers/compliance/NIST_Cybersecurity_Framework_CSF.pdf)
+* [AWS Services in Scope by Compliance Program](https://aws.amazon.com/compliance/services-in-scope/)
+* [PCI Compliance on AWS](https://aws.amazon.com/compliance/pci-dss-level-1-faqs/)
 * [AWS Security Incident Response Guide](https://d1.awsstatic.com/whitepapers/aws_security_incident_response.pdf)
 * [AWS IP Address Ranges](https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html)
 * [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
