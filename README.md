@@ -562,6 +562,7 @@
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
 * [TOOLS] [SIEM on Amazon Elasticsearch Service](https://github.com/aws-samples/siem-on-amazon-elasticsearch)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
+* [TOOLS unofficial] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws)
 * [TOOLS unofficial] [JMESPath](https://jmespath.org/)
 * [TOOLS unofficial] [AWS IP Ranges](http://52.24.200.194/)
 * [TOOLS unofficial] [Cloudcraft - Create smart AWS diagrams](https://cloudcraft.co/)
