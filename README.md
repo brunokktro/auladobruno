@@ -364,7 +364,7 @@
 ### DevOps Engineering on AWS
 
 * [Introduction to DevOps on AWS](http://d0.awsstatic.com/whitepapers/AWS_DevOps.pdf)
-* [DevOps and AWS](https://aws.amazon.com/devops/)
+* [DevOps and AWS (Case Studies)](https://aws.amazon.com/devops/)
 * [What is Continuous Delivery?](https://aws.amazon.com/devops/continuous-delivery/)
 * [What is Continuous Integration?](https://aws.amazon.com/devops/continuous-integration/)
 * [Containers na AWS - Immersion Day](https://pages.awscloud.com/LATAM_TRAINCERT_WEBINAR_immersion-day-containers-video-series_20200331_7010z000001LIBT_LPVideos-CostOptimizationVideoSeries.html)
