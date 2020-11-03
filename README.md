@@ -474,6 +474,8 @@
 * [AWS re:Invent 2018: How Nubank Automates Fine-Grained Security with IAM, AWS Lambda, & CI/CD](https://youtu.be/eQ549RvQDeI)
 * [AWS re:Invent 2017: Use Amazon EC2 Systems Manager to Perform Automated Resilience](https://youtu.be/jihhLckop6A)
 * [Enabling MFA Devices](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_enable.html)
+* [IAM Tutorial: Enable users to manage their credentials and MFA settings](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html)
+* [AWS: Allows MFA-authenticated IAM users to manage their own credentials on the my security credentials page](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_my-sec-creds-self-manage.html)
 * [Monitor Amazon Aurora Database Activities Using DataSunrise Database Security](https://aws.amazon.com/es/blogs/database/monitor-amazon-aurora-database-activities-using-datasunrise-database-security/)
 * [Using SSL/TLS to Encrypt a Connection to a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html)
 * [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
