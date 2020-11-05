@@ -1,0 +1,243 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Lab template
+
+# Shared Services VPC with 2 private subnets (RDS requires 2 AZs) -- Used for VPC Peering
+# DB Subnet Group across the 2 private subnets
+# RDS Database
+
+Resources:
+
+###########
+# VPC with Internet Gateway
+###########
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.5.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Shared VPC
+
+###########
+# Private Route Table
+###########
+
+  SharedVPCRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Shared-VPC Route Table
+
+###########
+# Private Subnets x 2
+###########
+
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.5.0.0/23
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: Shared VPC Subnet 1
+
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.5.2.0/23
+      AvailabilityZone: !Select 
+        - 1
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: Shared VPC Subnet 2
+
+  PrivateRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn:
+      - SharedVPCRouteTable
+      - PrivateSubnet1
+    Properties:
+      RouteTableId: !Ref SharedVPCRouteTable
+      SubnetId: !Ref PrivateSubnet1
+
+  PrivateRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn:
+      - SharedVPCRouteTable
+      - PrivateSubnet2
+    Properties:
+      RouteTableId: !Ref SharedVPCRouteTable
+      SubnetId: !Ref PrivateSubnet2
+
+###########
+# IAM Role for App
+###########
+
+  AppInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles: [!Ref AppRole]
+      InstanceProfileName: Inventory-App-Role
+      
+  AppRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Inventory-App-Role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: ssm:*
+                Resource: 'arn:aws:ssm:*:*:parameter/inventory-app/*'
+
+###########
+# DB Subnet Group
+###########
+
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties: 
+      DBSubnetGroupDescription: Lab DB Subnet Group
+      DBSubnetGroupName: Lab DB Subnet Group
+      SubnetIds:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+      Tags:
+        -
+          Key: Name
+          Value: DBSubnetGroup
+
+###########
+# DB Security Group
+###########
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn: VPC
+    Properties:
+      GroupName: DB-SG
+      GroupDescription: Enable access to MySQL
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 10.0.0.0/16
+      Tags:
+        - Key: Name
+          Value: DB-SG
+
+###########
+# RDS Database
+###########
+
+  RDSDatabase:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: inventory
+      DBInstanceIdentifier: inventory-db
+      AllocatedStorage: 5
+      DBInstanceClass: db.t2.micro
+      Engine: MySQL
+      MasterUsername: master
+      MasterUserPassword: lab-password
+      MultiAZ: false
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+      Tags:
+        -
+          Key: Name
+          Value: inventory-db
+
+###########
+# Lambda function to clear existing Parameter Store parameters
+###########
+
+  LambdaClearParameters:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      FunctionName: Clear-parameter-store
+      Handler: clear-parameter-store.handler
+      MemorySize: 128
+      Timeout: 300
+      Role: !Sub ${LambdaVPCRole.Arn}
+      Code:
+        S3Bucket: !Sub '${AWS::Region}-tcprod'
+        S3Key: 'courses/ILT-TF-100-ARCHIT/v6.2.1/lab-1-webapp/scripts/clear-parameter-store.zip'
+      Runtime: python2.7
+
+  CustomClearParameters:
+    Type: 'Custom::CustomClearParameters'
+    Properties:
+      ServiceToken: !Sub ${LambdaClearParameters.Arn}
+
+  LambdaVPCRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: SSMCleanup
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:*
+                  - ec2:Describe*
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+
+###########
+# Outputs
+#
+# These are provided for the student to configure VPC Peering
+#
+###########
+
+Outputs:
+
+  Endpoint:
+    Value: !GetAtt 
+      - RDSDatabase
+      - Endpoint.Address
+    Description: Database endpoint
+

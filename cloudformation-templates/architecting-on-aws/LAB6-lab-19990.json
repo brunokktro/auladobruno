@@ -1,0 +1,140 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Lab template
+
+# DynamoDB Table
+# Lambda execution roles
+# Cognito Identity Pool + Roles
+
+Resources:
+
+###########
+# DynamoDB Table
+###########
+
+  InventoryDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Inventory
+      AttributeDefinitions:
+        - AttributeName: Store
+          AttributeType: S
+        - AttributeName: Item
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Store
+          KeyType: HASH
+        - AttributeName: Item
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+###########
+# Lambda Role
+###########
+
+  LambdaLoadInventoryRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Lambda-Load-Inventory-Role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+      Policies:
+        - PolicyName: CWLogsPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+                Effect: Allow
+
+  LambdaCheckStockRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Lambda-Check-Stock-Role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSNSFullAccess
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
+
+###########
+# Cognito
+###########
+
+  IdentityPool:
+    Type: AWS::Cognito::IdentityPool
+    Properties:
+      IdentityPoolName: mxnetServerlessIdentity
+      AllowUnauthenticatedIdentities: true
+  
+  UnauthenticatedRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: cognito-identity.amazonaws.com
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                cognito-identity.amazonaws.com:aud: !Ref IdentityPool
+              ForAnyValue:StringLike:
+                cognito-identity.amazonaws.com:amr: unauthenticated
+
+  UnauthenticatedRolePolicies:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: UseDynamoDB
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - mobileanalytics:PutEvents
+              - cognito-sync:*
+              - dynamodb:*
+            Resource:
+              - '*'
+      Roles:
+        - !Ref UnauthenticatedRole
+
+  IdentityPoolRole:
+    Type: AWS::Cognito::IdentityPoolRoleAttachment
+    Properties:
+      IdentityPoolId: !Ref IdentityPool
+      Roles:
+        unauthenticated: !GetAtt 
+          - UnauthenticatedRole
+          - Arn
+
+Outputs:
+
+  Dashboard:
+    Description: Link to inventory dashboard
+    Value: !Sub "https://us-west-2-tcprod.s3.amazonaws.com/courses/ILT-TF-100-ARCHIT/v6.2.1/lab-5-serverless/web/inventory.htm?region=${AWS::Region}&poolId=${IdentityPool}"
+
+  IdentityPoolId:
+    Value: !Ref IdentityPool
+    Description: IdentityPool ID
