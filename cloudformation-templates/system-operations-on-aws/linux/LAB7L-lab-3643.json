@@ -1,0 +1,1060 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "System Operations for AWS Lab 6: Managing Resources with Tagging (Linux)",
+	"Parameters": {
+		"VPCCIDR": {
+			"Description": "CIDR Block for VPC",
+			"Type": "String",
+			"Default": "10.5.0.0/16",
+			"AllowedValues": [
+				"10.5.0.0/16"
+			]
+		},
+		"PublicSubnet1Param": {
+			"Description": "Public Subnet 1",
+			"Type": "String",
+			"Default": "10.5.0.0/24",
+			"AllowedValues": [
+				"10.5.0.0/24"
+			]
+		},
+		"PrivateSubnet1Param": {
+			"Description": "Private Subnet 1",
+			"Type": "String",
+			"Default": "10.5.1.0/24",
+			"AllowedValues": [
+				"10.5.1.0/24"
+			]
+		},
+		"KeyName": {
+			"Type": "String",
+			"Description": "Keyname for the keypair that Qwiklab will use to launch EC2 instances",
+			"Default": "default-lab-key"
+		},
+		"TaggingInstanceType": {
+			"Type": "String",
+			"Default": "t2.micro"
+		},
+		"LinuxAmiId": {
+			"Description": "The name of the Windows AMI to find based on search",
+			"Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+			"Default": "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
+		}
+	},
+	"Resources": {
+		"VPC": {
+			"Type": "AWS::EC2::VPC",
+			"Properties": {
+				"CidrBlock": {
+					"Ref": "VPCCIDR"
+				},
+				"EnableDnsSupport": "true",
+				"EnableDnsHostnames": "true",
+				"Tags": [{
+						"Key": "VPC",
+						"Value": "NAT-and-CLI"
+					},
+					{
+						"Key": "Name",
+						"Value": "Lab VPC"
+					}
+				]
+			}
+		},
+		"InternetGateway": {
+			"Type": "AWS::EC2::InternetGateway",
+			"DependsOn": "VPC"
+		},
+		"AttachGateway": {
+			"Type": "AWS::EC2::VPCGatewayAttachment",
+			"DependsOn": [
+				"VPC",
+				"InternetGateway"
+			],
+			"Properties": {
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"InternetGatewayId": {
+					"Ref": "InternetGateway"
+				}
+			}
+		},
+		"PublicSubnet1": {
+			"Type": "AWS::EC2::Subnet",
+			"DependsOn": "AttachGateway",
+			"Properties": {
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"CidrBlock": {
+					"Ref": "PublicSubnet1Param"
+				},
+				"MapPublicIpOnLaunch": "true",
+				"AvailabilityZone": {
+					"Fn::Select": [
+						"0",
+						{
+							"Fn::GetAZs": ""
+						}
+					]
+				},
+				"Tags": [{
+					"Key": "Name",
+					"Value": "Public Subnet 1"
+				}]
+			}
+		},
+		"PrivateSubnet1": {
+			"Type": "AWS::EC2::Subnet",
+			"DependsOn": "AttachGateway",
+			"Properties": {
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"CidrBlock": {
+					"Ref": "PrivateSubnet1Param"
+				},
+				"AvailabilityZone": {
+					"Fn::Select": [
+						"0",
+						{
+							"Fn::GetAZs": ""
+						}
+					]
+				},
+				"Tags": [{
+					"Key": "Name",
+					"Value": "Private Subnet 1"
+				}]
+			}
+		},
+		"PublicRouteTable": {
+			"Type": "AWS::EC2::RouteTable",
+			"DependsOn": [
+				"VPC",
+				"AttachGateway"
+			],
+			"Properties": {
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"Tags": [{
+					"Key": "Name",
+					"Value": "Public"
+				}]
+			}
+		},
+		"PublicRoute": {
+			"Type": "AWS::EC2::Route",
+			"DependsOn": [
+				"PublicRouteTable",
+				"AttachGateway"
+			],
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "PublicRouteTable"
+				},
+				"DestinationCidrBlock": "0.0.0.0/0",
+				"GatewayId": {
+					"Ref": "InternetGateway"
+				}
+			}
+		},
+		"PublicSubnet1RouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"DependsOn": [
+				"PublicRouteTable",
+				"PublicSubnet1",
+				"AttachGateway"
+			],
+			"Properties": {
+				"SubnetId": {
+					"Ref": "PublicSubnet1"
+				},
+				"RouteTableId": {
+					"Ref": "PublicRouteTable"
+				}
+			}
+		},
+		"PrivateRouteTable": {
+			"Type": "AWS::EC2::RouteTable",
+			"DependsOn": "AttachGateway",
+			"Properties": {
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"Tags": [{
+					"Key": "Name",
+					"Value": "Private"
+				}]
+			}
+		},
+		"PrivateSubnet1RouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"DependsOn": [
+				"PublicRouteTable",
+				"PrivateSubnet1",
+				"AttachGateway"
+			],
+			"Properties": {
+				"SubnetId": {
+					"Ref": "PrivateSubnet1"
+				},
+				"RouteTableId": {
+					"Ref": "PrivateRouteTable"
+				}
+			}
+		},
+		"PrivateNetworkAcl": {
+			"Type": "AWS::EC2::NetworkAcl",
+			"DependsOn": "AttachGateway",
+			"Properties": {
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"Tags": [{
+					"Key": "Network",
+					"Value": "Private"
+				}]
+			}
+		},
+		"NATInstance": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"AttachGateway",
+				"PublicRoute",
+				"PublicSubnet1"
+			],
+			"Properties": {
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"InstanceType": "t2.micro",
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "true",
+					"SubnetId": {
+						"Ref": "PublicSubnet1"
+					},
+					"GroupSet": [{
+						"Ref": "NATSecurityGroup"
+					}]
+				}],
+				"SourceDestCheck": "false",
+				"Tags": [{
+					"Key": "Name",
+					"Value": "NAT"
+				}],
+				"UserData": {
+					"Fn::Base64": {
+						"Fn::Join": [
+							"\n",
+							[
+								"#!/bin/bash",
+								"yum -y update",
+								"echo 1 > /proc/sys/net/ipv4/ip_forward",
+								"echo 0 > /proc/sys/net/ipv4/conf/eth0/send_redirects",
+								"/sbin/iptables -t nat -A POSTROUTING -o eth0 -s 0.0.0.0/0 -j MASQUERADE",
+								"/sbin/iptables-save > /etc/sysconfig/iptables",
+								"mkdir -p /etc/sysctl.d/",
+								"cat <<EOF > /etc/sysctl.d/nat.conf",
+								"net.ipv4.ip_forward = 1",
+								"net.ipv4.conf.eth0.send_redirects = 0",
+								"EOF \n"
+							]
+						]
+					}
+				}
+			}
+		},
+		"NATSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"DependsOn": "AttachGateway",
+			"Properties": {
+				"GroupDescription": "Enable internal access to the NAT device",
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"SecurityGroupIngress": [{
+						"IpProtocol": "tcp",
+						"FromPort": "0",
+						"ToPort": "1024",
+						"CidrIp": {
+							"Ref": "PrivateSubnet1Param"
+						}
+					},
+					{
+						"IpProtocol": "udp",
+						"FromPort": "0",
+						"ToPort": "1024",
+						"CidrIp": {
+							"Ref": "PrivateSubnet1Param"
+						}
+					}
+				],
+				"SecurityGroupEgress": [{
+						"IpProtocol": "tcp",
+						"FromPort": "0",
+						"ToPort": "65535",
+						"CidrIp": "0.0.0.0/0"
+					},
+					{
+						"IpProtocol": "udp",
+						"FromPort": "0",
+						"ToPort": "65535",
+						"CidrIp": "0.0.0.0/0"
+					}
+				]
+			}
+		},
+		"PrivateRoute": {
+			"Type": "AWS::EC2::Route",
+			"DependsOn": [
+				"NATInstance",
+				"PrivateRouteTable"
+			],
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "PrivateRouteTable"
+				},
+				"DestinationCidrBlock": "0.0.0.0/0",
+				"InstanceId": {
+					"Ref": "NATInstance"
+				}
+			}
+		},
+		"CLISecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"DependsOn": "AttachGateway",
+			"Properties": {
+				"GroupDescription": "Security Group for CLIEC2Instance",
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"Tags": [{
+					"Key": "Name",
+					"Value": "CLISecurityGroup"
+				}],
+				"SecurityGroupEgress": [{
+						"IpProtocol": "tcp",
+						"FromPort": "0",
+						"ToPort": "65535",
+						"CidrIp": "0.0.0.0/0"
+					},
+					{
+						"IpProtocol": "udp",
+						"FromPort": "0",
+						"ToPort": "65535",
+						"CidrIp": "0.0.0.0/0"
+					}
+				],
+				"SecurityGroupIngress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "22",
+					"ToPort": "22",
+					"CidrIp": "0.0.0.0/0"
+				}]
+			}
+		},
+		"WideOpenSecurityGroup": {
+			"Type": "AWS::EC2::SecurityGroup",
+			"DependsOn": "AttachGateway",
+			"Properties": {
+				"GroupDescription": "Security Group for instances the students will find and stop in the lab.",
+				"VpcId": {
+					"Ref": "VPC"
+				},
+				"Tags": [{
+					"Key": "Name",
+					"Value": "WideOpenSecurityGroup"
+				}],
+				"SecurityGroupEgress": [{
+						"IpProtocol": "tcp",
+						"FromPort": "0",
+						"ToPort": "65535",
+						"CidrIp": "0.0.0.0/0"
+					},
+					{
+						"IpProtocol": "udp",
+						"FromPort": "0",
+						"ToPort": "65535",
+						"CidrIp": "0.0.0.0/0"
+					}
+				],
+				"SecurityGroupIngress": [{
+					"IpProtocol": "tcp",
+					"FromPort": "22",
+					"ToPort": "22",
+					"CidrIp": "0.0.0.0/0"
+				}]
+			}
+		},
+		"RootRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [{
+						"Effect": "Allow",
+						"Principal": {
+							"Service": [
+								"ec2.amazonaws.com"
+							]
+						},
+						"Action": [
+							"sts:AssumeRole"
+						]
+					}]
+				},
+				"Path": "/",
+				"Policies": [{
+					"PolicyName": "root",
+					"PolicyDocument": {
+						"Version": "2012-10-17",
+						"Statement": [{
+							"Effect": "Allow",
+							"Action": "*",
+							"Resource": "*"
+						}]
+					}
+				}]
+			}
+		},
+		"RootInstanceProfile": {
+			"Type": "AWS::IAM::InstanceProfile",
+			"DependsOn": "RootRole",
+			"Properties": {
+				"Path": "/",
+				"Roles": [{
+					"Ref": "RootRole"
+				}]
+			}
+		},
+		"CLIEC2Instance": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"RootInstanceProfile",
+				"PublicSubnet1",
+				"CLISecurityGroup",
+				"AttachGateway",
+				"PublicSubnet1RouteTableAssociation"
+			],
+			"Properties": {
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"IamInstanceProfile": {
+					"Ref": "RootInstanceProfile"
+				},
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				},
+				"DisableApiTermination": "false",
+				"InstanceType": "t2.medium",
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "true",
+					"SubnetId": {
+						"Ref": "PublicSubnet1"
+					},
+					"GroupSet": [{
+						"Ref": "CLISecurityGroup"
+					}]
+				}],
+				"Tags": [{
+					"Key": "Name",
+					"Value": "Command Host"
+				}],
+				"UserData": {
+					"Fn::Base64": {
+						"Fn::Join": [
+							"",
+							[
+								"#!/bin/bash -ex\n",
+								"yum -y update \n",
+								"mkdir /home/ec2-user/.aws \n",
+								"cat > /home/ec2-user/.aws/config <<EOF\n",
+								"[default]\n",
+								"region = ",
+								{
+									"Ref": "AWS::Region"
+								},
+								"\n",
+								"EOF\n",
+								"chown -R ec2-user:ec2-user /home/ec2-user/.aws\n",
+								"cd /home/ec2-user\n",
+								"yum -y install php\n",
+								"wget https://us-west-2-tcprod.s3.amazonaws.com/courses/ILT-TF-100-SYSOPS/v3.3.0/lab-7-resources-linux/scripts/aws-tools.zip\n",
+								"unzip /home/ec2-user/aws-tools.zip\n",
+								"chown -R ec2-user:ec2-user /home/ec2-user/aws-tools\n",
+								"chown -R ec2-user:ec2-user /home/ec2-user/aws-tools.zip\n",
+								"chmod 740 /home/ec2-user/aws-tools/stopinator.php\n",
+								"chmod 740 /home/ec2-user/aws-tools/terminate-instances.php\n",
+								"mv /home/ec2-user/aws-tools/change-resource-tags /home/ec2-user/change-resource-tags.sh\n",
+								"chmod 740 change-resource-tags.sh\n",
+								"chown -R ec2-user:ec2-user change-resource-tags.sh\n",
+								"/opt/aws/bin/cfn-signal -e $? ",
+								"         --stack ",
+								{
+									"Ref": "AWS::StackName"
+								},
+								"         --resource CLIEC2Instance ",
+								"         --region ",
+								{
+									"Ref": "AWS::Region"
+								},
+								"\n"
+							]
+						]
+					}
+				}
+			},
+			"CreationPolicy": {
+				"ResourceSignal": {
+					"Count": "1",
+					"Timeout": "PT15M"
+				}
+			}
+		},
+		"Instance1": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "web server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "development"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance2": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "app server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "development"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					},
+					"GroupSet": [{
+						"Ref": "WideOpenSecurityGroup"
+					}]
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance3": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "web server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "staging"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance4": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "web server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "staging"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance5": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "app server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "staging"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance6": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "web server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "production"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance7": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "web server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "production"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance8": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "app server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "production"
+					},
+					{
+						"Key": "Application",
+						"Value": "portal"
+					},
+					{
+						"Key": "Project",
+						"Value": "ERPSystem"
+					},
+					{
+						"Key": "Department",
+						"Value": "HR"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance9": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "db"
+					},
+					{
+						"Key": "Environment",
+						"Value": "development"
+					},
+					{
+						"Key": "Application",
+						"Value": "EOM ETL"
+					},
+					{
+						"Key": "Project",
+						"Value": "Experiment1"
+					},
+					{
+						"Key": "Department",
+						"Value": "Finance"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					},
+					"GroupSet": [{
+						"Ref": "WideOpenSecurityGroup"
+					}]
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		},
+		"Instance10": {
+			"Type": "AWS::EC2::Instance",
+			"DependsOn": [
+				"PrivateSubnet1",
+				"NATInstance",
+				"AttachGateway"
+			],
+			"Properties": {
+				"Tags": [{
+						"Key": "Name",
+						"Value": "web server"
+					},
+					{
+						"Key": "Environment",
+						"Value": "development"
+					},
+					{
+						"Key": "Application",
+						"Value": "EOM ETL"
+					},
+					{
+						"Key": "Project",
+						"Value": "Experiment1"
+					},
+					{
+						"Key": "Department",
+						"Value": "Finance"
+					},
+					{
+						"Key": "Version",
+						"Value": "1.0"
+					}
+				],
+				"InstanceType": {
+					"Ref": "TaggingInstanceType"
+				},
+				"KeyName": {
+					"Ref": "KeyName"
+				},
+				"NetworkInterfaces": [{
+					"DeviceIndex": "0",
+					"AssociatePublicIpAddress": "false",
+					"SubnetId": {
+						"Ref": "PrivateSubnet1"
+					}
+				}],
+				"ImageId": {
+					"Ref": "LinuxAmiId"
+				}
+			}
+		}},
+		"Outputs" : {
+			"qwikLAB" : {
+				"Description" : "Outputs to be used by qwikLAB",
+				"Value" : {
+					"Fn::Join" : [
+						"",
+						[
+							"{",
+							"\"Connection\": \"ssh ec2-user@", {
+								"Fn::GetAtt" : [
+									"CLIEC2Instance",
+									"PublicIp"
+								]
+							},
+							"\"}"
+						]
+					]
+				}
+			}
+		}
+	}
+	
