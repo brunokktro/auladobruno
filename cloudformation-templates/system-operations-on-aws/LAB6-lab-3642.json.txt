@@ -1,0 +1,230 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Monitoring Lab
+
+# Lab VPC with 1 public subnet
+# App Server
+# Unattached EBS Volume for Config Rules
+
+Parameters:
+
+  KeyName:
+    Type: String
+    Description: Keyname for the keypair that Qwiklab will use to launch EC2 instances
+    Default: default-lab-key
+
+  AmazonLinuxAMIID:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2
+
+Resources:
+
+###########
+# VPC with Internet Gateway
+###########
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Lab VPC
+
+  IGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Lab IGW
+
+  VPCtoIGWConnection:
+    Type: AWS::EC2::VPCGatewayAttachment
+    DependsOn:
+      - IGW
+      - VPC
+    Properties:
+      InternetGatewayId: !Ref IGW
+      VpcId: !Ref VPC
+
+###########
+# Public Route Table
+###########
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn:
+      - PublicRouteTable
+      - IGW
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGW
+      RouteTableId: !Ref PublicRouteTable
+
+###########
+# Public Subnet
+###########
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: Public Subnet
+
+  PublicRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn:
+      - PublicRouteTable
+      - PublicSubnet
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet
+
+###########
+# IAM Role for App Server
+###########
+
+  AppInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles: [!Ref AppRole]
+      InstanceProfileName: App-Role
+      
+  AppRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: App-Role
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: ssm:GetParameter
+                Resource: '*'
+
+###########
+# Security Group for App Server
+###########
+
+  AppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: AppSecurityGroup
+      GroupDescription: Enable HTTP ingress
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: App Server Security Group
+
+###########
+# App Server
+###########
+
+  AppInstance:
+    Type: 'AWS::EC2::Instance'
+    DependsOn:
+      - AppInstanceProfile
+      - PublicSubnet
+      - AppSecurityGroup
+      - VPCtoIGWConnection
+    Properties:
+      KeyName: !Ref KeyName
+      IamInstanceProfile: !Ref AppInstanceProfile
+      ImageId: !Ref AmazonLinuxAMIID
+      InstanceType: t2.micro
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref AppSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Web Server
+        - Key: project
+          Value: lab
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash 
+          yum -y update
+          mkdir /home/ec2-user/.aws
+          cat > /home/ec2-user/.aws/config <<EOF
+          [default]
+          region = ${AWS::Region}
+          EOF
+          chown -R ec2-user:ec2-user /home/ec2-user/.aws
+          cd /home/ec2-user
+          yum install -y httpd24 php56
+          service httpd start 2>/home/ec2-user/errors.txt
+          /opt/aws/bin/cfn-signal -s true '${WaitHandle01}'
+        
+  WaitHandle01:
+    Type: 'AWS::CloudFormation::WaitConditionHandle'
+    Properties: {}
+
+  WaitCondition01:
+    Type: 'AWS::CloudFormation::WaitCondition'
+    DependsOn: AppInstance
+    Properties:
+      Handle: !Ref WaitHandle01
+      Timeout: '300'
+
+###########
+# Unattached EBS Volume for Config Rules
+###########
+
+  UnattachedVolume:
+    Type: AWS::EC2::Volume
+    Properties:
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Size: 20
+      Tags:
+        - Key: Name
+          Value: Unattached Volume
+      VolumeType: gp2
+
+Outputs:
+
+  WebServerIP:
+    Description: Outputs to be used by qwikLAB
+    Value: !Sub ${AppInstance.PublicIp}

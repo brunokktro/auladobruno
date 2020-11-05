@@ -1,0 +1,259 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'System Operations for AWS Lab 1: Using AWS Systems Manager'
+
+# Lab VPC with 1 public subnet
+# Role for EC2 instance to launch another instance
+# Lambda function to delete existing Parameter Store parameters
+# SSM Document for installing app (if students cannot use Run Command)
+
+Parameters:
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+
+  AmazonLinuxAMIID:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+
+Resources:
+
+###########
+# VPC with Internet Gateway
+###########
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Lab VPC
+
+  IGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Lab IGW
+
+  VPCtoIGWConnection:
+    Type: AWS::EC2::VPCGatewayAttachment
+    DependsOn:
+      - IGW
+      - VPC
+    Properties:
+      InternetGatewayId: !Ref IGW
+      VpcId: !Ref VPC
+
+###########
+# Public Route Table
+###########
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public Route Table
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn:
+      - PublicRouteTable
+      - VPCtoIGWConnection
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGW
+      RouteTableId: !Ref PublicRouteTable
+
+###########
+# Public Subnet
+###########
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    DependsOn: VPC
+    Properties:
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: Public Subnet
+
+  PublicRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    DependsOn:
+      - PublicRouteTable
+      - PublicSubnet
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet
+
+###########
+# IAM Role for App Server
+###########
+
+  AppInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles: [!Ref AppRole]
+      InstanceProfileName: App-Role
+      
+  AppRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: App-Role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+                - ssm.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+        - arn:aws:iam::aws:policy/AmazonSSMFullAccess
+        - arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
+
+###########
+# Security Group for App Server
+###########
+
+  AppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: AppSecurityGroup
+      GroupDescription: Enable HTTP ingress
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: App Server Security Group
+
+###########
+# App Server
+###########
+
+  SSMInstance:
+    Type: 'AWS::EC2::Instance'
+    DependsOn:
+      - AppInstanceProfile
+      - PublicSubnet
+      - AppSecurityGroup
+      - VPCtoIGWConnection
+    Properties:
+      KeyName: !Ref KeyName
+      IamInstanceProfile: !Ref AppInstanceProfile
+      ImageId: !Ref AmazonLinuxAMIID
+      InstanceType: t2.micro
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref AppSecurityGroup
+      Tags:
+        - Key: Name
+          Value: Managed Instance
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash 
+          yum -y update
+
+###########
+# Lambda function to clear existing Parameter Store parameters
+###########
+
+  LambdaClearParameters:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      FunctionName: Clear-parameter-store
+      Handler: clear-parameter-store.handler
+      MemorySize: 128
+      Timeout: 300
+      Role: !Sub ${LambdaVPCRole.Arn}
+      Code:
+        S3Bucket: !Sub '${AWS::Region}-tcprod'
+        S3Key: 'courses/ILT-TF-100-SYSOPS/v3.3.15/lab-1-ssm/scripts/clear-parameter-store.zip'
+      Runtime: python2.7
+
+  CustomClearParameters:
+    Type: 'Custom::CustomClearParameters'
+    Properties:
+      ServiceToken: !Sub ${LambdaClearParameters.Arn}
+
+  LambdaVPCRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: SSMCleanup
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ssm:*
+                  - ec2:Describe*
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+
+###########
+# SSM Document for installing app (if students cannot use Run Command)
+###########
+
+  InstallDashboardApp: 
+    Type: AWS::SSM::Document
+    Properties:
+      DocumentType: Command
+      Content: 
+        schemaVersion: '2.2'
+        description: Install Dashboard App
+        mainSteps:
+        - name: InstallDashboardApp
+          action: aws:runShellScript
+          inputs:
+            runCommand:
+            - " #!/bin/sh"
+            - " # Install Apache Web Server and PHP"
+            - " yum install -y httpd"
+            - " amazon-linux-extras install -y php7.2"
+            - " # Turn on web server"
+            - " systemctl enable httpd.service"
+            - " systemctl start  httpd.service"
+            - " # Download and install the AWS SDK for PHP"
+            - " wget https://github.com/aws/aws-sdk-php/releases/download/3.62.3/aws.zip"
+            - " unzip aws -d /var/www/html"
+            - " # Download Application files"
+            - " wget https://us-west-2-tcprod.s3.amazonaws.com/courses/ILT-TF-100-SYSOPS/v3.3.15/lab-1-ssm/scripts/widget-app.zip"
+            - " unzip widget-app.zip -d /var/www/html/"
+
+Outputs:
+
+  ServerIP:
+    Description: Outputs to be used by qwikLAB
+    Value: !Sub ${SSMInstance.PublicIp}

@@ -1,0 +1,27 @@
+# Systems Operations on AWS
+# Lab2
+# Creating Amazon EC2 Instances (Linux)
+
+# Task 1: Launch an Amazon EC2 Instance using the Management Console
+
+
+# Task 2: Log into the Bastion Server 
+
+
+# Task 3: Launch an Instance using the AWS CLI 
+
+# Set the Region 
+AZ=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone` 
+export AWS_DEFAULT_REGION=${AZ::-1}
+
+# Obtain latest Linux AMI 
+AMI=$(aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --query 'Parameters[0].[Value]' --output text)
+echo $AMI
+
+SUBNET=$(aws ec2 describe-subnets --filters 'Name=tag:Name,Values=Public Subnet' --query Subnets[].SubnetId --output text) 
+echo $SUBNET
+
+# Challenge 1: Connect to an Amazon EC2 Instance 
+
+# Challenge 2: Fix the Web Server Installation
+
