@@ -516,6 +516,7 @@
 * [AWS Shield Threat Landscape report is now available](https://aws.amazon.com/blogs/security/aws-shield-threat-landscape-report-now-available/)
 * [AWS WAF Security Automations](https://aws.amazon.com/solutions/implementations/aws-waf-security-automations/)
 * [Simplify Login with Application Load Balancer Built-in Authentication](https://aws.amazon.com/blogs/aws/built-in-authentication-in-alb/)
+* [Application Load Balancers Now Support Multiple TLS Certificates With Smart Selection Using SNI](https://aws.amazon.com/blogs/aws/new-application-load-balancer-sni/)
 * [Controlling and managing access to a REST API in API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-control-access-to-api.html)
 * [Introducing mutual TLS authentication for Amazon API Gateway](https://aws.amazon.com/blogs/compute/introducing-mutual-tls-authentication-for-amazon-api-gateway/)
 * [Use API Gateway Lambda authorizers](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html)
