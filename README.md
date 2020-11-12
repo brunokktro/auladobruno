@@ -190,6 +190,7 @@
 * [How do I block common attacks with AWS WAF?](https://aws.amazon.com/premiumsupport/knowledge-center/waf-block-common-attacks/)
 * [WAF Sandwich](https://www.cloudaxis.com/2016/11/21/waf-sandwich/)
 * [AWS Centralized WAF and VPC Security Group Management](https://aws.amazon.com/solutions/implementations/aws-centralized-waf-and-vpc-security-group-management/)
+* [Subscribe to AWS Public IP Address Changes via Amazon SNS](https://aws.amazon.com/blogs/aws/subscribe-to-aws-public-ip-address-changes-via-amazon-sns/)
 * [AWS Solutions - AWS Perspective](https://aws.amazon.com/solutions/implementations/aws-perspective/)
 
 
