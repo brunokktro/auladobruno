@@ -563,6 +563,7 @@
 * [TOOLS] [Amazon WorkSpaces - Connection Health Check](https://clients.amazonworkspaces.com/Health.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
+* [TOOLS] [Overlapping CIDRs using AWS Transit Gateway in VPC and NAT Instances](https://github.com/aws-samples/aws-transit-gateway-overlapping-cidrs)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
