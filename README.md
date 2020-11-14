@@ -177,6 +177,7 @@
 * [Harmonize, Query, and Visualize Data from Various Providers using AWS Glue, Amazon Athena, and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/harmonize-query-and-visualize-data-from-various-providers-using-aws-glue-amazon-athena-and-amazon-quicksight/)
 * [Query and Visualize AWS Cost and Usage Data Using Amazon Athena and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/query-and-visualize-aws-cost-and-usage-data-using-amazon-athena-and-amazon-quicksight/)
 * [How do I ingest and visualize the AWS Cost and Usage Report (CUR) into Amazon QuickSight?](https://aws.amazon.com/premiumsupport/knowledge-center/quicksight-cost-usage-report/)
+* [Best practices for resizing and automatic scaling in Amazon EMR](https://aws.amazon.com/blogs/big-data/best-practices-for-resizing-and-automatic-scaling-in-amazon-emr/)
 * [DynamoDB Streams Use Cases and Design Patterns](https://aws.amazon.com/blogs/database/dynamodb-streams-use-cases-and-design-patterns/)
 * [My DynamoDB table is being throttled](https://aws.amazon.com/premiumsupport/knowledge-center/dynamodb-table-throttled/)
 * [AWS Outposts Now Available – Order Yours Today!](https://aws.amazon.com/blogs/aws/aws-outposts-now-available-order-your-racks-today/)
