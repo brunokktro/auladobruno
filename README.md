@@ -569,6 +569,7 @@
 * [AWS CloudFormation Sample Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html)
 * [AWS SAM - Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
 * [AWS Geek Cloud Diagrams & Notes](https://www.awsgeek.com/)
+* [AWS Digital Training Provider Courses](https://aws.amazon.com/training/digital-training-providers/)
 * [TOOLS] [CloudPing](https://www.cloudping.info/)
 * [TOOLS] [AWS Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * [TOOLS] [S3 Transfer Acceleration Speed Comparison Tool](http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
