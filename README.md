@@ -610,6 +610,7 @@
 * [LABS] [AWS Qwiklabs](https://amazon.qwiklabs.com)
 * [LABS] [AWS Well-Architected Labs](https://wellarchitectedlabs.com)
 * [LABS] [VMware Cloud on AWS](https://www.vmware.com/try-vmware/vmc-aws-hol-labs.html)
+* [LABS] [Break a Monolith Application into Microservices](https://aws.amazon.com/getting-started/hands-on/break-monolith-app-microservices-ecs-docker-ec2/)
 * [Workshop] [AWS Workshops](https://workshops.aws/)
 * [Workshop] [AWSome AWS Workshops](https://awesome-aws-workshops.com/)
 * [Workshop] [AWS Well-Architected Labs](https://wellarchitectedlabs.com/)
