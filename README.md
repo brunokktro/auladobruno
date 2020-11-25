@@ -386,6 +386,8 @@
 * [AWS CDK examples](https://docs.aws.amazon.com/cdk/latest/guide/about_examples.html)
 * [Practicing Continuous Integration and Continuous Delivery on AWS](https://d0.awsstatic.com/whitepapers/DevOps/practicing-continuous-integration-continuous-delivery-on-AWS.pdf)
 * [Working with repositories in AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/repositories.html)
+* [Validating AWS CodeCommit Pull Requests with AWS CodeBuild and AWS Lambda](https://aws.amazon.com/blogs/devops/validating-aws-codecommit-pull-requests-with-aws-codebuild-and-aws-lambda/)
+* [Amazon CodeGuru features](https://aws.amazon.com/codeguru/features/)
 * [Tutorial: Create a simple pipeline (CodeCommit repository)](https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-codecommit.html)
 * [AWS Elastic Beanstalk sample for CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-elastic-beanstalk.html)
 * [Setting up a CI/CD pipeline by integrating Jenkins with AWS CodeBuild and AWS CodeDeploy](https://aws.amazon.com/blogs/devops/setting-up-a-ci-cd-pipeline-by-integrating-jenkins-with-aws-codebuild-and-aws-codedeploy/)
