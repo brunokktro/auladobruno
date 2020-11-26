@@ -377,6 +377,7 @@
 * [DevOps and AWS (Case Studies)](https://aws.amazon.com/devops/)
 * [What is Continuous Delivery?](https://aws.amazon.com/devops/continuous-delivery/)
 * [What is Continuous Integration?](https://aws.amazon.com/devops/continuous-integration/)
+* [Configuration Drift: Phoenix Server vs Snowflake Server Comic](https://www.digitalocean.com/community/tutorials/configuration-drift-phoenix-server-vs-snowflake-server-comic)
 * [Containers na AWS - Immersion Day](https://pages.awscloud.com/LATAM_TRAINCERT_WEBINAR_immersion-day-containers-video-series_20200331_7010z000001LIBT_LPVideos-CostOptimizationVideoSeries.html)
 * [Walkthrough: Refer to resource outputs in another AWS CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html)
 * [AWS CloudFormation best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
