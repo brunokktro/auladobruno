@@ -568,7 +568,7 @@
 * [AWS Pricing Calculator](https://calculator.aws/#/)
 * [The Amazon Builders' Library](https://aws.amazon.com/builders-library/)
 * [AWS Samples](https://github.com/aws-samples)
-* [AWS CloudFormation Sample Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html)
+* [AWS CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html)
 * [AWS SAM - Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
 * [AWS Geek Cloud Diagrams & Notes](https://www.awsgeek.com/)
 * [AWS Digital Training Provider Courses](https://aws.amazon.com/training/digital-training-providers/)
