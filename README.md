@@ -380,6 +380,7 @@
 * [Configuration Drift: Phoenix Server vs Snowflake Server Comic](https://www.digitalocean.com/community/tutorials/configuration-drift-phoenix-server-vs-snowflake-server-comic)
 * [Containers na AWS - Immersion Day](https://pages.awscloud.com/LATAM_TRAINCERT_WEBINAR_immersion-day-containers-video-series_20200331_7010z000001LIBT_LPVideos-CostOptimizationVideoSeries.html)
 * [Walkthrough: Refer to resource outputs in another AWS CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html)
+* [AWS CloudFormation Sample templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-sample-templates.html)
 * [AWS CloudFormation best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
 * [AWS CloudFormation Guard](https://github.com/aws-cloudformation/cloudformation-guard)
 * [CloudFormation Update – CLI + Third-Party Resource Support + Registry](https://aws.amazon.com/blogs/aws/cloudformation-update-cli-third-party-resource-support-registry/)
