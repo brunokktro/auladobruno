@@ -375,6 +375,7 @@
 
 * [Introduction to DevOps on AWS](http://d0.awsstatic.com/whitepapers/AWS_DevOps.pdf)
 * [DevOps and AWS (Case Studies)](https://aws.amazon.com/devops/)
+* [What Team Structure is Right for DevOps to Flourish?](https://web.devopstopologies.com/#)
 * [What is Continuous Delivery?](https://aws.amazon.com/devops/continuous-delivery/)
 * [What is Continuous Integration?](https://aws.amazon.com/devops/continuous-integration/)
 * [Configuration Drift: Phoenix Server vs Snowflake Server Comic](https://www.digitalocean.com/community/tutorials/configuration-drift-phoenix-server-vs-snowflake-server-comic)
