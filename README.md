@@ -354,6 +354,7 @@
 * [Monitoring Amazon GuardDuty Findings with Amazon CloudWatch Events ](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_findings_cloudwatch.html)
 * [How Does AWS CloudFormation Work?](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-whatis-howdoesitwork.html)
 * [How do I resolve AWS CloudFormation template validation errors or template format errors?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudformation-template-validation/)
+* [Up your AWS CloudFormation testing game using TaskCat](https://aws.amazon.com/blogs/infrastructure-and-automation/up-your-aws-cloudformation-testing-game-using-taskcat/)
 * [A deep dive into testing with TaskCat](https://aws.amazon.com/blogs/infrastructure-and-automation/a-deep-dive-into-testing-with-taskcat/)
 * [Creating a Stack on the AWS CloudFormation Console](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html)
 * [New – Import Existing Resources into a CloudFormation Stack](https://aws.amazon.com/blogs/aws/new-import-existing-resources-into-a-cloudformation-stack/)
