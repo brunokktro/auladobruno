@@ -585,6 +585,7 @@
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
 * [TOOLS] [Trusted Advisor Tools](https://github.com/aws/Trusted-Advisor-Tools)
 * [TOOLS] [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
+* [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
