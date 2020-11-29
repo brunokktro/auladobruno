@@ -18,8 +18,8 @@ aws ec2 describe-instances --filter "Name=instance-type,Values=t2.micro,t2.small
 aws ec2 describe-instances --query 'Reservations[*].Instances[*].[LaunchTime,InstanceId,PrivateIpAddress,Tags[?Key==`Name`] | [0].Value][] | sort_by(@, &[3])'
 
 # Em PowerShell:
-Get-EC2Instance | ft Instances
-Get-EC2InstanceAttribute -InstanceId i-0e587b74ce414afff -Attribute instanceType
+(Get-EC2Instance).Instances
+(Get-EC2Instance -InstanceId i-0e587b74ce414afff).Instances
 (Get-EC2InstanceAttribute -InstanceId i-0e587b74ce414afff -Attribute groupSet).Groups
 ############################################
 
