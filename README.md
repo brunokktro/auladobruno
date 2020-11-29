@@ -592,6 +592,7 @@
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
 * [TOOLS unofficial] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws)
 * [TOOLS unofficial] [JMESPath](https://jmespath.org/)
+* [TOOLS unofficial] [JMESPath Terminal](https://github.com/jmespath/jmespath.terminal)
 * [TOOLS unofficial] [AWS IP Ranges](http://52.24.200.194/)
 * [TOOLS unofficial] [Cloudcraft - Create smart AWS diagrams](https://cloudcraft.co/)
 * [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
