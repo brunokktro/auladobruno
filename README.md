@@ -586,6 +586,8 @@
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
 * [TOOLS] [SIEM on Amazon Elasticsearch Service](https://github.com/aws-samples/siem-on-amazon-elasticsearch)
+* [TOOLS] [Awesome CloudFormation](https://github.com/aws-cloudformation/awesome-cloudformation)
+* [TOOLS] [TaskCat](https://github.com/aws-quickstart/taskcat)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
 * [TOOLS unofficial] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws)
 * [TOOLS unofficial] [JMESPath](https://jmespath.org/)
