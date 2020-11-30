@@ -389,6 +389,7 @@
 * [Infrastructure as Code](https://d1.awsstatic.com/whitepapers/DevOps/infrastructure-as-code.pdf?trk=wp_card)
 * [AWS CDK examples](https://docs.aws.amazon.com/cdk/latest/guide/about_examples.html)
 * [AWS CLI - Command completion](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html)
+* [AWS SAM resource and property reference](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-resources-and-properties.html)
 * [Practicing Continuous Integration and Continuous Delivery on AWS](https://d0.awsstatic.com/whitepapers/DevOps/practicing-continuous-integration-continuous-delivery-on-AWS.pdf)
 * [Working with repositories in AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/repositories.html)
 * [Validating AWS CodeCommit Pull Requests with AWS CodeBuild and AWS Lambda](https://aws.amazon.com/blogs/devops/validating-aws-codecommit-pull-requests-with-aws-codebuild-and-aws-lambda/)
