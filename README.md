@@ -557,6 +557,7 @@
 * [Building a React Frontend for Service Catalog with AWS Amplify](https://aws.amazon.com/blogs/opensource/react-frontend-service-catalog-aws-amplify/)
 * [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
 * [AWS Terraform Landing Zone (TLZ) Accelerator](https://www.hashicorp.com/resources/aws-terraform-landing-zone-tlz-accelerator)
+* [Introducing the Cloud Development Kit for Terraform (Preview)](https://aws.amazon.com/blogs/developer/introducing-the-cloud-development-kit-for-terraform-preview/)
 * [AWS Control Tower](https://hackmd.io/@matheuslra/r1o5k2-Xw)
 * [AWS Control Tower – Set up & Govern a Multi-Account AWS Environment](https://aws.amazon.com/blogs/aws/aws-control-tower-set-up-govern-a-multi-account-aws-environment/)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
