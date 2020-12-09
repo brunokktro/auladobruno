@@ -559,6 +559,7 @@
 * [How to Use AWS Config to Monitor for and Respond to Amazon S3 Buckets Allowing Public Access](https://aws.amazon.com/blogs/security/how-to-use-aws-config-to-monitor-for-and-respond-to-amazon-s3-buckets-allowing-public-access/)
 * [AWS Config: Checking for Compliance with New Managed Rule Options](https://aws.amazon.com/blogs/devops/aws-config-checking-for-compliance-with-new-managed-rule-options/)
 * [Conformance Pack Sample Templates](https://docs.aws.amazon.com/config/latest/developerguide/conformancepack-sample-templates.html)
+* [AWS Config best practices](https://aws.amazon.com/blogs/mt/aws-config-best-practices/)
 * [Using AWS Service Catalog Constraints](https://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints.html)
 * [Building a React Frontend for Service Catalog with AWS Amplify](https://aws.amazon.com/blogs/opensource/react-frontend-service-catalog-aws-amplify/)
 * [AWS Landing Zone](https://aws.amazon.com/solutions/aws-landing-zone/)
