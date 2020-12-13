@@ -589,6 +589,7 @@
 * [The Amazon Builders' Library](https://aws.amazon.com/builders-library/)
 * [AWS Geek Cloud Diagrams & Notes](https://www.awsgeek.com/)
 * [AWS Digital Training Provider Courses](https://aws.amazon.com/training/digital-training-providers/)
+* [AWS re:Invent 2020 – Announcements From the News Blog](https://aws.amazon.com/pt/blogs/aws/aws-reinvent-announcements-2020/)
 * [TOOLS] [Amazon ECR Public Gallery](https://gallery.ecr.aws/)
 * [TOOLS] [CloudPing](https://www.cloudping.info/)
 * [TOOLS] [AWS Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
