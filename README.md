@@ -573,6 +573,7 @@
 * [Standardized Architecture for PCI DSS on the AWS Cloud](https://docs.aws.amazon.com/quickstart/latest/compliance-pci/welcome.html)
 * [Tutorial: Blocking IP Addresses That Submit Bad Requests ](https://docs.aws.amazon.com/waf/latest/developerguide/tutorials-4xx-blocking.html)
 * [Architectures to exemplify digital signature and secure message transmission to the Brazilian Instant Payment System (PIX)](https://github.com/aws-samples/pix-proxy-samples)
+* [Raising the bar on storage: How to improve your disaster recovery, ransomware prevention, and backup strategy](https://aws.amazon.com/blogs/publicsector/raise-bar-storage-how-improve-disaster-recovery-ransomware-prevention-backup-strategy/)
 
 
 ### Arquiteturas de Referência & Tools
