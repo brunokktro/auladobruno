@@ -197,6 +197,7 @@
 * [AWS Centralized WAF and VPC Security Group Management](https://aws.amazon.com/solutions/implementations/aws-centralized-waf-and-vpc-security-group-management/)
 * [Subscribe to AWS Public IP Address Changes via Amazon SNS](https://aws.amazon.com/blogs/aws/subscribe-to-aws-public-ip-address-changes-via-amazon-sns/)
 * [AWS Solutions - AWS Perspective](https://aws.amazon.com/solutions/implementations/aws-perspective/)
+* [Create real-time clickstream sessions and run analytics with Amazon Kinesis Data Analytics, AWS Glue, and Amazon Athena](https://aws.amazon.com/blogs/big-data/create-real-time-clickstream-sessions-and-run-analytics-with-amazon-kinesis-data-analytics-aws-glue-and-amazon-athena/)
 
 
 ### Planning and Designing Databases on AWS
