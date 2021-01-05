@@ -404,6 +404,7 @@
 * [How to Enable Caching for AWS CodeBuild](https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/)
 * [Extending AWS CodeBuild with Custom Build Environments](https://aws.amazon.com/blogs/devops/extending-aws-codebuild-with-custom-build-environments/)
 * [New – Building a Continuous Integration Workflow with Step Functions and AWS CodeBuild](https://aws.amazon.com/blogs/aws/new-building-a-continuous-integration-workflow-with-step-functions-and-aws-codebuild/)
+* [AWS CodePipeline product integrations](https://aws.amazon.com/codepipeline/product-integrations/)
 * [Integrations with CodePipeline action types](https://docs.aws.amazon.com/codepipeline/latest/userguide/integrations-action-type.html)
 * [Implementing DevSecOps Using AWS CodePipeline](https://aws.amazon.com/blogs/devops/implementing-devsecops-using-aws-codepipeline/)
 * [Detect and react to changes in pipeline state with Amazon CloudWatch Events](https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html)
