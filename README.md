@@ -400,6 +400,7 @@
 * [Test Reports with AWS CodeBuild](https://aws.amazon.com/blogs/devops/test-reports-with-aws-codebuild/)
 * [AWS Elastic Beanstalk sample for CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-elastic-beanstalk.html)
 * [Setting up a CI/CD pipeline by integrating Jenkins with AWS CodeBuild and AWS CodeDeploy](https://aws.amazon.com/blogs/devops/setting-up-a-ci-cd-pipeline-by-integrating-jenkins-with-aws-codebuild-and-aws-codedeploy/)
+* [Building a Secure Cross-Account Continuous Delivery Pipeline](https://aws.amazon.com/blogs/devops/aws-building-a-secure-cross-account-continuous-delivery-pipeline/)
 * [Building a CI/CD pipeline for cross-account deployment of an AWS Lambda API with the Serverless Framework](https://aws.amazon.com/blogs/devops/building-a-ci-cd-pipeline-for-cross-account-deployment-of-an-aws-lambda-api-with-the-serverless-framework/)
 * [AWS CodeBuild Local Builds](https://hub.docker.com/r/amazon/aws-codebuild-local/)
 * [How to Enable Caching for AWS CodeBuild](https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/)
