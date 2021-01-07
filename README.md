@@ -97,6 +97,7 @@
 * [CloudWatch Logs Subscription Consumer + Elasticsearch + Kibana Dashboards](https://aws.amazon.com/blogs/aws/cloudwatch-logs-subscription-consumer-elasticsearch-kibana-dashboards/)
 * [Running Scripts from GitHub and Amazon S3 ](https://docs.aws.amazon.com/systems-manager/latest/userguide/integration-remote-scripts.html)
 * [Validating AWS CloudFormation Templates](https://aws.amazon.com/blogs/devops/validating-aws-cloudformation-templates/)
+* [Amazon CloudFront – Support for Dynamic Content](https://aws.amazon.com/blogs/aws/amazon-cloudfront-support-for-dynamic-content/)
 * [Amazon CloudFront Dynamic Content Delivery](https://aws.amazon.com/cloudfront/dynamic-content/)
 * [Can I use a single CloudFront web distribution to serve content from multiple origins using multiple behaviors?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-distribution-serve-content/)
 * [Implementation Considerations - Learn Caching Design Patterns](https://aws.amazon.com/caching/implementation-considerations/)
