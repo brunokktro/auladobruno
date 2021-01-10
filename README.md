@@ -448,6 +448,7 @@
 * [Scanning Docker Images for Vulnerabilities using Clair, Amazon ECS, ECR, and AWS CodePipeline](https://aws.amazon.com/blogs/compute/scanning-docker-images-for-vulnerabilities-using-clair-amazon-ecs-ecr-aws-codepipeline/)
 * [How to Bake Open Source Security into Your AWS CodeBuild Pipeline](https://aws.amazon.com/blogs/apn/how-to-bake-open-source-security-into-your-aws-codebuild-pipeline/)
 * [Scanning images with Trivy in an AWS CodePipeline](https://aws.amazon.com/blogs/containers/scanning-images-with-trivy-in-an-aws-codepipeline/)
+* [Fine-tuning blue/green deployments on application load balancer](https://aws.amazon.com/blogs/devops/blue-green-deployments-with-application-load-balancer/)
 * [Tutorial: Creating a service using a blue/green deployment](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-blue-green.html)
 * [Automating Blue/Green Deployments of Infrastructure and Application Code using AMIs, AWS Developer Tools, & Amazon EC2 Systems Manager](https://aws.amazon.com/blogs/devops/bluegreen-infrastructure-application-deployment-blog/)
 * [Automate OS Image Build Pipelines with EC2 Image Builder](https://aws.amazon.com/blogs/aws/automate-os-image-build-pipelines-with-ec2-image-builder/)
