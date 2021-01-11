@@ -435,6 +435,8 @@
 * [Can I have common environment variables for a group of Lambda functions?](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-common-environment-variables/)
 * [Announcing improved VPC networking for AWS Lambda functions](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/)
 * [Improved Testing on the AWS Lambda Console](https://aws.amazon.com/blogs/compute/improved-testing-on-the-aws-lambda-console/)
+* [New – Local Mocking and Testing with the Amplify CLI](https://aws.amazon.com/blogs/aws/new-local-mocking-and-testing-with-the-amplify-cli/)
+* [Set up mock integrations in API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-mock-integration.html)
 * [Deploying Serverless Applications Gradually](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/automating-updates-to-serverless-apps.html)
 * [Applying the Twelve-Factor App Methodology to Serverless Applications](https://aws.amazon.com/blogs/compute/applying-the-twelve-factor-app-methodology-to-serverless-applications/)
 * [Deploying applications to Elastic Beanstalk environments](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.deploy-existing-version.html)
