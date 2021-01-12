@@ -463,6 +463,7 @@
 * [CodeDeploy AppSpec File reference](https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file.html)
 * [Advanced environment customization with configuration files (.ebextensions)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html)
 * [Clone an Elastic Beanstalk environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.clone.html)
+* [New – Use CloudWatch Synthetics to Monitor Sites, API Endpoints, Web Workflows, and More](https://aws.amazon.com/blogs/aws/new-use-cloudwatch-synthetics-to-monitor-sites-api-endpoints-web-workflows-and-more/)
 * [IT Governance in a Dynamic DevOps Environment](https://aws.amazon.com/blogs/devops/it-governance-in-a-dynamic-devops-environment/)
 * [AWS Summit - DevOps Culture at Amazon](https://youtu.be/mBU3AJ3j1rg)
 * [AWS re:Invent 2018: Moving to DevOps the Amazon Way](https://youtu.be/Pvb74TlV8SA)
