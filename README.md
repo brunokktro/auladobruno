@@ -452,6 +452,7 @@
 * [How to Bake Open Source Security into Your AWS CodeBuild Pipeline](https://aws.amazon.com/blogs/apn/how-to-bake-open-source-security-into-your-aws-codebuild-pipeline/)
 * [Scanning images with Trivy in an AWS CodePipeline](https://aws.amazon.com/blogs/containers/scanning-images-with-trivy-in-an-aws-codepipeline/)
 * [How to Bake Open Source Security into Your AWS CodeBuild Pipeline](https://aws.amazon.com/blogs/apn/how-to-bake-open-source-security-into-your-aws-codebuild-pipeline/)
+* [Integrating AWS CloudFormation security tests with AWS Security Hub and AWS CodeBuild reports](https://aws.amazon.com/blogs/security/integrating-aws-cloudformation-security-tests-with-aws-security-hub-and-aws-codebuild-reports/)
 * [Using AWS CodePipeline, AWS CodeBuild, and AWS Lambda for Serverless Automated UI Testing](https://aws.amazon.com/blogs/devops/using-aws-codepipeline-aws-codebuild-and-aws-lambda-for-serverless-automated-ui-testing/)
 * [Fine-tuning blue/green deployments on application load balancer](https://aws.amazon.com/blogs/devops/blue-green-deployments-with-application-load-balancer/)
 * [Tutorial: Creating a service using a blue/green deployment](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-blue-green.html)
