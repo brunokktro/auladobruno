@@ -680,6 +680,7 @@
 * [Workshop] [Workshop: Choose Your Own SAML Adventure](http://federationworkshopreinvent2016.s3-website-us-east-1.amazonaws.com/)
 * [Workshop] [AWS Multi-Account Setup](https://workshop-aws-account-setup.fstehle.com/)
 * [Workshop] [Landing Zone Workshop](https://lz-workshop.com/)
+* [Workshop] [AWS Service Catalog Tools Workshop](https://service-catalog-tools-workshop.com/)
 * [Workshop] [Security Workshops - Permission Boundaries: How to Truly Delegate Permissions on AWS](https://awssecworkshops.com/builder-sessions/permission-boundary/build/)
 * [Workshop] [Security Workshops - Data Protection, Detection, Identity, Threat Detection](https://awssecworkshops.com/workshops/)
 * [Workshop] [AWS Protecting Workloads Workshops](http://protecting-workloads.awssecworkshops.com/)
