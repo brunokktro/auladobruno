@@ -260,6 +260,7 @@
 * [Reduce database cost and improve availability when you migrate to the AWS Cloud](https://aws.amazon.com/blogs/database/reduce-database-cost-and-improve-availability-when-you-migrate-to-the-aws-cloud/)
 * [How do I perform common DBA tasks for Amazon RDS DB instances?](https://aws.amazon.com/premiumsupport/knowledge-center/rds-common-dba-tasks/)
 * [Part 1 – Role of the DBA When Moving to Amazon RDS: Responsibilities](https://aws.amazon.com/blogs/database/part-1-role-of-the-dba-when-moving-to-amazon-rds-responsibilities/)
+* [Part 2 – Role of the DBA When Moving to Amazon RDS: Automation](https://aws.amazon.com/blogs/database/part-2-role-of-the-dba-when-moving-to-amazon-rds-automation/)
 * [How to Scale AWS Database Migration Service (DMS) replication instances ](https://aws.amazon.com/blogs/database/how-to-scale-aws-database-migration-service-dms-replication-instances/)
 * [Best practices for migrating an Oracle database to Amazon RDS PostgreSQL or Amazon Aurora PostgreSQL: Source database considerations for the Oracle and AWS DMS CDC environment](https://aws.amazon.com/blogs/database/best-practices-for-migrating-an-oracle-database-to-amazon-rds-postgresql-or-amazon-aurora-postgresql-source-database-considerations-for-the-oracle-and-aws-dms-cdc-environment/)
 * [How to solve some common challenges faced while migrating from Oracle to PostgreSQL](https://aws.amazon.com/blogs/database/how-to-solve-some-common-challenges-faced-while-migrating-from-oracle-to-postgresql/)
