@@ -406,7 +406,7 @@
 * [Building a Secure Cross-Account Continuous Delivery Pipeline](https://aws.amazon.com/blogs/devops/aws-building-a-secure-cross-account-continuous-delivery-pipeline/)
 * [Building a CI/CD pipeline for cross-account deployment of an AWS Lambda API with the Serverless Framework](https://aws.amazon.com/blogs/devops/building-a-ci-cd-pipeline-for-cross-account-deployment-of-an-aws-lambda-api-with-the-serverless-framework/)
 * [AWS CodeBuild Local Builds](https://hub.docker.com/r/amazon/aws-codebuild-local/)
-* [How to Enable Caching for AWS CodeBuild](https://aws.amazon.com/blogs/devops/how-to-enable-caching-for-aws-codebuild/)
+* [Improve Build Performance and Save Time Using Local Caching in AWS CodeBuild](https://aws.amazon.com/blogs/devops/improve-build-performance-and-save-time-using-local-caching-in-aws-codebuild/)
 * [Extending AWS CodeBuild with Custom Build Environments](https://aws.amazon.com/blogs/devops/extending-aws-codebuild-with-custom-build-environments/)
 * [New – Building a Continuous Integration Workflow with Step Functions and AWS CodeBuild](https://aws.amazon.com/blogs/aws/new-building-a-continuous-integration-workflow-with-step-functions-and-aws-codebuild/)
 * [AWS CodePipeline product integrations](https://aws.amazon.com/codepipeline/product-integrations/)
