@@ -246,6 +246,7 @@
 * [Integrate Power BI with Amazon Redshift for insights and analytics](https://aws.amazon.com/blogs/big-data/integrate-power-bi-with-amazon-redshift-for-insights-and-analytics/)
 * [Amazon Redshift - Troubleshooting queries](https://docs.aws.amazon.com/redshift/latest/dg/queries-troubleshooting.html)
 * [Amazon Redshift - Troubleshooting data loads](https://docs.aws.amazon.com/redshift/latest/dg/t_Troubleshooting_load_errors.html)
+* [Introducing the Aurora Storage Engine](https://aws.amazon.com/blogs/database/introducing-the-aurora-storage-engine/)
 * [Working with Aurora Multi-Master Clusters](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-multi-master.html)
 * [How Autodesk Increased Database Scalability and Reduced Replication Lag with Amazon Aurora](https://aws.amazon.com/blogs/database/autodesk-builds-on-amazon-aurora/)
 * [Amazon Aurora as an Alternative to Oracle RAC](https://aws.amazon.com/blogs/database/amazon-aurora-as-an-alternative-to-oracle-rac/)
