@@ -254,6 +254,7 @@
 * [How Cloudability boosted performance, simplified tuning, and lowered costs with Amazon Aurora](https://aws.amazon.com/blogs/database/how-cloudability-boosted-performance-simplified-tuning-and-lowered-costs-with-amazon-aurora/)
 * [Amazon Aurora Update – Call Lambda Functions From Stored Procedures; Load Data From S3](https://aws.amazon.com/blogs/aws/amazon-aurora-update-call-lambda-functions-from-stored-procedures-load-data-from-s3/)
 * [Amazon Aurora Update – PostgreSQL Compatibility](https://aws.amazon.com/blogs/aws/amazon-aurora-update-postgresql-compatibility/)
+* [Introduction to Aurora PostgreSQL cluster cache management](https://aws.amazon.com/blogs/database/introduction-to-aurora-postgresql-cluster-cache-management/)
 * [Audit Amazon Aurora Database Logs for Connections, Query Patterns, and More, using Amazon Athena and Amazon QuickSight](https://aws.amazon.com/blogs/database/audit-amazon-aurora-database-logs-for-connections-query-patterns-and-more-using-amazon-athena-and-amazon-quicksight/)
 * [Auditing an Amazon Aurora Cluster](https://aws.amazon.com/blogs/database/auditing-an-amazon-aurora-cluster/)
 * [Best practices for securing sensitive data in AWS data stores](https://aws.amazon.com/blogs/database/best-practices-for-securing-sensitive-data-in-aws-data-stores/)
