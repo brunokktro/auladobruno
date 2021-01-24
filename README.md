@@ -229,6 +229,7 @@
 * [Amazon DynamoDB global tables](https://aws.amazon.com/dynamodb/global-tables/)
 * [How to use Amazon DynamoDB global tables to power multiregion architectures](https://aws.amazon.com/blogs/database/how-to-use-amazon-dynamodb-global-tables-to-power-multiregion-architectures/)
 * [Amazon DynamoDB auto scaling: Performance and cost optimization at any scale](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/)
+* [I'm using an on-demand DynamoDB table, but I'm still getting throttled. Why?](https://aws.amazon.com/premiumsupport/knowledge-center/on-demand-table-throttling-dynamodb/)
 * [Optimize Amazon DynamoDB scan latency through schema design](https://aws.amazon.com/blogs/database/optimizing-amazon-dynamodb-scan-latency-through-schema-design/)
 * [AWS re:Invent 2018: Amazon DynamoDB Under the Hood: How We Built a Hyper-Scale Database](https://youtu.be/yvBR71D0nAQ)
 * [Amazon DynamoDB auto scaling: Performance and cost optimization at any scale](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/)
