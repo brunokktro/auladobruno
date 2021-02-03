@@ -114,6 +114,7 @@
 ### Advanced Architecting on AWS
 
 * [Getting started with tag policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies-getting-started.html)
+* [AWS Config: Checking for Compliance with New Managed Rule Options](https://aws.amazon.com/blogs/devops/aws-config-checking-for-compliance-with-new-managed-rule-options/)
 * [AWS re:Invent 2019: Advanced VPC design and new capabilities for Amazon VPC](https://youtu.be/7acKgdDOOu4)
 * [Route 53 - Choosing between alias and non-alias records](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html)
 * [Amazon VPC for On-Premises Network Engineers – Part 1](https://aws.amazon.com/blogs/apn/amazon-vpc-for-on-premises-network-engineers-part-one/)
