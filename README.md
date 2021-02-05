@@ -565,6 +565,7 @@
 * [How to Visualize and Refine Your Network’s Security by Adding Security Group IDs to Your VPC Flow Logs](https://aws.amazon.com/blogs/security/how-to-visualize-and-refine-your-networks-security-by-adding-security-group-ids-to-your-vpc-flow-logs/)
 * [How to Use Nubeva with Amazon VPC Traffic Mirroring to Gain Decrypted Visibility of Your Network Traffic](https://aws.amazon.com/blogs/apn/how-to-use-nubeva-with-amazon-vpc-traffic-mirroring-to-gain-decrypted-visibility-of-your-network-traffic/)
 * [New – VPC Traffic Mirroring – Capture & Inspect Network Traffic](https://aws.amazon.com/blogs/aws/new-vpc-traffic-mirroring/)
+* [Securing messages published to Amazon SNS with AWS PrivateLink](https://aws.amazon.com/blogs/security/securing-messages-published-to-amazon-sns-with-aws-privatelink/)
 * [AWS Direct Connect + VPN](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-vpn.html)
 * [How do I establish an AWS VPN over an AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/create-vpn-direct-connect/)
 * [How to add DNS filtering to your NAT instance with Squid](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
