@@ -236,6 +236,7 @@
 * [Amazon DynamoDB auto scaling: Performance and cost optimization at any scale](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/)
 * [I'm using an on-demand DynamoDB table, but I'm still getting throttled. Why?](https://aws.amazon.com/premiumsupport/knowledge-center/on-demand-table-throttling-dynamodb/)
 * [Optimize Amazon DynamoDB scan latency through schema design](https://aws.amazon.com/blogs/database/optimizing-amazon-dynamodb-scan-latency-through-schema-design/)
+* [How Amazon DynamoDB adaptive capacity accommodates uneven data access patterns (or, why what you know about DynamoDB might be outdated)](https://aws.amazon.com/blogs/database/how-amazon-dynamodb-adaptive-capacity-accommodates-uneven-data-access-patterns-or-why-what-you-know-about-dynamodb-might-be-outdated/)
 * [AWS re:Invent 2018: Amazon DynamoDB Under the Hood: How We Built a Hyper-Scale Database](https://youtu.be/yvBR71D0nAQ)
 * [Optimize Amazon DynamoDB scan latency through schema design](https://aws.amazon.com/blogs/database/optimizing-amazon-dynamodb-scan-latency-through-schema-design/)
 * [Point-in-Time Recovery for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.html)
