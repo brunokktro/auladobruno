@@ -622,6 +622,7 @@
 * [AWS Simple Monthly Calculator](https://calculator.s3.amazonaws.com/index.html)
 * [The Amazon Builders' Library](https://aws.amazon.com/builders-library/)
 * [AWS Geek Cloud Diagrams & Notes](https://www.awsgeek.com/)
+* [AWS Ramp-Up Guides](https://aws.amazon.com/training/ramp-up-guides/)
 * [AWS Digital Training Provider Courses](https://aws.amazon.com/training/digital-training-providers/)
 * [AWS re:Invent 2020 – Announcements From the News Blog](https://aws.amazon.com/pt/blogs/aws/aws-reinvent-announcements-2020/)
 * [TOOLS] [Amazon ECR Public Gallery](https://gallery.ecr.aws/)
