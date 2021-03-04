@@ -43,6 +43,7 @@
 * [Compute Abstractions on AWS: A Visual Story](https://aws.amazon.com/blogs/architecture/compute-abstractions-on-aws-a-visual-story/)
 * [AWS Well-Architected - Learn, measure, and build using architectural best practices](https://aws.amazon.com/architecture/well-architected/)
 * [AWS Well-Architected Framework](https://wa.aws.amazon.com/index.html)
+* [Financial Services Industry Lens - AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/financial-services-industry-lens/welcome.html)
 * [AWS Well-Architected Tool – Review Workloads Against Best Practices](https://aws.amazon.com/blogs/aws/new-aws-well-architected-tool-review-workloads-against-best-practices/)
 * [AWS Well-Architected Tool – DEMO](https://d3nn3d4w2aqyem.cloudfront.net/mp4/Getting_started_video.mp4)
 * [Nine Ways to Reduce Your AWS Bill](https://pages.awscloud.com/Nine-Ways-to-Reduce-Your-AWS-Bill_2020_0008-CMP_OD.html)
