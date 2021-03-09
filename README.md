@@ -699,6 +699,7 @@
 * [Workshop] [Generate Content with Lambda@Edge](https://content-generation-lambda-edge.workshop.aws/)
 * [Workshop] [AWS EMP Workshop](https://aws-emp.workshop.aws/en/)
 * [Workshop] [AWS Database Migration Workshop](https://dms-immersionday.workshop.aws)
+* [Workshop] [CloudEndure Migration Factory Workshop](https://aws-mf.s3.amazonaws.com/workshop/index.html)
 * [Workshop] [CloudEndure Deep Dive - Workshop](http://02h.s3-website.eu-central-1.amazonaws.com/)
 * [Workshop] [Migration Immersion Day](https://migration-immersionday.workshop.aws/en/)
 * [Workshop] [Migration and Modernization Workshop Guide](https://application-migration-with-aws.workshop.aws/)
