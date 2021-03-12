@@ -641,6 +641,7 @@
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
+* [TOOLS] [AWS Dev Fabric for SQL Server](https://github.com/aws-samples/aws-dev-fabric-for-sql-server)
 * [TOOLS] [Operational Management: Inventory, Patching, and Compliance](https://github.com/aws-samples/aws-management-and-governance-samples/tree/master/AWSSystemsManager/CentralizedPatchManagement)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
 * [TOOLS] [SIEM on Amazon Elasticsearch Service](https://github.com/aws-samples/siem-on-amazon-elasticsearch)
