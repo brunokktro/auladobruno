@@ -674,6 +674,7 @@
 * [TOOLS unofficial] [Twemproxy (nutcracker)](https://github.com/twitter/twemproxy)
 * [TOOLS unofficial] [Docker Samples](https://docs.docker.com/samples/)
 * [TOOLS unofficial] [MySQL Samples](https://dev.mysql.com/doc/index-other.html)
+* [TOOLS unofficial] [Static Demo - 2048](https://github.com/goodrain/static-demo)
 
 
 ### Workshops & Laboratórios
