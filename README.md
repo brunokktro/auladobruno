@@ -14,7 +14,7 @@
 - [X] Revise os _whitepapers_ e **FAQs** dos serviços que estão no escopo do exame de certificação
 - [X] Assista os vídeos da série [_"This is My Architecture"_](https://aws.amazon.com/this-is-my-architecture/), com exemplos de casos reais dos clientes AWS
 - [X] Faça um treinamento oficial da AWS com foco na preparação do exame; através dos cursos **_Exam Readiness_**
-- [X] Acompanhe [nossos eventos e webinars da comunidade AWS em LATAM](https://aws.amazon.com/pt/training/events), pois sempre temos conteúdos muito bons pra ajudar nos estudos
+- [X] Acompanhe [nossos eventos e webinars da comunidade AWS em LATAM](https://aws.amazon.com/pt/training/events), pois sempre temos conteúdo muito bom pra ajudar nos estudos
 - [X] Faça um **_Practice Exam_** oficial (simulado)
 - [X] Agende seu [exame de certificação](https://www.aws.training/Certification) na **PSI** ou **Person Vue**
 - [X] Adicione [30 minutos a mais](https://www.linkedin.com/pulse/30-minute-extension-your-aws-certification-exam-garcia-lozano/) em seu exame com o **_ESL +30 MINUTES_** (disponível para não-nativos de língua inglesa) 
