@@ -14,6 +14,7 @@
 - [X] Revise os _whitepapers_ e **FAQs** dos serviços que estão no escopo do exame de certificação
 - [X] Assista os vídeos da série [_"This is My Architecture"_](https://aws.amazon.com/this-is-my-architecture/), com exemplos de casos reais dos clientes AWS
 - [X] Faça um treinamento oficial da AWS com foco na preparação do exame; através dos cursos **_Exam Readiness_**
+- [X] Acompanhe [nossos eventos e webinars da comunidade AWS em LATAM](https://aws.amazon.com/pt/training/events), pois sempre temos conteúdos muito bons pra ajudar nos estudos
 - [X] Faça um **_Practice Exam_** oficial (simulado)
 - [X] Agende seu [exame de certificação](https://www.aws.training/Certification) na **PSI** ou **Person Vue**
 - [X] Adicione [30 minutos a mais](https://www.linkedin.com/pulse/30-minute-extension-your-aws-certification-exam-garcia-lozano/) em seu exame com o **_ESL +30 MINUTES_** (disponível para não-nativos de língua inglesa) 
@@ -641,6 +642,7 @@
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
+* [TOOLS] [AWS ParallelCluster - HPC for the Cloud](https://github.com/aws/aws-parallelcluster)
 * [TOOLS] [AWS Dev Fabric for SQL Server](https://github.com/aws-samples/aws-dev-fabric-for-sql-server)
 * [TOOLS] [Operational Management: Inventory, Patching, and Compliance](https://github.com/aws-samples/aws-management-and-governance-samples/tree/master/AWSSystemsManager/CentralizedPatchManagement)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
