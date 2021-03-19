@@ -137,7 +137,7 @@
 * [Integrating AWS Transit Gateway with AWS PrivateLink and Amazon Route 53 Resolver](https://aws.amazon.com/blogs/networking-and-content-delivery/integrating-aws-transit-gateway-with-aws-privatelink-and-amazon-route-53-resolver/)
 * [Centralized DNS management of hybrid cloud with Amazon Route 53 and AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-dns-management-of-hybrid-cloud-with-amazon-route-53-and-aws-transit-gateway/)
 * [How do I configure Direct Connect and VPN failover with Transit Gateway?](https://aws.amazon.com/premiumsupport/knowledge-center/dx-configure-dx-and-vpn-failover-tgw/)
-* [How to order AWS Direct Connect using the Equinix Fabric Portal](https://docs.equinix.com/en-us/Content/Interconnection/ECXF/videos/ECXF-video-connect-aws.htm)
+* [How to order AWS Direct Connect using the Equinix Fabric Portal](https://youtu.be/CixDJnubw-4)
 * [How can I configure VPN as a backup for my AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/configure-vpn-backup-dx/)
 * [How do I provision a new link aggregation group (LAG) using AWS Direct Connect connections?](https://aws.amazon.com/premiumsupport/knowledge-center/provision-lag-dx/)
 * [What’s the difference between a hosted virtual interface (VIF) and a hosted connection?](https://aws.amazon.com/premiumsupport/knowledge-center/direct-connect-types/)
