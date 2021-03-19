@@ -125,6 +125,7 @@
 * [Simplify network routing and security administration with VPC Prefix Lists](https://aws.amazon.com/blogs/networking-and-content-delivery/simplify-network-routing-and-security-administration-with-vpc-prefix-lists/)
 * [Overlay Multicast in Amazon Virtual Private Cloud](https://aws.amazon.com/articles/overlay-multicast-in-amazon-virtual-private-cloud/)
 * [How to run Schneider Electric’s Responder OMS using AWS Transit Gateway multicast](https://aws.amazon.com/blogs/publicsector/how-to-run-schneider-electrics-responder-oms-using-aws-transit-gateway-multicast/)
+* [Transit Gateway vs VPC peering](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-gateway-vs-vpc-peering.html)
 * [Building a global network using AWS Transit Gateway Inter-Region peering](https://aws.amazon.com/blogs/networking-and-content-delivery/building-a-global-network-using-aws-transit-gateway-inter-region-peering/)
 * [Simplify SD-WAN connectivity with AWS Transit Gateway Connect](https://aws.amazon.com/blogs/networking-and-content-delivery/simplify-sd-wan-connectivity-with-aws-transit-gateway-connect/)
 * [Introducing Bring Your Own IP (BYOIP) for Amazon VPC](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-bring-your-own-ip-byoip-for-amazon-vpc/)
