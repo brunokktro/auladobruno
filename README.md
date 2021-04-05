@@ -451,6 +451,7 @@
 * [Announcing CloudTrail Insights: Identify and Respond to Unusual API Activity](https://aws.amazon.com/blogs/aws/announcing-cloudtrail-insights-identify-and-respond-to-unusual-api-activity/)
 * [How to create custom AWS Config rules with AWS CodeStar](https://aws.amazon.com/blogs/mt/how-to-create-custom-aws-config-rules-with-aws-codestar/)
 * [Easier way to control access to AWS regions using IAM policies](https://aws.amazon.com/blogs/security/easier-way-to-control-access-to-aws-regions-using-iam-policies/)
+* [AWS: Denies access to AWS based on the requested Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-requested-region.html)
 * [IAM Tutorial: Enable users to manage their credentials and MFA settings](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_users-self-manage-mfa-and-creds.html)
 * [Integrating AWS CodeCommit with Jenkins](https://aws.amazon.com/blogs/devops/integrating-aws-codecommit-with-jenkins/)
 * [How to Test and Debug AWS CodeDeploy Locally Before You Ship Your Code](https://aws.amazon.com/blogs/devops/how-to-test-and-debug-aws-codedeploy-locally-before-you-ship-your-code/)
