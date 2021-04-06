@@ -27,7 +27,7 @@
 | ------------- |
 | [Architecting on AWS](https://github.com/brunokktro/auladobruno#architecting-on-aws) | 
 | [Advanced Architecting on AWS](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
-| [Cloud Financial Management for Builders]()     |
+| [Cloud Financial Management for Builders](https://github.com/brunokktro/auladobruno#cloud-financial-management-for-builders)     |
 | [Planning and Designing Databases on AWS](https://github.com/brunokktro/auladobruno#planning-and-designing-databases-on-aws)     |
 | [Systems Operations on AWS](https://github.com/brunokktro/auladobruno#systems-operations-on-aws)    | 
 | [DevOps Engineering on AWS](https://github.com/brunokktro/auladobruno#devops-engineering-on-aws)    |
