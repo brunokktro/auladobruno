@@ -212,8 +212,10 @@
 
 
 ### Cloud Financial Management for Builders
-* [Cost Optimization Pillar - AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
+* [Cloud Economics Center](https://aws.amazon.com/economics/)
+* [Cloud economics: The value of a TCO assessment](https://aws.amazon.com/blogs/publicsector/cloud-economics-value-tco-assessment/)
 * [Cost Optimization](https://wa.aws.amazon.com/wellarchitected/2020-07-02T19-33-23/wat.pillar.costOptimization.en.html)
+* [Cost Optimization Pillar - AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
 * [How AWS Pricing Works: AWS Pricing Overview](https://docs.aws.amazon.com/whitepapers/latest/how-aws-pricing-works/welcome.html)
 * [Use Tagging to Organize Your Environment and Drive Accountability](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/tagging.html)
 * [Tagging Best Practices: Implement an Effective AWS Resource Tagging Strategy](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/welcome.html)
@@ -238,6 +240,8 @@
 * [Overview of managing clusters in Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html)
 * [What is a landing zone?](https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-aws-environment/understanding-landing-zones.html)
 * [Cost Optimisation Best Practices](https://youtu.be/lJRYDd8Pqes)
+* [Optimizing the cost of serverless web applications](https://aws.amazon.com/blogs/compute/optimizing-the-cost-of-serverless-web-applications/)
+* [How do you optimize your Serverless application’s costs?](https://wa.aws.amazon.com/serv.question.COST_1.en.html)
 * [10 Things Serverless Architects Should Know](https://aws.amazon.com/blogs/architecture/ten-things-serverless-architects-should-know/)
 
 
