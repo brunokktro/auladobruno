@@ -27,6 +27,7 @@
 | ------------- |
 | [Architecting on AWS](https://github.com/brunokktro/auladobruno#architecting-on-aws) | 
 | [Advanced Architecting on AWS](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
+| [Cloud Financial Management for Builders]()     |
 | [Planning and Designing Databases on AWS](https://github.com/brunokktro/auladobruno#planning-and-designing-databases-on-aws)     |
 | [Systems Operations on AWS](https://github.com/brunokktro/auladobruno#systems-operations-on-aws)    | 
 | [DevOps Engineering on AWS](https://github.com/brunokktro/auladobruno#devops-engineering-on-aws)    |
@@ -208,6 +209,36 @@
 * [Subscribe to AWS Public IP Address Changes via Amazon SNS](https://aws.amazon.com/blogs/aws/subscribe-to-aws-public-ip-address-changes-via-amazon-sns/)
 * [AWS Solutions - AWS Perspective](https://aws.amazon.com/solutions/implementations/aws-perspective/)
 * [Create real-time clickstream sessions and run analytics with Amazon Kinesis Data Analytics, AWS Glue, and Amazon Athena](https://aws.amazon.com/blogs/big-data/create-real-time-clickstream-sessions-and-run-analytics-with-amazon-kinesis-data-analytics-aws-glue-and-amazon-athena/)
+
+
+### Cloud Financial Management for Builders
+* [Cost Optimization Pillar - AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
+* [Cost Optimization](https://wa.aws.amazon.com/wellarchitected/2020-07-02T19-33-23/wat.pillar.costOptimization.en.html)
+* [How AWS Pricing Works: AWS Pricing Overview](https://docs.aws.amazon.com/whitepapers/latest/how-aws-pricing-works/welcome.html)
+* [Use Tagging to Organize Your Environment and Drive Accountability](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/tagging.html)
+* [Tagging Best Practices: Implement an Effective AWS Resource Tagging Strategy](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/welcome.html)
+* [Instance purchasing options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html)
+* [Amazon EC2 Reserved Instances and Other AWS Reservation Models](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/welcome.html)
+* [Amazon EC2 Reserved Instance Marketplace](https://aws.amazon.com/ec2/purchasing-options/reserved-instances/marketplace/)
+* [How Spot Instances Work](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-leveraging-ec2-spot-instances/how-spot-instances-work.html)
+* [Avoiding unexpected charges](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/checklistforunwantedcharges.html)
+* [Volume discounts](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilling-discounts.html)
+* [Tracking your AWS Free Tier usage](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/tracking-free-tier-usage.html)
+* [IAM Tutorial: Delegate access to the billing console](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_billing.html)
+* [AWS Trusted Advisor best practice checklist](https://aws.amazon.com/premiumsupport/technology/trusted-advisor/best-practice-checklist/)
+* [It just got easier to discover and compare EC2 instance types](https://aws.amazon.com/blogs/compute/it-just-got-easier-to-discover-and-compare-ec2-instance-types/)
+* [Optimizing your cost with Rightsizing Recommendations](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-rightsizing.html)
+* [Right Sizing: Provisioning Instances to Match Workloads](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-right-sizing/cost-optimization-right-sizing.html)
+* [Spot Fleet example configurations](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet-examples.html)
+* [Spot Instance interruptions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html)
+* [Spot Integration with Other AWS Services](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-leveraging-ec2-spot-instances/spot-integration-with-other-aws-services.html)
+* [EC2 Fleet – Manage Thousands of On-Demand and Spot Instances with One Request](https://aws.amazon.com/blogs/aws/ec2-fleet-manage-thousands-of-on-demand-and-spot-instances-with-one-request/)
+* [Comparing NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
+* [Cloud Storage on AWS](https://aws.amazon.com/products/storage)
+* [Overview of managing clusters in Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html)
+* [What is a landing zone?](https://docs.aws.amazon.com/prescriptive-guidance/latest/migration-aws-environment/understanding-landing-zones.html)
+* [Cost Optimisation Best Practices](https://youtu.be/lJRYDd8Pqes)
+* [10 Things Serverless Architects Should Know](https://aws.amazon.com/blogs/architecture/ten-things-serverless-architects-should-know/)
 
 
 ### Planning and Designing Databases on AWS
