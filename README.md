@@ -614,6 +614,7 @@
 * [Securing messages published to Amazon SNS with AWS PrivateLink](https://aws.amazon.com/blogs/security/securing-messages-published-to-amazon-sns-with-aws-privatelink/)
 * [AWS Direct Connect + VPN](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-vpn.html)
 * [How do I establish an AWS VPN over an AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/create-vpn-direct-connect/)
+* [Adding MACsec security to AWS Direct Connect connections](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-macsec-security-to-aws-direct-connect-connections/)
 * [How to add DNS filtering to your NAT instance with Squid](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/)
 * [Why is my presigned URL for an Amazon S3 bucket expiring before the expiration time that I specified?](https://aws.amazon.com/premiumsupport/knowledge-center/presigned-url-s3-bucket-expiration/)
 * [How to Enhance the Security of Sensitive Customer Data by Using Amazon CloudFront Field-Level Encryption](https://aws.amazon.com/blogs/security/how-to-enhance-the-security-of-sensitive-customer-data-by-using-amazon-cloudfront-field-level-encryption/)
