@@ -301,6 +301,7 @@
 * [Amazon Redshift - Troubleshooting queries](https://docs.aws.amazon.com/redshift/latest/dg/queries-troubleshooting.html)
 * [Amazon Redshift - Troubleshooting data loads](https://docs.aws.amazon.com/redshift/latest/dg/t_Troubleshooting_load_errors.html)
 * [Introducing the Aurora Storage Engine](https://aws.amazon.com/blogs/database/introducing-the-aurora-storage-engine/)
+* [Amazon Aurora storage and reliability](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.StorageReliability.html#Aurora.Overview.Storage)
 * [Working with Aurora Multi-Master Clusters](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-multi-master.html)
 * [How Autodesk Increased Database Scalability and Reduced Replication Lag with Amazon Aurora](https://aws.amazon.com/blogs/database/autodesk-builds-on-amazon-aurora/)
 * [Troubleshooting for Aurora](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_Troubleshooting.html#CHAP_Troubleshooting.Parameters)
