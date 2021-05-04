@@ -698,6 +698,7 @@
 * [TOOLS] [Operational Management: Inventory, Patching, and Compliance](https://github.com/aws-samples/aws-management-and-governance-samples/tree/master/AWSSystemsManager/CentralizedPatchManagement)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
 * [TOOLS] [SIEM on Amazon Elasticsearch Service](https://github.com/aws-samples/siem-on-amazon-elasticsearch)
+* [TOOLS] [AWS WAF Operations Dashboards](https://github.com/aws-samples/aws-waf-ops-dashboards/blob/main/README_pt.md)
 * [TOOLS] [Awesome CloudFormation](https://github.com/aws-cloudformation/awesome-cloudformation)
 * [TOOLS] [AWS CloudFormation Guard](https://github.com/aws-cloudformation/cloudformation-guard)
 * [TOOLS] [TaskCat](https://github.com/aws-quickstart/taskcat)
