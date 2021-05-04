@@ -254,6 +254,7 @@
 * [Amazon RDS Multi-AZ Deployments](https://aws.amazon.com/rds/features/multi-az/)
 * [Amazon RDS Read Replicas](https://aws.amazon.com/rds/features/read-replicas/)
 * [How can I distribute read requests across multiple Amazon RDS read replicas?](https://aws.amazon.com/premiumsupport/knowledge-center/requests-rds-read-replicas/)
+* [How can I perform write operations to my Amazon RDS for MariaDB or MySQL DB instance read replica?](https://aws.amazon.com/premiumsupport/knowledge-center/rds-read-replica/)
 * [Implementing a disaster recovery strategy with Amazon RDS](https://aws.amazon.com/blogs/database/implementing-a-disaster-recovery-strategy-with-amazon-rds/)
 * [Best storage practices for running production workloads on hosted databases with Amazon RDS or Amazon EC2](https://aws.amazon.com/blogs/database/best-storage-practices-for-running-production-workloads-on-hosted-databases-with-amazon-rds-or-amazon-ec2/)
 * [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
