@@ -341,6 +341,7 @@
 * [AWS Tools for PowerShell Cmdlet Reference](https://docs.aws.amazon.com/powershell/latest/reference/index.html)
 * [Building a Virtual Classroom Application using the Amazon Chime SDK](https://aws.amazon.com/blogs/business-productivity/building-a-virtual-classroom-application-using-the-amazon-chime-sdk/)
 * [How can I execute user data to automatically create a file with every restart of my Amazon EC2 instance?](https://aws.amazon.com/premiumsupport/knowledge-center/execute-user-data-ec2/)
+* [Logging Windows Amazon EC2 UserData activity in Amazon CloudWatch](https://aws.amazon.com/blogs/infrastructure-and-automation/logging-windows-amazon-ec2-userdata-activity-in-amazon-cloudwatch/)
 * [How can I connect to my Amazon EC2 instance if I lost my SSH key pair after its initial launch?](https://aws.amazon.com/premiumsupport/knowledge-center/user-data-replace-key-pair-ec2/)
 * [How do I install AWS Systems Manager Agent (SSM Agent) on an Amazon EC2 Linux instance at launch?](https://aws.amazon.com/premiumsupport/knowledge-center/install-ssm-agent-ec2-linux/)
 * [Running Ansible Playbooks using EC2 Systems Manager Run Command and State Manager](https://aws.amazon.com/blogs/mt/running-ansible-playbooks-using-ec2-systems-manager-run-command-and-state-manager/)
