@@ -277,6 +277,7 @@
 * [Troubleshooting for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Troubleshooting.html)
 * [Monitoring with the Performance Insights dashboard](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights.UsingDashboard.html)
 * [Best storage practices for running production workloads on hosted databases with Amazon RDS or Amazon EC2](https://aws.amazon.com/blogs/database/best-storage-practices-for-running-production-workloads-on-hosted-databases-with-amazon-rds-or-amazon-ec2/)
+* [Multi-region SQL Server deployment using distributed availability groups](https://aws.amazon.com/blogs/database/multi-region-sql-server-deployment-using-distributed-availability-groups/)
 * [Amazon DynamoDB global tables](https://aws.amazon.com/dynamodb/global-tables/)
 * [How to use Amazon DynamoDB global tables to power multiregion architectures](https://aws.amazon.com/blogs/database/how-to-use-amazon-dynamodb-global-tables-to-power-multiregion-architectures/)
 * [Amazon DynamoDB auto scaling: Performance and cost optimization at any scale](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/)
