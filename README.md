@@ -288,6 +288,7 @@
 * [Optimize Amazon DynamoDB scan latency through schema design](https://aws.amazon.com/blogs/database/optimizing-amazon-dynamodb-scan-latency-through-schema-design/)
 * [Point-in-Time Recovery for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/PointInTimeRecovery.html)
 * [On-Demand Backup and Restore for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/BackupRestore.html)
+* [Backfilling an Amazon DynamoDB Time to Live (TTL) attribute with Amazon EMR](https://aws.amazon.com/blogs/database/backfilling-an-amazon-dynamodb-time-to-live-ttl-attribute-with-amazon-emr/)
 * [How to automate the auditing of operational best practices for your AWS account](https://aws.amazon.com/blogs/database/how-to-automate-the-audit-of-operational-best-practices-for-your-aws-account/)
 * [Troubleshooting issues in your DynamoDB Encryption Client application](https://docs.aws.amazon.com/dynamodb-encryption-client/latest/devguide/troubleshooting.html)
 * [Error Handling with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.Errors.html)
