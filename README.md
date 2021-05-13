@@ -776,6 +776,7 @@
 * [Workshop] [Scaling threat detection and response in AWS](https://scaling-threat-detection.awssecworkshops.com/)
 * [Workshop] [Integrating security into your container pipeline](https://container-devsecops.awssecworkshops.com/)
 * [Workshop] [DevSecOps with Snyk](https://snyk.modernize.awsworkshop.io/)
+* [Workshop] [Gaining operational insights with AIOps using Amazon DevOps Guru](https://aiops-using-devops-guru.workshop.aws/)
 * [Workshop] [Windows on AWS](https://winonaws.cloud/)
 * [Workshop] [Running Microsoft Workloads on AWS Immersion Day](https://ms-immersionday.workshop.aws/)
 * [Workshop] [Amazon RDS for SQL Server Workshop](https://rdssms.workshop.aws/)
