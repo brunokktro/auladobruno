@@ -216,6 +216,7 @@
 ### Cloud Financial Management for Builders
 * [Cloud Economics Center](https://aws.amazon.com/economics/)
 * [Cloud economics: The value of a TCO assessment](https://aws.amazon.com/blogs/publicsector/cloud-economics-value-tco-assessment/)
+* [Cloud, CapEx, and OpEx: Reframing the Conversation](https://aws.amazon.com/blogs/enterprise-strategy/cloud-capex-and-opex-reframing-the-conversation/)
 * [Cost Optimization](https://wa.aws.amazon.com/wellarchitected/2020-07-02T19-33-23/wat.pillar.costOptimization.en.html)
 * [Cost Optimization Pillar - AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html)
 * [How AWS Pricing Works: AWS Pricing Overview](https://docs.aws.amazon.com/whitepapers/latest/how-aws-pricing-works/welcome.html)
