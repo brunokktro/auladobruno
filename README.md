@@ -700,6 +700,8 @@
 * [TOOLS] [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
+* [TOOLS] [Data Transfer Hub - S3 Plugin](https://github.com/awslabs/amazon-s3-data-replication-hub-plugin)
+* [TOOLS] [AWS Data Replication Hub](https://github.com/awslabs/aws-data-replication-hub)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
 * [TOOLS] [AWS ParallelCluster - HPC for the Cloud](https://github.com/aws/aws-parallelcluster)
 * [TOOLS] [AWS Dev Fabric for SQL Server](https://github.com/aws-samples/aws-dev-fabric-for-sql-server)
