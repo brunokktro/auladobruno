@@ -33,7 +33,7 @@
 | [Systems Operations on AWS](https://github.com/brunokktro/auladobruno#systems-operations-on-aws)    | 
 | [DevOps Engineering on AWS](https://github.com/brunokktro/auladobruno#devops-engineering-on-aws)    |
 | [Security Engineering on AWS](https://github.com/brunokktro/auladobruno#security-engineering-on-aws)    |
-| [Running Containers on Amazon Elastic Kubernetes Service](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
+| [Running Containers on Amazon Elastic Kubernetes Service](https://github.com/brunokktro/auladobruno#running-containers-on-amazon-elastic-kubernetes-service)     |
 | [Arquiteturas de Referência & Tools](https://github.com/brunokktro/auladobruno#arquiteturas-de-refer%C3%AAncia--tools)    |
 | [Workshops & Laboratórios](https://github.com/brunokktro/auladobruno#workshops--laborat%C3%B3rios)    |
 
@@ -474,7 +474,6 @@
 * [What is Continuous Delivery?](https://aws.amazon.com/devops/continuous-delivery/)
 * [What is Continuous Integration?](https://aws.amazon.com/devops/continuous-integration/)
 * [Configuration Drift: Phoenix Server vs Snowflake Server Comic](https://www.digitalocean.com/community/tutorials/configuration-drift-phoenix-server-vs-snowflake-server-comic)
-* [Containers na AWS - Immersion Day](https://pages.awscloud.com/LATAM_TRAINCERT_WEBINAR_immersion-day-containers-video-series_20200331_7010z000001LIBT_LPVideos-CostOptimizationVideoSeries.html)
 * [Walkthrough: Refer to resource outputs in another AWS CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html)
 * [AWS CloudFormation Sample templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-sample-templates.html)
 * [AWS CloudFormation best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
@@ -698,20 +697,24 @@
 ### Running Containers on Amazon Elastic Kubernetes Service
 
 * [Amazon Elastic Kubernetes Service (EKS) Primer](https://www.aws.training/Details/eLearning?id=32894)
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
-* []()
+* [Containers na AWS - Immersion Day](https://pages.awscloud.com/LATAM_TRAINCERT_WEBINAR_immersion-day-containers-video-series_20200331_7010z000001LIBT_LPVideos-CostOptimizationVideoSeries.html)
+* [16 Benefícios do Amazon EKS para se considerar quando escolher sua opção de deploy](https://aws.amazon.com/pt/blogs/aws-brasil/16-beneficios-do-amazon-eks-para-se-considerar-quando-escolher-sua-opcao-de-deploy/)
+* [Self-managed nodes](https://docs.aws.amazon.com/eks/latest/userguide/worker.html)
+* [Managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)
+* [The eksctl command line utility](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+* [eksctl - The official CLI for Amazon EKS](https://eksctl.io/)
+* [Cluster VPC considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
+* [Deploy a Kubernetes Application](https://aws.amazon.com/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/)
+* [How to build container images with Amazon EKS on Fargate](https://aws.amazon.com/blogs/containers/how-to-build-container-images-with-amazon-eks-on-fargate/)
+* [How to capture application logs when using Amazon EKS on AWS Fargate](https://aws.amazon.com/pt/blogs/containers/how-to-capture-application-logs-when-using-amazon-eks-on-aws-fargate/)
+* [Fluent Bit for Amazon EKS on AWS Fargate is here](https://aws.amazon.com/pt/blogs/containers/fluent-bit-for-amazon-eks-on-aws-fargate-is-here/)
+* [Install SSM Agent on Amazon EKS worker nodes by using Kubernetes DaemonSet](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/install-ssm-agent-on-amazon-eks-worker-nodes-by-using-kubernetes-daemonset.html)
+* [Getting started with AWS App Mesh and Amazon EKS](https://aws.amazon.com/blogs/containers/getting-started-with-app-mesh-and-eks/)
+* [Amazon EKS networking](https://docs.aws.amazon.com/eks/latest/userguide/eks-networking.html)
+* [Pod networking (CNI)](https://docs.aws.amazon.com/eks/latest/userguide/pod-networking.html)
+* [Installing aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
+* [Managing users or IAM roles for your cluster](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html)
+* [Installing Calico on Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/calico.html)
 
 
 ### Arquiteturas de Referência & Tools
