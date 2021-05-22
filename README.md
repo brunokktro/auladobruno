@@ -27,11 +27,13 @@
 | ------------- |
 | [Architecting on AWS](https://github.com/brunokktro/auladobruno#architecting-on-aws) | 
 | [Advanced Architecting on AWS](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
+| [Migrating to AWS](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
 | [Cloud Financial Management for Builders](https://github.com/brunokktro/auladobruno#cloud-financial-management-for-builders)     |
 | [Planning and Designing Databases on AWS](https://github.com/brunokktro/auladobruno#planning-and-designing-databases-on-aws)     |
 | [Systems Operations on AWS](https://github.com/brunokktro/auladobruno#systems-operations-on-aws)    | 
 | [DevOps Engineering on AWS](https://github.com/brunokktro/auladobruno#devops-engineering-on-aws)    |
 | [Security Engineering on AWS](https://github.com/brunokktro/auladobruno#security-engineering-on-aws)    |
+| [Running Containers on Amazon Elastic Kubernetes Service](https://github.com/brunokktro/auladobruno#advanced-architecting-on-aws)     |
 | [Arquiteturas de Referência & Tools](https://github.com/brunokktro/auladobruno#arquiteturas-de-refer%C3%AAncia--tools)    |
 | [Workshops & Laboratórios](https://github.com/brunokktro/auladobruno#workshops--laborat%C3%B3rios)    |
 
@@ -211,6 +213,29 @@
 * [Subscribe to AWS Public IP Address Changes via Amazon SNS](https://aws.amazon.com/blogs/aws/subscribe-to-aws-public-ip-address-changes-via-amazon-sns/)
 * [AWS Solutions - AWS Perspective](https://aws.amazon.com/solutions/implementations/aws-perspective/)
 * [Create real-time clickstream sessions and run analytics with Amazon Kinesis Data Analytics, AWS Glue, and Amazon Athena](https://aws.amazon.com/blogs/big-data/create-real-time-clickstream-sessions-and-run-analytics-with-amazon-kinesis-data-analytics-aws-glue-and-amazon-athena/)
+
+
+### Migrating to AWS
+
+* [AWS Foundations: Strategies and Tools to Perform Large-Scale Migrations (Portuguese)](https://www.aws.training/Details/Video?id=73813)
+* [Using a Cloud Center of Excellence (CCOE) to Transform the Entire Enterprise](https://aws.amazon.com/blogs/enterprise-strategy/using-a-cloud-center-of-excellence-ccoe-to-transform-the-entire-enterprise/)
+* [Mobilize your organization to accelerate large-scale migrations](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-migration/welcome.html)
+* [Yes, You Can Migrate Your Mainframe to the Cloud](https://aws.amazon.com/pt/blogs/enterprise-strategy/yes-you-can-migrate-your-mainframe-to-the-cloud/)
+* [Migrating AS/400 and IBM i Applications to AWS with Infinite](https://aws.amazon.com/pt/blogs/industries/migrating-as-400-and-ibm-i-applications-to-aws-with-infinite/)
+* [Customizations for AWS Control Tower](https://aws.amazon.com/solutions/implementations/customizations-for-aws-control-tower/)
+* [Control AWS resources available to your users using AWS Service Catalog](https://aws.amazon.com/blogs/mt/control-aws-resources-available-to-your-users-using-aws-service-catalog/)
+* []()
+* [TSO Logic: Software Demo](https://youtu.be/z6IshDJgWRQ)
+* [Assessing Migration Readiness](https://docs.aws.amazon.com/whitepapers/latest/aws-migration-whitepaper/assessing-migration-readiness.html)
+* [Perform Discovery and Then Migrate](https://docs.aws.amazon.com/migrationhub/latest/ug/gs-new-user-discovery.html)
+* [Migrate applications using AWS SMS](https://docs.aws.amazon.com/server-migration-service/latest/userguide/application-migration.html)
+* [Migrating Azure VM to AWS using AWS SMS Connector for Azure](https://aws.amazon.com/blogs/compute/migrating-azure-vm-to-aws-using-aws-sms-connector-for-azure/)
+* [Containerizing a Java application on Linux](https://docs.aws.amazon.com/app2container/latest/UserGuide/start-containerize-java-app.html)
+* [Importing a disk as a snapshot using  VM Import/Export](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-import-snapshot.html)
+* [How to Use the New AWS Application Migration Service for Lift-and-Shift Migrations](https://aws.amazon.com/pt/blogs/aws/how-to-use-the-new-aws-application-migration-service-for-lift-and-shift-migrations/)
+* [Account and VPC Considerations for VMware Cloud on AWS](https://aws.amazon.com/pt/blogs/apn/account-and-vpc-considerations-for-vmware-cloud-on-aws/)
+* [Get VMware Server Information into AWS Migration Hub Using the Agentless AWS Discovery Connector](https://youtu.be/aq6ohCf6PBo)
+* [Five keys to a successful SAP migration on AWS](https://aws.amazon.com/blogs/awsforsap/five-keys-to-a-successful-sap-migration-on-aws/)
 
 
 ### Cloud Financial Management for Builders
