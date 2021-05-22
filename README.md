@@ -695,6 +695,25 @@
 * [Raising the bar on storage: How to improve your disaster recovery, ransomware prevention, and backup strategy](https://aws.amazon.com/blogs/publicsector/raise-bar-storage-how-improve-disaster-recovery-ransomware-prevention-backup-strategy/)
 
 
+### Running Containers on Amazon Elastic Kubernetes Service
+
+* [Amazon Elastic Kubernetes Service (EKS) Primer](https://www.aws.training/Details/eLearning?id=32894)
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+* []()
+
+
 ### Arquiteturas de Referência & Tools
 
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
