@@ -490,6 +490,7 @@
 * [Working with repositories in AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/repositories.html)
 * [Validating AWS CodeCommit Pull Requests with AWS CodeBuild and AWS Lambda](https://aws.amazon.com/blogs/devops/validating-aws-codecommit-pull-requests-with-aws-codebuild-and-aws-lambda/)
 * [Tutorial: Create a simple pipeline (CodeCommit repository)](https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-codecommit.html)
+* [Multi-branch CodePipeline strategy with event-driven architecture](https://aws.amazon.com/blogs/devops/multi-branch-codepipeline-strategy-with-event-driven-architecture/)
 * [Amazon CodeGuru features](https://aws.amazon.com/codeguru/features/)
 * [New- Amazon DevOps Guru Helps Identify Application Errors and Fixes](https://aws.amazon.com/blogs/aws/amazon-devops-guru-machine-learning-powered-service-identifies-application-errors-and-fixes/)
 * [Software Package Management with AWS CodeArtifact](https://aws.amazon.com/blogs/aws/software-package-management-with-aws-codeartifact/)
