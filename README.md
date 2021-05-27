@@ -478,6 +478,7 @@
 * [AWS CloudFormation Sample templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-sample-templates.html)
 * [AWS CloudFormation best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
 * [Integrating AWS CloudFormation Guard into CI/CD pipelines](https://aws.amazon.com/blogs/devops/integrating-aws-cloudformation-guard/)
+* [Introducing AWS CloudFormation Guard 2.0](https://aws.amazon.com/blogs/mt/introducing-aws-cloudformation-guard-2-0/)
 * [CloudFormation Update – CLI + Third-Party Resource Support + Registry](https://aws.amazon.com/blogs/aws/cloudformation-update-cli-third-party-resource-support-registry/)
 * [Infrastructure as Code](https://d1.awsstatic.com/whitepapers/DevOps/infrastructure-as-code.pdf?trk=wp_card)
 * [AWS CDK examples](https://docs.aws.amazon.com/cdk/latest/guide/about_examples.html)
