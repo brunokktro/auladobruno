@@ -224,6 +224,7 @@
 * [Migrating AS/400 and IBM i Applications to AWS with Infinite](https://aws.amazon.com/pt/blogs/industries/migrating-as-400-and-ibm-i-applications-to-aws-with-infinite/)
 * [Customizations for AWS Control Tower](https://aws.amazon.com/solutions/implementations/customizations-for-aws-control-tower/)
 * [Control AWS resources available to your users using AWS Service Catalog](https://aws.amazon.com/blogs/mt/control-aws-resources-available-to-your-users-using-aws-service-catalog/)
+* [Migration Evaluator: Agentless Collector Installation Walkthrough](https://youtu.be/Ez5n6I7NOo4)
 * [TSO Logic: Software Demo](https://youtu.be/z6IshDJgWRQ)
 * [Assessing Migration Readiness](https://docs.aws.amazon.com/whitepapers/latest/aws-migration-whitepaper/assessing-migration-readiness.html)
 * [Perform Discovery and Then Migrate](https://docs.aws.amazon.com/migrationhub/latest/ug/gs-new-user-discovery.html)
