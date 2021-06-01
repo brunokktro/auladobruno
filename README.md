@@ -791,6 +791,7 @@
 * [TOOLS unofficial] [Rhino Security Labs - Cloud Container Attack](https://github.com/RhinoSecurityLabs/ccat)
 * [TOOLS unofficial] [Console Recorder for AWS](https://github.com/iann0036/AWSConsoleRecorder)
 * [TOOLS unofficial] [Netflix ConsoleMe](https://github.com/Netflix/consoleme)
+* [TOOLS unofficial] [Netflix Weep](https://github.com/Netflix/weep)
 * [TOOLS unofficial] [Twemproxy (nutcracker)](https://github.com/twitter/twemproxy)
 * [TOOLS unofficial] [Docker Samples](https://docs.docker.com/samples/)
 * [TOOLS unofficial] [MySQL Samples](https://dev.mysql.com/doc/index-other.html)
