@@ -667,6 +667,7 @@
 * [How do I use CloudFront to serve a static website hosted on Amazon S3?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
 * [Reduce DDoS Risks Using Amazon Route 53 and AWS Shield](https://aws.amazon.com/blogs/aws/reduce-ddos-risks-using-amazon-route-53-and-aws-shield/)
 * [AWS Shield Threat Landscape report is now available](https://aws.amazon.com/blogs/security/aws-shield-threat-landscape-report-now-available/)
+* [AWS re:Invent 2016: Mitigating DDoS Attacks on AWS: Five Vectors and Four Use Cases](https://youtu.be/w9fSW6qMktA)
 * [AWS WAF Security Automations](https://aws.amazon.com/solutions/implementations/aws-waf-security-automations/)
 * [Simplify Login with Application Load Balancer Built-in Authentication](https://aws.amazon.com/blogs/aws/built-in-authentication-in-alb/)
 * [Application Load Balancers Now Support Multiple TLS Certificates With Smart Selection Using SNI](https://aws.amazon.com/blogs/aws/new-application-load-balancer-sni/)
