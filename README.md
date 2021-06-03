@@ -490,6 +490,7 @@
 * [Using Federated Identities with AWS CodeCommit](https://aws.amazon.com/blogs/devops/using-federated-identities-with-aws-codecommit/)
 * [Migrate a repository incrementally](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-push-large-repositories.html)
 * [Working with repositories in AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/repositories.html)
+* [Integrate GitHub monorepo with AWS CodePipeline to run project-specific CI/CD pipelines](https://aws.amazon.com/blogs/devops/integrate-github-monorepo-with-aws-codepipeline-to-run-project-specific-ci-cd-pipelines/)
 * [Validating AWS CodeCommit Pull Requests with AWS CodeBuild and AWS Lambda](https://aws.amazon.com/blogs/devops/validating-aws-codecommit-pull-requests-with-aws-codebuild-and-aws-lambda/)
 * [Tutorial: Create a simple pipeline (CodeCommit repository)](https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-codecommit.html)
 * [Multi-branch CodePipeline strategy with event-driven architecture](https://aws.amazon.com/blogs/devops/multi-branch-codepipeline-strategy-with-event-driven-architecture/)
