@@ -659,6 +659,7 @@
 * [How to Use Nubeva with Amazon VPC Traffic Mirroring to Gain Decrypted Visibility of Your Network Traffic](https://aws.amazon.com/blogs/apn/how-to-use-nubeva-with-amazon-vpc-traffic-mirroring-to-gain-decrypted-visibility-of-your-network-traffic/)
 * [New – VPC Traffic Mirroring – Capture & Inspect Network Traffic](https://aws.amazon.com/blogs/aws/new-vpc-traffic-mirroring/)
 * [Securing messages published to Amazon SNS with AWS PrivateLink](https://aws.amazon.com/blogs/security/securing-messages-published-to-amazon-sns-with-aws-privatelink/)
+* [AWS Client VPN - Scenarios and examples](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/scenario.html)
 * [AWS Direct Connect + VPN](https://docs.aws.amazon.com/whitepapers/latest/aws-vpc-connectivity-options/aws-direct-connect-vpn.html)
 * [How do I establish an AWS VPN over an AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/create-vpn-direct-connect/)
 * [Adding MACsec security to AWS Direct Connect connections](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-macsec-security-to-aws-direct-connect-connections/)
