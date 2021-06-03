@@ -792,6 +792,7 @@
 * [TOOLS unofficial] [Lambda Load Testing](https://github.com/krapes/lambdaLoadTesting)
 * [TOOLS unofficial] [Awesome Honeypots](https://github.com/paralax/awesome-honeypots)
 * [TOOLS unofficial] [Modern Honey Network](https://github.com/threatstream/mhn)
+* [TOOLS unofficial] [OWASP ZAP](https://github.com/zaproxy/zaproxy)
 * [TOOLS unofficial] [Rhino Security Labs - Pacu](https://github.com/RhinoSecurityLabs/pacu)
 * [TOOLS unofficial] [Rhino Security Labs - CloudGoat](https://github.com/RhinoSecurityLabs/cloudgoat)
 * [TOOLS unofficial] [Rhino Security Labs - Cloud Container Attack](https://github.com/RhinoSecurityLabs/ccat)
