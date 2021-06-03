@@ -590,6 +590,7 @@
 * [AWS Services in Scope by Compliance Program](https://aws.amazon.com/compliance/services-in-scope/)
 * [PCI Compliance on AWS](https://aws.amazon.com/compliance/pci-dss-level-1-faqs/)
 * [AWS Security Incident Response Guide](https://d1.awsstatic.com/whitepapers/aws_security_incident_response.pdf)
+* [Provable Security - Automated Reasoning](https://aws.amazon.com/security/provable-security/)
 * [AWS IP Address Ranges](https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html)
 * [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
 * [Limitations on IAM Entities and Objects](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html)
