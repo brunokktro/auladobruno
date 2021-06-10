@@ -762,6 +762,7 @@
 * [TOOLS] [AWS Health Aware](https://github.com/aws-samples/aws-health-aware)
 * [TOOLS] [Trusted Advisor Tools](https://github.com/aws/Trusted-Advisor-Tools)
 * [TOOLS] [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
+* [TOOLS] [Macie Findings integration with Slack Channel](https://github.com/aws-samples/macie-findings-to-slack)
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
 * [TOOLS] [Data Transfer Hub - S3 Plugin](https://github.com/awslabs/amazon-s3-data-replication-hub-plugin)
