@@ -556,6 +556,7 @@
 * [Amazon ECS Task Placement Strategies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html)
 * [Private Registry Authentication for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/private-auth.html)
 * [Implementing DevSecOps Using AWS CodePipeline](https://aws.amazon.com/blogs/devops/implementing-devsecops-using-aws-codepipeline/)
+* [Building end-to-end AWS DevSecOps CI/CD pipeline with open source SCA, SAST and DAST tools](https://aws.amazon.com/blogs/devops/building-end-to-end-aws-devsecops-ci-cd-pipeline-with-open-source-sca-sast-and-dast-tools/)
 * [Scanning Docker Images for Vulnerabilities using Clair, Amazon ECS, ECR, and AWS CodePipeline](https://aws.amazon.com/blogs/compute/scanning-docker-images-for-vulnerabilities-using-clair-amazon-ecs-ecr-aws-codepipeline/)
 * [How to Bake Open Source Security into Your AWS CodeBuild Pipeline](https://aws.amazon.com/blogs/apn/how-to-bake-open-source-security-into-your-aws-codebuild-pipeline/)
 * [Scanning images with Trivy in an AWS CodePipeline](https://aws.amazon.com/blogs/containers/scanning-images-with-trivy-in-an-aws-codepipeline/)
