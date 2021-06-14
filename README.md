@@ -443,6 +443,7 @@
 * [AWS OpsHub for Snow Family](https://youtu.be/_A3A47Vuu0I)
 * [Amazon S3 performance and cost optimization](https://d1.awsstatic.com/events/reinvent/2019/REPEAT_4_Amazon_S3_performance_and_cost_optimization_STG320-R4.pdf)
 * [What are the differences between data and management events in CloudTrail?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudtrail-data-management-events/)
+* [AWS Compute Optimizer – Your Customized Resource Optimization Service](https://aws.amazon.com/blogs/aws/aws-compute-optimizer-your-customized-resource-optimization-service/)
 * [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [CloudWatch Logs Agent Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html)
 * [CloudWatch Events Tutorials](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/CloudWatch-Events-Tutorials.html)
