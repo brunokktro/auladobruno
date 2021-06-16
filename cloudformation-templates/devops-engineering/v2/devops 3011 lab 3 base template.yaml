@@ -1,0 +1,303 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Automate code deployments with AWS CodePipeline - Lab 3 Template
+Parameters:
+  KeyName:
+    Type: 'AWS::EC2::KeyPair::KeyName'
+    Description: Keyname for the keypair for the instance
+  VPCCIDR:
+    Description: CIDR Block for VPC
+    Type: String
+    Default: 10.20.0.0/16
+    AllowedValues:
+      - 10.20.0.0/16
+  PublicSubnet1Param:
+    Description: Public Subnet 1
+    Type: String
+    Default: 10.20.10.0/24
+    AllowedValues:
+      - 10.20.10.0/24
+  LatestWindows2019AMI:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: /aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base
+  pInstanceRoleManagedPolicy:
+    Description: Managed Policy to attach to EC2 instance
+    Type: String
+    Default: AmazonSSMManagedInstanceCore
+    AllowedValues:
+      - AmazonSSMManagedInstanceCore
+Resources:
+  Cloud9:
+    Type: 'AWS::Cloud9::EnvironmentEC2'
+    Properties:
+      InstanceType: t2.micro
+      SubnetId: !Ref PublicSubnet1
+      OwnerArn: !Sub 'arn:aws:iam::${AWS::AccountId}:user/awsstudent'
+      Name: Lab-3
+  CodeDeployServiceRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: CodeDeployServiceRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service:
+                - codedeploy.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AWSCodeDeployRole'
+      Path: /
+  CodePipelineServiceRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Description: A service role for CodePipeline to perform deployments in Lab 3
+      RoleName: CodePipelineServiceRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+            Action: 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: CodePipelineLab3
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 'codedeploy:CreateDeployment'
+                  - 'codedeploy:GetApplicationRevision'
+                  - 'codedeploy:GetDeployment'
+                  - 'codedeploy:GetDeploymentConfig'
+                  - 'codedeploy:RegisterApplicationRevision'
+                Resource: '*'
+                Effect: Allow
+              - Action:
+                  - 's3:GetObject'
+                  - 's3:GetObjectVersion'
+                  - 's3:GetBucketVersioning'
+                  - 's3:PutObject'
+                  - 's3:List*'
+                Resource:
+                  - 'arn:aws:s3:::codepipeline*'
+                  - 'arn:aws:s3:::*applicationsourcebucket*'
+                Effect: Allow
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: !Ref VPCCIDR
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Lab 3 VPC
+  InternetGateway:
+    Type: 'AWS::EC2::InternetGateway'
+    DependsOn: VPC
+  AttachGateway:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicSubnet1:
+    Type: 'AWS::EC2::Subnet'
+    DependsOn: AttachGateway
+    Properties:
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
+      CidrBlock: !Ref PublicSubnet1Param
+      AvailabilityZone: !Select 
+        - '0'
+        - !GetAZs ''
+      Tags:
+        - Key: Name
+          Value: Public Subnet 1
+  PublicRouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    DependsOn:
+      - AttachGateway
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public
+  PublicRoute:
+    Type: 'AWS::EC2::Route'
+    DependsOn:
+      - AttachGateway
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  PublicSubnet1RouteTableAssociation:
+    Type: 'AWS::EC2::SubnetRouteTableAssociation'
+    DependsOn:
+      - AttachGateway
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+  SSMRoleInstanceProfile:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      InstanceProfileName: !Sub 'ec2SSMRole-${AWS::StackName}'
+      Path: /
+      Roles:
+        - !Ref EC2Role
+  EC2Role:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: EC2InstanceRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - !Sub 'arn:aws:iam::aws:policy/${pInstanceRoleManagedPolicy}'
+      Path: /
+      Policies:
+        - PolicyName: AllowS3Access
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - 's3:Get*'
+                  - 's3:List*'
+                  - 's3:PutObject*'
+                Effect: Allow
+                Resource: '*'
+  EC2Profile:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      InstanceProfileName: EC2InstanceRole
+      Path: /
+      Roles:
+        - !Ref EC2Role
+  ReadOnlyGroup:
+    Type: 'AWS::IAM::Group'
+    Properties:
+      GroupName: QLReadOnly
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/ReadOnlyAccess'
+  GroupAssignment:
+    Type: 'AWS::IAM::UserToGroupAddition'
+    DependsOn: ReadOnlyGroup
+    Properties:
+      GroupName: QLReadOnly
+      Users:
+        - awsstudent
+  WindowsInstance1:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      AvailabilityZone: !Select 
+        - '0'
+        - !GetAZs ''
+      IamInstanceProfile: !Ref EC2Profile
+      ImageId: !Ref LatestWindows2019AMI
+      InstanceType: t3.large
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Lab3SG
+      Tags:
+        - Key: Name
+          Value: HeartBeat-Instance
+      UserData: !Base64 
+        'Fn::Sub': >
+          <powershell>
+
+          New-Item -ItemType Directory -Force -Path c:\temp
+
+          Read-S3Object -BucketName aws-codedeploy-${AWS::Region}/latest -Key
+          codedeploy-agent.msi -File c:\temp\codedeploy-agent.msi
+
+          Start-Sleep -s 120
+
+          Start-Process c:\temp\codedeploy-agent.msi '/qn /l*v
+          c:\temp\host-agent-install-log.txt'
+
+          Start-Sleep -s 30
+
+          Start-Process c:\temp\codedeploy-agent.msi '/qn /l*v
+          c:\temp\host-agent-install-log.txt'
+
+          </powershell> 
+  WindowsInstance2:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      AvailabilityZone: !Select 
+        - '0'
+        - !GetAZs ''
+      IamInstanceProfile: !Ref EC2Profile
+      ImageId: !Ref LatestWindows2019AMI
+      InstanceType: t3.large
+      KeyName: !Ref KeyName
+      SubnetId: !Ref PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Lab3SG
+      Tags:
+        - Key: Name
+          Value: HeartBeat-Instance
+      UserData: !Base64 
+        'Fn::Sub': >
+          <powershell>
+
+          New-Item -ItemType Directory -Force -Path c:\temp
+
+          Read-S3Object -BucketName aws-codedeploy-${AWS::Region}/latest -Key
+          codedeploy-agent.msi -File c:\temp\codedeploy-agent.msi
+
+          Start-Sleep -s 120
+
+          Start-Process c:\temp\codedeploy-agent.msi '/qn /l*v
+          c:\temp\host-agent-install-log.txt'
+
+          Start-Sleep -s 30
+
+          Start-Process c:\temp\codedeploy-agent.msi '/qn /l*v
+          c:\temp\host-agent-install-log.txt'
+
+          </powershell> 
+  Lab3SG:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: A security group for lab 3 that allows RDP access
+      GroupName: Lab 3 Security Group
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: udp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3389
+          ToPort: 3389
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref VPC
+  ApplicationSourceBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+Outputs:
+  LabApplicationSourceBucket:
+    Description: Student Application S3 Bucket
+    Value: !Ref ApplicationSourceBucket
+  LabRegion:
+    Description: This is the AWS region that this lab was launched in.
+    Value: !Ref 'AWS::Region'
+    Export:
+      Name: LabRegion
