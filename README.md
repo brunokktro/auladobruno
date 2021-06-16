@@ -521,6 +521,8 @@
 * [How do I set up dynamic port mapping for Amazon ECS?](https://aws.amazon.com/premiumsupport/knowledge-center/dynamic-port-mapping-ecs/)
 * [Building Windows containers with AWS CodePipeline and custom actions](https://aws.amazon.com/blogs/devops/building-windows-containers-with-aws-codepipeline-and-custom-actions/)
 * [Continuous Deployment to Amazon ECS using AWS CodePipeline, AWS CodeBuild, Amazon ECR, and AWS CloudFormation](https://aws.amazon.com/blogs/compute/continuous-deployment-to-amazon-ecs-using-aws-codepipeline-aws-codebuild-amazon-ecr-and-aws-cloudformation/)
+* [CI/CD on Amazon EKS using AWS CodeCommit, AWS CodePipeline, AWS CodeBuild, and FluxCD](https://aws.amazon.com/blogs/devops/ci-cd-on-amazon-eks-using-aws-codecommit-aws-codepipeline-aws-codebuild-and-fluxcd/)
+* [Continuous Deployment to Kubernetes using AWS CodePipeline, AWS CodeCommit, AWS CodeBuild, Amazon ECR and AWS Lambda](https://aws.amazon.com/blogs/devops/continuous-deployment-to-kubernetes-using-aws-codepipeline-aws-codecommit-aws-codebuild-amazon-ecr-and-aws-lambda/)
 * [AWS X-Ray console](https://docs.aws.amazon.com/xray/latest/devguide/xray-console.html)
 * [Debugging with Amazon CloudWatch Synthetics and AWS X-Ray](https://aws.amazon.com/blogs/devops/debugging-with-amazon-cloudwatch-synthetics-and-aws-x-ray/)
 * [Integrating AWS X-Ray with other AWS services](https://docs.aws.amazon.com/xray/latest/devguide/xray-services.html)
