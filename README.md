@@ -592,6 +592,7 @@
 
 ### Security Engineering on AWS
 
+* [AWS Service Capabilities for Privacy Considerations](https://aws.amazon.com/compliance/data-privacy/service-capabilities/)
 * [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
 * [AWS Cloud Adoption Framework (CAF) - Security Perspective](https://d1.awsstatic.com/whitepapers/AWS_CAF_Security_Perspective.pdf)
 * [Navegando na conformidade com a LGPD na AWS](https://d1.awsstatic.com/whitepapers/pt_BR/compliance/LGPD_Compliance_on_AWS.pdf)
