@@ -309,6 +309,7 @@
 * [Amazon DynamoDB global tables](https://aws.amazon.com/dynamodb/global-tables/)
 * [How to use Amazon DynamoDB global tables to power multiregion architectures](https://aws.amazon.com/blogs/database/how-to-use-amazon-dynamodb-global-tables-to-power-multiregion-architectures/)
 * [Amazon DynamoDB auto scaling: Performance and cost optimization at any scale](https://aws.amazon.com/blogs/database/amazon-dynamodb-auto-scaling-performance-and-cost-optimization-at-any-scale/)
+* [New – Export Amazon DynamoDB Table Data to Your Data Lake in Amazon S3, No Code Writing Required](https://aws.amazon.com/blogs/aws/new-export-amazon-dynamodb-table-data-to-data-lake-amazon-s3/)
 * [I'm using an on-demand DynamoDB table, but I'm still getting throttled. Why?](https://aws.amazon.com/premiumsupport/knowledge-center/on-demand-table-throttling-dynamodb/)
 * [Optimize Amazon DynamoDB scan latency through schema design](https://aws.amazon.com/blogs/database/optimizing-amazon-dynamodb-scan-latency-through-schema-design/)
 * [How Amazon DynamoDB adaptive capacity accommodates uneven data access patterns (or, why what you know about DynamoDB might be outdated)](https://aws.amazon.com/blogs/database/how-amazon-dynamodb-adaptive-capacity-accommodates-uneven-data-access-patterns-or-why-what-you-know-about-dynamodb-might-be-outdated/)
