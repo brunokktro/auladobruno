@@ -9,6 +9,7 @@
 - [X] Revise o arquivo [_Exam Guide_](https://aws.amazon.com/certification/certification-prep/) do respectivo exame de certificação
 - [X] Defina uma estratégia eficiente de estudos. Há algumas técnicas bem interessantes como o [_Retrieval_](https://aws.amazon.com/blogs/training-and-certification/using-retrieval-practice-techniques-to-improve-learning/), [_Spaced_](https://aws.amazon.com/blogs/training-and-certification/use-spaced-practice-to-increase-learning-retention/) e o [_Elaboration_](https://aws.amazon.com/blogs/training-and-certification/cognitive-science-post-3-using-elaboration-to-reinforce-your-understanding-of-concepts/)
 - [X] Faça um treinamento presencial oficial da AWS em [aws.training](https://www.aws.training/)
+- [X] Organize um roteiro sequencial de estudos, usando os [_Ramp-Up Guides_](https://aws.amazon.com/training/ramp-up-guides/)
 - [X] Faça laboratórios e ganhe experiência prática
 - [X] Revise o arquivo de **_Sample Questions_** do respectivo exame de certificação
 - [X] Revise os _whitepapers_ e **FAQs** dos serviços que estão no escopo do exame de certificação
