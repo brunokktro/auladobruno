@@ -774,6 +774,7 @@
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
 * [TOOLS] [AWS Health Aware](https://github.com/aws-samples/aws-health-aware)
+* [TOOLS] [AWS Deployment Framework](https://github.com/awslabs/aws-deployment-framework)
 * [TOOLS] [Trusted Advisor Tools](https://github.com/aws/Trusted-Advisor-Tools)
 * [TOOLS] [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
 * [TOOLS] [Macie Findings integration with Slack Channel](https://github.com/aws-samples/macie-findings-to-slack)
