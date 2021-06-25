@@ -485,6 +485,7 @@
 * [Walkthrough: Refer to resource outputs in another AWS CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/walkthrough-crossstackref.html)
 * [AWS CloudFormation Sample templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/conditions-sample-templates.html)
 * [AWS CloudFormation best practices](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+* [CloudFormation helper scripts reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-helper-scripts-reference.html)
 * [Integrating AWS CloudFormation Guard into CI/CD pipelines](https://aws.amazon.com/blogs/devops/integrating-aws-cloudformation-guard/)
 * [Introducing AWS CloudFormation Guard 2.0](https://aws.amazon.com/blogs/mt/introducing-aws-cloudformation-guard-2-0/)
 * [CloudFormation Update – CLI + Third-Party Resource Support + Registry](https://aws.amazon.com/blogs/aws/cloudformation-update-cli-third-party-resource-support-registry/)
