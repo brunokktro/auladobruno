@@ -239,6 +239,7 @@
 * [Account and VPC Considerations for VMware Cloud on AWS](https://aws.amazon.com/pt/blogs/apn/account-and-vpc-considerations-for-vmware-cloud-on-aws/)
 * [VMware Cloud on AWS - Network Design Fundamentals](https://docs.vmware.com/en/VMware-Validated-Design/services/sddc-extending-to-vmware-cloud-on-aws/GUID-69150A86-54F7-43EB-A171-C8BBFC04FF0E.html)
 * [VMware Cloud on AWS - NSX-T Networking Concepts](https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.networking-security/GUID-658253DB-F384-4040-94B2-DF2AC3C9D396.html)
+* [VMware Cloud on AWS: Advanced Networking and Security with NSX-T SDDC](https://blogs.vmware.com/networkvirtualization/2018/08/vmware-cloud-on-aws-advanced-networking-and-security-with-nsx-t-sddc.html/)
 * [Get VMware Server Information into AWS Migration Hub Using the Agentless AWS Discovery Connector](https://youtu.be/aq6ohCf6PBo)
 * [Five keys to a successful SAP migration on AWS](https://aws.amazon.com/blogs/awsforsap/five-keys-to-a-successful-sap-migration-on-aws/)
 
