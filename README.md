@@ -717,6 +717,8 @@
 * [Introducing the Cloud Development Kit for Terraform (Preview)](https://aws.amazon.com/blogs/developer/introducing-the-cloud-development-kit-for-terraform-preview/)
 * [AWS Control Tower](https://hackmd.io/@matheuslra/r1o5k2-Xw)
 * [AWS Control Tower – Set up & Govern a Multi-Account AWS Environment](https://aws.amazon.com/blogs/aws/aws-control-tower-set-up-govern-a-multi-account-aws-environment/)
+* [Guardrail Reference](https://docs.aws.amazon.com/controltower/latest/userguide/guardrails-reference.html)
+* [AWS Solutions - Customizations for AWS Control Tower](https://aws.amazon.com/solutions/implementations/customizations-for-aws-control-tower/)
 * [AWS Centralized Logging](https://aws.amazon.com/solutions/centralized-logging/)
 * [Vulnerability and Penetration Testing](https://aws.amazon.com/security/penetration-testing/)
 * [Penetration Testing in the AWS Cloud: What You Need to Know](https://rhinosecuritylabs.com/penetration-testing/penetration-testing-aws-cloud-need-know/)
