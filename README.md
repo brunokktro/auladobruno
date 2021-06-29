@@ -787,6 +787,7 @@
 * [TOOLS] [AWS Deployment Framework](https://github.com/awslabs/aws-deployment-framework)
 * [TOOLS] [Trusted Advisor Tools](https://github.com/aws/Trusted-Advisor-Tools)
 * [TOOLS] [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
+* [TOOLS] [IAM Access Key-Auto rotation](https://github.com/aws-samples/aws-iam-access-key-auto-rotation)
 * [TOOLS] [Macie Findings integration with Slack Channel](https://github.com/aws-samples/macie-findings-to-slack)
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
