@@ -142,6 +142,7 @@
 * [How do I create a certificate-based VPN using AWS Site-to-Site VPN?](https://aws.amazon.com/premiumsupport/knowledge-center/vpn-certificate-based-site-to-site/#)
 * [Improve VPN Network Performance of AWS Hybrid Cloud with Global Accelerator](https://aws.amazon.com/blogs/architecture/improve-vpn-network-performance-of-aws-hybrid-cloud-with-global-accelerator/)
 * [Integrating AWS Transit Gateway with AWS PrivateLink and Amazon Route 53 Resolver](https://aws.amazon.com/blogs/networking-and-content-delivery/integrating-aws-transit-gateway-with-aws-privatelink-and-amazon-route-53-resolver/)
+* [How can I use AWS RAM to share Route 53 Resolver rules across multiple VPCs and AWS accounts?](https://aws.amazon.com/premiumsupport/knowledge-center/route-53-share-resolver-rules-with-ram/)
 * [Centralized DNS management of hybrid cloud with Amazon Route 53 and AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-dns-management-of-hybrid-cloud-with-amazon-route-53-and-aws-transit-gateway/)
 * [How can I configure VPN as a backup for my AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/configure-vpn-backup-dx/)
 * [How do I configure Direct Connect and VPN failover with Transit Gateway?](https://aws.amazon.com/premiumsupport/knowledge-center/dx-configure-dx-and-vpn-failover-tgw/)
