@@ -56,6 +56,7 @@
 * [Amazon S3 + Amazon CloudFront: A Match Made in the Cloud](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-s3-amazon-cloudfront-a-match-made-in-the-cloud/)
 * [How to set up a CloudFront distribution for Amazon S3](https://aws.amazon.com/cloudfront/getting-started/S3/)
 * [Overview of Managing Access on S3](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-overview.html#so-which-one-should-i-use)
+* [Diving Deep on S3 Consistency](https://www.allthingsdistributed.com/2021/04/s3-strong-consistency.html)
 * [Amazon S3 Path Deprecation Plan – The Rest of the Story](https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/)
 * [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
 * [Spot Instance Advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)
