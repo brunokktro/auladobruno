@@ -210,6 +210,7 @@
 * [My DynamoDB table is being throttled](https://aws.amazon.com/premiumsupport/knowledge-center/dynamodb-table-throttled/)
 * [AWS Outposts Now Available – Order Yours Today!](https://aws.amazon.com/blogs/aws/aws-outposts-now-available-order-your-racks-today/)
 * [Caching Overview on AWS](https://aws.amazon.com/caching/)
+* [Lambda@Edge Example Functions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html)
 * [Introducing CloudFront Functions – Run Your Code at the Edge with Low Latency at Any Scale](https://aws.amazon.com/es/blogs/aws/introducing-cloudfront-functions-run-your-code-at-the-edge-with-low-latency-at-any-scale/)
 * [Amazon Builder's Library - Caching challenges and strategies](https://aws.amazon.com/builders-library/caching-challenges-and-strategies/)
 * [How to set up an outbound VPC proxy with domain whitelisting and content filtering](https://aws.amazon.com/blogs/security/how-to-set-up-an-outbound-vpc-proxy-with-domain-whitelisting-and-content-filtering/)
