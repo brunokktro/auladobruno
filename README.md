@@ -856,6 +856,7 @@
 * [Workshop] [AWS Workshops](https://workshops.aws/)
 * [Workshop] [AWSome AWS Workshops](https://awesome-aws-workshops.com/)
 * [Workshop] [AWS Well-Architected Labs](https://wellarchitectedlabs.com/)
+* [Workshop] [Modelo de Maturidade de Segurança da AWS](https://maturitymodel.security.aws.dev/pt/)
 * [Workshop] [AWS Cloud Champion](https://aws.amazon.com/blogs/publicsector/announcing-aws-cloud-champion-gamified-tutorial-working-teaching-engaging-remotely/)
 * [Workshop] [Networking Workshop - Transit Gateway and Traffic Mirroring](https://www.networking-workshop.com/#/)
 * [Workshop] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
