@@ -265,6 +265,8 @@
 * [How AWS Pricing Works: AWS Pricing Overview](https://docs.aws.amazon.com/whitepapers/latest/how-aws-pricing-works/welcome.html)
 * [Use Tagging to Organize Your Environment and Drive Accountability](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/tagging.html)
 * [Tagging Best Practices: Implement an Effective AWS Resource Tagging Strategy](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/welcome.html)
+* [Grant permission to tag resources during creation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/supported-iam-actions-tagging.html)
+* [Service Authorization Reference - list of the actions, resources, and condition keys that are supported by each AWS service](https://docs.aws.amazon.com/service-authorization/latest/reference/reference.html)
 * [Instance purchasing options](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-purchasing-options.html)
 * [Amazon EC2 Reserved Instances and Other AWS Reservation Models](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-reservation-models/welcome.html)
 * [Amazon EC2 Reserved Instance Marketplace](https://aws.amazon.com/ec2/purchasing-options/reserved-instances/marketplace/)
