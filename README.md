@@ -920,6 +920,7 @@
 * [VIDEO-LABS] [Developing on AWS](http://bit.ly/Devlabs)
 * [VIDEO-LABS] [Advanced Architecting on AWS - v2.8](http://bit.ly/aarclabs)
 * [VIDEO-LABS] [Advanced Architecting on AWS - v3.0](http://bit.ly/aarclabv3)
+* [VIDEO-LABS] [DevOps Engineering on AWS](http://bit.ly/tc-devop)
 * [VIDEO-LABS] [Security Engineering on AWS](http://bit.ly/seceng-labs)
 * [VIDEO-LABS] [Planning and Designing Database on AWS](http://bit.ly/PD_DBLAB)
 * [VIDEO-LABS] [Building Data Lake on AWS](http://bit.ly/lakelabs)
