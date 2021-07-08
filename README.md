@@ -723,6 +723,7 @@
 * [The Next Evolution in AWS Single Sign-On](https://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/)
 * [How to create and manage users within AWS Single Sign-On](https://aws.amazon.com/blogs/security/how-to-create-and-manage-users-within-aws-sso/)
 * [What's the difference between Amazon Cognito user pools and identity pools?](https://aws.amazon.com/premiumsupport/knowledge-center/cognito-user-pools-identity-pools/)
+* [How do I set up an Amazon Cognito user pool as an authorizer on an API Gateway REST API?](https://aws.amazon.com/premiumsupport/knowledge-center/api-gateway-cognito-user-pool-authorizer/)
 * [How to Use New Advanced Security Features for Amazon Cognito User Pools](https://aws.amazon.com/blogs/security/how-to-use-new-advanced-security-features-for-amazon-cognito-user-pools/)
 * [Adding Advanced Security to a User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html)
 * [SAML Security Cheat Sheet - OWASP](https://cheatsheetseries.owasp.org/cheatsheets/SAML_Security_Cheat_Sheet.html)
