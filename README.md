@@ -669,6 +669,7 @@
 * [Amazon Macie - User Guide](https://docs.aws.amazon.com/macie/latest/user/macie-user-guide.pdf)
 * [Using managed data identifiers in Amazon Macie](https://docs.aws.amazon.com/macie/latest/user/managed-data-identifiers.html#managed-data-identifiers-pii)
 * [Changing your Amazon S3 encryption from S3-Managed to AWS KMS](https://aws.amazon.com/blogs/storage/changing-your-amazon-s3-encryption-from-s3-managed-encryption-sse-s3-to-aws-key-management-service-sse-kms/)
+* [What does Amazon S3 replicate?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication-what-is-isnot-replicated.html)
 * [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
 * [Performing SQL database client-side encryption for multi-Region high availability](https://aws.amazon.com/blogs/database/performing-sql-database-client-side-encryption-for-multi-region-high-availability/)
 * [Monitor Amazon Aurora Database Activities Using DataSunrise Database Security](https://aws.amazon.com/es/blogs/database/monitor-amazon-aurora-database-activities-using-datasunrise-database-security/)
