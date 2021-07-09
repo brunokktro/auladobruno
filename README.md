@@ -824,6 +824,7 @@
 * [TOOLS] [AWS Device Farm Sample App for Android](https://github.com/aws-samples/aws-device-farm-sample-app-for-android)
 * [TOOLS] [Amazon DynamoDB Encryption Client for Python](https://github.com/aws/aws-dynamodb-encryption-python/)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
+* [TOOLS] [Amazon CloudFront Secure Static Website](https://github.com/aws-samples/amazon-cloudfront-secure-static-site)
 * [TOOLS unofficial] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws)
 * [TOOLS unofficial] [JMESPath](https://jmespath.org/)
 * [TOOLS unofficial] [JMESPath Terminal](https://github.com/jmespath/jmespath.terminal)
