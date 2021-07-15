@@ -301,6 +301,7 @@
 * [How can I update yum or install packages without internet access on my EC2 instances running Amazon Linux 1 or Amazon Linux 2?](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-al1-al2-update-yum-without-internet/)
 * [How do I enable the EPEL repository for my Amazon EC2 instance running CentOS, RHEL, or Amazon Linux?](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-enable-epel/)
 * [How can we regularly update a disconnected system (A system without internet connection)?](https://access.redhat.com/solutions/29269)
+* [Microsoft Licensing on AWS](https://aws.amazon.com/windows/resources/licensing/)
 * [Comparing NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
 * [Cloud Storage on AWS](https://aws.amazon.com/products/storage)
 * [Overview of managing clusters in Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html)
