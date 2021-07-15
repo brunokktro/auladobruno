@@ -886,6 +886,7 @@
 * [Workshop] [AWS Database Migration Workshop](https://dms-immersionday.workshop.aws)
 * [Workshop] [CloudEndure Migration Factory Workshop](https://aws-mf.s3.amazonaws.com/workshop/index.html)
 * [Workshop] [CloudEndure Deep Dive - Workshop](http://02h.s3-website.eu-central-1.amazonaws.com/)
+* [Workshop] [Disaster Recovery/Recuperação de Desastres na AWS](https://disaster-recovery.workshop.aws/pt)
 * [Workshop] [Migration Immersion Day](https://migration-immersionday.workshop.aws/en/)
 * [Workshop] [Migration and Modernization Workshop Guide](https://application-migration-with-aws.workshop.aws/)
 * [Workshop] [Kynesis Streaming Analytics Workshop](https://streaming-analytics.labgui.de/)
