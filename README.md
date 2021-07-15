@@ -822,6 +822,7 @@
 * [TOOLS] [Awesome CloudFormation](https://github.com/aws-cloudformation/awesome-cloudformation)
 * [TOOLS] [AWS CloudFormation Guard](https://github.com/aws-cloudformation/cloudformation-guard)
 * [TOOLS] [TaskCat](https://github.com/aws-quickstart/taskcat)
+* [TOOLS] [AWS CloudFormation Template Flip](https://github.com/awslabs/aws-cfn-template-flip)
 * [TOOLS] [AWS Device Farm Sample App for Android](https://github.com/aws-samples/aws-device-farm-sample-app-for-android)
 * [TOOLS] [Amazon DynamoDB Encryption Client for Python](https://github.com/aws/aws-dynamodb-encryption-python/)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
