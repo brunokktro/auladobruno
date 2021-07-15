@@ -762,6 +762,7 @@
 * [eksctl - The official CLI for Amazon EKS](https://eksctl.io/)
 * [Cluster VPC considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
 * [Deploy a Kubernetes Application](https://aws.amazon.com/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/)
+* [Operating a multi-regional stateless application using Amazon EKS](https://aws.amazon.com/blogs/containers/operating-a-multi-regional-stateless-application-using-amazon-eks/)
 * [How to build container images with Amazon EKS on Fargate](https://aws.amazon.com/blogs/containers/how-to-build-container-images-with-amazon-eks-on-fargate/)
 * [How to capture application logs when using Amazon EKS on AWS Fargate](https://aws.amazon.com/pt/blogs/containers/how-to-capture-application-logs-when-using-amazon-eks-on-aws-fargate/)
 * [Fluent Bit for Amazon EKS on AWS Fargate is here](https://aws.amazon.com/pt/blogs/containers/fluent-bit-for-amazon-eks-on-aws-fargate-is-here/)
