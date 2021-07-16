@@ -863,6 +863,7 @@
 * [TOOLS unofficial] [Timber - Logging appender for AWS S3](https://github.com/hone/timber)
 * [TOOLS unofficial] [AWS CloudFront CDN Edge Locations](https://www.feitsui.com/en/blog/page/3)
 * [TOOLS unofficial] [Lambda Load Testing](https://github.com/krapes/lambdaLoadTesting)
+* [TOOLS unofficial] [AWS Lambda Power Tuning](https://github.com/alexcasalboni/aws-lambda-power-tuning)
 * [TOOLS unofficial] [Awesome Honeypots](https://github.com/paralax/awesome-honeypots)
 * [TOOLS unofficial] [Modern Honey Network](https://github.com/threatstream/mhn)
 * [TOOLS unofficial] [OWASP ZAP](https://github.com/zaproxy/zaproxy)
