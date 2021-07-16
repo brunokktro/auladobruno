@@ -304,6 +304,7 @@
 * [Microsoft Licensing on AWS](https://aws.amazon.com/windows/resources/licensing/)
 * [Simplified Bring-Your-Own-License experience using AWS License Manager](https://aws.amazon.com/blogs/mt/simplified-byol-experience-using-aws-license-manager/)
 * [Simplify your BYOL Experience with Dedicated Host Management Capabilities in AWS License Manager](https://youtu.be/kukiDf9Ilcc)
+* [Best practices for working with AWS Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html#function-configuration)
 * [Comparing NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
 * [Cloud Storage on AWS](https://aws.amazon.com/products/storage)
 * [Overview of managing clusters in Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html)
