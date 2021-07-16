@@ -302,6 +302,8 @@
 * [How do I enable the EPEL repository for my Amazon EC2 instance running CentOS, RHEL, or Amazon Linux?](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-enable-epel/)
 * [How can we regularly update a disconnected system (A system without internet connection)?](https://access.redhat.com/solutions/29269)
 * [Microsoft Licensing on AWS](https://aws.amazon.com/windows/resources/licensing/)
+* [Simplified Bring-Your-Own-License experience using AWS License Manager](https://aws.amazon.com/blogs/mt/simplified-byol-experience-using-aws-license-manager/)
+* [Simplify your BYOL Experience with Dedicated Host Management Capabilities in AWS License Manager](https://youtu.be/kukiDf9Ilcc)
 * [Comparing NAT gateways and NAT instances](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-comparison.html)
 * [Cloud Storage on AWS](https://aws.amazon.com/products/storage)
 * [Overview of managing clusters in Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-operations.html)
