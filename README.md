@@ -408,6 +408,7 @@
 ### Systems Operations on AWS
 
 * [AWS Command Line Interface](https://aws.amazon.com/cli/)
+* [AWS CLI - Command completion](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html)
 * [AWS CLI v2 is now generally available](https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/)
 * [AWS Tools for PowerShell](https://aws.amazon.com/powershell/)
 * [Using the AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-using.html)
