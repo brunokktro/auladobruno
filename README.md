@@ -595,6 +595,7 @@
 * [AWS SAM template anatomy](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy.html)
 * [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
 * [Wait in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-wait-state.html)
+* [How to update AWS Service Catalog provisioned products to new product versions and report changes using AWS Step Functions, AWS Lambda, and Amazon Athena](https://aws.amazon.com/blogs/mt/how-to-update-aws-service-catalog-provisioned-products-to-new-product-versions-and-report-changes-using-aws-step-functions-aws-lambda-and-amazon-athena/)
 * [New – Local Mocking and Testing with the Amplify CLI](https://aws.amazon.com/blogs/aws/new-local-mocking-and-testing-with-the-amplify-cli/)
 * [Set up mock integrations in API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-mock-integration.html)
 * [Enable mock integration using the API Gateway console](https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-mock-integration-console.html)
