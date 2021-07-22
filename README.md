@@ -113,6 +113,7 @@
 * [Powering Gaming Applications with Amazon DynamoDB](https://aws.amazon.com/blogs/big-data/powering-gaming-applications-with-amazon-dynamodb/)
 * [Amazon DynamoDB: Gaming use cases and design patterns](https://aws.amazon.com/blogs/database/amazon-dynamodb-gaming-use-cases-and-design-patterns/)
 * [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/)
+* [Introducing AWS SAM Pipelines: Automatically generate deployment pipelines for serverless applications](https://aws.amazon.com/blogs/compute/introducing-aws-sam-pipelines-automatically-generate-deployment-pipelines-for-serverless-applications/)
 * [Firecracker – Lightweight Virtualization for Serverless Computing](https://aws.amazon.com/blogs/aws/firecracker-lightweight-virtualization-for-serverless-computing/)
 * [Video on Demand on AWS](https://aws.amazon.com/solutions/implementations/video-on-demand-on-aws/)
 * [Cross-Region Backups](https://docs.aws.amazon.com/aws-backup/latest/devguide/how-it-works-cross-region-replication.html)
