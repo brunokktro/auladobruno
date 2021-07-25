@@ -914,6 +914,7 @@
 * [Workshop] [Amazon EC2 Spot Instances Workshop](https://ec2spotworkshops.com/)
 * [Workshop] [Amazon CloudWatch](https://ako.aws-management.tools/tko372759/en/cw.html)
 * [Workshop] [SSM & Config](https://ako.aws-management.tools/tko372759/en/ssm.html)
+* [Workshop] [Building Event-Driven Architectures on AWS](https://event-driven-architecture.workshop.aws/)
 * [Workshop] [Amazon FSx Workshop](https://github.com/aws-samples/amazon-fsx-workshop)
 * [Workshop] [SQL Server Immersion Day](https://sql-immersionday.workshop.aws/)
 * [Workshop] [Windows Containers on AWS](https://ms-containers.workshop.aws/en/)
