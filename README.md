@@ -704,6 +704,7 @@
 * [Analyzing encrypted S3 objects with Amazon Macie](https://docs.aws.amazon.com/macie/latest/user/discovery-supported-encryption-types.html)
 * [Amazon Macie - User Guide](https://docs.aws.amazon.com/macie/latest/user/macie-user-guide.pdf)
 * [Using managed data identifiers in Amazon Macie](https://docs.aws.amazon.com/macie/latest/user/managed-data-identifiers.html#managed-data-identifiers-pii)
+* [Automate the archival and deletion of sensitive data using Amazon Macie](https://aws.amazon.com/blogs/big-data/automate-the-archival-and-deletion-of-sensitive-data-using-amazon-macie/)
 * [Changing your Amazon S3 encryption from S3-Managed to AWS KMS](https://aws.amazon.com/blogs/storage/changing-your-amazon-s3-encryption-from-s3-managed-encryption-sse-s3-to-aws-key-management-service-sse-kms/)
 * [What does Amazon S3 replicate?](https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication-what-is-isnot-replicated.html)
 * [Applying best practices for securing sensitive data in Amazon RDS](https://aws.amazon.com/blogs/database/applying-best-practices-for-securing-sensitive-data-in-amazon-rds/)
