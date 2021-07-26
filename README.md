@@ -253,6 +253,9 @@
 * [VMware Cloud on AWS - NSX-T Networking Concepts](https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.networking-security/GUID-658253DB-F384-4040-94B2-DF2AC3C9D396.html)
 * [VMware Cloud on AWS: Advanced Networking and Security with NSX-T SDDC](https://blogs.vmware.com/networkvirtualization/2018/08/vmware-cloud-on-aws-advanced-networking-and-security-with-nsx-t-sddc.html/)
 * [Get VMware Server Information into AWS Migration Hub Using the Agentless AWS Discovery Connector](https://youtu.be/aq6ohCf6PBo)
+* [Migrating ASP.NET applications to Elastic Beanstalk with Windows Web Application Migration Assistant](https://aws.amazon.com/blogs/devops/migrating-asp-net-applications-to-elastic-beanstalk-with-windows-web-application-migration-assistant/)
+* [AWS App2Container – A New Containerizing Tool for Java and .NET Applications](https://aws.amazon.com/blogs/aws/aws-app2container-a-new-containerizing-tool-for-java-and-asp-net-applications/)
+* [Open sourcing the Porting Assistant for .NET](https://aws.amazon.com/blogs/opensource/open-sourcing-the-porting-assistant-for-net/)
 * [Five keys to a successful SAP migration on AWS](https://aws.amazon.com/blogs/awsforsap/five-keys-to-a-successful-sap-migration-on-aws/)
 
 
