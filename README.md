@@ -853,6 +853,7 @@
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
 * [TOOLS] [Data Transfer Hub - S3 Plugin](https://github.com/awslabs/amazon-s3-data-replication-hub-plugin)
 * [TOOLS] [AWS Data Replication Hub](https://github.com/awslabs/aws-data-replication-hub)
+* [TOOLS] [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler)
 * [TOOLS] [Nextcloud Container Deployment on AWS - Serverless](https://github.com/aws-samples/aws-serverless-nextcloud)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
 * [TOOLS] [AWS ParallelCluster - HPC for the Cloud](https://github.com/aws/aws-parallelcluster)
