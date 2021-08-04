@@ -118,6 +118,7 @@
 * [Video on Demand on AWS](https://aws.amazon.com/solutions/implementations/video-on-demand-on-aws/)
 * [Cross-Region Backups](https://docs.aws.amazon.com/aws-backup/latest/devguide/how-it-works-cross-region-replication.html)
 * [Chaos Monkey](https://netflix.github.io/chaosmonkey/)
+* [How do I close my AWS account?](https://aws.amazon.com/premiumsupport/knowledge-center/close-aws-account/)
 
 
 ### Advanced Architecting on AWS
@@ -761,6 +762,9 @@
 * [How to Enable Server-Side LDAPS for Your AWS Managed Microsoft AD Directory](https://aws.amazon.com/blogs/security/how-to-enable-ldaps-for-your-aws-microsoft-ad-directory/)
 * [Building ADFS Federation for your Web App using Amazon Cognito User Pools](https://aws.amazon.com/blogs/mobile/building-adfs-federation-for-your-web-app-using-amazon-cognito-user-pools/)
 * [Field Notes: Integrating a Multi-Forest Source Environment with AWS SSO](https://aws.amazon.com/blogs/architecture/field-notes-integrating-a-multi-forest-source-environment-with-aws-sso/)
+* [New AWS SSO gallery app simplifies Azure AD set-up with AWS](https://aws.amazon.com/about-aws/whats-new/2021/03/new-aws-sso-gallery-app-simplifies-azure-ad-set-up-with-aws/)
+* [AWS SSO and Azure AD integration - step by step](https://controltower.aws-management.tools/aa/sso/azure_ad/)
+* [How to use G Suite as an external identity provider for AWS SSO](https://aws.amazon.com/blogs/security/how-to-use-g-suite-as-external-identity-provider-aws-sso/)
 * [The Next Evolution in AWS Single Sign-On](https://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/)
 * [How to create and manage users within AWS Single Sign-On](https://aws.amazon.com/blogs/security/how-to-create-and-manage-users-within-aws-sso/)
 * [AWS SSO - Supported applications](https://docs.aws.amazon.com/singlesignon/latest/userguide/saasapps.html#saasapps-supported)
