@@ -910,6 +910,7 @@
 * [TOOLS unofficial] [Docker Samples](https://docs.docker.com/samples/)
 * [TOOLS unofficial] [MySQL Samples](https://dev.mysql.com/doc/index-other.html)
 * [TOOLS unofficial] [Static Demo - 2048](https://github.com/goodrain/static-demo)
+* [TOOLS unofficial] [Cost report generator](https://github.com/trackit/aws-cost-report)
 
 
 ### Workshops & Laboratórios
