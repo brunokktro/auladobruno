@@ -763,6 +763,7 @@
 * [How to Enable Server-Side LDAPS for Your AWS Managed Microsoft AD Directory](https://aws.amazon.com/blogs/security/how-to-enable-ldaps-for-your-aws-microsoft-ad-directory/)
 * [Building ADFS Federation for your Web App using Amazon Cognito User Pools](https://aws.amazon.com/blogs/mobile/building-adfs-federation-for-your-web-app-using-amazon-cognito-user-pools/)
 * [Field Notes: Integrating a Multi-Forest Source Environment with AWS SSO](https://aws.amazon.com/blogs/architecture/field-notes-integrating-a-multi-forest-source-environment-with-aws-sso/)
+* [Field Notes: Integrating Active Directory Federation Service with AWS Single Sign-On](https://aws.amazon.com/blogs/architecture/field-notes-integrating-active-directory-federation-service-with-aws-single-sign-on/)
 * [New AWS SSO gallery app simplifies Azure AD set-up with AWS](https://aws.amazon.com/about-aws/whats-new/2021/03/new-aws-sso-gallery-app-simplifies-azure-ad-set-up-with-aws/)
 * [AWS SSO and Azure AD integration - step by step](https://controltower.aws-management.tools/aa/sso/azure_ad/)
 * [How to use G Suite as an external identity provider for AWS SSO](https://aws.amazon.com/blogs/security/how-to-use-g-suite-as-external-identity-provider-aws-sso/)
