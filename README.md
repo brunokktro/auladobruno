@@ -326,6 +326,7 @@
 ### Planning and Designing Databases on AWS
 
 * [Learning Path - Databases](https://aws.amazon.com/training/path-databases/)
+* [Six free courses for building modern apps with purpose-built databases](https://aws.amazon.com/blogs/training-and-certification/six-free-courses-for-building-modern-apps-with-purpose-built-databases/)
 * [Hands-On Tutorials - Move to managed databases](https://aws.amazon.com/getting-started/hands-on/move-to-managed/)
 * [Databases on AWS: The Right Tool for the Right Job](https://blogdolopez.files.wordpress.com/2020/11/sql_saturday_-_databases_on_aws_-_the_right_tool_for_the_right_job-1.pdf)
 * [Amazon RDS Multi-AZ Deployments](https://aws.amazon.com/rds/features/multi-az/)
