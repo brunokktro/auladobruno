@@ -860,6 +860,7 @@
 * [TOOLS] [Macie Findings integration with Slack Channel](https://github.com/aws-samples/macie-findings-to-slack)
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Amazon S3 Find and Forget](https://github.com/awslabs/amazon-s3-find-and-forget)
+* [TOOLS] [Multi-Attach EBS volumes across multiple hosts using GFS2](https://github.com/aws-samples/clustered-storage-gfs2)
 * [TOOLS] [Data Transfer Hub - S3 Plugin](https://github.com/awslabs/amazon-s3-data-replication-hub-plugin)
 * [TOOLS] [AWS Data Replication Hub](https://github.com/awslabs/aws-data-replication-hub)
 * [TOOLS] [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler)
