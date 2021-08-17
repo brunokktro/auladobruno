@@ -127,6 +127,7 @@
 * [AWS Config: Checking for Compliance with New Managed Rule Options](https://aws.amazon.com/blogs/devops/aws-config-checking-for-compliance-with-new-managed-rule-options/)
 * [AWS re:Invent 2019: Advanced VPC design and new capabilities for Amazon VPC](https://youtu.be/7acKgdDOOu4)
 * [Route 53 - Choosing between alias and non-alias records](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html)
+* [New – Application Load Balancing via IP Address to AWS & On-Premises Resources](https://aws.amazon.com/blogs/aws/new-application-load-balancing-via-ip-address-to-aws-on-premises-resources/)
 * [Amazon VPC for On-Premises Network Engineers – Part 1](https://aws.amazon.com/blogs/apn/amazon-vpc-for-on-premises-network-engineers-part-one/)
 * [Amazon VPC for On-Premises Network Engineers – Part 2](https://aws.amazon.com/blogs/apn/amazon-vpc-for-on-premises-network-engineers-part-two/)
 * [How do I increase my security group limits in Amazon VPC?](https://aws.amazon.com/premiumsupport/knowledge-center/increase-security-group-rule-limit/)
