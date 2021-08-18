@@ -918,6 +918,7 @@
 * [TOOLS unofficial] [MySQL Samples](https://dev.mysql.com/doc/index-other.html)
 * [TOOLS unofficial] [Static Demo - 2048](https://github.com/goodrain/static-demo)
 * [TOOLS unofficial] [Cost report generator](https://github.com/trackit/aws-cost-report)
+* [TOOLS unofficial] [aws-nuke - cleanup AWS Account](https://github.com/rebuy-de/aws-nuke)
 
 
 ### Workshops & Laboratórios
