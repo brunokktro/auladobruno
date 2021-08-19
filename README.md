@@ -146,6 +146,8 @@
 * [How do I create a certificate-based VPN using AWS Site-to-Site VPN?](https://aws.amazon.com/premiumsupport/knowledge-center/vpn-certificate-based-site-to-site/#)
 * [Configurando uma conexão VPN site a site entre a AWS e o Azure](https://aws.amazon.com/pt/blogs/aws-brasil/configurando-uma-conexao-vpn-site-a-site-entre-a-aws-e-o-azure/)
 * [Improve VPN Network Performance of AWS Hybrid Cloud with Global Accelerator](https://aws.amazon.com/blogs/architecture/improve-vpn-network-performance-of-aws-hybrid-cloud-with-global-accelerator/)
+* [Configure and Deploy AWS PrivateLink](https://www.aws.training/Details/eLearning?id=54077)
+* [AWS PrivateLink Update – VPC Endpoints for Your Own Applications & Services](https://aws.amazon.com/blogs/aws/aws-privatelink-update-vpc-endpoints-for-your-own-applications-services/)
 * [Integrating AWS Transit Gateway with AWS PrivateLink and Amazon Route 53 Resolver](https://aws.amazon.com/blogs/networking-and-content-delivery/integrating-aws-transit-gateway-with-aws-privatelink-and-amazon-route-53-resolver/)
 * [How can I use AWS RAM to share Route 53 Resolver rules across multiple VPCs and AWS accounts?](https://aws.amazon.com/premiumsupport/knowledge-center/route-53-share-resolver-rules-with-ram/)
 * [Centralized DNS management of hybrid cloud with Amazon Route 53 and AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-dns-management-of-hybrid-cloud-with-amazon-route-53-and-aws-transit-gateway/)
