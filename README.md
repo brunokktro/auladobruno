@@ -149,6 +149,7 @@
 * [Configure and Deploy AWS PrivateLink](https://www.aws.training/Details/eLearning?id=54077)
 * [AWS PrivateLink Update – VPC Endpoints for Your Own Applications & Services](https://aws.amazon.com/blogs/aws/aws-privatelink-update-vpc-endpoints-for-your-own-applications-services/)
 * [Integrating AWS Transit Gateway with AWS PrivateLink and Amazon Route 53 Resolver](https://aws.amazon.com/blogs/networking-and-content-delivery/integrating-aws-transit-gateway-with-aws-privatelink-and-amazon-route-53-resolver/)
+* [Interface endpoint properties and limitations (PrivateLink Limitations)](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-interface.html#vpce-interface-limitations)
 * [How can I use AWS RAM to share Route 53 Resolver rules across multiple VPCs and AWS accounts?](https://aws.amazon.com/premiumsupport/knowledge-center/route-53-share-resolver-rules-with-ram/)
 * [Centralized DNS management of hybrid cloud with Amazon Route 53 and AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-dns-management-of-hybrid-cloud-with-amazon-route-53-and-aws-transit-gateway/)
 * [How can I configure VPN as a backup for my AWS Direct Connect connection?](https://aws.amazon.com/premiumsupport/knowledge-center/configure-vpn-backup-dx/)
