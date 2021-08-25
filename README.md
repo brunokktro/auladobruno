@@ -582,6 +582,7 @@
 * [Detect and react to changes in pipeline state with Amazon CloudWatch Events](https://docs.aws.amazon.com/codepipeline/latest/userguide/detect-state-changes-cloudwatch-events.html)
 * [Building a Secure Cross-Account Continuous Delivery Pipeline](https://aws.amazon.com/blogs/devops/aws-building-a-secure-cross-account-continuous-delivery-pipeline/)
 * [Create a pipeline in CodePipeline that uses resources from another AWS account](https://docs.aws.amazon.com/codepipeline/latest/userguide/pipelines-create-cross-account.html)
+* [Integrating SonarCloud with AWS CodePipeline using AWS CodeBuild](https://aws.amazon.com/blogs/devops/integrating-sonarcloud-with-aws-codepipeline-using-aws-codebuild/)
 * [Amazon ECS and Load balancer types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/load-balancer-types.html)
 * [How do I set up dynamic port mapping for Amazon ECS?](https://aws.amazon.com/premiumsupport/knowledge-center/dynamic-port-mapping-ecs/)
 * [Building Windows containers with AWS CodePipeline and custom actions](https://aws.amazon.com/blogs/devops/building-windows-containers-with-aws-codepipeline-and-custom-actions/)
