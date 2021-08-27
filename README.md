@@ -882,6 +882,7 @@
 * [TOOLS] [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler)
 * [TOOLS] [Nextcloud Container Deployment on AWS - Serverless](https://github.com/aws-samples/aws-serverless-nextcloud)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
+* [TOOLS] [AWS Amplify Identity Broker with Cognito](https://github.com/awslabs/aws-amplify-identity-broker)
 * [TOOLS] [AWS IAM Authenticator for Kubernetes](https://github.com/kubernetes-sigs/aws-iam-authenticator)
 * [TOOLS] [AWS ParallelCluster - HPC for the Cloud](https://github.com/aws/aws-parallelcluster)
 * [TOOLS] [AWS Dev Fabric for SQL Server](https://github.com/aws-samples/aws-dev-fabric-for-sql-server)
