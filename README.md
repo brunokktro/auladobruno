@@ -280,6 +280,7 @@
 * [Standardize Names for AWS Resources](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/standardize-names-for-aws-resources.html)
 * [Grant permission to tag resources during creation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/supported-iam-actions-tagging.html)
 * [Service Authorization Reference - list of the actions, resources, and condition keys that are supported by each AWS service](https://docs.aws.amazon.com/service-authorization/latest/reference/reference.html)
+* [Visualizing AWS Config data using Amazon Athena and Amazon QuickSight](https://aws.amazon.com/blogs/mt/visualizing-aws-config-data-using-amazon-athena-and-amazon-quicksight/#step-7)
 * [Query and Visualize AWS Cost and Usage Data Using Amazon Athena and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/query-and-visualize-aws-cost-and-usage-data-using-amazon-athena-and-amazon-quicksight/)
 * [How do I ingest and visualize the AWS Cost and Usage Report (CUR) into Amazon QuickSight?](https://aws.amazon.com/premiumsupport/knowledge-center/quicksight-cost-usage-report/)
 * [Introducing AWS Application Cost Profiler, offering user-based cost data of shared AWS resources](https://aws.amazon.com/blogs/aws-cost-management/introducing-aws-application-cost-profiler-offering-user-based-cost-data-of-shared-aws-resources/)
