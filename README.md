@@ -205,6 +205,7 @@
 * [Enable large-scale database migrations with AWS DMS and AWS Snowball](https://aws.amazon.com/blogs/storage/enable-large-scale-database-migrations-with-aws-dms-and-aws-snowball/)
 * [Query any data source with Amazon Athena’s new federated query](https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/)
 * [Harmonize, Query, and Visualize Data from Various Providers using AWS Glue, Amazon Athena, and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/harmonize-query-and-visualize-data-from-various-providers-using-aws-glue-amazon-athena-and-amazon-quicksight/)
+* [Developing AWS Glue ETL jobs locally using a container](https://aws.amazon.com/pt/blogs/big-data/developing-aws-glue-etl-jobs-locally-using-a-container/)
 * [Setting Up AWS Lake Formation](https://docs.aws.amazon.com/lake-formation/latest/dg/getting-started-setup.html)
 * [Implicit Lake Formation Permissions](https://docs.aws.amazon.com/lake-formation/latest/dg/implicit-permissions.html)
 * [Blueprints and Workflows in Lake Formation](https://docs.aws.amazon.com/lake-formation/latest/dg/workflows-about.html)
