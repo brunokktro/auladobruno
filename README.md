@@ -756,6 +756,7 @@
 * [Amazon EventBridge - Events from AWS services](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-service-event.html)
 * [Managed Renewal for ACM's Amazon-Issued Certificates ](https://docs.aws.amazon.com/acm/latest/userguide/managed-renewal.html)
 * [Why did my ACM certificate fail automatic renewal?](https://aws.amazon.com/premiumsupport/knowledge-center/certificate-fails-to-auto-renew/)
+* [Can I switch my ACM certificate’s validation method?](https://aws.amazon.com/premiumsupport/knowledge-center/switch-acm-certificate/)
 * [What Is Amazon Kinesis Agent for Microsoft Windows?](https://docs.aws.amazon.com/kinesis-agent-windows/latest/userguide/what-is-kinesis-agent-windows.html)
 * [Tutorial: Sending VPC Flow Logs to Splunk Using Amazon Kinesis Data Firehose ](https://docs.aws.amazon.com/firehose/latest/dev/vpc-splunk-tutorial.html)
 * [Scale Amazon Kinesis Data Streams with AWS Application Auto Scaling](https://aws.amazon.com/blogs/big-data/scaling-amazon-kinesis-data-streams-with-aws-application-auto-scaling/)
