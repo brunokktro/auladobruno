@@ -917,6 +917,7 @@
 * [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
 * [TOOLS unofficial] [The Grinder](http://grinder.sourceforge.net/)
 * [TOOLS unofficial] [Apache JMeter](https://jmeter.apache.org/)
+* [TOOLS unofficial] [kubectl](https://kubernetes.io/docs/tasks/tools/)
 * [TOOLS unofficial] [eksctl](https://github.com/weaveworks/eksctl)
 * [TOOLS unofficial] [Rancher](https://github.com/rancher/rancher)
 * [TOOLS unofficial] [Dockerfile-lint](https://github.com/projectatomic/dockerfile_lint)
