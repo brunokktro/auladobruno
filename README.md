@@ -428,6 +428,7 @@
 * [AWS Command Line Interface](https://aws.amazon.com/cli/)
 * [AWS CLI - Command completion](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-completion.html)
 * [AWS CLI v2 is now generally available](https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/)
+* [AWS CLI - Configuration and credential file settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html#cli-config-cli_auto_prompt)
 * [AWS Tools for PowerShell](https://aws.amazon.com/powershell/)
 * [Using the AWS Tools for Windows PowerShell](https://docs.aws.amazon.com/powershell/latest/userguide/pstools-using.html)
 * [AWS Tools for PowerShell Cmdlet Reference](https://docs.aws.amazon.com/powershell/latest/reference/index.html)
