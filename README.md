@@ -1025,6 +1025,7 @@
 * [VIDEO-LABS] [DevOps Engineering on AWS](http://bit.ly/tc-devop)
 * [VIDEO-LABS] [Security Engineering on AWS](http://bit.ly/seceng-labs)
 * [VIDEO-LABS] [Planning and Designing Database on AWS](http://bit.ly/PD_DBLAB)
+* [VIDEO-LABS] [Big Data on AWS](http://bit.ly/tc-biglabs)
 * [VIDEO-LABS] [Building Data Lake on AWS](http://bit.ly/lakelabs)
 * [VIDEO-LABS] [Running Containers on Amazon EKS](http://bit.ly/awstc-ekslabs)
 * [VIDEO-LABS] [Deep Learning on AWS](http://bit.ly/deeplabs)
