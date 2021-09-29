@@ -610,6 +610,7 @@
 * [Can I have common environment variables for a group of Lambda functions?](https://aws.amazon.com/premiumsupport/knowledge-center/lambda-common-environment-variables/)
 * [Announcing improved VPC networking for AWS Lambda functions](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/)
 * [Improved Testing on the AWS Lambda Console](https://aws.amazon.com/blogs/compute/improved-testing-on-the-aws-lambda-console/)
+* [Understanding the Different Ways to Invoke Lambda Functions](https://aws.amazon.com/blogs/architecture/understanding-the-different-ways-to-invoke-lambda-functions/)
 * [AWS SAM template anatomy](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy.html)
 * [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
 * [Wait in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-wait-state.html)
