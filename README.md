@@ -110,6 +110,7 @@
 * [Can I use a single CloudFront web distribution to serve content from multiple origins using multiple behaviors?](https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-distribution-serve-content/)
 * [Implementation Considerations - Learn Caching Design Patterns](https://aws.amazon.com/caching/implementation-considerations/)
 * [Caching Content Based on Query String Parameters](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/QueryStringParameters.html)
+* [Amazon API Gateway - Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html)
 * [Powering Gaming Applications with Amazon DynamoDB](https://aws.amazon.com/blogs/big-data/powering-gaming-applications-with-amazon-dynamodb/)
 * [Amazon DynamoDB: Gaming use cases and design patterns](https://aws.amazon.com/blogs/database/amazon-dynamodb-gaming-use-cases-and-design-patterns/)
 * [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/)
