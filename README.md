@@ -1032,7 +1032,8 @@
 * [VIDEO-LABS] [Building Data Lake on AWS](http://bit.ly/lakelabs)
 * [VIDEO-LABS] [Running Containers on Amazon EKS](http://bit.ly/awstc-ekslabs)
 * [VIDEO-LABS] [Deep Learning on AWS](http://bit.ly/deeplabs)
-* [VIDEO-LABS] [Moving to AWS Serverless](http://bit.ly/TC-MTAS )
+* [VIDEO-LABS] [Moving to AWS Serverless](http://bit.ly/TC-MTAS)
+* [VIDEO-LABS] [Migrating to AWS - v2.0](http://bit.ly/tc-migration)
 * [VIDEO-LABS] [IoT in Scale: IoT Solution using AWS Services](http://bit.ly/iotscale)
 
 
