@@ -566,6 +566,8 @@
 * [Validating AWS CodeCommit Pull Requests with AWS CodeBuild and AWS Lambda](https://aws.amazon.com/blogs/devops/validating-aws-codecommit-pull-requests-with-aws-codebuild-and-aws-lambda/)
 * [Tutorial: Create a simple pipeline (CodeCommit repository)](https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-codecommit.html)
 * [Multi-branch CodePipeline strategy with event-driven architecture](https://aws.amazon.com/blogs/devops/multi-branch-codepipeline-strategy-with-event-driven-architecture/)
+* [Building a Cross-account CI/CD Pipeline](https://cross-account-cicd-pipeline.workshop.aws/)
+* [Building a CI/CD pipeline for cross-account deployment of an AWS Lambda API with the Serverless Framework](https://aws.amazon.com/blogs/devops/building-a-ci-cd-pipeline-for-cross-account-deployment-of-an-aws-lambda-api-with-the-serverless-framework/)
 * [Amazon CodeGuru features](https://aws.amazon.com/codeguru/features/)
 * [New- Amazon DevOps Guru Helps Identify Application Errors and Fixes](https://aws.amazon.com/blogs/aws/amazon-devops-guru-machine-learning-powered-service-identifies-application-errors-and-fixes/)
 * [Software Package Management with AWS CodeArtifact](https://aws.amazon.com/blogs/aws/software-package-management-with-aws-codeartifact/)
