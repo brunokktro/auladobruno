@@ -734,6 +734,7 @@
 * [AWS: Allows MFA-authenticated IAM users to manage their own credentials on the my security credentials page](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_my-sec-creds-self-manage.html)
 * [Using SSL/TLS to Encrypt a Connection to a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html)
 * [Best practices for securing sensitive data in AWS data stores](https://aws.amazon.com/blogs/database/best-practices-for-securing-sensitive-data-in-aws-data-stores/)
+* [What S3 bucket policy should I use to comply with the AWS Config rule s3-bucket-ssl-requests-only?](https://aws.amazon.com/premiumsupport/knowledge-center/s3-bucket-policy-for-config-rule/)
 * [Serving SSE-KMS encrypted content from S3 using CloudFront](https://aws.amazon.com/blogs/networking-and-content-delivery/serving-sse-kms-encrypted-content-from-s3-using-cloudfront/)
 * [Analyzing encrypted S3 objects with Amazon Macie](https://docs.aws.amazon.com/macie/latest/user/discovery-supported-encryption-types.html)
 * [Amazon Macie - User Guide](https://docs.aws.amazon.com/macie/latest/user/macie-user-guide.pdf)
