@@ -922,6 +922,7 @@
 * [TOOLS unofficial] [AWSume: AWS Assume Made Awesome](https://awsu.me/)
 * [TOOLS unofficial] [AWS IP Ranges](http://52.24.200.194/)
 * [TOOLS unofficial] [Cloudcraft - Create smart AWS diagrams](https://cloudcraft.co/)
+* [TOOLS unofficial] [Awesome SNS](https://github.com/ranman/awesome-sns)
 * [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
 * [TOOLS unofficial] [The Grinder](http://grinder.sourceforge.net/)
 * [TOOLS unofficial] [Apache JMeter](https://jmeter.apache.org/)
