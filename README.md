@@ -633,6 +633,7 @@
 * [How can I allocate memory to tasks in Amazon ECS?](https://aws.amazon.com/premiumsupport/knowledge-center/allocate-ecs-memory-tasks/)
 * [Image scanning - Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html)
 * [Scanning Docker Images for Vulnerabilities using Clair, Amazon ECS, ECR, and AWS CodePipeline](https://aws.amazon.com/blogs/compute/scanning-docker-images-for-vulnerabilities-using-clair-amazon-ecs-ecr-aws-codepipeline/)
+* [How the Bottlerocket build system works](https://aws.amazon.com/blogs/opensource/how-the-bottlerocket-build-system-works/)
 * [Implementing DevSecOps Using AWS CodePipeline](https://aws.amazon.com/blogs/devops/implementing-devsecops-using-aws-codepipeline/)
 * [Building end-to-end AWS DevSecOps CI/CD pipeline with open source SCA, SAST and DAST tools](https://aws.amazon.com/blogs/devops/building-end-to-end-aws-devsecops-ci-cd-pipeline-with-open-source-sca-sast-and-dast-tools/)
 * [How to Bake Open Source Security into Your AWS CodeBuild Pipeline](https://aws.amazon.com/blogs/apn/how-to-bake-open-source-security-into-your-aws-codebuild-pipeline/)
