@@ -905,6 +905,7 @@
 * [TOOLS] [Snapshot Tool for Amazon Aurora](https://github.com/awslabs/aurora-snapshot-tool)
 * [TOOLS] [Amazon DynamoDB Encryption Client for Python](https://github.com/aws/aws-dynamodb-encryption-python/)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
+* [TOOLS] [Karpenter for Kubernetes](https://github.com/awslabs/karpenter)
 * [TOOLS] [Nextcloud Container Deployment on AWS - Serverless](https://github.com/aws-samples/aws-serverless-nextcloud)
 * [TOOLS] [AWS SSM Chaos Runner](https://github.com/amzn/awsssmchaosrunner)
 * [TOOLS] [AWS Amplify Identity Broker with Cognito](https://github.com/awslabs/aws-amplify-identity-broker)
