@@ -614,6 +614,8 @@
 * [Announcing improved VPC networking for AWS Lambda functions](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/)
 * [Improved Testing on the AWS Lambda Console](https://aws.amazon.com/blogs/compute/improved-testing-on-the-aws-lambda-console/)
 * [Understanding the Different Ways to Invoke Lambda Functions](https://aws.amazon.com/blogs/architecture/understanding-the-different-ways-to-invoke-lambda-functions/)
+* [Serverless COBOL: Rejuvenating legacy code with open source software — Part 1](https://aws.amazon.com/blogs/opensource/serverless-cobol-rejuvenating-legacy-code-with-open-source-software/)
+* [Serverless COBOL: Rejuvenating legacy code with open source software — Part 2](https://aws.amazon.com/blogs/opensource/serverless-cobol-rejuvenating-legacy-code-with-open-source-software-part-2/)
 * [AWS SAM template anatomy](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-specification-template-anatomy.html)
 * [Error handling in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html)
 * [Wait in Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-wait-state.html)
@@ -864,6 +866,7 @@
 
 * [AWS Quick Starts](https://aws.amazon.com/quickstart/)
 * [AWS Solutions](https://aws.amazon.com/solutions/)
+* [Serverless Land](https://serverlessland.com/)
 * [AWS CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-sample-templates.html)
 * [AWS SAM - Serverless Application Repository](https://serverlessrepo.aws.amazon.com/applications)
 * [AWS Samples](https://github.com/aws-samples)
