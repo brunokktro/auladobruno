@@ -1,0 +1,868 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Migration using CloudEndure
+Parameters:
+  resourcePrefix:
+    Type: String
+    Default: Target
+  amazonLinuxAMI:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2'
+  sourceInstanceType:
+    Type: String
+    Default: t3.micro
+  ##Network Parameters
+  vpcCidrBase:
+    Type: String
+    Default: "10.0"
+  vpcCidrLength:
+    Type: String
+    Default: "21"
+  pubSubnetLength:
+    Type: String
+    Default: "24"
+  priSubnetLength:
+    Type: String
+    Default: "23"
+  sourceVpcCidrBase:
+    Type: String
+    Default: "10.1"
+  ##AD Parameters
+  LatestWindowsCoreAMI:
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: /aws/service/ami-windows-latest/Windows_Server-2022-English-Core-Base
+    # Default: /aws/service/ami-windows-latest/Windows_Server-2019-English-Core-Base
+    # Default: /aws/service/ami-windows-latest/Windows_Server-2019-English-Base
+  domainName:
+    Type: String
+    Default: example.com
+  ResourcePassword:
+    Type: String
+    NoEcho: true
+    Default: hh5mXQH!Db
+Resources:
+##Network Resources
+  vpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Sub ${vpcCidrBase}.0.0/${vpcCidrLength}
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${resourcePrefix}-VPC
+  pubSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      MapPublicIpOnLaunch: True
+      AvailabilityZone: 
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      VpcId: !Ref vpc
+      CidrBlock: !Sub ${vpcCidrBase}.0.0/${pubSubnetLength}
+      Tags:
+        - Key: Name
+          Value: !Sub ${resourcePrefix}-Public-a
+  priSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: 
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      VpcId: !Ref vpc
+      CidrBlock: !Sub ${vpcCidrBase}.2.0/${priSubnetLength}
+      Tags:
+        - Key: Name
+          Value: !Sub ${resourcePrefix}-Private-a
+  priSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: 
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      VpcId: !Ref vpc
+      CidrBlock: !Sub ${vpcCidrBase}.4.0/${priSubnetLength}
+      Tags:
+        - Key: Name
+          Value: !Sub ${resourcePrefix}-Private-b
+  igw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub ${resourcePrefix}-IGW
+  attachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref vpc
+      InternetGatewayId: !Ref igw
+  pubRt:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpc
+      Tags:
+        - Key: Name
+          Value:  !Sub ${resourcePrefix}-public-RT
+  pubRtAssocA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref pubSubnetA
+      RouteTableId: !Ref pubRt
+  igwRoute:
+    Type: AWS::EC2::Route
+    DependsOn: attachGateway
+    Properties:
+      RouteTableId: !Ref pubRt
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref igw
+  priRtA:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpc
+      Tags:
+        - Key: Name
+          Value:  !Sub ${resourcePrefix}-private-RTa
+  priRtAssocA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref priSubnetA
+      RouteTableId: !Ref priRtA
+  priRtB:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpc
+      Tags:
+        - Key: Name
+          Value:  !Sub ${resourcePrefix}-private-RTb
+  priRtAssocB:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref priSubnetB
+      RouteTableId: !Ref priRtB
+  natGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt natEip.AllocationId
+      SubnetId: !Ref pubSubnetA
+  natEip:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: !Ref vpc
+  defaultPrivateRouteA:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref priRtA
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref natGateway
+  defaultPrivateRouteB:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref priRtB
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref natGateway
+
+##Source Network Resources
+  sourceVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Sub ${sourceVpcCidrBase}.0.0/${vpcCidrLength}
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Source-VPC
+  sourcePubSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      MapPublicIpOnLaunch: True
+      AvailabilityZone: 
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      VpcId: !Ref sourceVpc
+      CidrBlock: !Sub ${sourceVpcCidrBase}.0.0/${pubSubnetLength}
+      Tags:
+        - Key: Name
+          Value: OnPrem Public DMZ
+  sourcePriSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: 
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      VpcId: !Ref sourceVpc
+      CidrBlock: !Sub ${sourceVpcCidrBase}.2.0/${priSubnetLength}
+      Tags:
+        - Key: Name
+          Value: OnPrem Private Network
+  sourceIgw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Source-IGW
+  sourceAttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref sourceVpc
+      InternetGatewayId: !Ref sourceIgw
+  sourcePubRt:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref sourceVpc
+      Tags:
+        - Key: Name
+          Value:  Source-public-RT
+  sourcePubRtAssocA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref sourcePubSubnetA
+      RouteTableId: !Ref sourcePubRt
+  sourceIgwRoute:
+    Type: AWS::EC2::Route
+    DependsOn: sourceAttachGateway
+    Properties:
+      RouteTableId: !Ref sourcePubRt
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref sourceIgw
+  sourcePriRtA:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref sourceVpc
+      Tags:
+        - Key: Name
+          Value:  Source-Private-RTa
+  sourcePriRtAssocA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref sourcePriSubnetA
+      RouteTableId: !Ref sourcePriRtA
+  sourceNatGw:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt sourceEip.AllocationId
+      SubnetId: !Ref sourcePubSubnetA
+  sourceEip:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: !Ref sourceVpc
+  sourceDefaultPrivateRouteA:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref sourcePriRtA
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref sourceNatGw
+
+##Lab workloads
+  labAdAdminPassword :
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Value: !Ref ResourcePassword
+      Name: lab-adAdminPassword
+  labAdSafeModePassword:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Value: !Ref ResourcePassword
+      Name: lab-safeModePassword
+  labDomainName:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Value: !Ref domainName
+      Name: lab-domainName
+  adInstallHold:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Type: String
+      Value: go
+      Name: lab-ad-hold
+  domainSecGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Domain Access
+      VpcId: !Ref sourceVpc
+      Tags:
+        - Key: Name
+          Value: Domain Security Group
+  SecurityGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref domainSecGroup
+      IpProtocol: "-1"
+      SourceSecurityGroupId: !Ref domainSecGroup
+  targetIcmpIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId: !Ref domainSecGroup
+      IpProtocol: "icmp"
+      FromPort: -1
+      ToPort: -1
+      CidrIp: !Sub ${vpcCidrBase}.0.0/${vpcCidrLength}
+  createADDocument:
+    Type: AWS::SSM::Document
+    Properties:
+      DocumentType: Command
+      Content:
+        schemaVersion: "2.2"
+        description: "Command Document Example JSON Template"
+        mainSteps:
+        - action: "aws:runPowerShellScript"
+          name: "example"
+          inputs:
+            runCommand:
+            - !Sub |
+              Write-Output(Write-Output(Get-Date))
+              Write-Output("Installing Dependencies...")
+              Install-WindowsFeature AD-Domain-Services -IncludeAllSubFeature
+              Install-WindowsFeature DNS -IncludeAllSubFeature
+              Import-Module ADDSDeployment
+              Import-Module DnsServer
+              Write-Output("checking for existing domain")
+
+              function verifyPromo {
+                Write-Output("checking for promotion reboot hold")
+                $adUpdate = $(Get-SSMParameter -Name "lab-ad-hold").Value
+                if ($adUpdate -eq "go") {
+                  $domain = Get-ADDomain -ErrorAction SilentlyContinue
+                  if ($domain){
+                    Write-Output("Promotion complete")
+                    Write-SSMParameter -Name "lab-ad-hold" -Value "go" -Overwrite $true
+                  }
+                  Return;
+                }
+                do {
+                  Write-Output("waiting before retry")
+                  Start-Sleep -Seconds 30
+                  Write-Output("Checking for promotion reboot hold")
+                  $domain = Get-ADDomain -ErrorAction SilentlyContinue
+                  if ($domain){
+                    Write-Output("Promotion complete")
+                    Write-SSMParameter -Name "lab-ad-hold" -Value "go" -Overwrite $true
+                  }
+                  $adUpdate = $(Get-SSMParameter -Name "lab-ad-hold").Value
+                } until ($adUpdate -eq "go")
+              }
+              verifyPromo
+              $domain = Get-ADDomain -ErrorAction SilentlyContinue
+              if(-not $domain){
+                Write-Output("Not a member of existing domain, installing forest")
+                $DomainName = "{{ssm:lab-domainName}}"
+                $AD_Database_Path = "C:"
+                $safePwd = ConvertTo-SecureString "{{ssm:lab-safeModePassword}}" -AsPlainText -Force
+                Install-ADDSForest `
+                -DomainName $DomainName `
+                -InstallDns `
+                -DomainMode WinThreshold `
+                -ForestMode WinThreshold `
+                -DatabasePath $AD_Database_Path\Windows\NTDS `
+                -SysvolPath $AD_Database_Path\Windows\SYSVOL `
+                -LogPath $AD_Database_Path\Windows\Logs `
+                -SafeModeAdministratorPassword @safePwd `
+                -NoRebootOnCompletion `
+                -Force
+                Write-Output("Rebooting")
+                Write-Output(Get-Date)
+                Write-SSMParameter -Name "lab-ad-hold" -Value "hold" -Overwrite $true
+                exit 3010
+              }
+              
+              Write-Output(Get-Date)
+              Write-Output("Checking for Admin User")
+              Import-Module ActiveDirectory
+              $adAdmin = get-ADUser adadmin -ErrorAction SilentlyContinue
+              if(-not $adAdmin){
+                Write-Output("No admin user found, creating")
+                $pwd = ConvertTo-SecureString "{{ssm:lab-adAdminPassword}}" -AsPlainText -Force
+                New-ADUser -Name adAdmin -Enabled $true -AccountPassword $pwd
+                Add-ADGroupMember -Identity "Enterprise Admins" -Members adAdmin
+                Add-ADGroupMember -Identity "Domain Admins" -Members adAdmin
+              }
+
+              Write-Output(Get-Date)
+              Write-Output("Checking for Domain User")
+              $roUser = get-ADUser roUser -ErrorAction SilentlyContinue
+              if(-not $roUser){
+                Write-Output("No domain user found, creating")
+                Import-Module ActiveDirectory
+                $pwd = ConvertTo-SecureString "{{ssm:lab-adAdminPassword}}" -AsPlainText -Force
+                New-ADUser -Name roUser -Enabled $true -AccountPassword $pwd
+              }
+              $awsUsers = Get-ADGroup awsUsers -ErrorAction SilentlyContinue
+              if(-not $awsUsers){
+                Write-Output("No awsUser found, creating")
+                New-ADGroup -Name awsUsers -GroupScope Global
+                Add-ADGroupMember -Identity awsUsers -Members roUser
+              }
+              netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol="icmpv4:8,any" dir=in action=allow
+              Write-Output(Get-Date)
+              cfn-signal.exe -s true "${domainHandle}"
+              Write-Output("Finished")
+  domainController:
+    Type: AWS::EC2::Instance
+    DependsOn: 
+      - sourceDefaultPrivateRouteA
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          default:
+            - 00_setupCfnHup
+            - 01_CfnHup_service
+            - 02_installCWAgent
+            - 03_config-amazon-cloudwatch-agent
+            - 04_restart_amazon-cloudwatch-agent
+          UpdateEnvironment:
+            - 03_config-amazon-cloudwatch-agent
+            - 04_restart_amazon-cloudwatch-agent
+        # Cfn-hup setting, it is to monitor the change of metadata.
+        # When there is change in the contents of json file in the metadata section, cfn-hup will call cfn-init to restart the AmazonCloudWatchAgent.
+        00_setupCfnHup:
+          files:
+            c:\\cfn\\cfn-hup.conf:
+              content: !Sub |
+                [main]
+                stack=${AWS::StackId}
+                region=${AWS::Region}
+                interval=1
+            c:\\cfn\\hooks.d\\amazon-cloudwatch-agent-auto-reloader.conf:
+              content: !Sub |
+                [cfn-auto-reloader-hook]
+                triggers=post.update
+                path=Resources.domainController.Metadata.AWS::CloudFormation::Init.02_config-amazon-cloudwatch-agent
+                action=cfn-init.exe -v --stack ${AWS::StackId} --resource domainController --region ${AWS::Region} --configsets UpdateEnvironment
+        01_CfnHup_service:
+          services:
+            windows:
+              cfn-hup:
+                enabled: 'true'
+                ensureRunning: 'true'
+                files:
+                  - "c:\\cfn\\cfn-hup.conf"
+                  - "c:\\cfn\\hooks.d\\cfn-auto-reloader.conf"
+        # Definition of json configuration of AmazonCloudWatchAgent, you can change the configuration below.
+        02_installCWAgent:
+          packages:
+            msi:
+              cloudWatchAgent: !Sub https://s3.${AWS::Region}.amazonaws.com/amazoncloudwatch-agent-${AWS::Region}/windows/amd64/latest/amazon-cloudwatch-agent.msi
+        03_config-amazon-cloudwatch-agent:
+          files:
+            C:\\ProgramData\\Amazon\\AmazonCloudWatchAgent\\amazon-cloudwatch-agent.json:
+              content: |
+                {
+                  "logs": {
+                    "logs_collected": {
+                      "files": {
+                        "collect_list": [
+                          {
+                            "file_path": "C:\\programdata\\Amazon\\EC2-Windows\\Launch\\Log\\UserdataExecution.log",
+                            "log_stream_name": "UserdataExecution.log",
+                            "log_group_name": "{instance_id}"
+                          },
+                          {
+                            "file_path": "C:\\cfn\\log\\cfn-init-cmd.log",
+                            "log_stream_name": "cfn-init-cmd.log",
+                            "log_group_name": "{instance_id}"
+                          },
+                          {
+                            "file_path": "C:\\cfn\\log\\cfn-init.log",
+                            "log_stream_name": "cfn-init.log",
+                            "log_group_name": "{instance_id}"
+                          },
+                          {
+                            "file_path": "C:\\programdata\\Amazon\\SSM\\Logs\\amazon-ssm-agent.log",
+                            "log_stream_name": "amazon-ssm-agent.log",
+                            "log_group_name": "{instance_id}"
+                          },
+                          {
+                            "file_path": "C:\\programdata\\Amazon\\SSM\\Logs\\errors.log",
+                            "log_stream_name": "amazon-ssm-errors.log",
+                            "log_group_name": "{instance_id}"
+                          }
+
+                        ]
+                      },
+                      "windows_events": {
+                        "collect_list": [
+                          {
+                            "event_format": "xml",
+                            "event_levels": [
+                              "VERBOSE",
+                              "INFORMATION",
+                              "WARNING",
+                              "ERROR",
+                              "CRITICAL"
+                            ],
+                            "event_name": "System",
+                            "log_stream_name": "System",
+                            "log_group_name": "{instance_id}"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "metrics": {
+                    "append_dimensions": {
+                      "ImageId": "${!aws:ImageId}",
+                      "InstanceId": "${!aws:InstanceId}",
+                      "InstanceType": "${!aws:InstanceType}"
+                    },
+                    "metrics_collected": {
+                      "LogicalDisk": {
+                        "measurement": [
+                          "% Free Space"
+                        ],
+                        "metrics_collection_interval": 10,
+                        "resources": [
+                          "*"
+                        ]
+                      },
+                      "Memory": {
+                        "measurement": [
+                          "% Committed Bytes In Use"
+                        ],
+                        "metrics_collection_interval": 10
+                      },
+                      "Paging File": {
+                        "measurement": [
+                          "% Usage"
+                        ],
+                        "metrics_collection_interval": 10,
+                        "resources": [
+                          "*"
+                        ]
+                      },
+                      "PhysicalDisk": {
+                        "measurement": [
+                          "% Disk Time",
+                          "Disk Write Bytes/sec",
+                          "Disk Read Bytes/sec",
+                          "Disk Writes/sec",
+                          "Disk Reads/sec"
+                        ],
+                        "metrics_collection_interval": 10,
+                        "resources": [
+                          "*"
+                        ]
+                      },
+                      "Processor": {
+                        "measurement": [
+                          "% User Time",
+                          "% Idle Time",
+                          "% Interrupt Time"
+                        ],
+                        "metrics_collection_interval": 10,
+                        "resources": [
+                          "*"
+                        ]
+                      },
+                      "TCPv4": {
+                        "measurement": [
+                          "Connections Established"
+                        ],
+                        "metrics_collection_interval": 10
+                      },
+                      "TCPv6": {
+                        "measurement": [
+                          "Connections Established"
+                        ],
+                        "metrics_collection_interval": 10
+                      },
+                      "procstat": [{
+                          "exe": ".*",
+                          "measurement": [
+                            "cpu_usage",
+                            "memory_rss",
+                            "read_bytes",
+                            "read_count",
+                            "write_bytes"
+                          ],
+                          "metrics_collection_interval": 10
+                      }],
+                      "statsd": {
+                        "metrics_aggregation_interval": 10,
+                        "metrics_collection_interval": 10,
+                        "service_address": ":8125"
+                      }
+                    }
+                  }
+                }
+        # Invoke amazon-cloudwatch-agent-ctl to restart the AmazonCloudWatchAgent.
+        04_restart_amazon-cloudwatch-agent:
+          commands:
+            01_stop_service:
+              command: powershell -Command "C:\\'Program Files'\\Amazon\\AmazonCloudWatchAgent\\amazon-cloudwatch-agent-ctl.ps1 -a stop"
+            02_start_service:
+              command: powershell -Command "C:\\'Program Files'\\Amazon\\AmazonCloudWatchAgent\\amazon-cloudwatch-agent-ctl.ps1 -a fetch-config -m ec2 -c file:C:\\ProgramData\\Amazon\\AmazonCloudWatchAgent\\amazon-cloudwatch-agent.json -s"
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT10M
+    Properties:
+      ImageId: !Ref LatestWindowsCoreAMI
+      InstanceType: t3.large
+      IamInstanceProfile: !Ref SSMInstanceProfile
+      SubnetId: !Ref sourcePriSubnetA
+      SecurityGroupIds:
+        - !Ref domainSecGroup
+      UserData: 
+        Fn::Base64: !Sub |
+          <powershell>
+            # cfn-init.exe -s ${AWS::StackId} -r domainController --region=${AWS::Region} --configsets default -v
+            cfn-signal.exe --success true --stack ${AWS::StackId} --resource domainController --region ${AWS::Region}
+            $webclient = new-object System.Net.WebClient
+            $instanceid = $webclient.DownloadString("http://169.254.169.254/latest/meta-data/instance-id")
+            $document = "${createADDocument}"
+            Start-Service AmazonSSMAgent
+            Start-Sleep -Seconds 45
+            Send-SSMCommand -InstanceId $instanceid -DocumentName $document -CloudWatchOutputConfig_CloudWatchOutputEnabled $true -CloudWatchOutputConfig_CloudWatchLogGroupName $instanceid
+          </powershell> 
+      Tags:
+        - Key: Name
+          Value: domainController
+  SSMPermissions:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+        - arn:aws:iam::aws:policy/AmazonSSMDirectoryServiceAccess
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  SSMInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: !Ref SSMPermissions
+      Path: /
+      Roles:
+        - !Ref SSMPermissions
+  ssmRunnerPolicy:
+    Type: AWS::IAM::Policy
+    Properties: 
+      PolicyName: !Sub ssmRunPermissions-${AWS::StackName}
+      Roles:
+        - !Ref SSMPermissions
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 
+              - ssm:SendCommand
+            Resource: 
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
+              - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:document/${createADDocument}
+          - Effect: Allow
+            Action:
+              - ssm:*Parameter*
+            Resource: "arn:aws:ssm:*:*:parameter/lab-*"
+  domainHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+  waitForDomain:
+    Type: AWS::CloudFormation::WaitCondition
+    DependsOn: domainController
+    Properties:
+      Timeout: '1800'
+      Handle: !Ref domainHandle
+      Count: 1
+  
+  cliPermissions:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  cliInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: !Ref cliPermissions
+      Path: /
+      Roles:
+        - !Ref cliPermissions
+  vpnInstance:
+    Type: AWS::EC2::Instance
+    DependsOn: 
+      - sourceDefaultPrivateRouteA
+    Metadata:
+      AWS::CloudFormation::Init:
+        configSets:
+          default:
+            - 01-epel
+            - 02-strongSwan
+            - 03-configure
+        01-epel:
+          commands:
+            01-install-epel:
+              command: "amazon-linux-extras install epel -y"
+        02-strongSwan:
+          packages:
+            yum:
+              strongswan: []
+        03-configure:
+          files:
+            /etc/strongswan/ipsec.conf:
+              content:
+                !Sub |
+                  # Created by user-data
+                  config setup
+
+                  conn %default
+                          esp=aes128-sha1-modp1024
+                          ikelifetime=28800s
+                          keylife=3600s
+                          rekeymargin=3m
+                          keyingtries=%forever
+                          keyexchange=ikev1
+                          mobike=no
+                          left=%any
+                          leftsubnet=${sourceVpcCidrBase}.0.0/${vpcCidrLength}
+                          dpdaction=clear
+                          auto=route
+                          authby=secret
+                          rightsubnet=${vpcCidrBase}.0.0/${vpcCidrLength}
+
+                  conn tunnel1
+                      right=TUNNEL_1_IP_ADDRESS
+                  conn tunnel2
+                      right=TUNNEL_2_IP_ADDRESS
+              mode: '000777'
+              owner: root
+              group: root
+            /etc/strongswan/ipsec.secrets: 
+              content: |
+                TUNNEL_1_IP_ADDRESS : PSK "TUNNEL_1_PRESHARED_KEY"
+                TUNNEL_2_IP_ADDRESS : PSK "TUNNEL_2_PRESHARED_KEY"
+              mode: '000777'
+              owner: root
+              group: root
+          commands:
+            persist:
+              command: |
+                echo 1 > /proc/sys/net/ipv4/ip_forward &&
+                echo 0 > /proc/sys/net/ipv4/conf/all/send_redirects &&
+                echo 0 > /proc/sys/net/ipv4/conf/eth0/send_redirects &&
+                echo 'net.ipv4.ip_forward = 1' |  tee -a /etc/sysctl.conf &&
+                echo 'net.ipv4.conf.all.send_redirects = 0' |  tee -a /etc/sysctl.conf &&
+                echo 'net.ipv4.conf.eth0.send_redirects = 0' |  tee -a /etc/sysctl.conf
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT5M
+    Properties:
+      SourceDestCheck: false
+      ImageId: !Ref amazonLinuxAMI
+      InstanceType: !Ref sourceInstanceType
+      IamInstanceProfile: !Ref cliInstanceProfile
+      SubnetId: !Ref sourcePriSubnetA
+      SecurityGroupIds:
+        - !Ref domainSecGroup
+      UserData: 
+        Fn::Base64: !Sub |
+          #!/bin/bash -ex
+          yum update -y aws-cfn-bootstrap
+          # Install the files and packages from the metadata
+          /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource vpnInstance --region ${AWS::Region} --configsets default
+          sysctl -p
+          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource vpnInstance --region ${AWS::Region}
+      Tags:
+        - Key: Name
+          Value: VPN Router 
+
+  sourceICMPSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: ICMP access from the source network
+      VpcId: !Ref vpc
+      SecurityGroupIngress:
+        - IpProtocol: "icmp"
+          FromPort: -1
+          ToPort: -1
+          CidrIp: !Sub ${sourceVpcCidrBase}.0.0/${vpcCidrLength}
+      Tags:
+        - Key: Name
+          Value: Target Group
+
+  rdpSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: RDP Access for test instance
+      VpcId: !Ref vpc
+      SecurityGroupIngress:
+        - IpProtocol: "tcp"
+          FromPort: 3389
+          ToPort: 3389
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: RDP Access
+
+  networkTest:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref amazonLinuxAMI
+      InstanceType: !Ref sourceInstanceType
+      IamInstanceProfile: !Ref cliInstanceProfile
+      SubnetId: !Ref priSubnetA
+      SecurityGroupIds:
+        - !Ref sourceICMPSG
+      Tags:
+        - Key: Name
+          Value: Network Test Instance
+
+#AWS student permissions supplement
+  ReadOnlyGroup:
+    Type: AWS::IAM::Group
+    Properties:
+      GroupName: QLReadOnly
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+      Policies:
+        - PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Deny
+                Action: 
+                  - ec2:RunInstances
+                Resource: '*'
+                Condition:
+                  StringNotEquals:
+                    ec2:Region: !Ref AWS::Region
+          PolicyName: deny-run-ec2-other-regions
+  GroupAssignment:
+    Type: AWS::IAM::UserToGroupAddition
+    DependsOn: ReadOnlyGroup
+    Properties:
+      GroupName: QLReadOnly
+      Users:
+        - awsstudent
+
+Outputs:
+  Region:
+    Value: !Ref AWS::Region
+    Description: Region used for the lab
+  OnPremCidr:
+    Value: !Sub ${sourceVpcCidrBase}.0.0/${vpcCidrLength}
+  TargetCidr:
+    Value: !Sub ${vpcCidrBase}.0.0/${vpcCidrLength}
+  OnPremExternalIP:
+    Value: !Ref sourceEip
+  domainControllerIP:
+    Value: !GetAtt domainController.PrivateIp
+  adAdminPassword:
+    Value: !Ref ResourcePassword
