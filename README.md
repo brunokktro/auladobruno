@@ -483,6 +483,7 @@
 * [How to Enable Your Users to Access Office 365 with AWS Managed Microsoft AD](https://aws.amazon.com/blogs/security/how-to-enable-your-users-to-access-office-365-with-aws-microsoft-active-directory-credentials/)
 * [Enable Office 365 with AWS Managed Microsoft AD without user password synchronization](https://aws.amazon.com/blogs/security/enable-office-365-with-aws-managed-microsoft-ad-without-user-password-synchronization/)
 * [How do I grant my Active Directory users access to the API or AWS CLI with AD FS?](https://aws.amazon.com/premiumsupport/knowledge-center/adfs-grant-ad-access-api-cli/)
+* [Managing domain membership of dynamic fleet of EC2 instances](https://aws.amazon.com/blogs/compute/managing-domain-membership-of-dynamic-fleet-of-ec2-instances/)
 * [How to retrieve short-term credentials for CLI use with AWS Single Sign-on](https://aws.amazon.com/blogs/security/aws-single-sign-on-now-enables-command-line-interface-access-for-aws-accounts-using-corporate-credentials/)
 * [How to Run ECS Windows Task with group Managed Service Account (gMSA)](https://aws.amazon.com/blogs/containers/how-to-run-ecs-windows-task-with-group-managed-service-account-gmsa/)
 * [Automatically update instances in an Amazon ECS cluster using the AMI ID parameter](https://aws.amazon.com/blogs/compute/automatically-update-instances-in-an-amazon-ecs-cluster-using-the-ami-id-parameter/)
