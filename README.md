@@ -847,6 +847,7 @@
 * [Managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html)
 * [The eksctl command line utility](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 * [eksctl - The official CLI for Amazon EKS](https://eksctl.io/)
+* [Why can't I connect to my Amazon EKS cluster?](https://aws.amazon.com/premiumsupport/knowledge-center/eks-cluster-connection/)
 * [How do I resolve the "Your current user or role does not have access to Kubernetes objects on this EKS cluster" error in Amazon EKS?](https://aws.amazon.com/premiumsupport/knowledge-center/eks-kubernetes-object-access-error/)
 * [Cluster VPC considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
 * [Deploy a Kubernetes Application](https://aws.amazon.com/getting-started/hands-on/deploy-kubernetes-app-amazon-eks/)
