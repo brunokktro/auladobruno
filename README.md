@@ -864,6 +864,7 @@
 * [Kubernetes RBAC and IAM Integration in Amazon EKS using a Java-based Kubernetes Operator](https://aws.amazon.com/blogs/containers/kubernetes-rbac-and-iam-integration-in-amazon-eks-using-a-java-based-kubernetes-operator/)
 * [Installing aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 * [Managing users or IAM roles for your cluster](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html)
+* [How to use AWS Secrets & Configuration Provider with your Kubernetes Secrets Store CSI driver](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-configuration-provider-with-kubernetes-secrets-store-csi-driver/)
 * [Installing Calico on Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/calico.html)
 * [SkyScanner: Building Highly-Available, Multi-Region Kubernetes Clusters on 100% Amazon EC2 Spot](https://youtu.be/99nNHsbwBpg)
 
