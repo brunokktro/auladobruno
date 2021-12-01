@@ -857,6 +857,8 @@
 * [How to capture application logs when using Amazon EKS on AWS Fargate](https://aws.amazon.com/pt/blogs/containers/how-to-capture-application-logs-when-using-amazon-eks-on-aws-fargate/)
 * [Fluent Bit for Amazon EKS on AWS Fargate is here](https://aws.amazon.com/pt/blogs/containers/fluent-bit-for-amazon-eks-on-aws-fargate-is-here/)
 * [Install SSM Agent on Amazon EKS worker nodes by using Kubernetes DaemonSet](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/install-ssm-agent-on-amazon-eks-worker-nodes-by-using-kubernetes-daemonset.html)
+* [New – Use CloudWatch Synthetics to Monitor Sites, API Endpoints, Web Workflows, and More](https://aws.amazon.com/blogs/aws/new-use-cloudwatch-synthetics-to-monitor-sites-api-endpoints-web-workflows-and-more/)
+* [Visual monitoring of applications with Amazon CloudWatch Synthetics](https://aws.amazon.com/blogs/mt/visual-monitoring-of-applications-with-amazon-cloudwatch-synthetics/)
 * [Getting started with AWS App Mesh and Amazon EKS](https://aws.amazon.com/blogs/containers/getting-started-with-app-mesh-and-eks/)
 * [Amazon EKS networking](https://docs.aws.amazon.com/eks/latest/userguide/eks-networking.html)
 * [Pod networking (CNI)](https://docs.aws.amazon.com/eks/latest/userguide/pod-networking.html)
