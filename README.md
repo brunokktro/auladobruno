@@ -811,6 +811,7 @@
 * [How to use G Suite as an external identity provider for AWS SSO](https://aws.amazon.com/blogs/security/how-to-use-g-suite-as-external-identity-provider-aws-sso/)
 * [The Next Evolution in AWS Single Sign-On](https://aws.amazon.com/blogs/aws/the-next-evolution-in-aws-single-sign-on/)
 * [How to create and manage users within AWS Single Sign-On](https://aws.amazon.com/blogs/security/how-to-create-and-manage-users-within-aws-sso/)
+* [How to bulk import users and groups from CSV into AWS SSO](https://aws.amazon.com/blogs/security/how-to-bulk-import-users-and-groups-from-csv-into-aws-sso/)
 * [AWS SSO - Supported applications](https://docs.aws.amazon.com/singlesignon/latest/userguide/saasapps.html#saasapps-supported)
 * [Enabling custom identity broker access to the AWS console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
 * [Identity federation in AWS](https://aws.amazon.com/identity/federation/)
