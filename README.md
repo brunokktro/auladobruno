@@ -244,6 +244,7 @@
 
 * [AWS Foundations: Strategies and Tools to Perform Large-Scale Migrations (Portuguese)](https://www.aws.training/Details/Video?id=73813)
 * [Using a Cloud Center of Excellence (CCOE) to Transform the Entire Enterprise](https://aws.amazon.com/blogs/enterprise-strategy/using-a-cloud-center-of-excellence-ccoe-to-transform-the-entire-enterprise/)
+* [Cloud Enablement Engine: A Practical Guide](https://d1.awsstatic.com/whitepapers/cloud-enablement-engine-practical-guide.pdf)
 * [Mobilize your organization to accelerate large-scale migrations](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-migration/welcome.html)
 * [Yes, You Can Migrate Your Mainframe to the Cloud](https://aws.amazon.com/pt/blogs/enterprise-strategy/yes-you-can-migrate-your-mainframe-to-the-cloud/)
 * [Migrating AS/400 and IBM i Applications to AWS with Infinite](https://aws.amazon.com/pt/blogs/industries/migrating-as-400-and-ibm-i-applications-to-aws-with-infinite/)
