@@ -966,6 +966,7 @@
 * [TOOLS unofficial] [Harbor](https://github.com/goharbor/harbor)
 * [TOOLS unofficial] [Docker Samples](https://docs.docker.com/samples/)
 * [TOOLS unofficial] [Dockerfile-lint](https://github.com/projectatomic/dockerfile_lint)
+* [TOOLS unofficial] [Periodic Table of DevOps](https://digital.ai/periodic-table-of-devops-tools)
 * [TOOLS unofficial] [CloudFormation Lint: CFN Nag](https://github.com/stelligent/cfn_nag)
 * [TOOLS unofficial] [CloudFormation Lint: CFripper](https://github.com/Skyscanner/cfripper/)
 * [TOOLS unofficial] [Checkov - Prisma Cloud](https://github.com/bridgecrewio/checkov)
