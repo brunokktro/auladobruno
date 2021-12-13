@@ -1,4 +1,4 @@
-![](https://blogdolopez.files.wordpress.com/2021/12/aula-do-bruno3.jpg)
+![](https://blogdolopez.files.wordpress.com/2021/12/aula-do-bruno-cortada.jpg)
 
 **[DISCLAIMER]** Links e materiais disponibilizados como conteúdo adicional para os estudos nos treinamentos da AWS. As informações aqui inseridas são mantidas por mim mesmo, e não expressam nenhuma informação oficial por parte da AWS; mesmo que em sua maioria sejam artigos e _blog posts_ oficiais da **Amazon Web Services**.
 
