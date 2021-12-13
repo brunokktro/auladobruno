@@ -779,6 +779,8 @@
 * [How to Visualize and Refine Your Network’s Security by Adding Security Group IDs to Your VPC Flow Logs](https://aws.amazon.com/blogs/security/how-to-visualize-and-refine-your-networks-security-by-adding-security-group-ids-to-your-vpc-flow-logs/)
 * [How to Use Nubeva with Amazon VPC Traffic Mirroring to Gain Decrypted Visibility of Your Network Traffic](https://aws.amazon.com/blogs/apn/how-to-use-nubeva-with-amazon-vpc-traffic-mirroring-to-gain-decrypted-visibility-of-your-network-traffic/)
 * [New – VPC Traffic Mirroring – Capture & Inspect Network Traffic](https://aws.amazon.com/blogs/aws/new-vpc-traffic-mirroring/)
+* [Hands-on walkthrough of the AWS Network Firewall flexible rules engine – Part 1](https://aws.amazon.com/blogs/security/hands-on-walkthrough-of-the-aws-network-firewall-flexible-rules-engine/)
+* [Hands-on walkthrough of the AWS Network Firewall flexible rules engine – Part 2](https://aws.amazon.com/blogs/security/hands-on-walkthrough-of-the-aws-network-firewall-flexible-rules-engine-part-2/)
 * [Securing messages published to Amazon SNS with AWS PrivateLink](https://aws.amazon.com/blogs/security/securing-messages-published-to-amazon-sns-with-aws-privatelink/)
 * [Introducing AWS Client VPN to Securely Access AWS and On-Premises Resources](https://aws.amazon.com/blogs/networking-and-content-delivery/introducing-aws-client-vpn-to-securely-access-aws-and-on-premises-resources/)
 * [AWS Client VPN - Scenarios and examples](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/scenario.html)
