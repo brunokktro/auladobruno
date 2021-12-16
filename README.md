@@ -1001,6 +1001,7 @@
 * [TOOLS unofficial] [Modern Honey Network](https://github.com/threatstream/mhn)
 * [TOOLS unofficial] [OWASP ZAP](https://github.com/zaproxy/zaproxy)
 * [TOOLS unofficial] [ScoutSuite](https://github.com/nccgroup/ScoutSuite)
+* [TOOLS unofficial] [AWS Sec Monitor](https://github.com/tgpadua/aws-sec-monitor)
 * [TOOLS unofficial] [Prowler - AWS Security Tool](https://github.com/toniblyx/prowler)
 * [TOOLS unofficial] [Rhino Security Labs - Pacu](https://github.com/RhinoSecurityLabs/pacu)
 * [TOOLS unofficial] [Rhino Security Labs - CloudGoat](https://github.com/RhinoSecurityLabs/cloudgoat)
