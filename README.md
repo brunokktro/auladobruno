@@ -982,6 +982,8 @@
 * [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
 * [TOOLS unofficial] [The Grinder](http://grinder.sourceforge.net/)
 * [TOOLS unofficial] [Apache JMeter](https://jmeter.apache.org/)
+* [TOOLS unofficial] [Kubernetes instance calculator](https://learnk8s.io/kubernetes-instance-calculator)
+* [TOOLS unofficial] [Kubecost - Cost Model](https://github.com/kubecost/cost-model)
 * [TOOLS unofficial] [kubectl](https://kubernetes.io/docs/tasks/tools/)
 * [TOOLS unofficial] [eksctl](https://github.com/weaveworks/eksctl)
 * [TOOLS unofficial] [Rancher](https://github.com/rancher/rancher)
