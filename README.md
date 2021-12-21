@@ -947,6 +947,7 @@
 * [TOOLS] [Macie Findings integration with Slack Channel](https://github.com/aws-samples/macie-findings-to-slack)
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Self-Service Security Assessment tool](https://github.com/awslabs/aws-security-assessment-solution)
+* [TOOLS] [AWS Security Hub Cross-Account Controls Disabler](https://github.com/aws-samples/aws-security-hub-cross-account-controls-disabler)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
 * [TOOLS] [SIEM on Amazon Elasticsearch Service](https://github.com/aws-samples/siem-on-amazon-elasticsearch)
 * [TOOLS] [AWS WAF Operations Dashboards](https://github.com/aws-samples/aws-waf-ops-dashboards/blob/main/README_pt.md)
