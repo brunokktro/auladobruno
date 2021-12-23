@@ -733,6 +733,7 @@
 * [Using Service-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html)
 * [Approaches for authenticating external applications in a machine-to-machine scenario](https://aws.amazon.com/blogs/security/approaches-for-authenticating-external-applications-in-a-machine-to-machine-scenario/)
 * [AWS Services That Work with IAM ](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)
+* [Tighten S3 permissions for your IAM users and roles using access history of S3 actions](https://aws.amazon.com/blogs/security/tighten-s3-permissions-iam-users-and-roles-using-access-history-s3-actions/)
 * [Automate analyzing your permissions using IAM access advisor APIs](https://aws.amazon.com/blogs/security/automate-analyzing-permissions-using-iam-access-advisor/)
 * [Proving security at scale with automated reasoning](https://www.allthingsdistributed.com/2019/06/proving-security-at-scale-with-automated-reasoning.html)
 * [How AWS uses automated reasoning to help you achieve security at scale (AWS Zelkova)](https://aws.amazon.com/blogs/security/protect-sensitive-data-in-the-cloud-with-automated-reasoning-zelkova/)
