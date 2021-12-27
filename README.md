@@ -170,6 +170,7 @@
 * [Deployment models for AWS Network Firewall](https://aws.amazon.com/blogs/networking-and-content-delivery/deployment-models-for-aws-network-firewall/)
 * [Centralized inspection architecture with AWS Gateway Load Balancer and AWS Transit Gateway](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-inspection-architecture-with-aws-gateway-load-balancer-and-aws-transit-gateway/)
 * [Deploy an Elastic HPC Cluster](https://aws.amazon.com/getting-started/hands-on/deploy-elastic-hpc-cluster/)
+* [Securely extend and access on-premises Active Directory domain controllers in AWS](https://aws.amazon.com/blogs/security/securely-extend-and-access-on-premises-active-directory-domain-controllers-in-aws/)
 * [How to Connect Your On-Premises Active Directory to AWS Using AD Connector](https://aws.amazon.com/blogs/security/how-to-connect-your-on-premises-active-directory-to-aws-using-ad-connector/)
 * [Integrando o AWS Directory Service com o AWS Console – AD Connector](https://aws.amazon.com/pt/blogs/aws-brasil/integrando-o-aws-directory-service-com-o-aws-console-ad-connector/)
 * [AWS AD Connector – o curioso caso de falha em localização de objetos](https://aws.amazon.com/pt/blogs/aws-brasil/aws-ad-connector-o-curioso-caso-de-falha-em-localizacao-de-objetos/)
