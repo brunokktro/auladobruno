@@ -961,6 +961,7 @@
 * [TOOLS] [AWS Data Replication Hub](https://github.com/awslabs/aws-data-replication-hub)
 * [TOOLS] [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler)
 * [TOOLS] [AWS Dev Fabric for SQL Server](https://github.com/aws-samples/aws-dev-fabric-for-sql-server)
+* [TOOLS] [Fido: A PowerShell download script for Windows ISOs](https://github.com/pbatard/Fido)
 * [TOOLS] [Snapshot Tool for Amazon Aurora](https://github.com/awslabs/aurora-snapshot-tool)
 * [TOOLS] [Amazon DynamoDB Encryption Client for Python](https://github.com/aws/aws-dynamodb-encryption-python/)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
