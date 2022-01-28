@@ -708,6 +708,7 @@
 
 ### Security Engineering on AWS
 
+* [AWS Security Checklist](https://d1.awsstatic.com/whitepapers/Security/AWS_Security_Checklist.pdf)
 * [Privacy Features of AWS Services](https://aws.amazon.com/compliance/privacy-features/)
 * [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
 * [AWS Cloud Adoption Framework (CAF) - Security Perspective](https://d1.awsstatic.com/whitepapers/AWS_CAF_Security_Perspective.pdf)
