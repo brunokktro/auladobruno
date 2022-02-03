@@ -780,7 +780,7 @@
 * [Monitor Amazon Aurora Database Activities Using DataSunrise Database Security](https://aws.amazon.com/es/blogs/database/monitor-amazon-aurora-database-activities-using-datasunrise-database-security/)
 * [How to use AWS Secrets Manager to rotate credentials for all Amazon RDS database types, including Oracle](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-rotate-credentials-amazon-rds-database-types-oracle/)
 * [How to use AWS Secrets Manager to securely store and rotate SSH key pairs](https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-securely-store-rotate-ssh-key-pairs/)
-* [Automatically rotate IAM user access keys using AWS Secrets Manager](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/automatically-rotate-iam-user-access-keys.html)
+* [Automatically rotate IAM user access keys using AWS Secrets Manager](https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/automatically-rotate-iam-user-access-keys-at-scale-with-aws-organizations-and-aws-secrets-manager.html?did=pg_card&trk=pg_card)
 * [Post-quantum TLS now supported in AWS KMS](https://aws.amazon.com/blogs/security/post-quantum-tls-now-supported-in-aws-kms/)
 * [AWS re:Inforce 2019: How Encryption Works in AWS](https://youtu.be/plv7PQZICCM)
 * [How to Remediate Amazon Inspector Security Findings Automatically](https://aws.amazon.com/blogs/security/how-to-remediate-amazon-inspector-security-findings-automatically/)
