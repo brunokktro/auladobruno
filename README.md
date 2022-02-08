@@ -833,6 +833,7 @@
 * [How to Use New Advanced Security Features for Amazon Cognito User Pools](https://aws.amazon.com/blogs/security/how-to-use-new-advanced-security-features-for-amazon-cognito-user-pools/)
 * [Adding Advanced Security to a User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-advanced-security.html)
 * [How to Enable Server-Side LDAPS for Your AWS Managed Microsoft AD Directory](https://aws.amazon.com/blogs/security/how-to-enable-ldaps-for-your-aws-microsoft-ad-directory/)
+* [Integrações: Active Directory, Azure AD com AWS IAM e AWS Single Sign-On](https://aws.amazon.com/pt/blogs/aws-brasil/integracoes-active-directory-azure-adcom-awsiam-awssinglesignon/)
 * [Field Notes: Integrating a Multi-Forest Source Environment with AWS SSO](https://aws.amazon.com/blogs/architecture/field-notes-integrating-a-multi-forest-source-environment-with-aws-sso/)
 * [Field Notes: Integrating Active Directory Federation Service with AWS Single Sign-On](https://aws.amazon.com/blogs/architecture/field-notes-integrating-active-directory-federation-service-with-aws-single-sign-on/)
 * [New AWS SSO gallery app simplifies Azure AD set-up with AWS](https://aws.amazon.com/about-aws/whats-new/2021/03/new-aws-sso-gallery-app-simplifies-azure-ad-set-up-with-aws/)
