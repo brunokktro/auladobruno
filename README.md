@@ -208,6 +208,7 @@
 * [Schema Conversion Tool blog series: Introducing new features in build 613](https://aws.amazon.com/blogs/database/schema-conversion-tool-blog-series-introducing-new-features-in-build-613/)
 * [Enable large-scale database migrations with AWS DMS and AWS Snowball](https://aws.amazon.com/blogs/storage/enable-large-scale-database-migrations-with-aws-dms-and-aws-snowball/)
 * [Query any data source with Amazon Athena’s new federated query](https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/)
+* [Using ‘athena-express’ to Simplify SQL Queries on Amazon Athena](https://aws.amazon.com/blogs/apn/using-athena-express-to-simplify-sql-queries-on-amazon-athena/)
 * [Harmonize, Query, and Visualize Data from Various Providers using AWS Glue, Amazon Athena, and Amazon QuickSight](https://aws.amazon.com/blogs/big-data/harmonize-query-and-visualize-data-from-various-providers-using-aws-glue-amazon-athena-and-amazon-quicksight/)
 * [Developing AWS Glue ETL jobs locally using a container](https://aws.amazon.com/pt/blogs/big-data/developing-aws-glue-etl-jobs-locally-using-a-container/)
 * [Setting Up AWS Lake Formation](https://docs.aws.amazon.com/lake-formation/latest/dg/getting-started-setup.html)
