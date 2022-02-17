@@ -344,6 +344,7 @@
 * [How can I update yum or install packages without internet access on my EC2 instances running Amazon Linux 1 or Amazon Linux 2?](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-al1-al2-update-yum-without-internet/)
 * [How do I enable the EPEL repository for my Amazon EC2 instance running CentOS, RHEL, or Amazon Linux?](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-enable-epel/)
 * [How can we regularly update a disconnected system (A system without internet connection)?](https://access.redhat.com/solutions/29269)
+* [AMI billing information fields](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info-fields.html)
 * [Microsoft Licensing on AWS](https://aws.amazon.com/windows/resources/licensing/)
 * [Simplified Bring-Your-Own-License experience using AWS License Manager](https://aws.amazon.com/blogs/mt/simplified-byol-experience-using-aws-license-manager/)
 * [Simplify your BYOL Experience with Dedicated Host Management Capabilities in AWS License Manager](https://youtu.be/kukiDf9Ilcc)
