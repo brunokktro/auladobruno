@@ -969,7 +969,7 @@
 * [TOOLS] [AWS Data Replication Hub](https://github.com/awslabs/aws-data-replication-hub)
 * [TOOLS] [AWS Data Wrangler](https://github.com/awslabs/aws-data-wrangler)
 * [TOOLS] [AWS Dev Fabric for SQL Server](https://github.com/aws-samples/aws-dev-fabric-for-sql-server)
-* [TOOLS] [Fido: A PowerShell download script for Windows ISOs](https://github.com/pbatard/Fido)
+* [TOOLS] [AWS-SSO-SYNC](https://github.com/aws-samples/aws-sso-sync-script)
 * [TOOLS] [Snapshot Tool for Amazon Aurora](https://github.com/awslabs/aurora-snapshot-tool)
 * [TOOLS] [Amazon DynamoDB Encryption Client for Python](https://github.com/aws/aws-dynamodb-encryption-python/)
 * [TOOLS] [Registry of Open Data on AWS](https://registry.opendata.aws/)
@@ -993,7 +993,6 @@
 * [TOOLS unofficial] [AWS IP Ranges](http://52.24.200.194/)
 * [TOOLS unofficial] [Cloudcraft - Create smart AWS diagrams](https://cloudcraft.co/)
 * [TOOLS unofficial] [Awesome SNS](https://github.com/ranman/awesome-sns)
-* [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
 * [TOOLS unofficial] [The Grinder](http://grinder.sourceforge.net/)
 * [TOOLS unofficial] [Apache JMeter](https://jmeter.apache.org/)
 * [TOOLS unofficial] [Kubernetes instance calculator](https://learnk8s.io/kubernetes-instance-calculator)
@@ -1014,6 +1013,7 @@
 * [TOOLS unofficial] [Lambda Load Testing](https://github.com/krapes/lambdaLoadTesting)
 * [TOOLS unofficial] [AWS Lambda Power Tuning](https://github.com/alexcasalboni/aws-lambda-power-tuning)
 * [TOOLS unofficial] [Awesome Honeypots](https://github.com/paralax/awesome-honeypots)
+* [TOOLS unofficial] [Bees with Machine Guns!](https://github.com/newsapps/beeswithmachineguns)
 * [TOOLS unofficial] [Modern Honey Network](https://github.com/threatstream/mhn)
 * [TOOLS unofficial] [OWASP ZAP](https://github.com/zaproxy/zaproxy)
 * [TOOLS unofficial] [ScoutSuite](https://github.com/nccgroup/ScoutSuite)
@@ -1031,6 +1031,7 @@
 * [TOOLS unofficial] [Static Demo - 2048](https://github.com/goodrain/static-demo)
 * [TOOLS unofficial] [Cost report generator](https://github.com/trackit/aws-cost-report)
 * [TOOLS unofficial] [aws-nuke - cleanup AWS Account](https://github.com/rebuy-de/aws-nuke)
+* [TOOLS unofficial] [Fido: A PowerShell download script for Windows ISOs](https://github.com/pbatard/Fido)
 * [TOOLS unofficial] [Git Repository Sync Action](https://github.com/net-engine/github-repository-sync-action)
 
 
