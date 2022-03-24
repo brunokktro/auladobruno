@@ -1023,6 +1023,7 @@
 * [TOOLS unofficial] [Rhino Security Labs - CloudGoat](https://github.com/RhinoSecurityLabs/cloudgoat)
 * [TOOLS unofficial] [Rhino Security Labs - Cloud Container Attack](https://github.com/RhinoSecurityLabs/ccat)
 * [TOOLS unofficial] [Clara anti-malware for S3 buckets](https://github.com/abhinavbom/clara/)
+* [TOOLS unofficial] [Gophish - Open-Source Phishing Framework](https://getgophish.com/)
 * [TOOLS unofficial] [aws-cloud-mindmaps](https://github.com/wquiles/aws-cloud-mindmaps)
 * [TOOLS unofficial] [Console Recorder for AWS](https://github.com/iann0036/AWSConsoleRecorder)
 * [TOOLS unofficial] [Netflix ConsoleMe](https://github.com/Netflix/consoleme)
