@@ -1025,6 +1025,7 @@
 * [TOOLS unofficial] [Rhino Security Labs - CloudGoat](https://github.com/RhinoSecurityLabs/cloudgoat)
 * [TOOLS unofficial] [Rhino Security Labs - Cloud Container Attack](https://github.com/RhinoSecurityLabs/ccat)
 * [TOOLS unofficial] [Clara anti-malware for S3 buckets](https://github.com/abhinavbom/clara/)
+* [TOOLS unofficial] [Cloudsplaining - IAM Security Assessment tool](https://github.com/salesforce/cloudsplaining/)
 * [TOOLS unofficial] [CrowdStrike Cloud-AWS](https://github.com/CrowdStrike/Cloud-AWS)
 * [TOOLS unofficial] [Gophish - Open-Source Phishing Framework](https://getgophish.com/)
 * [TOOLS unofficial] [aws-cloud-mindmaps](https://github.com/wquiles/aws-cloud-mindmaps)
