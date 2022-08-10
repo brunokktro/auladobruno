@@ -947,6 +947,7 @@
 * [TOOLS] [S3 Transfer Acceleration Speed Comparison Tool](http://s3-accelerate-speedtest.s3-accelerate.amazonaws.com/en/accelerate-speed-comparsion.html)
 * [TOOLS] [AWS Global Accelerator - Speed Comparison](https://speedtest.globalaccelerator.aws/#/)
 * [TOOLS] [Overlapping CIDRs using AWS Transit Gateway in VPC and NAT Instances](https://github.com/aws-samples/aws-transit-gateway-overlapping-cidrs)
+* [TOOLS] [Amazon EC2 Instance Selector](https://github.com/aws/amazon-ec2-instance-selector)
 * [TOOLS] [Amazon WorkSpaces - Connection Health Check](https://clients.amazonworkspaces.com/Health.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
 * [TOOLS] [AWS SSO SYNC](https://github.com/aws-samples/aws-sso-sync-script)
