@@ -18,7 +18,7 @@
 - [X] Faça um treinamento oficial da AWS com foco na preparação do exame; através dos cursos **_Exam Readiness_**
 - [X] Acompanhe [nossos eventos e webinars da comunidade AWS em LATAM](https://aws.amazon.com/pt/training/events), pois sempre há conteúdo de referência para ajudar nos estudos
 - [X] Faça um [**_Practice Exam_**](https://explore.skillbuilder.aws/learn/course/internal/view/elearning/9153/aws-certification-official-practice-question-sets-english) oficial (simulado)
-- [X] Agende seu [exame de certificação](https://www.aws.training/Certification) na **PSI** ou **Person Vue**
+- [X] Agende seu [exame de certificação](https://www.aws.training/Certification) na **Person Vue**
 - [X] Adicione [30 minutos a mais](https://www.linkedin.com/pulse/30-minute-extension-your-aws-certification-exam-garcia-lozano/) em seu exame com o **_ESL +30 MINUTES_** (disponível para não-nativos de língua inglesa) 
 - [X] Seja um certificado AWS!
 - [X] Aproveite os [benefícios](https://aws.amazon.com/certification/benefits/) concedidos só a quem tem certificações AWS
@@ -137,6 +137,7 @@
 * [Simplify network routing and security administration with VPC Prefix Lists](https://aws.amazon.com/blogs/networking-and-content-delivery/simplify-network-routing-and-security-administration-with-vpc-prefix-lists/)
 * [Overlay Multicast in Amazon Virtual Private Cloud](https://aws.amazon.com/articles/overlay-multicast-in-amazon-virtual-private-cloud/)
 * [How to run Schneider Electric’s Responder OMS using AWS Transit Gateway multicast](https://aws.amazon.com/blogs/publicsector/how-to-run-schneider-electrics-responder-oms-using-aws-transit-gateway-multicast/)
+* [Connecting Networks with Overlapping IP Ranges](https://aws.amazon.com/pt/blogs/networking-and-content-delivery/connecting-networks-with-overlapping-ip-ranges/)
 * [Transit Gateway vs VPC peering](https://docs.aws.amazon.com/whitepapers/latest/building-scalable-secure-multi-vpc-network-infrastructure/transit-gateway-vs-vpc-peering.html)
 * [Building a global network using AWS Transit Gateway Inter-Region peering](https://aws.amazon.com/blogs/networking-and-content-delivery/building-a-global-network-using-aws-transit-gateway-inter-region-peering/)
 * [Simplify SD-WAN connectivity with AWS Transit Gateway Connect](https://aws.amazon.com/blogs/networking-and-content-delivery/simplify-sd-wan-connectivity-with-aws-transit-gateway-connect/)
