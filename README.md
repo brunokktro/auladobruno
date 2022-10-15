@@ -11,7 +11,7 @@
 - [X] Faça um treinamento oficial, presencial ou remoto, ministrado pela AWS. Veja mais em [aws.training](https://www.aws.training/)
 - [X] Caso vá fazer o treinamento oficial, já prepare seu ambiente para materiais e labs no [Class Prep](https://classprep.awstc.com/)
 - [X] Organize um roteiro sequencial de estudos, usando os [_Ramp-Up Guides_](https://aws.amazon.com/training/ramp-up-guides/)
-- [X] Faça laboratórios e ganhe experiência prática
+- [X] Faça laboratórios e ganhe experiência prática, com os [Tutoriais de Hands-On](https://aws.amazon.com/getting-started/hands-on/)
 - [X] Revise o arquivo de **_Sample Questions_** do respectivo exame de certificação
 - [X] Revise os _whitepapers_ e **FAQs** dos serviços que estão no escopo do exame de certificação
 - [X] Assista os vídeos da série [_"This is My Architecture"_](https://aws.amazon.com/this-is-my-architecture/), com exemplos de casos reais dos clientes AWS
