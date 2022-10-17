@@ -952,7 +952,7 @@
 * [TOOLS] [Amazon EC2 Instance Selector](https://github.com/aws/amazon-ec2-instance-selector)
 * [TOOLS] [Amazon WorkSpaces - Connection Health Check](https://clients.amazonworkspaces.com/Health.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
-* [TOOLS] [AWS SSO SYNC](https://github.com/aws-samples/aws-sso-sync-script)
+* [TOOLS] [AWS IAM Identity Center Sync](https://github.com/aws-samples/aws-iam-identity-center-sync-script)
 * [TOOLS] [AWS Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * [TOOLS] [IAM Access Key-Auto rotation](https://github.com/aws-samples/aws-iam-access-key-auto-rotation)
 * [TOOLS] [Temporary Elevated Access Tool](https://github.com/aws-samples/aws-iam-temporary-elevated-access-broker)
