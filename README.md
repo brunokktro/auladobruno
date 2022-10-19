@@ -716,6 +716,7 @@
 ### Security Engineering on AWS
 
 * [AWS Security Checklist](https://d1.awsstatic.com/whitepapers/Security/AWS_Security_Checklist.pdf)
+* [AWS Security Reference Architecture (AWS SRA)](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/welcome.html)
 * [AWS Startup Security Baseline (AWS SSB)](https://docs.aws.amazon.com/prescriptive-guidance/latest/aws-startup-security-baseline/controls-acct.html)
 * [Privacy Features of AWS Services](https://aws.amazon.com/compliance/privacy-features/)
 * [Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/)
