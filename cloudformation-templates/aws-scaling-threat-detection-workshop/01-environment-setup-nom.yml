@@ -1,0 +1,733 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: This AWS CloudFormation Template configures an environment with the necessary detective controls to support the Threat Detection Workshop.  DO NOT run this template in a production AWS Account.
+
+Parameters:
+  
+  ResourceName:
+    Type: String
+    Default: threat-detection-wksp
+    AllowedValues: 
+      - threat-detection-wksp
+    Description: Prefix of Resources created for this workshop.
+
+  Email: 
+    Type: String
+    Description: Enter a valid email address for receiving alerts.
+
+Metadata: 
+  AWS::CloudFormation::Interface:
+    ParameterGroups: 
+      - 
+        Label: 
+          default: "Resource and Notification Configuration"
+        Parameters: 
+          - ResourceName
+          - Email
+
+    ParameterLabels: 
+      ResourceName:
+        default: "Resource Prefix"
+      Email: 
+        default: "Email Address"
+
+
+Mappings: {}
+
+Conditions: {}
+
+Resources:
+
+  ### CloudTrail and Logging Bucket
+  CloudTrail: 
+    DependsOn: 
+      - LogBucketPolicy
+    Type: "AWS::CloudTrail::Trail"
+    Properties: 
+      S3BucketName: !Ref LogBucket
+      IsLogging: true
+      EnableLogFileValidation: true
+      IsMultiRegionTrail: false
+      IncludeGlobalServiceEvents: true
+      TrailName: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, 'trail']
+  LogBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      BucketName: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, !Ref "AWS::AccountId", !Ref "AWS::Region",'logs']
+  LogBucketPolicy: 
+    DependsOn: 
+      - LogBucket
+    Type: "AWS::S3::BucketPolicy"
+    Properties: 
+      Bucket: !Ref LogBucket
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Sid: "AWSCloudTrailAclCheck"
+            Effect: "Allow"
+            Principal: 
+              Service: "cloudtrail.amazonaws.com"
+            Action: "s3:GetBucketAcl"
+            Resource: 
+              Fn::Join:
+                - ''
+                - ["arn:aws:s3:::", !Ref LogBucket]
+          - 
+            Sid: "AWSCloudTrailWrite"
+            Effect: "Allow"
+            Principal: 
+              Service: "cloudtrail.amazonaws.com"
+            Action: "s3:PutObject"
+            Resource:
+              Fn::Join:
+                - ''
+                - ["arn:aws:s3:::", !Ref LogBucket,'/AWSLogs/*']
+            Condition: 
+              StringEquals:
+                s3:x-amz-acl: "bucket-owner-full-control"
+
+  ### Data Bucket
+ 
+  DataBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      BucketName: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, !Ref "AWS::AccountId", !Ref "AWS::Region",'data']
+
+  ### GuardDuty ThreatListBucket
+  GDThreatListBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'AES256'
+      BucketName: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, !Ref "AWS::AccountId", !Ref "AWS::Region",'gd-threatlist']
+
+  ### Centralized Detection SNS Topic
+  DetectionSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Ref ResourceName
+      Subscription:
+      - Endpoint: !Ref Email
+        Protocol: Email
+  DetectionSNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      PolicyDocument:
+        Id: ID-GD-Topic-Policy
+        Version: '2012-10-17'
+        Statement:
+        - Sid: SID-Detection-Workshop
+          Effect: Allow
+          Principal:
+            Service: 
+              - events.amazonaws.com
+              - inspector.amazonaws.com
+          Action: sns:Publish
+          Resource: !Ref DetectionSNSTopic
+      Topics: 
+      - !Ref DetectionSNSTopic
+
+  # CloudWatch Event Rules
+  GuardDutyIAMFindingEvent: 
+    Type: "AWS::Events::Rule"
+    Properties: 
+      Name: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, 'guardduty-iam-finding']
+      Description: "GuardDuty: AWS IAM Findings"
+      EventPattern: 
+        source:
+        - aws.guardduty
+        detail-type:
+        - "GuardDuty Finding"
+        detail:
+          resource:
+            resourceType: 
+            - AccessKey
+      State: "ENABLED"
+      Targets: 
+        - 
+          Arn: 
+            Ref: "DetectionSNSTopic"
+          Id: "DetectionSNSTopic-GuardDuty"
+          InputTransformer:
+            InputTemplate: "\"Amazon GuardDuty Finding : <type>\"\n\n\"Account : <account>\"\n\"Region : <region>\"\n\"Description : <description>\"\n\"Access Key ID : <accessKey>\"\n\"User Type : <userType>\""
+            InputPathsMap:
+              type: "$.detail.type"
+              description: "$.detail.description"
+              account: "$.account"
+              region: "$.region"
+              accessKey: "$.detail.resource.accessKeyDetails.accessKeyId"
+              userType: "$.detail.resource.accessKeyDetails.userType"
+  
+  GuardDutyEC2FindingEvent: 
+    Type: "AWS::Events::Rule"
+    Properties: 
+      Name: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, 'guardduty-ec2-finding']
+      Description: "GuardDuty: AWS EC2 Findings"
+      EventPattern: 
+        source:
+        - aws.guardduty
+        detail-type:
+        - "GuardDuty Finding"
+        detail:
+          resource:
+            resourceType: 
+            - Instance
+      State: "ENABLED"
+      Targets: 
+        - 
+          Arn: 
+            Ref: "DetectionSNSTopic"
+          Id: "DetectionSNSTopic-GuardDuty"
+          InputTransformer:
+            InputTemplate: "\"Amazon GuardDuty Finding : <type>\"\n\n\"Account : <account>\"\n\"Region : <region>\"\n\"Description: <description>\"\n\"Instance ID: <instanceid>\""
+            InputPathsMap:
+              type: "$.detail.type"
+              description: "$.detail.description"
+              account: "$.account"
+              region: "$.region"
+              instanceid: "$.detail.resource.instanceDetails.instanceId"
+
+  GuardDutyFindingEventSSHBruteForce: 
+    Type: "AWS::Events::Rule"
+    Properties: 
+      Name: 
+        Fn::Join:
+          - '-'
+          - [!Ref ResourceName, 'guardduty-finding', 'sshbruteforce']
+      Description: "GuardDuty Finding: UnauthorizedAccess:EC2/SSHBruteForce"
+      EventPattern: 
+        source:
+        - aws.guardduty
+        detail:
+          type:
+          - "UnauthorizedAccess:EC2/SSHBruteForce"
+      State: "ENABLED"
+      Targets: 
+        - 
+          Arn: !GetAtt LambdaRemediationInspector.Arn
+          Id: "GuardDutyEvent-Lambda-Trigger-Inspector"
+        - 
+          Arn: !GetAtt LambdaRemediationNACL.Arn
+          Id: "GuardDutyEvent-Lambda-Trigger-NACL"
+
+#  MacieAlertEvent: 
+#    Type: "AWS::Events::Rule"
+#    Properties: 
+#      Name: 
+#        Fn::Join:
+#          - '-'
+#          - [!Ref ResourceName, 'macie-alert']
+#      Description: "All Macie Alerts"
+#      EventPattern: 
+#        source:
+#        - aws.macie
+#        detail-type:
+#        - "Macie Alert"
+#      State: "ENABLED"
+#      Targets: 
+#        - 
+#          Arn: 
+#            Ref: "DetectionSNSTopic"
+#          Id: "DetectionSNSTopic-Macie"
+#          InputTransformer:
+#            InputTemplate: '"Amazon Macie Alert: <macdesc>"'
+#            InputPathsMap:
+#              macdesc: "$.detail.summary.Description"
+
+
+  ### Configuration Lambda - Inspectors
+  LambdaAdditionalConfig: 
+    Type: "AWS::Lambda::Function"
+    Properties: 
+      FunctionName: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName, 'additional-configuration']
+      Handler: "index.handler"
+      Environment:
+        Variables:
+          PREFIX: !Ref ResourceName
+      Role: 
+        Fn::GetAtt: 
+          - "LambdaAdditionalConfigRole"
+          - "Arn"
+      Code: 
+        ZipFile: |
+          from __future__ import print_function
+          from urllib2 import build_opener, HTTPHandler, Request
+          from botocore.exceptions import ClientError
+          import boto3
+          import json
+          import httplib
+          import os
+           
+          def handler(event, context):
+
+            inspector = boto3.client('inspector')
+
+            print("log -- Event: %s " % json.dumps(event))
+            target_name = '%s-target-sample' % os.environ['PREFIX']
+
+            if event['RequestType'] == 'Create':
+              print("log -- Create Event ")
+              try:
+
+                group = inspector.create_resource_group(
+                    resourceGroupTags=[
+                        {
+                            'key': 'Name',
+                            'value': 'Test'
+                        },
+                    ]
+                )
+                target = inspector.create_assessment_target(
+                    assessmentTargetName=target_name,
+                    resourceGroupArn=group['resourceGroupArn']
+                )
+                response = sendResponse(event, context, "SUCCESS", { "Message": "Inspector Assessment Target successfully created!" })
+              except ClientError as e:
+                print(e)
+                response = sendResponse(event, context, "SUCCESS", { "Message": "Inspector Assessment Target unsuccessful in being created!" })
+            elif event['RequestType'] == 'Update':
+              print("log -- Update Event")
+              try:
+                
+                group = inspector.create_resource_group(
+                    resourceGroupTags=[
+                        {
+                            'key': 'Name',
+                            'value': 'Test'
+                        },
+                    ]
+                )
+                target = inspector.create_assessment_target(
+                    assessmentTargetName=target_name,
+                    resourceGroupArn=group['resourceGroupArn']
+                )
+
+                response = sendResponse(event, context, "SUCCESS", { "Message": "Inspector Assessment Target successfully created!" })
+              except ClientError as e:
+                print(e)
+                response = sendResponse(event, context, "SUCCESS", { "Message": "Inspector Assessment Target unsuccessful in being created!" })
+            elif event['RequestType'] == 'Delete':
+              print("log -- Delete Event")
+              response = sendResponse(event, context, "SUCCESS", { "Message": "Resource deletion successful!  Please delete the Inspector Role manually." })
+            else:
+                print("log -- FAILED")
+                response = sendResponse(event, context, "FAILED", { "Message": "Unexpected event received from CloudFormation" })
+        
+            return response
+
+          def sendResponse(event, context, responseStatus, responseData):
+            responseBody = json.dumps({
+              "Status": responseStatus,
+              "Reason": "See the details in CloudWatch Log Stream: " + context.log_stream_name,
+              "PhysicalResourceId": context.log_stream_name,
+              "StackId": event['StackId'],
+              "RequestId": event['RequestId'],
+              "LogicalResourceId": event['LogicalResourceId'],
+              "Data": responseData
+            })
+
+            opener = build_opener(HTTPHandler)
+            request = Request(event['ResponseURL'], data=responseBody)
+            request.add_header('Content-Type', '')
+            request.add_header('Content-Length', len(responseBody))
+            request.get_method = lambda: 'PUT'
+            response = opener.open(request)
+            print("Status code: {}".format(response.getcode()))
+            print("Status message: {}".format(response.msg))
+
+            return responseBody
+
+      Runtime: "python2.7"
+      Timeout: "35"
+
+  LambdaAdditionalConfigRole: 
+    Type: AWS::IAM::Role
+    Properties: 
+      RoleName: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName, 'lambda', 'inspector-creation']
+      AssumeRolePolicyDocument: 
+        Version: 2012-10-17
+        Statement: 
+          - 
+            Effect: Allow
+            Principal: 
+              Service: 
+                - lambda.amazonaws.com
+            Action: 
+              - sts:AssumeRole
+      Path: /
+      Policies: 
+        - 
+          PolicyName: RemediationPolicy
+          PolicyDocument: 
+            Version: 2012-10-17
+            Statement: 
+              - 
+                Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+              - 
+                Effect: Allow
+                Action:
+                  - iam:CreateServiceLinkedRole
+                  - inspector:CreateAssessmentTarget
+                  - inspector:CreateResourceGroup
+                Resource: '*'
+  InspectorCustomResource:
+    Type: Custom::CustomResource
+    Properties:
+      ServiceToken: !GetAtt 'LambdaAdditionalConfig.Arn'
+      ParameterOne: Parameter to pass into Custom Lambda Function
+
+  # Remediation Lambda - SSH Brute Force
+  LambdaRemediationInspector: 
+    Type: "AWS::Lambda::Function"
+    Properties: 
+      FunctionName: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName, 'remediation', 'inspector']
+      Handler: "index.handler"
+      Environment:
+        Variables:
+          TOPIC_ARN: !Ref DetectionSNSTopic
+          PREFIX: !Ref ResourceName
+          COMRPOMISED_INSTANCE_TAG: 
+            Fn::Join:
+            - ':'
+            - [!Ref ResourceName, ' Compromised Instance']
+      Role: 
+        Fn::GetAtt: 
+          - "LambdaRemediationRole"
+          - "Arn"
+      Code: 
+        ZipFile: |
+          from __future__ import print_function
+          from botocore.exceptions import ClientError
+          import json
+          import boto3
+          import os
+          import uuid
+          import time
+
+          def handler(event, context):
+  
+            # Log Event
+            print("log -- Event: %s " % json.dumps(event))
+
+            instance_id = event["detail"]["resource"]["instanceDetails"]["instanceId"]
+            gd_sev = event['detail']['severity']
+            scan_id = str(uuid.uuid4())
+            scan_name = '%s-inspector-scan' % os.environ['PREFIX']
+            target_name = '%s-target-%s' % (os.environ['PREFIX'], event["id"])
+            template_name = '%s-template-%s' % (os.environ['PREFIX'], event["id"])
+            assess_name = '%s-assessment-%s' % (os.environ['PREFIX'], event["id"])
+
+            response = "Skipping Remediation"
+
+            ec2 = boto3.client('ec2')
+            scan = True
+            wksp = False
+
+            for i in event['detail']['resource']['instanceDetails']['tags']:
+              if i['value'] == os.environ['PREFIX']:
+                wksp = True
+              elif i['key'] == scan_name:
+                scan = False
+
+            print("log -- Event: Scan - %s" % scan)
+            print("log -- Event: Workshop - %s" % wksp)
+
+            if gd_sev == 2 and scan == True and wksp == True:
+              
+              print("log -- Event: Inspector Scan Kickoff")
+              try:
+                inspector = boto3.client('inspector')
+                
+                ec2.create_tags(
+                    Resources=[
+                        instance_id,
+                    ],
+                    Tags=[
+                        {
+                            'Key': scan_name,
+                            'Value': scan_id
+                        }
+                    ]
+                )
+                if os.environ['AWS_REGION'] == 'us-east-1':
+                  packages = ['arn:aws:inspector:us-east-1:316112463485:rulespackage/0-R01qwB5Q','arn:aws:inspector:us-east-1:316112463485:rulespackage/0-gEjTy7T7']
+                elif os.environ['AWS_REGION'] == 'us-west-2':
+                  packages = ['arn:aws:inspector:us-west-2:758058086616:rulespackage/0-JJOtZiqQ','arn:aws:inspector:us-west-2:758058086616:rulespackage/0-9hgA516p']
+
+                group = inspector.create_resource_group(
+                    resourceGroupTags=[
+                        {
+                            'key': scan_name,
+                            'value': scan_id
+                        },
+                    ]
+                )
+
+                target = inspector.create_assessment_target(
+                    assessmentTargetName=target_name,
+                    resourceGroupArn=group['resourceGroupArn']
+                )
+
+                template = inspector.create_assessment_template(
+                    assessmentTargetArn=target['assessmentTargetArn'],
+                    assessmentTemplateName=template_name,
+                    durationInSeconds=900,
+                    rulesPackageArns=packages,
+                    userAttributesForFindings=[
+                        {
+                            'key': 'instance-id',
+                            'value': instance_id
+                        },
+                        {
+                            'key': 'scan-name',
+                            'value': scan_name
+                        },
+                        {
+                            'key': 'scan-id',
+                            'value': scan_id
+                        }
+                    ]
+                )
+
+                for x in range(0, 5):
+                  try:
+                    time.sleep(5)
+                    assessment = inspector.start_assessment_run(
+                        assessmentTemplateArn=template['assessmentTemplateArn'],
+                        assessmentRunName=assess_name     
+                    )
+                    break
+                  except ClientError as e:
+                    print(e)
+
+                # Set Remediation Metadata
+                response = "An Inspector scan has been initiated on this instance: %s" % instance_id
+              except ClientError as e:
+                print(e)
+                print("log -- Error Starting an AWS Inspector Assessment")
+                response = "Error"
+
+            print(response)
+            return response
+      Runtime: "python2.7"
+      Timeout: "120"
+  LambdaRemediationInspectInvokePermissions: 
+    DependsOn:
+      - LambdaRemediationInspector
+    Type: "AWS::Lambda::Permission"
+    Properties: 
+      FunctionName: !Ref "LambdaRemediationInspector"
+      Action: "lambda:InvokeFunction"
+      Principal: "events.amazonaws.com"
+
+  # Remediation Lambda - NACL Modification
+  LambdaRemediationNACL: 
+    Type: "AWS::Lambda::Function"
+    Properties: 
+      FunctionName: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName, 'remediation', 'nacl']
+      Handler: "index.handler"
+      Environment:
+        Variables:
+          TOPIC_ARN: !Ref DetectionSNSTopic
+          PREFIX: !Ref ResourceName
+          COMRPOMISED_INSTANCE_TAG: 
+            Fn::Join:
+            - ':'
+            - [!Ref ResourceName, ' Compromised Instance']
+      Role: 
+        Fn::GetAtt: 
+          - "LambdaRemediationRole"
+          - "Arn"
+      Code: 
+        ZipFile: |
+          from __future__ import print_function
+          from botocore.exceptions import ClientError
+          import boto3
+          import json
+          import os
+           
+          def handler(event, context):
+             
+            # Log Event
+            print("log -- Event: %s " % json.dumps(event))
+
+            # Set Event Variables
+            gd_sev = event['detail']['severity']
+            gd_vpc_id = event["detail"]["resource"]["instanceDetails"]["networkInterfaces"][0]["vpcId"]
+            gd_instance_id = event["detail"]["resource"]["instanceDetails"]["instanceId"]
+            gd_subnet_id = event["detail"]["resource"]["instanceDetails"]["networkInterfaces"][0]["subnetId"]
+            gd_offending_id = event["detail"]["service"]["action"]["networkConnectionAction"]["remoteIpDetails"]["ipAddressV4"]
+
+            response = "Skipping Remediation"
+
+            wksp = False
+
+            for i in event['detail']['resource']['instanceDetails']['tags']:
+              if i['value'] == os.environ['PREFIX']:
+                wksp = True
+
+            print("log -- Event: Workshop - %s" % wksp)
+
+            try:
+
+              # Setup a NACL to deny inbound and outbound calls from the malicious IP from this subnet
+              ec2 = boto3.client('ec2')
+             
+              response = ec2.describe_network_acls(
+                Filters=[
+                  {
+                    'Name': 'vpc-id',
+                    'Values': [
+                        gd_vpc_id,
+                    ]
+                  },
+                  {
+                    'Name': 'association.subnet-id',
+                    'Values': [
+                        gd_subnet_id,
+                    ]
+                  }
+                ]
+              )
+                           
+              gd_nacl_id = response["NetworkAcls"][0]["NetworkAclId"]
+
+              if gd_sev == 2 and wksp == True and event["detail"]["type"] == "UnauthorizedAccess:EC2/SSHBruteForce":
+                response = ec2.create_network_acl_entry(
+                    DryRun=False,
+                    Egress=False,
+                    NetworkAclId=gd_nacl_id,
+                    CidrBlock=gd_offending_id+"/32",
+                    Protocol="-1",
+                    RuleAction='deny',
+                    RuleNumber=90
+                )
+
+                print("log -- Event: NACL Deny Rule for UnauthorizedAccess:EC2/SSHBruteForce Finding ")
+                  
+              elif wksp == True and event["detail"]["type"] == "UnauthorizedAccess:EC2/MaliciousIPCaller.Custom":
+                  response = ec2.create_network_acl_entry(
+                      DryRun=False,
+                      Egress=True,
+                      NetworkAclId=gd_nacl_id,
+                      CidrBlock=gd_offending_id+"/32",
+                      Protocol="-1",
+                      RuleAction='deny',
+                      RuleNumber=90
+                  )
+
+                  print("log -- Event: NACL Deny Rule for UnauthorizedAccess:EC2/MaliciousIPCaller.Custom Finding ")
+              else:
+                print("A GuardDuty event occured without a defined remediation.")
+
+            except ClientError as e:
+              print(e)
+              print("Something went wrong with the NACL remediation Lambda")
+            return response
+
+      Runtime: "python2.7"
+      Timeout: "35"
+  LambdaRemediationNACLInvokePermissions: 
+    DependsOn:
+      - LambdaRemediationNACL
+    Type: "AWS::Lambda::Permission"
+    Properties: 
+      FunctionName: !Ref "LambdaRemediationNACL"
+      Action: "lambda:InvokeFunction"
+      Principal: "events.amazonaws.com"
+
+  LambdaRemediationRole: 
+    Type: AWS::IAM::Role
+    Properties: 
+      RoleName: 
+        Fn::Join:
+        - '-'
+        - [!Ref ResourceName, 'lambda', 'remediation']
+      AssumeRolePolicyDocument: 
+        Version: 2012-10-17
+        Statement: 
+          - 
+            Effect: Allow
+            Principal: 
+              Service: 
+                - lambda.amazonaws.com
+            Action: 
+              - sts:AssumeRole
+      Path: /
+      Policies: 
+        - 
+          PolicyName: RemediationPolicy
+          PolicyDocument: 
+            Version: 2012-10-17
+            Statement: 
+              - 
+                Effect: Allow
+                Action:
+                  - inspector:CreateAssessmentTemplate
+                  - inspector:CreateAssessmentTarget
+                  - inspector:CreateResourceGroup
+                  - inspector:ListRulesPackages
+                  - inspector:StartAssessmentRun
+                  - inspector:SubscribeToEvent
+                  - inspector:SetTagsForResource
+                  - inspector:DescribeAssessmentRuns
+                  - ec2:CreateTags
+                  - ec2:Describe*
+                  - ec2:*NetworkAcl*
+                  - iam:CreateServiceLinkedRole
+                Resource: '*'
+              - 
+                Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'
+
+Outputs: {}
