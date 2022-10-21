@@ -958,6 +958,7 @@
 * [TOOLS] [AWS IAM Identity Center Sync](https://github.com/aws-samples/aws-iam-identity-center-sync-script)
 * [TOOLS] [AWS Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * [TOOLS] [IAM Access Key-Auto rotation](https://github.com/aws-samples/aws-iam-access-key-auto-rotation)
+* [TOOLS] [AWS Organizations Alternate Contact Manager](https://github.com/aws-samples/aws-organizations-alternate-contact-manager)
 * [TOOLS] [Temporary Elevated Access Tool](https://github.com/aws-samples/aws-iam-temporary-elevated-access-broker)
 * [TOOLS] [AWS Elastic Load Balancer Demos](https://exampleloadbalancer.com/)
 * [TOOLS] [AWS Health Aware](https://github.com/aws-samples/aws-health-aware)
