@@ -390,6 +390,8 @@
 * [Using Amazon RDS event notification](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html)
 * [Amazon RDS database log files](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html)
 * [How do I enable and monitor logs for an Amazon RDS MySQL DB instance?](https://aws.amazon.com/premiumsupport/knowledge-center/rds-mysql-logs/)
+* [Architecting for database encryption on AWS](https://aws.amazon.com/blogs/security/architecting-for-database-encryption-on-aws/)
+* [Migrate TDE-enabled SQL Server databases to Amazon RDS for SQL Server](https://aws.amazon.com/blogs/database/migrate-tde-enabled-sql-server-databases-to-amazon-rds-for-sql-server/)
 * [Securing data in Amazon RDS using AWS KMS encryption](https://aws.amazon.com/blogs/database/securing-data-in-amazon-rds-using-aws-kms-encryption/)
 * [Troubleshooting for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Troubleshooting.html)
 * [Monitoring with the Performance Insights dashboard](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights.UsingDashboard.html)
