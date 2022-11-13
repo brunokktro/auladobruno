@@ -1113,6 +1113,7 @@
 * [SLIDES] [AWS Business Essentials Day](https://www.slideshare.net/AmazonWebServices/aws-business-essentials-day-236263685)
 * [MATERIAL] [Advanced Architecting on AWS- Online Course Supplement](https://www.aws.training/Details/eLearning?id=56205)
 * [EBOOK] [Hands-On AWS Penetration Testing with Kali Linux](https://github.com/PacktPublishing/Hands-On-AWS-Penetration-Testing-with-Kali-Linux)
+* [FILES] [Scripts Demo AWS EKS Course](https://github.com/virtmerlin/mglab-share-eks)
 * [FILES] [Security Engineering on AWS - script lab 2](https://danidoo.github.io/lab2.html)
 * [FILES] [Developing on AWS - Additional Resources](https://hackmd.io/@MwIcLI3tRLiY6ECW-aHV_A/Syn63uSsm)
 * [FILES] [Developing on AWS - Solutions for Labs](https://aws-tc-largeobjects.s3.amazonaws.com/AWS-100-DEV/v3.0/fullCodeForAllLabs.html)
