@@ -993,6 +993,7 @@
 * [TOOLS] [AWS IAM Authenticator for Kubernetes](https://github.com/kubernetes-sigs/aws-iam-authenticator)
 * [TOOLS] [AWS ParallelCluster - HPC for the Cloud](https://github.com/aws/aws-parallelcluster)
 * [TOOLS] [Operational Management: Inventory, Patching, and Compliance](https://github.com/aws-samples/aws-management-and-governance-samples/tree/master/AWSSystemsManager/CentralizedPatchManagement)
+* [TOOLS] [AWS Automated Inventory (aws-auto-inventory)](https://github.com/aws-samples/aws-auto-inventory)
 * [TOOLS] [Awesome CloudFormation](https://github.com/aws-cloudformation/awesome-cloudformation)
 * [TOOLS] [AWS CloudFormation Guard](https://github.com/aws-cloudformation/cloudformation-guard)
 * [TOOLS] [TaskCat](https://github.com/aws-quickstart/taskcat)
