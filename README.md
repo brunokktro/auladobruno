@@ -1061,6 +1061,7 @@
 * [LABS] [AWS Well-Architected Labs](https://wellarchitectedlabs.com)
 * [LABS] [VMware Cloud on AWS](https://my.vmware.com/web/vmware/evalcenter?p=vmc-hol-aws-gen-21)
 * [LABS] [Break a Monolith Application into Microservices](https://aws.amazon.com/getting-started/hands-on/break-monolith-app-microservices-ecs-docker-ec2/)
+* [LABS] [Building CI/CD with Blue/Green and Canary Deployments on EKS using CDK](https://github.com/aws-samples/amazon-eks-cdk-blue-green-cicd)
 * [Workshop] [AWS Workshops](https://workshops.aws/)
 * [Workshop] [AWSome AWS Workshops](https://awesome-aws-workshops.com/)
 * [Workshop] [AWS Well-Architected Labs](https://wellarchitectedlabs.com/)
