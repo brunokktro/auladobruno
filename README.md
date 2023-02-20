@@ -968,6 +968,7 @@
 * [TOOLS] [AWS Deployment Framework](https://github.com/awslabs/aws-deployment-framework)
 * [TOOLS] [Trusted Advisor Tools](https://github.com/aws/Trusted-Advisor-Tools)
 * [TOOLS] [Trusted Advisor Exposed Keys CloudWatch Event Monitor](https://github.com/aws/Trusted-Advisor-Tools/tree/master/ExposedAccessKeys)
+* [TOOLS] [AWS Incident Response Playbook Samples](https://github.com/aws-samples/aws-incident-response-playbooks)
 * [TOOLS] [Macie Findings integration with Slack Channel](https://github.com/aws-samples/macie-findings-to-slack)
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Self-Service Security Assessment tool](https://github.com/awslabs/aws-security-assessment-solution)
