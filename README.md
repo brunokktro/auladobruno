@@ -43,6 +43,7 @@
 
 ### Architecting on AWS
 
+* [AWS Cloud Services (Catalog)](https://aws.amazon.com/products/?pg=WIAWS-mstf)
 * [AWS Global Cloud Infrastructure Map](https://infrastructure.aws/)
 * [AWS Global Infrastructure Regions](https://aws.amazon.com/about-aws/global-infrastructure/)
 * [Learn how we secure AWS data centers](https://aws.amazon.com/compliance/data-center/)
