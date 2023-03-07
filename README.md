@@ -202,6 +202,8 @@
 * [Elastic Beanstalk - Advanced environment customization with configuration files (.ebextensions)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ebextensions.html)
 * [New – Amazon Connect and Amazon Lex Integration](https://aws.amazon.com/blogs/aws/new-amazon-connect-and-amazon-lex-integration/)
 * [Integrating Amazon SES with Microsoft Exchange](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-exchange.html)
+* [Integrating Amazon SES with your existing email server](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp-existing-server.html)
+* [How to use domain with Amazon SES in multiple accounts or regions](https://aws.amazon.com/blogs/messaging-and-targeting/how-to-use-domain-with-amazon-ses-in-multiple-accounts-or-regions/)
 * [AWS Server Migration Service – Server Migration to the Cloud Made Easy](https://aws.amazon.com/blogs/apn/aws-server-migration-service-server-migration-to-the-cloud-made-easy/)
 * [How to upgrade your legacy Windows applications to new versions of Windows Server without refactoring](https://aws.amazon.com/blogs/modernizing-with-aws/how-to-upgrade-your-legacy-windows-applications-to-new-versions-of-windows-server-without-refactoring/)
 * [Importing Data to an Amazon RDS MySQL or MariaDB DB Instance with Reduced Downtime](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html)
