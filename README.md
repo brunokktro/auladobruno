@@ -1003,6 +1003,7 @@
 * [TOOLS] [AWS CloudFormation Template Flip](https://github.com/awslabs/aws-cfn-template-flip)
 * [TOOLS] [AWS Device Farm Sample App for Android](https://github.com/aws-samples/aws-device-farm-sample-app-for-android)
 * [TOOLS] [Amazon CloudFront Secure Static Website](https://github.com/aws-samples/amazon-cloudfront-secure-static-site)
+* [TOOLS] [SES Event Processing](https://github.com/aws-samples/communication-developer-services-reference-architectures#SES-Event-Processing)
 * [TOOLS unofficial] [The Open Guide to Amazon Web Services](https://github.com/open-guides/og-aws)
 * [TOOLS unofficial] [JMESPath](https://jmespath.org/)
 * [TOOLS unofficial] [JMESPath Terminal](https://github.com/jmespath/jmespath.terminal)
