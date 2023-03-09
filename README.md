@@ -977,6 +977,7 @@
 * [TOOLS] [Git-Secrets](https://github.com/awslabs/git-secrets)
 * [TOOLS] [Self-Service Security Assessment tool](https://github.com/awslabs/aws-security-assessment-solution)
 * [TOOLS] [AWS CloudSaga - Simulate security events in AWS](https://github.com/awslabs/aws-cloudsaga)
+* [TOOLS] [AWS Secure Environment Accelerator](https://github.com/aws-samples/aws-secure-environment-accelerator)
 * [TOOLS] [AWS Security Hub Cross-Account Controls Disabler](https://github.com/aws-samples/aws-security-hub-cross-account-controls-disabler)
 * [TOOLS] [Amazon Guardduty Tester](https://github.com/awslabs/amazon-guardduty-tester)
 * [TOOLS] [SIEM on Amazon Elasticsearch Service](https://github.com/aws-samples/siem-on-amazon-elasticsearch)
