@@ -1047,6 +1047,7 @@
 * [TOOLS unofficial] [Clara anti-malware for S3 buckets](https://github.com/abhinavbom/clara/)
 * [TOOLS unofficial] [Cloudsplaining - IAM Security Assessment tool](https://github.com/salesforce/cloudsplaining/)
 * [TOOLS unofficial] [CrowdStrike Cloud-AWS](https://github.com/CrowdStrike/Cloud-AWS)
+* [TOOLS unofficial] [Lithnet Password Protection for Active Directory (LPP)](https://github.com/lithnet/ad-password-protection)
 * [TOOLS unofficial] [Gophish - Open-Source Phishing Framework](https://getgophish.com/)
 * [TOOLS unofficial] [aws-cloud-mindmaps](https://github.com/wquiles/aws-cloud-mindmaps)
 * [TOOLS unofficial] [Console Recorder for AWS](https://github.com/iann0036/AWSConsoleRecorder)
