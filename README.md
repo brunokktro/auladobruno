@@ -1029,6 +1029,7 @@
 * [TOOLS unofficial] [CloudFormation Lint: CFripper](https://github.com/Skyscanner/cfripper/)
 * [TOOLS unofficial] [Checkov - Prisma Cloud](https://github.com/bridgecrewio/checkov)
 * [TOOLS unofficial] [OPA - Open Policy Agent](https://www.openpolicyagent.org/)
+* [TOOLS unofficial] [AWS SSO Util](https://github.com/benkehoe/aws-sso-util)
 * [TOOLS unofficial] [AWS Transfer for SFTP - Azure AD](https://github.com/ldaptive/aws-s3-sftp-azure-IdentityProvider-V2)
 * [TOOLS unofficial] [Timber - Logging appender for AWS S3](https://github.com/hone/timber)
 * [TOOLS unofficial] [AWS CloudFront CDN Edge Locations](https://www.feitsui.com/en/blog/page/3)
