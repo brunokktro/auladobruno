@@ -963,6 +963,7 @@
 * [TOOLS] [Amazon WorkSpaces - Connection Health Check](https://clients.amazonworkspaces.com/Health.html)
 * [TOOLS] [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html)
 * [TOOLS] [AWS IAM Identity Center Sync](https://github.com/aws-samples/aws-iam-identity-center-sync-script)
+* [TOOLS] [Amazon Cognito Passwordless Auth](https://github.com/aws-samples/amazon-cognito-passwordless-auth)
 * [TOOLS] [AWS Policy Generator](https://awspolicygen.s3.amazonaws.com/policygen.html)
 * [TOOLS] [IAM Access Key-Auto rotation](https://github.com/aws-samples/aws-iam-access-key-auto-rotation)
 * [TOOLS] [AWS Organizations Alternate Contact Manager](https://github.com/aws-samples/aws-organizations-alternate-contact-manager)
