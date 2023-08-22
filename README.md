@@ -1073,7 +1073,8 @@
 
 ### Workshops & Laboratórios
 
-* [LABS] [AWS Qwiklabs](https://amazon.qwiklabs.com)
+* [LABS] [AWS Educate](https://aws.amazon.com/education/awseducate/)
+* [LABS] [AWS Builder Labs](https://aws.amazon.com/training/digital/aws-builder-labs/)
 * [LABS] [AWS Well-Architected Labs](https://wellarchitectedlabs.com)
 * [LABS] [VMware Cloud on AWS](https://my.vmware.com/web/vmware/evalcenter?p=vmc-hol-aws-gen-21)
 * [LABS] [Break a Monolith Application into Microservices](https://aws.amazon.com/getting-started/hands-on/break-monolith-app-microservices-ecs-docker-ec2/)
